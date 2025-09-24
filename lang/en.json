@@ -1,0 +1,732 @@
+{
+  "LH": {
+    "core": {
+      "damage": "Damage",
+      "stress": "Stress",
+      "target": "Target",
+      "dof": "Die of Fate",
+      "dofXs": "DOF",
+      "rest": "Rest",
+      "restBlocked": "Rest blocked",
+      "restCompleted": "Rest completed",
+      "fullRestCompleted": "Full rest completed",
+      "slotsCapacityExceeded": "Slots capacity exceeded! HP reduced to 0",
+      "equipped": "Equipped",
+      "unequipped": "Unequipped",
+      "apply": "Apply",
+      "cancel": "Cancel"
+    },
+    "attr": {
+      "full": {
+        "str": "STRENGTH",
+        "dex": "DEXTERITY",
+        "ctrl": "CONTROL",
+        "luck": "LUCK"
+      },
+      "short": {
+        "str": "STR",
+        "dex": "DEX",
+        "ctrl": "CTRL",
+        "luck": "LUCK"
+      }
+    },
+    "ui": {
+      "deprivedFull": "Deprived",
+      "deprived": "Deprived",
+      "background": "Background",
+      "hp": "HP",
+      "armor": "Armor",
+      "stability": "Stability",
+      "cash": "Cash",
+      "actions": "Actions",
+      "tabs": {
+        "items": "Items",
+        "description": "Description",
+        "notes": "Notes",
+        "log": "Log"
+      },
+      "inventory": "Inventory",
+      "slots": "slots"
+    },
+    "status": {
+      "dead": "DEAD",
+      "paralysis": "PARALYSIS",
+      "lost": "LOST"
+    },
+    "roll": {
+      "success": "Success",
+      "failure": "Failure",
+      "successCritical": "Success (Critical)",
+      "failureCritical": "Failure (Critical)",
+      "badResult": "Bad Result",
+      "goodResult": "Good Result",
+      "mixedResult": "Mixed Result"
+    },
+    "msg": {
+      "hpLoss": "HP Loss",
+      "weapon": "Weapon",
+      "absorbedDamage": "No damage (absorbed)",
+      "absorbedStress": "No stress (absorbed)",
+      "deprivedRestBlocked": "Deprived status prevents rest",
+      "becameDeprived": "Became Deprived",
+      "noLongerDeprived": "No longer Deprived",
+      "damage": {
+        "title": "Damage",
+        "overflowLabel": "Strength loss",
+        "note": "Injury!"
+      },
+      "stress": {
+        "title": "Stress",
+        "overflowLabel": "Control loss",
+        "note": "Consequence!"
+      },
+      "buttons": {
+        "consequenceAdd": "Add Consequence",
+        "consequenceAdded": "Consequence added",
+        "injuryAdd": "Add Injury",
+        "injuryAdded": "Injury added"
+      }
+    },
+    "void": {
+      "die": "VOIDCRAWL DIE",
+      "randomInvestigator": "Random Investigator",
+      "randomInvestigatorNotFound": "Random Investigator not found",
+      "omen": {
+        "title": "Dire Omen",
+        "description": "Roll to determine a random Investigator. Then roll on a Fallout table. Present an omen or portent tied to that Fallout — it is now fated to be the next Fallout that Investigator suffers."
+      },
+      "encounter": {
+        "title": "Encounter",
+        "description": "The Facilitator rolls on an encounter table. If only one monster is present in the location, the party encounters it instead."
+      },
+      "horror": {
+        "title": "Horror",
+        "description": "The party discovers something frightening or horrific. Each Investigator suffers 1+ Stress."
+      },
+      "setback": {
+        "title": "Setback",
+        "description": "The party faces a setback — a hazard that may be physical, environmental, or magical. One option is scarcity: equipment breaks, or supplies run out. Focus on what is most relevant in the moment."
+      },
+      "locality": {
+        "title": "Locality",
+        "description": "The environment itself shifts: alarms blare, a path is sealed, walls or terrain change unnaturally, etc."
+      },
+      "clue": {
+        "title": "Clue",
+        "description": "Present a hint, warning, or clue (e.g., shadows wreathed in blue flame, bullet holes, sizzling bloodstains). Abilities and drives of nearby monsters can guide your choice."
+      },
+      "free": {
+        "title": "Free",
+        "description": "No additional effect this turn. Any temporary negative effects end."
+      },
+      "regroup": {
+        "title": "Regroup",
+        "description": "The party finds a moment of safety and can regroup."
+      }
+    },
+    "stressTable": {
+      "doppelganger": {
+        "name": "Doppelgänger",
+        "description": "You’ve seen what they can do, their magics and their deceptions. What would stop them from taking you? Maybe you aren’t who you think you are? How would you even know? During your next moment of quiet reflection, roll 1d6. If the total is higher than your max HP, take the new result."
+      },
+      "memoriesOfAnUnknownTraveler": {
+        "name": "Memories of an Unknown Traveler",
+        "description": "These memories are not your own. They are of a different time, a different place, from a perspective so unlike your own. The realities they walk through are so alien and different, their feelings so foreign. If only you could understand what they experienced. During your next rest, roll 1d6. If the total is higher than your max HP, take the new result."
+      },
+      "paranoia": {
+        "name": "Paranoia",
+        "description": "Is it paranoia if the worries are completely reasonable? You’ve seen what happens in the dark, you know what goes bump in the night. After a week, roll 1d6. If the total is higher than your max HP, take the new result."
+      },
+      "plaguedByNightmares": {
+        "name": "Plagued by Nightmares",
+        "description": "It comes for you every night, without fail. You do not know if they are from the beginning, or the end. All you know is that they won’t stop, and that they must mean something. After a week of nightmares, tell your Facilitator two distinct images that linger at the edge of your remembering."
+      },
+      "mirrorWorld": {
+        "name": "Mirror World",
+        "description": "Everything seemed okay at first, but now you are sure of it, the world inside the mirror is different. The side glances, the shifting of places, it is undeniable. When you first start to notice, roll 2d6. If the total is higher than your max HP, take the new result."
+      },
+      "odd": {
+        "name": "Odd",
+        "description": "You adopt an odd behavior that makes others uncomfortable. If you resist indulging in your “Oddity” for 24 hours, take the Deprived tag. If others see you engage in this creepy behavior, they must make a CTRL Save or suffer 1d4 Stress. After the first instance, roll 3d6. If the total is higher than your current CTRL, take the new result."
+      },
+      "hunger": {
+        "name": "Hunger",
+        "description": "You develop an unnatural hunger for the unusual. If you do not satiate your appetite for 24 hours, take the Deprived tag. When you eat, restore HP and give 1d4 Stress to any that can see. After the first instance, roll 3d6. If the total is higher than your current STR, take the new result."
+      },
+      "scarred": {
+        "name": "Scarred",
+        "description": "Every wound you inflict leaves its ragged mark upon your body. After the first instance, make a CTRL Save. If you pass, increase your max STR by 1d4."
+      },
+      "liminalCommunion": {
+        "name": "Liminal Communion",
+        "description": "It wasn’t noticeable at first, but something is trying to communicate, though without a mouth from which to scream. Its words manifest throughout physical space. Increase your max CTRL by 1d4."
+      },
+      "magicalCorruption": {
+        "name": "Magical Corruption",
+        "description": "(This can be taken multiple times per Investigator): Flesh is weak. A part of your body becomes visibly changed through your proximity to the weird. The Facilitator and Investigator should decide on how that change manifests, if it has any mechanical impacts."
+      },
+      "threshold": {
+        "name": "Threshold",
+        "description": "There is a pale door with a black handle. It is unremarkable other than the fact that this door can seemingly appear anywhere. Sometimes the door is in places it should not be. Sometimes it stands alone, attached to nothing at all. The one thing you are sure of is that it is the same door each time, one you have not yet been able to open."
+      },
+      "neuralSuperposition": {
+        "name": "Neural Superposition",
+        "description": "You see images of unknown places superposed onto this one, sometimes making it difficult to tell what is real. In another time you may have been called an oracle. When you roll DEX Saves, roll 2d20 and take the lowest result. Once per day you see something significant (ask your Facilitator what it is)."
+      },
+      "shadowStep": {
+        "name": "Shadow Step",
+        "description": "You can step through shadows. Every time you do you leave a bit of yourself behind. On use, your CTRL decreases by d4 (this does not trigger a Save or Fallout)."
+      },
+      "markedByFear": {
+        "name": "Marked by Fear",
+        "description": "The core of your being has been twisted and changed. When you act in a way that manifests your marked fear and have to make a Save, roll 2d20 and take the lowest result. When you resist an opportunity to indulge the fear, suffer 1d4 Stress. Create a fundamental fear with your Facilitator."
+      },
+      "heavyIsTheHead": {
+        "name": "Heavy is the Head",
+        "description": "An ethereal crown hangs above your head. It is not visible to all, only a special few. Tales have been told of your coming. Make a CTRL Save. If you pass, increase your max CTRL by 1d6."
+      },
+      "fullToBursting": {
+        "name": "Full to Bursting",
+        "description": "You have a feeling of fullness and contentment. Next time you would fail a Critical Damage STR Save, you succeed instead. Immediately and violently begin to vomit vermin (player’s choice). Any being that can see must make a CTRL Save or suffer 1d6 Stress. Roll 3d6. If the total is higher than your max CTRL, take the new result."
+      },
+      "progeny": {
+        "name": "Progeny",
+        "description": "Something is growing inside of you. Hope has long since abandoned it, and it has no more room for dreams. Roll 2d6. Take the new result as your max HP."
+      },
+      "fatesWeb": {
+        "name": "Fate’s Web",
+        "description": "(This can only be taken once per Investigator, but multiple times per table): At least a puppet can see the strings that bind it, if only you were so lucky."
+      },
+      "theHunt": {
+        "name": "The Hunt",
+        "description": "Patronage is a dangerous thing. It becomes harder to ignore the primal impulses that burn deep inside you. Your attacks are Enhanced. You become the primary target of otherworldly entities, and attacks made against you are Enhanced."
+      },
+      "doomed": {
+        "name": "Doomed",
+        "description": "(This can be taken multiple times per Investigator and multiple times at the table): You have been branded for sacrifice, anointed for doom. If your next Critical Save against damage is a failure, you die horribly. If it is a success, you roll 3d6 + the number of times you’ve taken Doomed. If the total is higher than your max HP, take the new result."
+      }
+    },
+    "damage": {
+      "levels": {
+        "1": "Flesh Wounds",
+        "2": "Minor Injury",
+        "3": "Major Injury",
+        "4": "Lethal Wounds"
+      },
+      "types": {
+        "gunshot": "Gunshot",
+        "cut": "Stabbing/Slashing/Biting",
+        "blunt": "Crushing/Bludgeoning",
+        "burn": "Burning",
+        "gross": "Gore"
+      },
+      "table": {
+        "1": {
+          "gunshot": "Graze",
+          "cut": "Shallow Cut",
+          "blunt": "Knocked Over",
+          "burn": "Singed",
+          "gross": "Retching"
+        },
+        "2": {
+          "gunshot": "Through-and-Through",
+          "cut": "Cut or Laceration",
+          "blunt": "Massive Bruising",
+          "burn": "Peeling",
+          "gross": "Laceration (badass scar)"
+        },
+        "3": {
+          "gunshot": "Bullet Remains Inside",
+          "cut": "Stabbed",
+          "blunt": "Sprained (extremity)",
+          "burn": "Blistering",
+          "gross": "Mangled (fingers)"
+        },
+        "4": {
+          "gunshot": "Bone Fracture (extremity)",
+          "cut": "Slashed (face / loss of ear)",
+          "blunt": "Concussion / Dazed",
+          "burn": "Large Burn",
+          "gross": "Flayed (partially)"
+        },
+        "5": {
+          "gunshot": "Internal Bleeding",
+          "cut": "Severed (fingers)",
+          "blunt": "Dislocated Shoulder",
+          "burn": "3rd Degree Burns",
+          "gross": "Severed (hand or foot)"
+        },
+        "6": {
+          "gunshot": "Bone Fracture (chest)",
+          "cut": "Severed (hand)",
+          "blunt": "Broken (collar bone)",
+          "burn": "Still on Fire (extremity)",
+          "gross": "Severed (limb)"
+        },
+        "7": {
+          "gunshot": "Gushing Artery",
+          "cut": "Severed (limb)",
+          "blunt": "Broken (arm, leg, hand)",
+          "burn": "Flesh Sloughed Off",
+          "gross": "Impaled"
+        },
+        "8": {
+          "gunshot": "Massive Hole",
+          "cut": "Throat Slit",
+          "blunt": "Split Open (Skull)",
+          "burn": "Engulfed",
+          "gross": "Disemboweled"
+        }
+      }
+    },
+    "backstory": {
+      "1": {
+        "name": "Factory Worker",
+        "items": {
+          "apron": "Industrial apron (+1 Armor)",
+          "belt": "Safety harness",
+          "thermos": "Thermos"
+        }
+      },
+      "2": {
+        "name": "Bus Driver",
+        "items": {
+          "lunchbox": "Lunchbox",
+          "map": "Comprehensive road map",
+          "taser": "Taser (d6, non-lethal)"
+        }
+      },
+      "3": {
+        "name": "Mechanic",
+        "items": {
+          "wrench": "Adjustable wrench (d6)",
+          "toolbox": "Portable toolbox",
+          "tape": "Electrical tape",
+          "brakeCleaner": "Brake cleaner"
+        }
+      },
+      "4": {
+        "name": "Garbage Collector",
+        "items": {
+          "gloves": "Cut resistant gloves (+1 Armor)",
+          "vest": "Hi-vis vest",
+          "grabber": "Reach extender",
+          "goggles": "Safety glasses"
+        }
+      },
+      "5": {
+        "name": "Emergency Medical Technician (EMT)",
+        "items": {
+          "medkit": "Medkit",
+          "scissors": "Trauma shears",
+          "stethoscope": "Stethoscope",
+          "fecesBag": "WAG bag"
+        }
+      },
+      "6": {
+        "name": "Store Clerk",
+        "items": {
+          "knife": "Box cutter (d6)",
+          "radio": "Walkie talkies",
+          "badge": "Name tag",
+          "slippers": "Incredibly comfortable shoes"
+        }
+      },
+      "7": {
+        "name": "Artist",
+        "items": {
+          "tool": "Artistic tool of choice",
+          "notebook": "Notebook",
+          "camera": "Camera",
+          "fans": "Small but passionate fan base"
+        }
+      },
+      "8": {
+        "name": "Athlete",
+        "items": {
+          "gear": "Equipment from sport of choice",
+          "headband": "Sweatband",
+          "drink": "Powdered sports drink"
+        }
+      },
+      "9": {
+        "name": "Skater",
+        "items": {
+          "skateboard": "Skateboard",
+          "camera": "Video camera",
+          "boltCutter": "Bolt cutters"
+        }
+      },
+      "10": {
+        "name": "Keyboard Warrior",
+        "items": {
+          "laptop": "Laptop w/ bag",
+          "subs": "Online following",
+          "fakeIds": "Fake credentials",
+          "energy": "Energy drinks"
+        }
+      },
+      "11": {
+        "name": "Volunteer Firefighter",
+        "items": {
+          "ladder": "Collapsible ladder (bulky)",
+          "axe": "Axe (d6)",
+          "extinguisher": "Fire extinguisher",
+          "flashlight": "Flashlight"
+        }
+      },
+      "12": {
+        "name": "Bicycle Courier",
+        "items": {
+          "bike": "Bike",
+          "helmet": "Helmet (+1 Armor)",
+          "bag": "Messenger bag",
+          "package": "Unopened package",
+          "multitool": "Multitool"
+        }
+      },
+      "13": {
+        "name": "Bartender",
+        "items": {
+          "knife": "Barknife (d6)",
+          "alcohol": "Bottle of liquor",
+          "cigs": "Cigarettes",
+          "confiscatedIds": "Confiscated fake IDs"
+        }
+      },
+      "14": {
+        "name": "Therapist",
+        "items": {
+          "recorder": "Memo recorder",
+          "notebook": "Notebook and pen",
+          "cards": "Business cards",
+          "revolver": "Small revolver (d6)"
+        }
+      },
+      "15": {
+        "name": "Administrative Assistant",
+        "items": {
+          "contacts": "Extensive contacts",
+          "corpCard": "Corporate credit card",
+          "briefcase": "Expandable briefcase",
+          "taser": "Taser (d6, non-lethal)"
+        }
+      },
+      "16": {
+        "name": "Actor",
+        "items": {
+          "audition": "Audition binder",
+          "charger": "Portable charging brick",
+          "cosmetics": "Spare cosmetic supplies",
+          "clothes": "Change of clothes"
+        }
+      },
+      "17": {
+        "name": "Engineer",
+        "items": {
+          "laptop": "Laptop w/ design software",
+          "notebook": "Waterproof field notebook",
+          "router": "Wireless router",
+          "ppe": "Seldom used PPE"
+        }
+      },
+      "18": {
+        "name": "Social Worker",
+        "items": {
+          "laptop": "Laptop w/ bag",
+          "badge": "ID badge",
+          "knife": "Pocket knife (d6)",
+          "notebook": "Notebook and pen"
+        }
+      },
+      "19": {
+        "name": "Teacher",
+        "items": {
+          "mug": "Coffee mug",
+          "scissors": "Scissors",
+          "bag": "Large bag"
+        }
+      },
+      "20": {
+        "name": "Contractor",
+        "items": {
+          "belt": "Stocked toolbelt",
+          "knife": "Utility knife (d6)",
+          "flashlight": "Heavy duty flashlight",
+          "drill": "Drill"
+        }
+      }
+    },
+    "armor": {
+      "armoredVest": "Armored Vest",
+      "ancientAmulet": "Ancient Amulet",
+      "gasMask": "Gas Mask",
+      "facemask": "Facemask"
+    },
+    "weapon": {
+      "improvised": "Improvised or Crude",
+      "handWeapons": "Hand Weapons: Dagger, Baton, Axe",
+      "taserMace": "Taser/Mace Combo",
+      "pistol": "Pistol",
+      "sawnOffShotgun": "Sawed off Shotgun",
+      "rifle": "Rifle",
+      "shotgun": "Shotgun",
+      "assaultRifle": "Assault Rifle",
+      "combatShotgun": "Combat Shotgun",
+      "sniperRifle": "Sniper Rifle",
+      "sniperRifleDesc": "d8 damage, or d12 when firing from concealment; bulky"
+    },
+    "explosive": {
+      "molotov": "Molotov Cocktail",
+      "molotovDesc": "Sets area alight, causing d6 ongoing damage until put out",
+      "flashbang": "Flashbang",
+      "flashbangDesc": "Blast, temporarily blinds those who fail a DEX save",
+      "grenade": "Grenade",
+      "grenadeDesc": "d8, blast",
+      "propaneTank": "Propane Tank",
+      "propaneTankDesc": "d10, blast"
+    },
+    "pharma": {
+      "tranquilizers": "Tranquilizers",
+      "tranquilizersDesc": "STR save or pass out",
+      "poison": "Poison",
+      "poisonDesc": "Lose d20 STR if it passes through a blood-tissue barrier",
+      "antitoxin": "Antitoxin",
+      "antitoxinDesc": "Stops toxins – unpleasant",
+      "acid": "Acid",
+      "acidDesc": "d4 damage until removed; corrosive liquid that burns through materials",
+      "stims": "Stims",
+      "stimsDesc": "+1d4 temporary STR, +1d4 temporary DEX; immediate recovery from Critical Injury"
+    },
+    "gear": {
+      "alarmBypass": "Alarm Bypass",
+      "bearTrap": "Bear Trap",
+      "binoculars": "Binoculars",
+      "blowTorch": "Blow Torch (Welding)",
+      "bodyBag": "Body Bag",
+      "boltCutters": "Bolt Cutters",
+      "carOpeningKit": "Car Opening Kit",
+      "chainAndLock": "Chain and Lock",
+      "chainsaw": "Chainsaw",
+      "climbingGear": "Climbing Gear",
+      "commsEarpieces": "Comms: Earpieces",
+      "commsWalkies": "Comms: Walkie Talkies",
+      "directionalMic": "Directional Microphone",
+      "advancedDrone": "Drone / Advanced Drone",
+      "goodCamera": "Good Camera",
+      "duffleBag": "Duffle Bag",
+      "duffleBagOutfits": "Duffle Bag full of Outfits",
+      "electricalKit": "Electrical Tool Kit",
+      "emergencyMedKit": "Emergency Medical Kit",
+      "emergencySurgeryKit": "Emergency Surgery Kit",
+      "fakeID": "Fake ID",
+      "flare": "Flare",
+      "forgeryKit": "Forgery Kit",
+      "glassCutters": "Glass Cutting Tools",
+      "grease": "Grease",
+      "handcuffs": "Handcuffs",
+      "headLamp": "Head Lamp",
+      "laptop": "Laptop",
+      "lighter": "Lighter",
+      "locksmithTools": "Locksmith Tools",
+      "marbles": "Marbles",
+      "mechanicalKit": "Mechanical Tool Kit",
+      "metalBearings": "Metal Ball Bearings",
+      "nvGoggles": "Night Vision Goggles",
+      "pharmacistKit": "Pharmacist Kit",
+      "portableRam": "Portable Ram",
+      "portableWinch": "Portable Winch",
+      "pulleyRope": "Pulley and Rope",
+      "caltrops": "Road Spikes (Caltrops)",
+      "sledgehammer": "Sledgehammer",
+      "spikeStrip": "Spike Strip",
+      "sprayPaint": "Spray Paint",
+      "tarp": "Tarp",
+      "zipTies": "Zip Ties"
+    },
+    "condition": {
+      "exhausted": "Exhausted",
+      "exhaustedDesc": "Sleep deprivation of 24+ hours or similar severe fatigue"
+    },
+    "folders": {
+      "root": "LH-Items(EN)",
+      "armor": "Protection",
+      "weapon": "Weapons",
+      "explosive": "Explosives",
+      "pharma": "Pharmaceuticals",
+      "gear": "Investigator Gear",
+      "condition": "Conditions"
+    },
+    "char": {
+      "labels": {
+        "generatedHeader": "Generated Investigator",
+        "backstory": "Backstory",
+        "aesthetics": "Aesthetics",
+        "firstEncounter": "First encounter with the unknown",
+        "ideology": "Ideology & Beliefs",
+        "physique": "Physique",
+        "face": "Face",
+        "speech": "Speech",
+        "virtue": "Virtue",
+        "flaw": "Flaw",
+        "misfortune": "Misfortune"
+      },
+      "backstory": {
+        "1": "Factory Worker — Industrial apron (+1 Armor), safety harness, thermos.",
+        "2": "Bus Driver — Lunchbox, comprehensive road map, taser (d6, non-lethal).",
+        "3": "Mechanic — Adjustable wrench (d6), portable toolbox, electrical tape, brake cleaner.",
+        "4": "Garbage Collector — Cut resistant gloves (+1 Armor), hi-vis vest, reach extender, safety glasses.",
+        "5": "Emergency Medical Technician (EMT) — Medkit, trauma shears, stethoscope, WAG bag.",
+        "6": "Store Clerk — Box cutter (d6), walkie talkies, name tag, incredibly comfortable shoes.",
+        "7": "Artist — Artistic tool of choice, notebook, camera, small but passionate fan base.",
+        "8": "Athlete — Equipment from sport of choice, sweatband, powdered sports drink.",
+        "9": "Skater — Skateboard, video camera, bolt cutters.",
+        "10": "Keyboard Warrior — Laptop w/ bag, online following, fake credentials, energy drinks.",
+        "11": "Volunteer Firefighter — Collapsible ladder (bulky), axe (d6), fire extinguisher, flashlight.",
+        "12": "Bicycle Courier — Bike, helmet (+1 Armor), messenger bag, unopened package, multitool.",
+        "13": "Bartender — Barknife (d6), bottle of liquor, cigarettes, confiscated fake IDs.",
+        "14": "Therapist — Memo recorder, notebook and pen, business cards, small revolver (d6).",
+        "15": "Administrative Assistant — Extensive contacts, corporate credit card, expandable briefcase, taser (d6, non-lethal).",
+        "16": "Actor — Audition binder, portable charging brick, spare cosmetic supplies, change of clothes.",
+        "17": "Engineer — Laptop w/ design software, waterproof field notebook, wireless router, seldom used PPE.",
+        "18": "Social Worker — Laptop w/ bag, ID badge, pocket knife (d6), notebook and pen.",
+        "19": "Teacher — Coffee mug, scissors, large bag.",
+        "20": "Contractor — Stocked toolbelt, utility knife (d6), heavy duty flashlight, drill."
+      },
+      "aesthetics": {
+        "1": "All Business, All the Time.",
+        "2": "Streetwear",
+        "3": "Band Tees",
+        "4": "Paint it Black.",
+        "5": "Athleisure",
+        "6": "Crisp and Ironed",
+        "7": "Casual Comfort",
+        "8": "Authentic Vintage",
+        "9": "All the Rage",
+        "10": "Work Uniform",
+        "11": "Oversized Hoodie",
+        "12": "Island Floral",
+        "13": "Everything Tailored",
+        "14": "Function Over Fashion",
+        "15": "Cargo Pockets",
+        "16": "Jeans and Tees",
+        "17": "Trapped in 2009",
+        "18": "Grunge Minimalist",
+        "19": "Y2K",
+        "20": "Denim on Denim"
+      },
+      "firstEncounter": {
+        "1": "Lost a loved one under mysterious circumstances.",
+        "2": "The evidence online is too much to be ignored.",
+        "3": "You witnessed something in the darkness.",
+        "4": "You survived an attack you cannot explain.",
+        "5": "Something is lurking in your dreams.",
+        "6": "Someone close to you is pulling you in, or pushing you away.",
+        "7": "Cult activity (perhaps they recruited someone significant).",
+        "8": "You may be a card carrying member in a secret society.",
+        "9": "You read something not meant for mortal minds.",
+        "10": "You haven’t yet — that’s what session 1 is for!"
+      },
+      "ideology": {
+        "1": "Everything has a rational explanation rooted in science.",
+        "2": "Individuals can make a difference.",
+        "3": "You ascribe to a specific political ideology.",
+        "4": "A specific religion guides you.",
+        "5": "Morality is black and white.",
+        "6": "You believe in fate and it directly impacts your life.",
+        "7": "Belief in higher powers such as astrology, spirituality, etc.",
+        "8": "Free will is the only truth.",
+        "9": "There are deep truths others are not aware of. The answers are out there.",
+        "10": "You believe in the power of community."
+      },
+      "physique": {
+        "1": "Athletic",
+        "2": "Muscles",
+        "3": "Curvy",
+        "4": "Lanky",
+        "5": "Small",
+        "6": "Rigid",
+        "7": "Stout",
+        "8": "Towering",
+        "9": "Robust",
+        "10": "Ample Body"
+      },
+      "face": {
+        "1": "Bony",
+        "2": "Broken",
+        "3": "Chiseled",
+        "4": "Elongated",
+        "5": "Dimpled",
+        "6": "Perfect",
+        "7": "Round",
+        "8": "Sharp",
+        "9": "Memorable",
+        "10": "Forgettable"
+      },
+      "speech": {
+        "1": "Blunt",
+        "2": "Gravelly",
+        "3": "Booming",
+        "4": "Precise",
+        "5": "Cryptic",
+        "6": "Squeaky",
+        "7": "Formal",
+        "8": "Accented",
+        "9": "Droning",
+        "10": "Choppy"
+      },
+      "virtue": {
+        "1": "Honest",
+        "2": "Honorable",
+        "3": "Cautious",
+        "4": "Humble",
+        "5": "Courageous",
+        "6": "Merciful",
+        "7": "Disciplined",
+        "8": "Serene",
+        "9": "Gregarious",
+        "10": "Tolerant"
+      },
+      "flaw": {
+        "1": "Quick to anger",
+        "2": "Lazy",
+        "3": "Pessimistic",
+        "4": "Nervous",
+        "5": "Craven",
+        "6": "Rude",
+        "7": "Deceitful",
+        "8": "Vain",
+        "9": "Greedy",
+        "10": "Vengeful"
+      },
+      "misfortune": {
+        "1": "Abandoned",
+        "2": "Defrauded",
+        "3": "Addicted",
+        "4": "Demoted",
+        "5": "Blackmailed",
+        "6": "Discredited",
+        "7": "Condemned",
+        "8": "Disowned",
+        "9": "Cursed",
+        "10": "Exiled"
+      }
+    },
+    "dialogs": {
+      "damage": {
+        "title": "Add Injury",
+        "type": "Type",
+        "severity": "Severity",
+        "description": "Description (editable)",
+        "random": "Random (d8)",
+        "applied": "Damage applied"
+      },
+      "stress": {
+        "title": "Add Consequence",
+        "consequence": "Consequence",
+        "random": "Random (d20)",
+        "applied": "Stress applied"
+      }
+    }
+  }
+}

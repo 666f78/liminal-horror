@@ -1,0 +1,419 @@
+<form class='lh'>
+  <div class='layout'>
+    {{#if statusRibbonText}}
+      <div class='status-ribbon'>{{statusRibbonText}}</div>
+    {{/if}}
+    <!-- LEFT: avatar + quick actions (optional) -->
+    <section class='avatar card'>
+      <div class='portrait'>
+        <img src='{{portraitSrc}}' data-edit='img' alt='{{actor.name}}' title='Click to change portrait' />
+        <div class='portrait-overlay'><i class='fas fa-camera'></i>&nbsp;Photo</div>
+      </div>
+
+      <div>
+        <div class='section-title'>{{localize (concat 'LH.ui.background' item.system.state)}}</div>
+        <input class='big-input' type='text' name='system.identity.background' value='{{system.identity.background}}' />
+      </div>
+    </section>
+
+    <!-- RIGHT: name + tiles -->
+    <section class='hero card'>
+      <input class='big-input name-input' type='text' name='name' value='{{actor.name}}' placeholder='NAME' />
+      <div class='tiles'>
+        <!-- HP -->
+        <div class='tile'>
+          <div class='pill'>{{localize (concat 'LH.ui.hp' item.system.state)}}</div>
+          <div class='pair'>
+            <input class='num chip' type='number' name='system.defense.hp' value='{{system.defense.hp}}' />
+            /
+            <input class='num chip' type='number' name='system.defense.hpMax' value='{{system.defense.hpMax}}' />
+          </div>
+        </div>
+
+        <!-- Deprived -->
+        <div class='tile'>
+          <div class='pill'>{{localize (concat 'LH.ui.deprived' item.system.state)}}</div>
+          <div class='deprived'>
+            <input
+              data-action='toggle-deprived'
+              class='checkbox'
+              type='checkbox'
+              name='system.status.deprived'
+              {{checked system.status.deprived}}
+              {{disabled (gt system.inventory.slotsUsed 10)}}
+            />
+          </div>
+        </div>
+
+        <!-- STR -->
+        <div class='tile'>
+          <div
+            class='pill rollable'
+            role='button'
+            tabindex='0'
+            data-action='roll-attr'
+            data-key='str'
+            title='Roll Strength (d20 ≤ target)'
+          >
+            <i class='fas fa-dice-d20' aria-hidden='true'></i><span>{{localize
+                (concat 'LH.attr.short.str' item.system.state)
+              }}</span>
+          </div>
+          <div class='pair'>
+            <input
+              class='num chip'
+              type='number'
+              name='system.attributes.str.value'
+              value='{{system.attributes.str.value}}'
+            />
+            /
+            <input
+              class='num chip'
+              type='number'
+              name='system.attributes.str.base'
+              value='{{system.attributes.str.base}}'
+            />
+          </div>
+        </div>
+
+        <!-- Armor -->
+        <div class='tile'>
+          <div class='pill'>{{localize (concat 'LH.ui.armor' item.system.state)}}</div>
+          <input
+            class='num chip'
+            type='number'
+            name='system.defenses.armor'
+            value='{{system.defenses.armor}}'
+            readonly
+          />
+        </div>
+
+        <!-- DEX -->
+        <div class='tile'>
+          <div
+            class='pill rollable'
+            role='button'
+            tabindex='0'
+            data-action='roll-attr'
+            data-key='dex'
+            title='Roll Dexterity (d20 ≤ target)'
+          >
+            <i class='fas fa-dice-d20' aria-hidden='true'></i><span>{{localize
+                (concat 'LH.attr.short.dex' item.system.state)
+              }}</span>
+          </div>
+          <div class='pair'>
+            <input
+              class='num chip'
+              type='number'
+              name='system.attributes.dex.value'
+              value='{{system.attributes.dex.value}}'
+            />
+            /
+            <input
+              class='num chip'
+              type='number'
+              name='system.attributes.dex.base'
+              value='{{system.attributes.dex.base}}'
+            />
+          </div>
+        </div>
+
+        <!-- Stability -->
+        <div class='tile'>
+          <div class='pill'>{{localize (concat 'LH.ui.stability' item.system.state)}}</div>
+          <input
+            class='num chip'
+            type='number'
+            name='system.defenses.selfControl'
+            value='{{system.defenses.selfControl}}'
+          />
+        </div>
+
+        <!-- CTRL -->
+        <div class='tile'>
+          <div
+            class='pill rollable'
+            role='button'
+            tabindex='0'
+            data-action='roll-attr'
+            data-key='con'
+            title='Roll Control (d20 ≤ target)'
+          >
+            <i class='fas fa-dice-d20' aria-hidden='true'></i><span>{{localize
+                (concat 'LH.attr.short.ctrl' item.system.state)
+              }}</span>
+          </div>
+          <div class='pair'>
+            <input
+              class='num chip'
+              type='number'
+              name='system.attributes.con.value'
+              value='{{system.attributes.con.value}}'
+            />
+            /
+            <input
+              class='num chip'
+              type='number'
+              name='system.attributes.con.base'
+              value='{{system.attributes.con.base}}'
+            />
+          </div>
+        </div>
+
+        <!-- Cash -->
+        <div class='tile'>
+          <div class='pill'>{{localize (concat 'LH.ui.cash' item.system.state)}}</div>
+          <input class='num chip' type='number' name='system.inventory.money' value='{{system.inventory.money}}' />
+        </div>
+        {{#if showLuck}}
+          <!-- Luck -->
+          <div class='tile'>
+            <div
+              class='pill rollable'
+              role='button'
+              tabindex='0'
+              data-action='roll-attr'
+              data-key='luck'
+              title='Roll Luck (d20 <= target)'
+            >
+              <i class='fas fa-dice-d20' aria-hidden='true'></i><span>{{localize
+                  (concat 'LH.attr.short.luck' item.system.state)
+                }}</span>
+            </div>
+            <div class='pair'>
+              <input
+                class='num chip'
+                type='number'
+                name='system.attributes.luck.value'
+                value='{{system.attributes.luck.value}}'
+              />
+              /
+              <input
+                class='num chip'
+                type='number'
+                name='system.attributes.luck.base'
+                value='{{system.attributes.luck.base}}'
+              />
+            </div>
+          </div>
+        {{/if}}
+      </div>
+      <div class='line'></div>
+      <div class='section-title'>{{localize (concat 'LH.ui.actions' item.system.state)}}</div>
+
+      <div class='actions actions--segmented'>
+        <!-- Damage -->
+        <div class='action-group'>
+          <div class='seg seg-label'>
+            <i class='fas fa-burst' aria-hidden='true'></i><span>{{localize
+                (concat 'LH.core.damage' item.system.state)
+              }}</span>
+          </div>
+          <input class='seg seg-input' name='damageAmount' type='number' value='1' min='0' step='1' />
+          <button
+            type='button'
+            class='seg seg-btn'
+            data-action='apply-damage'
+            title='{{localize "LH.Apply"}}'
+            aria-disabled='{{eq disableDamageAction true}}'
+            {{disabled disableDamageAction}}
+          >
+            <i class='fas fa-check' aria-hidden='true'></i>
+          </button>
+        </div>
+
+        <!-- Stress -->
+        <div class='action-group'>
+          <div class='seg seg-label'>
+            <i class='fas fa-brain' aria-hidden='true'></i><span>{{localize
+                (concat 'LH.core.stress' item.system.state)
+              }}</span>
+          </div>
+          <input class='seg seg-input' name='stressAmount' type='number' value='1' min='0' step='1' />
+          <button
+            type='button'
+            class='seg seg-btn'
+            data-action='apply-stress'
+            title='{{localize "LH.Apply"}}'
+            aria-disabled='{{eq disableStressAction true}}'
+            {{disabled disableStressAction}}
+          >
+            <i class='fas fa-check' aria-hidden='true'></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABS -->
+    <nav class='tabs' data-group='primary'>
+      <a class='item active' data-tab='items'>{{localize (concat 'LH.ui.tabs.items' item.system.state)}}</a>
+      <a class='item' data-tab='description'>{{localize (concat 'LH.ui.tabs.description' item.system.state)}}</a>
+      <a class='item' data-tab='notes'>{{localize (concat 'LH.ui.tabs.notes' item.system.state)}}</a>
+      {{#if @root.canEditItems}}
+        <a class='item' data-tab='log'>{{localize (concat 'LH.ui.tabs.log' item.system.state)}}</a>
+      {{/if}}
+    </nav>
+
+    <section class='sheet-body'>
+      <!-- ITEMS TAB -->
+      <div class='tab card' data-group='primary' data-tab='items'>
+        <div class='inv-head'>
+          <div class='section-title'>{{localize (concat 'LH.ui.inventory' item.system.state)}}</div>
+          <div class='tw-text-xs tw-muted' data-over='{{gt system.inventory.slotsUsed system.inventory.slotsMax}}'>
+            {{localize (concat 'LH.ui.slots' item.system.state)}}:
+            {{system.inventory.slotsUsed}}
+            /
+            {{system.inventory.slotsMax}}
+          </div>
+        </div>
+
+        {{#each items as |item idx|}}
+          <div
+            class='inv-row'
+            data-equipped='{{and (or (eq item.type "armor") (eq item.type "weapon")) item.system.equipped}}'
+            data-item-id='{{item._id}}'
+          >
+            <div class='inv-carry'>
+              {{#if
+                (or (eq item.type 'weapon') (eq item.type 'gear') (eq item.type 'armor') (eq item.type 'artifact'))
+              }}{{else}}
+                <span class='tw-text-xs tw-muted'>—</span>
+              {{/if}}
+            </div>
+
+            <div class='inv-main'>
+              <a class='entity-link' data-item-id='{{item._id}}' data-uuid='{{item.uuid}}'>{{item.name}}</a>
+              <span class='tw-text-xs tw-muted'>({{item.type}})</span>
+              {{#unless item.system.ignoreSlots}}
+                <span class='item-slots' title='slots'>
+                  {{repeat '●' item.system.slotSize}}
+                </span>
+              {{/unless}}
+              {{#if
+                (or (eq item.type 'weapon') (eq item.type 'gear') (eq item.type 'armor') (eq item.type 'artifact'))
+              }}{{else}}
+                {{#if system.description}}
+                  <a class='icon-link'>
+                    <span class='tw-text-xs tw-muted open-desc' data-item-id='{{item._id}}'>🔍</span>
+                  </a>
+                {{/if}}
+              {{/if}}
+            </div>
+
+            <div class='inv-actions'>
+              <!-- WEAPON DAMAGE -->
+              {{#if (and (eq item.type 'weapon') item.system.damageDie)}}
+                <a
+                  class='icon-link die-link'
+                  role='button'
+                  tabindex='0'
+                  data-action='use-item'
+                  data-item-id='{{item._id}}'
+                  title='Roll {{item.system.damageDie}}'
+                >
+                  <span class='die-text'>{{item.system.damageDie}}</span>
+                </a>
+              {{else if (eq item.type 'weapon')}}
+                <span class='die-text die-disabled' title='No damage die'>—</span>
+              {{/if}}
+
+              <!-- GEAR -->
+              {{#if (and (eq item.type 'gear') (gt item.system.usesMax 0))}}
+                <a data-action='use-item' data-item-id='{{item._id}}'><i class='fas fa-bolt fa-xs'></i></a>
+                <span class='die-text'>{{item.system.usesCurrent}} / {{item.system.usesMax}}</span>
+              {{/if}}
+
+              <!-- ARMOR -->
+              {{#if (eq item.type 'armor')}}
+                <span class='die-text'> <i class='fas fa-shield-alt'></i> {{item.system.armorValue}}</span>
+              {{/if}}
+
+              <!-- EQUIP -->
+              {{#if (ne (lookup item.system 'equipped') undefined)}}
+                <a data-action='toggle-equip' class='equip-toggle' data-equipped='{{item.system.equipped}}'><i
+                    class='fas fa-hand'
+                  ></i></a>
+              {{/if}}
+
+              <!-- GM ACTION -->
+              {{#if @root.canEditItems}}
+                <a class='icon-link item-edit' role='button' tabindex='0' data-item-id='{{item._id}}' title='Edit'><i
+                    class='fas fa-edit'
+                  ></i></a>
+              {{/if}}
+              {{#if
+                (or
+                  (eq item.type 'weapon')
+                  (eq item.type 'gear')
+                  (eq item.type 'armor')
+                  (eq item.type 'artifact')
+                  @root.canEditItems
+                )
+              }}
+                <a
+                  class='icon-link item-delete'
+                  role='button'
+                  tabindex='0'
+                  data-item-id='{{item._id}}'
+                  title='Delete'
+                ><i class='fas fa-trash'></i></a>
+              {{/if}}
+            </div>
+          </div>
+        {{/each}}
+      </div>
+
+      <!-- DESCRIPTION TAB -->
+      <div class='tab card' data-group='primary' data-tab='description'>
+        <div class='section-title'>{{localize (concat 'LH.ui.tabs.description' item.system.state)}}</div>
+        <textarea
+          class='big-input'
+          name='system.identity.description'
+          rows='10'
+        >{{system.identity.description}}</textarea>
+      </div>
+
+      <!-- NOTES TAB -->
+      <div class='tab card' data-group='primary' data-tab='notes'>
+        <div class='section-title'>{{localize 'LH.ui.tabs.notes'}}</div>
+        <textarea class='big-input' name='system.notes' rows='10'>{{system.notes}}</textarea>
+      </div>
+
+      <!-- LOG TAB -->
+      <div class='tab card' data-group='primary' data-tab='log'>
+        <div class='section-title'>{{localize (concat 'LH.ui.tabs.log' item.system.state)}}</div>
+
+        {{#if @root.canEditItems}}
+          {{#if actor.flags.liminal-horror.gmLog}}
+            <ul class='gm-log'>
+              {{#each actor.flags.liminal-horror.gmLog as |entry|}}
+                <li>
+                  <div>
+                    <b>{{entry.actorName}}</b>
+                    ({{entry.userName}}) —
+                    {{entry.timestamp}}
+                  </div>
+                  <ul>
+                    {{#each entry.changes as |c|}}
+                      <li>
+                        <code>{{c.key}}</code>:
+                        <span style='color: red'>{{c.from}}</span>
+                        →
+                        <span style='color: green'>{{c.to}}</span>
+                      </li>
+                    {{/each}}
+                  </ul>
+                </li>
+              {{/each}}
+            </ul>
+          {{else}}
+            <p><i>No changes logged yet.</i></p>
+          {{/if}}
+        {{else}}
+          <p><i>GM only.</i></p>
+        {{/if}}
+      </div>
+    </section>
+  </div>
+</form>

@@ -1,0 +1,47 @@
+{
+  "id": "liminal-horror",
+  "title": "Liminal Horror",
+  "description": "Unofficial adaptation of Liminal Horror for Foundry VTT. Licensed under CC-BY-SA 4.0. Liminal Horror is developed by Goblin Archives, Josh Domanski, and Zach Hazard Vaupen.",
+  "authors": [{ "name": "D.H. / 666f78", "url": "https://666f78-dh.pp.ua/" }],
+  "version": "0.1.0",
+  "url": "https://github.com/666f78/liminal-horror",
+  "manifest": "https://github.com/666f78/liminal-horror/releases/latest/download/system.json",
+  "download": "https://github.com/666f78/liminal-horror/releases/download/0.1.0/system.zip",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12",
+    "maximum": "13"
+  },
+  "esmodules": ["liminal-horror.mjs"],
+  "styles": ["styles/system.css"],
+  "languages": [
+    { "lang": "en", "name": "English", "path": "lang/en.json" },
+    { "lang": "uk", "name": "Українська", "path": "lang/uk.json" }
+  ],
+  "documentTypes": {
+    "Actor": { "investigator": {}, "npc": {}, "monster": {}, "vehicle": {} },
+    "Item": {
+      "weapon": {},
+      "gear": {},
+      "armor": {},
+      "artifact": {},
+      "injury": {},
+      "consequence": {},
+      "condition": {}
+    }
+  },
+  "packs": [
+    {
+      "name": "items",
+      "label": "LH Items(WIP)",
+      "path": "packs/items.db",
+      "type": "Item",
+      "system": "liminal-horror"
+    }
+  ],
+  "license": "CC-BY-SA-4.0",
+  "background": "systems/liminal-horror/assets/img/banner.png",
+  "bugs": "https://github.com/666f78/liminal-horror/issues",
+  "readme": "https://raw.githubusercontent.com/666f78/liminal-horror/master/README.md",
+  "changelog": "https://raw.githubusercontent.com/666f78/liminal-horror/master/CHANGELOG.md"
+}

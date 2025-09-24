@@ -1,0 +1,78 @@
+<form class='lh lh-item' autocomplete='off'>
+  <section class='card'>
+    <header class='title-row'>
+      <input class='big-input' type='text' name='name' value='{{item.name}}' placeholder='ITEM NAME' />
+      <span class='type-pill'>{{item.type}}</span>
+    </header>
+
+    <div class='line'></div>
+
+    <section class='grid-2 gap'>
+      <div>
+        <div class='section-title'>BASIC</div>
+        <div class='form-row'>
+          <label class='item-label'>Description</label>
+          <textarea class='big-input' name='system.description' rows='2'>{{system.description}}</textarea>
+        </div>
+        {{#if system.damageDie}}
+          <div class='form-row'>
+            <label class='item-label'>Damage</label>
+            <input class='big-input' type='text' name='system.damageDie' value='{{system.damageDie}}' />
+          </div>
+        {{/if}}
+        {{#if (eq item.type 'armor')}}
+          <div class='form-row'>
+            <label class='item-label'>Armor</label>
+            <input class='big-input' type='number' name='system.armorValue' value='{{system.armorValue}}' />
+          </div>
+        {{/if}}
+        {{#if (or (eq item.type 'armor') (eq item.type 'weapon'))}}
+          <div class='form-group'>
+            <label class='flexrow'>
+              <input type='checkbox' name='system.equipped' {{checked system.equipped}} />
+              <span>Equipped</span>
+            </label>
+          </div>
+        {{/if}}
+      </div>
+
+      <!-- META -->
+      {{#if (or (eq item.type 'armor') (eq item.type 'weapon') (eq item.type 'gear'))}}
+        <div>
+          <div class='section-title'>META</div>
+          <div class='form-row'>
+            <label class='item-label'>Price ($)</label>
+            <input class='big-input' type='number' name='system.price' value='{{system.price}}' />
+          </div>
+          {{#if (eq item.type 'gear')}}
+            <div class='line'></div>
+            <div class='form-row'>
+              <label class='item-label'>Current use</label>
+              <input class='big-input' type='number' name='system.usesCurrent' value='{{system.usesCurrent}}' />
+            </div>
+            <div class='form-row'>
+              <label class='item-label'>Max use</label>
+              <input class='big-input' type='number' name='system.usesMax' value='{{system.usesMax}}' />
+            </div>
+          {{/if}}
+        </div>
+      {{/if}}
+    </section>
+
+    {{#if isCarryable}}
+      <div class='line'></div>
+      <div class='section-title'>CARRY</div>
+      <div class='form-row'>
+        <label class='item-label'>Slot Size</label>
+        <input class='big-input' type='number' name='system.slotSize' value='{{system.slotSize}}' />
+      </div>
+
+      <div class='form-group'>
+        <label class='flexrow'>
+          <input type='checkbox' name='system.ignoreSlots' {{checked system.ignoreSlots}} />
+          <span>Ignore Slots</span>
+        </label>
+      </div>
+    {{/if}}
+  </section>
+</form>
