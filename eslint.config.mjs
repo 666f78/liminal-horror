@@ -1,4 +1,4 @@
-import js from '@eslint/js';
+﻿import js from '@eslint/js';
 import { defineConfig } from 'eslint/config';
 import globals from 'globals';
 
@@ -23,10 +23,6 @@ export default defineConfig([
         Dialog: 'readonly',
         canvas: 'readonly',
         Folder: 'readonly',
-        Actors: 'readonly',
-        ActorSheet: 'readonly',
-        Items: 'readonly',
-        ItemSheet: 'readonly',
         $: 'readonly',
         jQuery: 'readonly',
         Scene: 'readonly',

@@ -1,5 +1,5 @@
-import { t } from '../utils/i18n.js';
 import { createChatMessage, sendRollMessage } from '../utils/chat.js';
+import { t } from '../utils/i18n.js';
 
 export async function equipItem(item, actor) {
   const type = item?.type;
@@ -45,14 +45,11 @@ export async function useItem(item, actor) {
   }
 
   if (item.type === 'gear') {
-    console.log('[LH] useItem', item);
-
     const current = item.system?.usesCurrent;
     if (!current || current <= 0) return;
 
     const newCurrent = current - 1;
     await item.update({ 'system.usesCurrent': newCurrent });
-    return;
   }
 }
 

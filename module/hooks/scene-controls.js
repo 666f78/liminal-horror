@@ -1,9 +1,9 @@
-import { openDamageDialog, openStressDialog } from '../apps/effect-dialogs.js';
+﻿import { openDamageDialog, openStressDialog } from '../apps/effect-dialogs.js';
 import { rollVoidResearchDie } from '../apps/void-research-die.js';
 import { dLog, dWarn, withGroup } from '../utils/debug.js';
 import { pickInvestigatorDialog } from '../utils/pickPlayer.js';
 
-const TOKEN_CONTROL_NAME = 'token';
+const TOKEN_CONTROL_NAME = 'tokens';
 const TOOL_NAMES = new Set(['lh-sep', 'lh-apply-damage', 'lh-apply-stress', 'lh-void-research-die']);
 
 async function selectActor({ title }) {
@@ -17,63 +17,66 @@ async function selectActor({ title }) {
   }
 }
 
-const TOOL_CONFIGURATIONS = [
-  {
-    name: 'lh-apply-damage',
-    title: 'Add Injuries',
-    icon: 'fas fa-heart-broken',
-    action: async () => {
-      const actor = await selectActor({ title: 'Add Injuries to Investigator' });
-      if (!actor) return;
-      await openDamageDialog(actor);
-    },
-  },
-  {
-    name: 'lh-apply-stress',
-    title: 'Add Consequence',
-    icon: 'fas fa-brain',
-    action: async () => {
-      const actor = await selectActor({ title: 'Add Consequence to Investigator' });
-      if (!actor) return;
-      await openStressDialog(actor);
-    },
-  },
-  {
-    name: 'lh-void-research-die',
-    title: 'Voidcrawl',
-    icon: 'fas fa-circle-notch',
-    action: () => rollVoidResearchDie(),
-  },
-];
-
 function getTools() {
-  const tools = [{ name: 'lh-sep', type: 'separator' }];
-  for (const { name, title, icon, action } of TOOL_CONFIGURATIONS) {
-    tools.push({
-      name,
-      title,
-      icon,
+  return {
+    'lh-apply-damage': {
+      name: 'lh-apply-damage',
+      title: 'Add Injuries',
+      icon: 'fa-solid fa-heart-crack',
+      order: 901,
       button: true,
-      onClick: async () => {
+      onChange: async () => {
         try {
-          await action();
-        } catch (error) {
-          dWarn(`sceneControls.tool.${name} error`, error);
+          const actor = await selectActor({ title: 'Add Injuries to Investigator' });
+          if (actor) await openDamageDialog(actor);
+        } catch (e) {
+          dWarn('sceneControls.tool.lh-apply-damage error', e);
         }
       },
-    });
-  }
-  return tools;
+    },
+    'lh-apply-stress': {
+      name: 'lh-apply-stress',
+      title: 'Add Consequence',
+      icon: 'fa-solid fa-brain',
+      order: 902,
+      button: true,
+      onChange: async () => {
+        try {
+          const actor = await selectActor({ title: 'Add Consequence to Investigator' });
+          if (actor) await openStressDialog(actor);
+        } catch (e) {
+          dWarn('sceneControls.tool.lh-apply-stress error', e);
+        }
+      },
+    },
+    'lh-void-research-die': {
+      name: 'lh-void-research-die',
+      title: 'Voidcrawl',
+      icon: 'fa-solid fa-circle-notch',
+      order: 903,
+      button: true,
+      onChange: async () => {
+        try {
+          await rollVoidResearchDie();
+        } catch (e) {
+          dWarn('sceneControls.tool.lh-void-research-die error', e);
+        }
+      },
+    },
+  };
 }
 
 function onGetSceneControlButtons(controls) {
   try {
     if (!game.user?.isGM) return;
-    const tokenControls = controls.find((control) => control.name === TOKEN_CONTROL_NAME);
+    const tokenControls = controls[TOKEN_CONTROL_NAME];
     if (!tokenControls) return;
-
-    tokenControls.tools = tokenControls.tools.filter((tool) => !TOOL_NAMES.has(tool.name));
-    tokenControls.tools.push(...getTools());
+    for (const key of Object.keys(tokenControls.tools)) {
+      if (TOOL_NAMES.has(key)) {
+        delete tokenControls.tools[key];
+      }
+    }
+    Object.assign(tokenControls.tools, getTools());
   } catch (error) {
     dWarn('sceneControls.register error', error);
   }

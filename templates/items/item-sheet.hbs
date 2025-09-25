@@ -2,7 +2,7 @@
   <section class='card'>
     <header class='title-row'>
       <input class='big-input' type='text' name='name' value='{{item.name}}' placeholder='ITEM NAME' />
-      <span class='type-pill'>{{item.type}}</span>
+      <span class='type-pill item-label-muted'>{{item.type}}</span>
     </header>
 
     <div class='line'></div>
@@ -28,9 +28,9 @@
         {{/if}}
         {{#if (or (eq item.type 'armor') (eq item.type 'weapon'))}}
           <div class='form-group'>
-            <label class='flexrow'>
+            <label>
               <input type='checkbox' name='system.equipped' {{checked system.equipped}} />
-              <span>Equipped</span>
+              <span class='item-label'>Equipped</span>
             </label>
           </div>
         {{/if}}
@@ -68,9 +68,9 @@
       </div>
 
       <div class='form-group'>
-        <label class='flexrow'>
+        <label>
           <input type='checkbox' name='system.ignoreSlots' {{checked system.ignoreSlots}} />
-          <span>Ignore Slots</span>
+          <span class='item-label'>Ignore Slots</span>
         </label>
       </div>
     {{/if}}

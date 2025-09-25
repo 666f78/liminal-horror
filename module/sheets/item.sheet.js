@@ -1,6 +1,6 @@
 import { recalcArmor } from '../services/items.js';
 
-export class LHItemSheet extends ItemSheet {
+export class LHItemSheet extends foundry.appv1.sheets.ItemSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ['lh', 'sheet', 'item'],

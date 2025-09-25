@@ -10,7 +10,7 @@ const isActivateEvent = (event) => event.type === 'click' || event.key === 'Ente
 
 const getItemId = (target) => target.dataset.itemId ?? target.closest('.inv-row')?.dataset?.itemId;
 
-export class LHActorSheet extends ActorSheet {
+export class LHActorSheet extends foundry.appv1.sheets.ActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ['lh', 'sheet', 'actor'],
@@ -51,28 +51,31 @@ export class LHActorSheet extends ActorSheet {
             .map((option) => `<option value="${option.id}">${option.name}</option>`)
             .join('')}</select>`;
 
-          new Dialog({
-            title: 'Choose Backstory',
-            content: `<p>${select}</p>`,
-            buttons: {
-              choose: {
-                icon: '<i class="fas fa-check"></i>',
-                label: 'Apply',
-                callback: async (html) => {
-                  const id = Number(html.find("select[name='bg']").val());
-                  await applyBackstory(this.actor, id);
+          new Dialog(
+            {
+              title: 'Choose Backstory',
+              content: `<p>${select}</p>`,
+              buttons: {
+                choose: {
+                  icon: '<i class="fas fa-check"></i>',
+                  label: 'Apply',
+                  callback: async (html) => {
+                    const id = Number(html.find("select[name='bg']").val());
+                    await applyBackstory(this.actor, id);
+                  },
+                },
+                roll: {
+                  icon: '<i class="fas fa-dice-d20"></i>',
+                  label: 'Roll (1d20)',
+                  callback: async () => {
+                    await rollBackstory(this.actor);
+                  },
                 },
               },
-              roll: {
-                icon: '<i class="fas fa-dice-d20"></i>',
-                label: 'Roll (1d20)',
-                callback: async () => {
-                  await rollBackstory(this.actor);
-                },
-              },
+              default: 'choose',
             },
-            default: 'choose',
-          }).render(true);
+            { classes: ['lh'] }
+          ).render(true);
         },
       });
     }

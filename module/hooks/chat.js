@@ -1,8 +1,8 @@
 import { openDamageDialog, openStressDialog } from '../apps/effect-dialogs.js';
 import { FLAGS, SYSTEM_ID } from '../data/constants.js';
 import { createChatMessage } from '../utils/chat.js';
-import { t } from '../utils/i18n.js';
 import { dLog, withGroup } from '../utils/debug.js';
+import { t } from '../utils/i18n.js';
 
 const GM_ACTION_FLAG = FLAGS.GM_ACTION;
 const DAMAGE_USED_FLAG = FLAGS.DAMAGE_USED;
@@ -24,35 +24,43 @@ const ACTIONS = Object.freeze({
 
 const BUTTON_CONTAINER = '.message-content';
 const ALREADY_APPLIED_HINT = 'Already applied';
-const LUCK_WHISPER_LABEL = (cost) => `Luck spent (${cost})`;
 
 const resolveActor = (attackerId) => game.actors.get(attackerId) ?? canvas.tokens?.get(attackerId)?.actor;
 
 const createButton = ({ label, className, disabled = false, title = '', onClick }) => {
-  const button = $('<button class="lh btn"></button>')
-    .addClass(className)
-    .text(label)
-    .prop('disabled', disabled)
-    .attr('title', title)
-    .css({ marginTop: '10px' });
+  const button = document.createElement('button');
+  button.classList.add('lh', 'btn');
+  if (className) {
+    className
+      .split(/\s+/)
+      .filter(Boolean)
+      .forEach((cls) => button.classList.add(cls));
+  }
+  button.textContent = label;
+  button.disabled = disabled;
+  button.title = title;
+  button.style.marginTop = '10px';
 
-  button.on('click', async () => {
-    if (button.prop('disabled')) return;
-    await onClick?.(button);
+  button.addEventListener('click', async (event) => {
+    if (button.disabled) return;
+    await onClick?.(button, event);
   });
 
   return button;
 };
 
 const appendIfMissing = (html, selector, builder) => {
-  if (html.find(selector).length) return null;
+  const container = html.querySelector(BUTTON_CONTAINER);
+  if (!container) return null;
+  if (container.querySelector(selector)) return null;
   const button = builder();
-  html.find(BUTTON_CONTAINER).append(button);
+  if (!button) return null;
+  container.append(button);
   return button;
 };
 
 const registerGmActionButtons = () => {
-  Hooks.on('renderChatMessage', (message, html) => {
+  Hooks.on('renderChatMessageHTML', (message, html) => {
     if (!game.user.isGM) return;
 
     const actionKey = message.getFlag(SYSTEM_ID, GM_ACTION_FLAG);
@@ -74,7 +82,9 @@ const registerGmActionButtons = () => {
           await action.onClick(attacker, {
             onApplied: async () => {
               await message.setFlag(SYSTEM_ID, DAMAGE_USED_FLAG, true);
-              button.prop('disabled', true).text(action.getLabel(true)).attr('title', ALREADY_APPLIED_HINT);
+              button.disabled = true;
+              button.textContent = action.getLabel(true);
+              button.title = ALREADY_APPLIED_HINT;
             },
           });
         },
@@ -84,7 +94,7 @@ const registerGmActionButtons = () => {
 };
 
 const registerLuckButtons = () => {
-  Hooks.on('renderChatMessage', (message, html) => {
+  Hooks.on('renderChatMessageHTML', (message, html) => {
     const offer = message.getFlag(SYSTEM_ID, LUCK_FLAG);
     if (!offer) return;
     if (!game.settings.get(SYSTEM_ID, 'appendixLuck')) return;
@@ -97,35 +107,31 @@ const registerLuckButtons = () => {
 
     const spent = Boolean(message.getFlag(SYSTEM_ID, LUCK_SPENT_FLAG));
     const cost = Number(offer.cost ?? 0);
-    const label = offer.label ?? `Spend Luck (${cost}) to succeed`;
     const currentLuck = Number(actor.system?.attributes?.luck?.value ?? 0);
-    const canSpend = !spent && cost > 0 && currentLuck >= cost;
+
+    const canShow = !spent && cost > 0 && currentLuck >= cost;
+    if (!canShow) return;
+
+    const label = offer.label ?? `Spend Luck (${cost}) to succeed`;
 
     appendIfMissing(html, '.lh-luck-btn', () =>
       createButton({
         label,
         className: 'lh-luck-btn',
-        disabled: !canSpend,
         onClick: async (button) => {
           const latestActor = resolveActor(offer.actorId);
-          if (!latestActor) return;
-
-          const owns = latestActor.isOwner || game.user.isGM;
-          if (!owns) {
+          if (!latestActor || !(latestActor.isOwner || game.user.isGM)) {
             ui.notifications?.warn('You do not control this actor.');
             return;
           }
 
           const latestLuck = Number(latestActor.system?.attributes?.luck?.value ?? 0);
-          if (latestLuck < cost) {
-            ui.notifications?.warn('Not enough Luck.');
-            button.prop('disabled', true);
-            return;
-          }
+          if (latestLuck < cost) return;
 
           await latestActor.update({ 'system.attributes.luck.value': Math.max(0, latestLuck - cost) });
           await message.setFlag(SYSTEM_ID, LUCK_SPENT_FLAG, true);
-          button.prop('disabled', true).text(LUCK_WHISPER_LABEL(cost));
+          button.disabled = true;
+          button.textContent = `Luck spent (${cost})`;
 
           await createChatMessage({
             actor: latestActor,

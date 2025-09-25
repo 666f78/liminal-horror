@@ -3,7 +3,7 @@ export const SETTINGS_NS = 'liminal-horror';
 export function registerSystemSettings() {
   game.settings.register(SETTINGS_NS, 'appendixLuck', {
     name: 'Appendix L: Luck',
-    hint: 'Automatically repopulate the bundled items compendium on world load (GM only).',
+    hint: 'Enables the Luck attribute on sheets. Allows spending and rolling Luck. (GM only)',
     scope: 'world',
     config: true,
     type: Boolean,
@@ -12,7 +12,7 @@ export function registerSystemSettings() {
 
   game.settings.register(SETTINGS_NS, 'debug', {
     name: 'Enable Debug Logging',
-    hint: 'Enable debug and hook logging (for developers only).',
+    hint: 'Enable debug and hook logging (for developers only)',
     scope: 'client',
     config: true,
     type: Boolean,

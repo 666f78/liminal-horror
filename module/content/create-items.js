@@ -81,13 +81,16 @@ function prepareItemData(item, buildDefaults, folderId) {
 
 async function ensureFolder(name, type = 'Item', { parent = null, color = null, isRoot = false } = {}) {
   const folders = game.folders;
-  const match = (folder) =>
-    folder.type === type &&
-    folder.name === name &&
-    ((isRoot && (folder.parent?.id ?? null) === (parent ?? null)) ||
-      (!isRoot && (!parent || folder.parent?.id === parent)));
+
+  const match = (folder) => {
+    const root = folders.find((f) => f.name === t(FOLDERS.ROOT));
+    const parentNames = root?.children.map((c) => c.folder.name) ?? [];
+
+    return folder.type === type && folder.name === name && (isRoot || parentNames.includes(folder.name));
+  };
 
   let folder = folders.find(match);
+
   if (!folder) {
     const data = { name, type };
     if (color) data.color = color;

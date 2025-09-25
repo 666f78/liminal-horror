@@ -3,13 +3,13 @@
   "title": "Liminal Horror",
   "description": "Unofficial adaptation of Liminal Horror for Foundry VTT. Licensed under CC-BY-SA 4.0. Liminal Horror is developed by Goblin Archives, Josh Domanski, and Zach Hazard Vaupen.",
   "authors": [{ "name": "D.H. / 666f78", "url": "https://666f78-dh.pp.ua/" }],
-  "version": "0.1.0",
+  "version": "0.1.1",
   "url": "https://github.com/666f78/liminal-horror",
   "manifest": "https://github.com/666f78/liminal-horror/releases/latest/download/system.json",
-  "download": "https://github.com/666f78/liminal-horror/releases/download/0.1.0/system.zip",
+  "download": "https://github.com/666f78/liminal-horror/releases/download/0.1.1/system.zip",
   "compatibility": {
-    "minimum": "12",
-    "verified": "12",
+    "minimum": "13",
+    "verified": "13",
     "maximum": "13"
   },
   "esmodules": ["liminal-horror.mjs"],

@@ -2,13 +2,20 @@ import { SLOT_TYPES } from '../data/constants.js';
 import { t } from '../utils/i18n.js';
 import { createChatMessage } from '../utils/chat.js';
 
+const OVERFLOW_NOTIFIED = new Set();
+
 function slotSizeOf(it) {
   const n = Number(it.system?.slotSize);
   return Number.isFinite(n) ? Math.max(0, n) : 1;
 }
 
+function getActorId(actor) {
+  return actor?.id ?? actor?.uuid ?? actor?._id ?? null;
+}
+
 export async function recalcSlots(actor) {
   if (!actor) return;
+  const actorId = getActorId(actor);
   const sys = actor.system ?? {};
   const items = actor.items?.contents ?? [];
   let used = 0;
@@ -22,11 +29,25 @@ export async function recalcSlots(actor) {
     await actor.update({ 'system.inventory.slotsUsed': used }, { diff: false });
 
   const max = Number(sys.inventory?.slotsMax ?? 10);
-  if (used > max && Number(sys.defense?.hp ?? 0) !== 0) {
-    await actor.update({ 'system.defense.hp': 0 }, { diff: false });
-    await actor.update({ 'system.status.deprived': true }, { diff: false });
+  const overCapacity = used > max;
+  const hpBefore = Number(sys.defense?.hp ?? 0);
+  const deprivedBefore = sys.status?.deprived === true;
 
-    await createChatMessage({ actor, content: t('LH.core.slotsCapacityExceeded') });
+  if (overCapacity) {
+    const updates = {};
+    if (hpBefore !== 0) updates['system.defense.hp'] = 0;
+    if (!deprivedBefore) updates['system.status.deprived'] = true;
+
+    const shouldNotify = hpBefore !== 0 && actorId && !OVERFLOW_NOTIFIED.has(actorId);
+    if (shouldNotify) OVERFLOW_NOTIFIED.add(actorId);
+
+    if (Object.keys(updates).length) await actor.update(updates, { diff: false });
+
+    if (shouldNotify) {
+      await createChatMessage({ actor, content: t('LH.core.slotsCapacityExceeded') });
+    }
+  } else if (actorId) {
+    OVERFLOW_NOTIFIED.delete(actorId);
   }
 }
 

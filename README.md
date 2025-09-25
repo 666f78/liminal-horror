@@ -39,8 +39,16 @@ It provides investigator sheets, rolling mechanics, and tools adapted to the rul
 2. Navigate to **Game Systems → Install System**.
 3. Paste the system manifest URL below:
 
+**For Foundry v13 (latest, recommended):**
+
 ```bash
 https://github.com/666f78/liminal-horror/releases/latest/download/system.json
+```
+
+**For Foundry v12 (legacy, no longer updated):**
+
+```bash
+https://github.com/666f78/liminal-horror/releases/download/0.1.0/system.json
 ```
 
 4. Click **Install**.

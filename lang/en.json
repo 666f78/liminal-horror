@@ -283,7 +283,7 @@
       "1": {
         "name": "Factory Worker",
         "items": {
-          "apron": "Industrial apron (+1 Armor)",
+          "apron": "Industrial apron",
           "belt": "Safety harness",
           "thermos": "Thermos"
         }
@@ -308,7 +308,7 @@
       "4": {
         "name": "Garbage Collector",
         "items": {
-          "gloves": "Cut resistant gloves (+1 Armor)",
+          "gloves": "Cut resistant gloves",
           "vest": "Hi-vis vest",
           "grabber": "Reach extender",
           "goggles": "Safety glasses"
@@ -379,7 +379,7 @@
         "name": "Bicycle Courier",
         "items": {
           "bike": "Bike",
-          "helmet": "Helmet (+1 Armor)",
+          "helmet": "Helmet",
           "bag": "Messenger bag",
           "package": "Unopened package",
           "multitool": "Multitool"
@@ -572,10 +572,10 @@
         "misfortune": "Misfortune"
       },
       "backstory": {
-        "1": "Factory Worker — Industrial apron (+1 Armor), safety harness, thermos.",
+        "1": "Factory Worker — Industrial apron, safety harness, thermos.",
         "2": "Bus Driver — Lunchbox, comprehensive road map, taser (d6, non-lethal).",
         "3": "Mechanic — Adjustable wrench (d6), portable toolbox, electrical tape, brake cleaner.",
-        "4": "Garbage Collector — Cut resistant gloves (+1 Armor), hi-vis vest, reach extender, safety glasses.",
+        "4": "Garbage Collector — Cut resistant gloves, hi-vis vest, reach extender, safety glasses.",
         "5": "Emergency Medical Technician (EMT) — Medkit, trauma shears, stethoscope, WAG bag.",
         "6": "Store Clerk — Box cutter (d6), walkie talkies, name tag, incredibly comfortable shoes.",
         "7": "Artist — Artistic tool of choice, notebook, camera, small but passionate fan base.",
@@ -583,7 +583,7 @@
         "9": "Skater — Skateboard, video camera, bolt cutters.",
         "10": "Keyboard Warrior — Laptop w/ bag, online following, fake credentials, energy drinks.",
         "11": "Volunteer Firefighter — Collapsible ladder (bulky), axe (d6), fire extinguisher, flashlight.",
-        "12": "Bicycle Courier — Bike, helmet (+1 Armor), messenger bag, unopened package, multitool.",
+        "12": "Bicycle Courier — Bike, helmet, messenger bag, unopened package, multitool.",
         "13": "Bartender — Barknife (d6), bottle of liquor, cigarettes, confiscated fake IDs.",
         "14": "Therapist — Memo recorder, notebook and pen, business cards, small revolver (d6).",
         "15": "Administrative Assistant — Extensive contacts, corporate credit card, expandable briefcase, taser (d6, non-lethal).",

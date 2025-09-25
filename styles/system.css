@@ -1,5 +1,14 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ===== Theme Variables ===== */
 :root {
+  --font-primary: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --lh-bg-app: #f2f2f2;
   --lh-bg-card: #f5f5f5;
   --lh-bg-inventory: #fcfbfa;
@@ -27,6 +36,28 @@
   --lh-card-pad: 10px;
 }
 
+/* ===== Foundry ===== */
+body {
+  font-family: var(--font-primary);
+}
+
+#chat-message:focus {
+  outline-color: var(--color-shadow-primary);
+}
+
+#chat-message {
+  --input-text-color: var(--lh-text-main);
+}
+
+/* ===== Log ===== */
+.lh .gm-log li {
+  margin-bottom: 10px;
+}
+
+.lh .gm-log-item {
+  margin-left: 10px;
+}
+
 /* ===== Sheet Shell ===== */
 .window-app.lh .window-content {
   background: var(--lh-bg-app);
@@ -34,7 +65,6 @@
 }
 .lh {
   background: transparent;
-  padding: 0;
 }
 
 .lh .status-ribbon {
@@ -90,15 +120,41 @@
   margin: 4px 0 6px;
 }
 .lh .item-label {
-  display: block;
-  margin-bottom: 5px;
+  color: var(--lh-text-main);
+}
+.lh .item-label-muted {
+  color: var(--lh-text-muted);
+}
+.lh input[type='checkbox']::before {
+  color: var(--lh-border-strong);
+  font-weight: unset;
+}
+.lh input[type='checkbox']::after {
+  --checkbox-checked-color: #ffffff;
+}
+.gm-stress-btn,
+.gm-damage-btn,
+.lh-luck-btn {
+  color: var(--lh-text-main);
+  --button-border-color: var(--lh-border-strong);
+}
+.gm-stress-btn:hover,
+.gm-damage-btn:hover,
+.lh-luck-btn:hover {
+  border-color: unset;
+}
+.gm-stress-btn:disabled,
+.gm-damage-btn:disabled,
+.lh-luck-btn:disabled {
+  color: var(--lh-text-muted);
+  --button-border-color: var(--lh-border);
+  background-color: var(--lh-bg-btn);
 }
 .lh .line {
   height: 1px;
   background: var(--lh-border);
   margin: 8px 0;
 }
-
 /* ===== Form Inputs ===== */
 .lh input,
 .lh textarea {
@@ -116,7 +172,8 @@
 }
 .lh .big-input:focus,
 .lh .num:focus {
-  outline: 2px solid var(--lh-accent);
+  outline: 1px solid var(--lh-text-muted);
+  box-shadow: 0 0 6px var(--color-shadow-primary);
   outline-offset: 1px;
 }
 
@@ -592,15 +649,7 @@
 }
 
 /* ===== Pause Overlay ===== */
-#pause {
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(3px);
-  position: absolute;
-  bottom: 30%;
-  height: 150px;
-}
 #pause figcaption {
-  top: 15%;
   color: #fff;
   font-size: 1.6rem;
   font-weight: 800;
@@ -670,16 +719,16 @@
 @keyframes lh-flicker {
   0%,
   100% {
-    opacity: 0.58;
+    opacity: 0.48;
   }
   12% {
-    opacity: 0.66;
+    opacity: 0.56;
   }
   14% {
-    opacity: 0.52;
+    opacity: 0.42;
   }
   16% {
-    opacity: 0.62;
+    opacity: 0.52;
   }
 }
 @keyframes lh-breathe {
@@ -707,15 +756,14 @@
 }
 
 /* ===== Token Controls ===== */
-.control-tool[data-tool='lh-void-research-die'] i,
-.control-tool[data-tool='lh-apply-damage'] i,
-.control-tool[data-tool='lh-apply-stress'] i {
+button[data-tool^='lh-'] {
+  --control-border-color: none !important;
+}
+button[data-tool^='lh-']::before {
   color: #b22222 !important;
 }
-.control-tool[data-tool='lh-void-research-die']:hover i,
-.control-tool[data-tool='lh-apply-damage']:hover i,
-.control-tool[data-tool='lh-apply-stress']:hover i {
-  color: #ff4444 !important;
+button[data-tool^='lh-']:hover {
+  --control-hover-bg-color: #ff4444 !important;
 }
 
 /* ===== Void Research Die Chat Card ===== */
