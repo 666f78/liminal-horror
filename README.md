@@ -26,8 +26,8 @@ It provides investigator sheets, rolling mechanics, and tools adapted to the rul
 - [x] GM tools for stress, injuries, and custom rolls.
 - [x] GM `Log` tab in actor sheet and background generator button.
 - [x] Localization support (English, Українська).
-- [ ] Appendix L: Luck (⚠️ beta: toggle in Settings if you want to try)
-- [ ] Update UI (💬 possibly: may be implemented after feedback)
+- [x] Appendix L: Luck
+- [x] Update UI
 - [ ] Compendium (⚠️ WIP: currently spawns items in the Items tab, language-dependent)
 - [ ] Appendix C: Conditions
 - [ ] Appendix I: Item Tags

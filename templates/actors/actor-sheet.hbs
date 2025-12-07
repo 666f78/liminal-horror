@@ -9,9 +9,20 @@
         <img src='{{portraitSrc}}' data-edit='img' alt='{{actor.name}}' title='Click to change portrait' />
         <div class='portrait-overlay'><i class='fas fa-camera'></i>&nbsp;Photo</div>
       </div>
-
       <div>
-        <div class='section-title'>{{localize (concat 'LH.ui.background' item.system.state)}}</div>
+        <div class='section-title section-title-with-buttons'>
+          <div>
+            {{localize (concat 'LH.ui.background' item.system.state)}}</div>
+          <div class='flexrow actions-row'>
+            <a class='action-rest' title='{{localize "LH.core.rest"}}'>
+              <i class='fas fa-bed'></i>
+            </a>
+            <a class='action-dof' title='{{localize "LH.core.dofXs"}}'>
+              <i class='fas fa-dice-d6'></i>
+            </a>
+          </div>
+
+        </div>
         <input class='big-input' type='text' name='system.identity.background' value='{{system.identity.background}}' />
       </div>
     </section>

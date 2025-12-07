@@ -79,26 +79,6 @@ export class LHActorSheet extends foundry.appv1.sheets.ActorSheet {
         },
       });
     }
-
-    buttons.unshift({
-      label: t('LH.core.rest'),
-      class: 'lh-rest',
-      icon: 'fas fa-bed',
-      onclick: async (event) => {
-        const isFullRest = !!event?.shiftKey;
-        await restActor(this.actor, { full: isFullRest });
-      },
-    });
-
-    buttons.unshift({
-      label: t('LH.core.dofXs'),
-      class: 'lh-roll-d6',
-      icon: 'fas fa-dice-d6',
-      onclick: async () => {
-        await quickRoll(this.actor, '1d6', t('LH.core.dof'));
-      },
-    });
-
     return buttons;
   }
 
@@ -150,6 +130,19 @@ export class LHActorSheet extends foundry.appv1.sheets.ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
     for (const actor of game.actors?.contents ?? []) recalcSlots(actor);
+
+    html.on('click', '.action-rest', async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const isFullRest = event.shiftKey === true;
+      await restActor(this.actor, { full: isFullRest });
+    });
+
+    html.on('click', '.action-dof', async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      await quickRoll(this.actor, '1d6', t('LH.core.dof'));
+    });
 
     html.on('click keydown', "[data-action='roll-attr']", async (event) => {
       if (!isActivateEvent(event)) return;

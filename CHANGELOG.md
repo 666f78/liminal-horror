@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.2]
+
+### Added
+
+- Appendix L: Luck (optional, requires enabling in settings)
+- Updated UI (repositioned Rest and DIE buttons)
+
+### Fixed
+
+- Minor bug fixes
+
 ## [0.1.1]
 
 ### Added
