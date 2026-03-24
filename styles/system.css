@@ -629,6 +629,9 @@ body {
   font-size: 0.65rem;
 }
 .lh .equip-toggle[data-equipped='true'] i {
+  opacity: 1;
+}
+.lh .equip-toggle[data-equipped='false'] i {
   opacity: 0.3;
 }
 .lh .inv-head .tw-muted[data-over='true'] {
