@@ -1,6 +1,6 @@
 import { applyBackstory, getBackstoryOptions, rollBackstory } from '../content/backstories.js';
 import { applyDamage, applyStress } from '../services/effects.js';
-import { equipItem, recalcArmor, useItem } from '../services/items.js';
+import { equipItem, isAutoArmorCalculationEnabled, recalcArmor, useItem } from '../services/items.js';
 import { restActor } from '../services/rest.js';
 import { quickRoll, rollAttribute } from '../services/rolls.js';
 import { t } from '../utils/i18n.js';
@@ -23,6 +23,9 @@ export class LHActorSheet extends foundry.appv1.sheets.ActorSheet {
   get template() {
     if (this.actor.limited) {
       return 'systems/liminal-horror/templates/actors/actor-limited.hbs';
+    }
+    if (this.actor.type === 'monster') {
+      return 'systems/liminal-horror/templates/actors/actor-monster-sheet.hbs';
     }
     return 'systems/liminal-horror/templates/actors/actor-sheet.hbs';
   }
@@ -121,6 +124,7 @@ export class LHActorSheet extends foundry.appv1.sheets.ActorSheet {
       canEditItems: game.user.isGM,
       portraitSrc,
       showLuck: game.settings.get('liminal-horror', 'appendixLuck'),
+      autoArmorCalculation: isAutoArmorCalculationEnabled(),
       disableDamageAction: this._isDamageActionDisabled(),
       disableStressAction: this._isStressActionDisabled(),
       statusRibbonText: this._getStatusRibbonText(),

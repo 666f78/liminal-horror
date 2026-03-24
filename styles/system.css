@@ -318,6 +318,97 @@ body {
   align-items: center;
   gap: 6px;
 }
+.lh.lh-monster-sheet .monster-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 10px;
+  align-items: start;
+}
+.lh.lh-monster-sheet .monster-stat {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  min-width: 0;
+}
+.lh.lh-monster-sheet .monster-label {
+  flex: 0 0 88px;
+  background: var(--lh-bg-pill);
+  color: var(--lh-text-light);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 8px 0 0 8px;
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 8px;
+}
+.lh.lh-monster-sheet .monster-label-rollable {
+  cursor: pointer;
+  transition:
+    box-shadow 0.12s ease,
+    filter 0.12s ease;
+}
+.lh.lh-monster-sheet .monster-label-rollable i {
+  opacity: 0.35;
+  transition: opacity 0.12s ease;
+}
+.lh.lh-monster-sheet .monster-label-rollable:hover {
+  filter: none;
+  box-shadow:
+    0 0 0 2px var(--lh-accent-hover) inset,
+    0 0 0 1px var(--lh-shadow-dark);
+}
+.lh.lh-monster-sheet .monster-label-rollable:hover i {
+  opacity: 1;
+}
+.lh.lh-monster-sheet .monster-values {
+  display: grid;
+  align-items: center;
+  width: 96px;
+  min-width: 96px;
+  background: var(--lh-bg-btn);
+  border: 1px solid var(--lh-border-strong);
+  border-radius: 0 8px 8px 0;
+  overflow: hidden;
+}
+.lh.lh-monster-sheet .monster-values-dual {
+  grid-template-columns: 48px 48px;
+}
+.lh.lh-monster-sheet .monster-values-single {
+  grid-template-columns: 96px;
+}
+.lh.lh-monster-sheet .monster-num {
+  width: 100%;
+  min-width: 0;
+  height: 28px;
+  border-radius: 0;
+  margin: 0;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+.lh.lh-monster-sheet .monster-num-single {
+  width: 96px;
+  min-width: 96px;
+  border-radius: 0;
+}
+.lh.lh-monster-sheet .monster-values-dual .monster-num:last-child {
+  border-left: 1px solid var(--lh-border);
+  border-radius: 0;
+}
+@media (max-width: 560px) {
+  .lh.lh-monster-sheet .monster-stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .lh.lh-monster-sheet .monster-stat {
+    width: 100%;
+  }
+}
 
 /* ===== Status Toggles ===== */
 .lh .deprived {

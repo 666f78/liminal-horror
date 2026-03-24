@@ -1,5 +1,6 @@
 <div align="center">
   <img src="assets/img/logo.webp" alt="Liminal Horror Logo" width="500"/>
+</div>
 
 # Liminal Horror — Foundry VTT System
 

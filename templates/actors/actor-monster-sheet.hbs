@@ -1,4 +1,4 @@
-<form class='lh'>
+<form class='lh lh-monster-sheet'>
   <div class='layout'>
     {{#if statusRibbonText}}
       <div class='status-ribbon'>{{statusRibbonText}}</div>
@@ -9,77 +9,48 @@
         <img src='{{portraitSrc}}' data-edit='img' alt='{{actor.name}}' title='Click to change portrait' />
         <div class='portrait-overlay'><i class='fas fa-camera'></i>&nbsp;Photo</div>
       </div>
-      <div>
-        <div class='section-title section-title-with-buttons'>
-          <div>
-            {{localize (concat 'LH.ui.background' item.system.state)}}</div>
-          <div class='flexrow actions-row'>
-            <a class='action-rest' title='{{localize "LH.core.rest"}}'>
-              <i class='fas fa-bed'></i>
-            </a>
-            <a class='action-dof' title='{{localize "LH.core.dofXs"}}'>
-              <i class='fas fa-dice-d6'></i>
-            </a>
-          </div>
-
-        </div>
-        <input class='big-input' type='text' name='system.identity.background' value='{{system.identity.background}}' />
-      </div>
     </section>
 
     <!-- RIGHT: name + tiles -->
     <section class='hero card'>
       <input class='big-input name-input' type='text' name='name' value='{{actor.name}}' placeholder='NAME' />
-      <div class='tiles'>
+      <div class='monster-stats-grid'>
         <!-- HP -->
-        <div class='tile'>
-          <div class='pill'>{{localize (concat 'LH.ui.hp' item.system.state)}}</div>
-          <div class='pair'>
-            <input class='num chip' type='number' name='system.defense.hp' value='{{system.defense.hp}}' />
-            /
-            <input class='num chip' type='number' name='system.defense.hpMax' value='{{system.defense.hpMax}}' />
-          </div>
-        </div>
-
-        <!-- Deprived -->
-        <div class='tile'>
-          <div class='pill'>{{localize (concat 'LH.ui.deprived' item.system.state)}}</div>
-          <div class='deprived'>
+        <div class='monster-stat'>
+          <div class='monster-label'>{{localize (concat 'LH.ui.hp' item.system.state)}}</div>
+          <div class='monster-values monster-values-dual'>
+            <input class='num chip monster-num' type='number' name='system.defense.hp' value='{{system.defense.hp}}' />
             <input
-              data-action='toggle-deprived'
-              class='checkbox'
-              type='checkbox'
-              name='system.status.deprived'
-              {{checked system.status.deprived}}
-              {{disabled (gt system.inventory.slotsUsed 10)}}
+              class='num chip monster-num'
+              type='number'
+              name='system.defense.hpMax'
+              value='{{system.defense.hpMax}}'
             />
           </div>
         </div>
 
         <!-- STR -->
-        <div class='tile'>
+        <div class='monster-stat'>
           <div
-            class='pill rollable'
+            class='monster-label monster-label-rollable'
             role='button'
             tabindex='0'
             data-action='roll-attr'
             data-key='str'
             title='Roll Strength (d20 ≤ target)'
           >
-            <i class='fas fa-dice-d20' aria-hidden='true'></i><span>{{localize
-                (concat 'LH.attr.short.str' item.system.state)
-              }}</span>
+            <i class='fas fa-dice-d20' aria-hidden='true'></i>
+            <span>{{localize (concat 'LH.attr.short.str' item.system.state)}}</span>
           </div>
-          <div class='pair'>
+          <div class='monster-values monster-values-dual'>
             <input
-              class='num chip'
+              class='num chip monster-num'
               type='number'
               name='system.attributes.str.value'
               value='{{system.attributes.str.value}}'
             />
-            /
             <input
-              class='num chip'
+              class='num chip monster-num'
               type='number'
               name='system.attributes.str.base'
               value='{{system.attributes.str.base}}'
@@ -88,45 +59,50 @@
         </div>
 
         <!-- Armor -->
-        <div class='tile'>
-          <div class='pill'>{{localize (concat 'LH.ui.armor' item.system.state)}}</div>
-          {{#if autoArmorCalculation}}
-            <input
-              class='num chip'
-              type='number'
-              name='system.defenses.armor'
-              value='{{system.defenses.armor}}'
-              readonly
-            />
-          {{else}}
-            <input class='num chip' type='number' name='system.defenses.armor' value='{{system.defenses.armor}}' />
-          {{/if}}
+        <div class='monster-stat'>
+          <div class='monster-label'>{{localize (concat 'LH.ui.armor' item.system.state)}}</div>
+          <div class='monster-values monster-values-single'>
+            {{#if autoArmorCalculation}}
+              <input
+                class='num chip monster-num monster-num-single'
+                type='number'
+                name='system.defenses.armor'
+                value='{{system.defenses.armor}}'
+                readonly
+              />
+            {{else}}
+              <input
+                class='num chip monster-num monster-num-single'
+                type='number'
+                name='system.defenses.armor'
+                value='{{system.defenses.armor}}'
+              />
+            {{/if}}
+          </div>
         </div>
 
         <!-- DEX -->
-        <div class='tile'>
+        <div class='monster-stat'>
           <div
-            class='pill rollable'
+            class='monster-label monster-label-rollable'
             role='button'
             tabindex='0'
             data-action='roll-attr'
             data-key='dex'
             title='Roll Dexterity (d20 ≤ target)'
           >
-            <i class='fas fa-dice-d20' aria-hidden='true'></i><span>{{localize
-                (concat 'LH.attr.short.dex' item.system.state)
-              }}</span>
+            <i class='fas fa-dice-d20' aria-hidden='true'></i>
+            <span>{{localize (concat 'LH.attr.short.dex' item.system.state)}}</span>
           </div>
-          <div class='pair'>
+          <div class='monster-values monster-values-dual'>
             <input
-              class='num chip'
+              class='num chip monster-num'
               type='number'
               name='system.attributes.dex.value'
               value='{{system.attributes.dex.value}}'
             />
-            /
             <input
-              class='num chip'
+              class='num chip monster-num'
               type='number'
               name='system.attributes.dex.base'
               value='{{system.attributes.dex.base}}'
@@ -135,40 +111,40 @@
         </div>
 
         <!-- Stability -->
-        <div class='tile'>
-          <div class='pill'>{{localize (concat 'LH.ui.stability' item.system.state)}}</div>
-          <input
-            class='num chip'
-            type='number'
-            name='system.defenses.selfControl'
-            value='{{system.defenses.selfControl}}'
-          />
+        <div class='monster-stat'>
+          <div class='monster-label'>{{localize (concat 'LH.ui.stability' item.system.state)}}</div>
+          <div class='monster-values monster-values-single'>
+            <input
+              class='num chip monster-num monster-num-single'
+              type='number'
+              name='system.defenses.selfControl'
+              value='{{system.defenses.selfControl}}'
+            />
+          </div>
         </div>
 
         <!-- CTRL -->
-        <div class='tile'>
+        <div class='monster-stat'>
           <div
-            class='pill rollable'
+            class='monster-label monster-label-rollable'
             role='button'
             tabindex='0'
             data-action='roll-attr'
             data-key='con'
             title='Roll Control (d20 ≤ target)'
           >
-            <i class='fas fa-dice-d20' aria-hidden='true'></i><span>{{localize
-                (concat 'LH.attr.short.ctrl' item.system.state)
-              }}</span>
+            <i class='fas fa-dice-d20' aria-hidden='true'></i>
+            <span>{{localize (concat 'LH.attr.short.ctrl' item.system.state)}}</span>
           </div>
-          <div class='pair'>
+          <div class='monster-values monster-values-dual'>
             <input
-              class='num chip'
+              class='num chip monster-num'
               type='number'
               name='system.attributes.con.value'
               value='{{system.attributes.con.value}}'
             />
-            /
             <input
-              class='num chip'
+              class='num chip monster-num'
               type='number'
               name='system.attributes.con.base'
               value='{{system.attributes.con.base}}'
@@ -176,36 +152,29 @@
           </div>
         </div>
 
-        <!-- Cash -->
-        <div class='tile'>
-          <div class='pill'>{{localize (concat 'LH.ui.cash' item.system.state)}}</div>
-          <input class='num chip' type='number' name='system.inventory.money' value='{{system.inventory.money}}' />
-        </div>
         {{#if showLuck}}
           <!-- Luck -->
-          <div class='tile'>
+          <div class='monster-stat'>
             <div
-              class='pill rollable'
+              class='monster-label monster-label-rollable'
               role='button'
               tabindex='0'
               data-action='roll-attr'
               data-key='luck'
               title='Roll Luck (d20 <= target)'
             >
-              <i class='fas fa-dice-d20' aria-hidden='true'></i><span>{{localize
-                  (concat 'LH.attr.short.luck' item.system.state)
-                }}</span>
+              <i class='fas fa-dice-d20' aria-hidden='true'></i>
+              <span>{{localize (concat 'LH.attr.short.luck' item.system.state)}}</span>
             </div>
-            <div class='pair'>
+            <div class='monster-values monster-values-dual'>
               <input
-                class='num chip'
+                class='num chip monster-num'
                 type='number'
                 name='system.attributes.luck.value'
                 value='{{system.attributes.luck.value}}'
               />
-              /
               <input
-                class='num chip'
+                class='num chip monster-num'
                 type='number'
                 name='system.attributes.luck.base'
                 value='{{system.attributes.luck.base}}'

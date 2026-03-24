@@ -5,6 +5,7 @@ import { registerInitiativeHook } from './combat.js';
 import { registerInitHook } from './init.js';
 import { registerItemsHook } from './items.js';
 import { registerSceneControlHooks } from './scene-controls.js';
+import { registerSettingsConfigHook } from './settings-config.js';
 import { registerSidebarHooks } from './sidebar.js';
 
 const HOOK_REGISTRATIONS = Object.freeze([
@@ -12,6 +13,7 @@ const HOOK_REGISTRATIONS = Object.freeze([
   { name: 'actor', register: registerActorHooks },
   { name: 'sidebar', register: registerSidebarHooks },
   { name: 'chat', register: registerChatHooks },
+  { name: 'settings-config', register: registerSettingsConfigHook },
   { name: 'scene-controls', register: registerSceneControlHooks },
   { name: 'initiative', register: registerInitiativeHook },
   { name: 'items', register: registerItemsHook },

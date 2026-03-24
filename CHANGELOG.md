@@ -1,5 +1,32 @@
 # Changelog
 
+## [0.1.3]
+
+### Added
+
+- Added a system update modal with changelog history
+- Added a setting to disable automatic armor calculation
+
+### Changed
+
+- Inverted the colors of the Hand icon
+- Removed the monster stat cap of 18
+- Limited chat messages to Investigator actors only
+- Moved starter items to a compendium pack
+- Reworked the monster character sheet
+
+### Fixed
+
+- Minor bug fixes
+
+### Removed
+
+- Removed the button for creating starter items
+
+### Acknowledgments
+
+- Thanks to Maia (my-ee-uh) for feedback
+
 ## [0.1.2]
 
 ### Added

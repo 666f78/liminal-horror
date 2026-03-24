@@ -1,6 +1,10 @@
 import { createChatMessage, sendRollMessage } from '../utils/chat.js';
 import { t } from '../utils/i18n.js';
 
+export function isAutoArmorCalculationEnabled() {
+  return game.settings.get('liminal-horror', 'autoArmorCalculation');
+}
+
 export async function equipItem(item, actor) {
   const type = item?.type;
   if (type !== 'armor' && type !== 'weapon') return;
@@ -54,6 +58,8 @@ export async function useItem(item, actor) {
 }
 
 export async function recalcArmor(actor) {
+  if (!actor || !isAutoArmorCalculationEnabled()) return;
+
   let total = 0;
   for (const it of actor.items) {
     if (it.type !== 'armor' || !it.system?.equipped) continue;

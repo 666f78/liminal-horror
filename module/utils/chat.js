@@ -22,6 +22,7 @@ export function applyWhisper(message = {}, mode = 'auto') {
 const resolveSpeaker = ({ actor, user } = {}) => ChatMessage.getSpeaker({ actor, user });
 
 export function createChatMessage({ actor, user = game.user, content, flags, type, whisperMode = 'auto' } = {}) {
+  if (actor.type !== 'investigator') return;
   const message = {
     user: user?.id ?? game.userId,
     speaker: resolveSpeaker({ actor, user }),

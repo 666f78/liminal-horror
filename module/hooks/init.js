@@ -4,6 +4,7 @@ import { registerSystemSettings } from '../settings.js';
 import { registerSheets } from '../sheets/index.js';
 import { registerHandlebars } from '../utils/handlebars.js';
 import { dError, dLog, withGroup } from '../utils/debug.js';
+import { showSystemUpdateNotice } from './update-notice.js';
 
 const exposeApi = () => {
   game.liminalhorror ??= {};
@@ -55,6 +56,9 @@ export const registerInitHook = () => {
   Hooks.once('ready', () => {
     withGroup('ready', () => {
       announceReady();
+      showSystemUpdateNotice().catch((error) => {
+        dError('[LH:ready] update notice failed', error);
+      });
     });
   });
 };
