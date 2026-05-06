@@ -4,7 +4,7 @@
 
 # Liminal Horror — Foundry VTT System
 
-![Foundry v12](https://img.shields.io/badge/Foundry-v12-green)
+![Foundry v14](https://img.shields.io/badge/Foundry-v14-green)
 ![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-blue)
 ![Status: Unofficial](https://img.shields.io/badge/Status-Unofficial-critical)
 ![Release: Beta](https://img.shields.io/badge/Release-Beta-yellow)
@@ -29,7 +29,7 @@ It provides investigator sheets, rolling mechanics, and tools adapted to the rul
 - [x] Localization support (English, Українська).
 - [x] Appendix L: Luck
 - [x] Update UI
-- [ ] Compendium (⚠️ WIP: currently spawns items in the Items tab, language-dependent)
+- [x] Starter item compendium
 - [ ] Appendix C: Conditions
 - [ ] Appendix I: Item Tags
 - [ ] Appendix T: Time Procedures
@@ -40,7 +40,7 @@ It provides investigator sheets, rolling mechanics, and tools adapted to the rul
 2. Navigate to **Game Systems → Install System**.
 3. Paste the system manifest URL below:
 
-**For Foundry v13 (latest, recommended):**
+**For Foundry v14 (latest, recommended):**
 
 ```bash
 https://github.com/666f78/liminal-horror/releases/latest/download/system.json

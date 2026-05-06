@@ -1,5 +1,36 @@
 # Changelog
 
+## [0.1.4]
+
+### Added
+
+- Added a ProseMirror rich-text editor for `Description` and `Notes` on investigator and monster sheets
+- Added a confirmation dialog before deleting items
+- Added a new `spell` item type
+- Added inline item description expansion in actor inventory rows by clicking item names with descriptions
+- Added inventory sorting controls with `Default`, `Manual (DnD)`, `Name`, `Type`, `Slot size` and `Equipped` modes
+- Added a `Generate Actor` sidebar button to create a new investigator with rolled stats, HP, cash, random backstory, and generated description, then post the result to chat
+- Added an armor auto-calculation indicator with a tooltip on investigator and monster sheets
+
+### Changed
+
+- Increased actor sheet height for improved tab and editor spacing
+- Updated the investigator sheet stat block
+- Updated editor, scrollbar, log, and inventory sheet styling to better match the Liminal Horror sheet theme
+- Allowed multiple equipped armor items to stack their armor values instead of forcing only one equipped armor item
+- Migrated system to Foundry v14
+
+### Fixed
+
+- Restored proper armor recalculation after deleting equipped armor
+- Fixed investigator and monster sheet rich-text editor rendering by using the stable appv1 editor pattern
+- Reset `Damage` and `Stress` apply fields back to `1` after use
+- Minor bug fixes
+
+### Acknowledgments
+
+- Thanks to Maia (my-ee-uh) for feedback
+
 ## [0.1.3]
 
 ### Added

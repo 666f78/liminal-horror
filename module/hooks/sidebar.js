@@ -1,14 +1,22 @@
 ﻿import { createItems } from '../content/create-items.js';
-import { generateInvestigator } from '../content/random-investigator.js';
+import { generateActor, generateInvestigator } from '../content/random-investigator.js';
 import { dLog, dWarn, withGroup } from '../utils/debug.js';
 
 const BUTTON_CONFIGS = {
-  actors: {
-    className: 'lh-sidebar-investigator',
-    iconClass: 'fa-solid fa-dice',
-    label: 'Roll Investigator Background',
-    handler: generateInvestigator,
-  },
+  actors: [
+    {
+      className: 'lh-sidebar-investigator',
+      iconClass: 'fa-solid fa-dice',
+      label: 'Roll Investigator Background',
+      handler: generateInvestigator,
+    },
+    {
+      className: 'lh-sidebar-generate-actor',
+      iconClass: 'fa-solid fa-user-plus',
+      label: 'Generate Actor',
+      handler: generateActor,
+    },
+  ],
   items: {
     className: 'lh-sidebar-items',
     iconClass: 'fa-solid fa-plus',
@@ -17,8 +25,15 @@ const BUTTON_CONFIGS = {
   },
 };
 
+const resolveRootElement = (root) => {
+  if (root instanceof HTMLElement) return root;
+  if (root?.[0] instanceof HTMLElement) return root[0];
+  return null;
+};
+
 const ensureFooter = (rootElement) => {
-  if (!(rootElement instanceof HTMLElement)) return null;
+  rootElement = resolveRootElement(rootElement);
+  if (!rootElement) return null;
   let footer = rootElement.querySelector('.directory-footer');
   if (!footer) {
     footer = document.createElement('footer');
@@ -49,6 +64,7 @@ const buildButton = ({ className, iconClass, label, handler }) => {
       await handler();
     } catch (error) {
       dWarn('sidebarHooks.button action error', error);
+      ui.notifications?.error(error?.message ?? 'Sidebar action failed');
     } finally {
       running = false;
     }
@@ -58,7 +74,8 @@ const buildButton = ({ className, iconClass, label, handler }) => {
 };
 
 const addButton = (rootElement, config) => {
-  if (!(rootElement instanceof HTMLElement)) return;
+  rootElement = resolveRootElement(rootElement);
+  if (!rootElement) return;
   if (rootElement.querySelector(`.${config.className}`)) return;
 
   const footer = ensureFooter(rootElement);
@@ -70,9 +87,10 @@ const addButton = (rootElement, config) => {
 
 function onRenderDocumentDirectory(app, htmlElement) {
   try {
-    const config = BUTTON_CONFIGS[app.id];
-    if (!config) return;
-    addButton(htmlElement, config);
+    const configs = BUTTON_CONFIGS[app.id];
+    if (!configs) return;
+    const list = Array.isArray(configs) ? configs : [configs];
+    for (const config of list) addButton(htmlElement, config);
   } catch (error) {
     dWarn('sidebarHooks.render error', error);
   }

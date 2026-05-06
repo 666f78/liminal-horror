@@ -2,7 +2,16 @@ import { LHActorSheet } from './actor.sheet.js';
 import { LHItemSheet } from './item.sheet.js';
 
 const ACTOR_TYPES = Object.freeze(['investigator', 'npc', 'monster', 'vehicle']);
-const ITEM_TYPES = Object.freeze(['weapon', 'gear', 'armor', 'artifact', 'injury', 'consequence', 'condition']);
+const ITEM_TYPES = Object.freeze([
+  'weapon',
+  'spell',
+  'gear',
+  'armor',
+  'artifact',
+  'injury',
+  'consequence',
+  'condition',
+]);
 
 export function registerSheets() {
   const { DocumentSheetConfig } = foundry.applications.apps;

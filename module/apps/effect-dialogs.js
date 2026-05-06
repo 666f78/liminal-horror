@@ -34,11 +34,11 @@ function getDamageFormMarkup() {
       <div class="flexrow" style="gap:8px;">
         <div class="flexcol">
           <label>${t('LH.dialogs.damage.type')}</label>
-          <select id="inj-type">${typeOptions}</select>
+          <select id="inj-type" class="lh-dialog-select">${typeOptions}</select>
         </div>
         <div class="flexcol">
           <label>${t('LH.dialogs.damage.severity')}</label>
-          <select id="inj-sev">${severityOptions}</select>
+          <select id="inj-sev" class="lh-dialog-select">${severityOptions}</select>
         </div>
       </div>
       <label class="lh-dialog-label">${t('LH.dialogs.damage.description')}</label>
@@ -133,7 +133,7 @@ function getStressFormMarkup() {
   return `
     <div class="card lh-stress-dialog">
       <label>${t('LH.dialogs.stress.consequence')}</label>
-      <select id="stress-choice">${choiceOptions}</select>
+      <select id="stress-choice" class="lh-dialog-select">${choiceOptions}</select>
       <div id="stress-preview" class="lh-dialog-preview"></div>
     </div>
   `;

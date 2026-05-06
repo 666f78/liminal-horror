@@ -13,7 +13,7 @@ export async function equipItem(item, actor) {
   const isEquipped = !!item.system?.equipped;
   const willEquip = !isEquipped;
 
-  if (willEquip && actor?.items) {
+  if (willEquip && actor?.items && type === 'weapon') {
     const updates = actor.items
       .filter((i) => i.id !== item.id && i.type === type && i.system?.equipped)
       .map((i) => ({ _id: i.id, 'system.equipped': false }));
@@ -38,12 +38,12 @@ export async function equipItem(item, actor) {
 export async function useItem(item, actor) {
   if (!item) throw new Error('Item is required');
 
-  if (item.type === 'weapon') {
+  if (item.type === 'weapon' || item.type === 'spell') {
     const die = item.system?.damageDie || '1d6';
     const roll = await new Roll(die).evaluate();
     await sendRollMessage(roll, {
       actor,
-      flavor: `<b>${t('LH.msg.weapon')}:</b> ${item.name}`,
+      flavor: `<b>${t(item.type === 'spell' ? 'LH.msg.spell' : 'LH.msg.weapon')}:</b> ${item.name}`,
     });
     return;
   }

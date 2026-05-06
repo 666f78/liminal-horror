@@ -60,7 +60,16 @@
 
         <!-- Armor -->
         <div class='monster-stat'>
-          <div class='monster-label'>{{localize (concat 'LH.ui.armor' item.system.state)}}</div>
+          <div class='monster-label'>
+            {{localize (concat 'LH.ui.armor' item.system.state)}}
+            {{#if autoArmorCalculation}}
+              <i
+                class='fa-solid fa-gear armor-auto-icon'
+                aria-label='{{localize "LH.ui.autoArmorHint"}}'
+                title='{{localize "LH.ui.autoArmorHint"}}'
+              ></i>
+            {{/if}}
+          </div>
           <div class='monster-values monster-values-single'>
             {{#if autoArmorCalculation}}
               <input
@@ -244,106 +253,158 @@
       <div class='tab card' data-group='primary' data-tab='items'>
         <div class='inv-head'>
           <div class='section-title'>{{localize (concat 'LH.ui.inventory' item.system.state)}}</div>
-          <div class='tw-text-xs tw-muted' data-over='{{gt system.inventory.slotsUsed system.inventory.slotsMax}}'>
-            {{localize (concat 'LH.ui.slots' item.system.state)}}:
-            {{system.inventory.slotsUsed}}
-            /
-            {{system.inventory.slotsMax}}
+          <div class='inv-meta'>
+            <label class='inv-sort'>
+              <span class='tw-text-xs tw-muted'>{{localize 'LH.ui.sort'}}</span>
+              {{#if showInventorySortDirection}}
+                <button
+                  type='button'
+                  class='inv-sort-direction'
+                  data-action='inventory-sort-direction'
+                  title='{{inventorySortDirectionTitle}}'
+                >
+                  <i class='{{inventorySortDirectionIcon}}'></i>
+                </button>
+              {{/if}}
+              <select class='inv-sort-select' data-action='inventory-sort'>
+                {{#each inventorySortOptions as |option|}}
+                  <option value='{{option.value}}' {{option.selectedAttr}}>
+                    {{option.label}}
+                  </option>
+                {{/each}}
+              </select>
+            </label>
+            <div class='tw-text-xs tw-muted' data-over='{{gt system.inventory.slotsUsed system.inventory.slotsMax}}'>
+              {{localize (concat 'LH.ui.slots' item.system.state)}}:
+              {{system.inventory.slotsUsed}}
+              /
+              {{system.inventory.slotsMax}}
+            </div>
           </div>
         </div>
 
-        {{#each items as |item idx|}}
-          <div
-            class='inv-row'
-            data-equipped='{{and (or (eq item.type "armor") (eq item.type "weapon")) item.system.equipped}}'
-            data-item-id='{{item._id}}'
-          >
-            <div class='inv-carry'>
-              {{#if
-                (or (eq item.type 'weapon') (eq item.type 'gear') (eq item.type 'armor') (eq item.type 'artifact'))
-              }}{{else}}
-                <span class='tw-text-xs tw-muted'>—</span>
-              {{/if}}
-            </div>
-
-            <div class='inv-main'>
-              <a class='entity-link' data-item-id='{{item._id}}' data-uuid='{{item.uuid}}'>{{item.name}}</a>
-              <span class='tw-text-xs tw-muted'>({{item.type}})</span>
-              {{#unless item.system.ignoreSlots}}
-                <span class='item-slots' title='slots'>
-                  {{repeat '●' item.system.slotSize}}
-                </span>
-              {{/unless}}
-              {{#if
-                (or (eq item.type 'weapon') (eq item.type 'gear') (eq item.type 'armor') (eq item.type 'artifact'))
-              }}{{else}}
-                {{#if system.description}}
-                  <a class='icon-link'>
-                    <span class='tw-text-xs tw-muted open-desc' data-item-id='{{item._id}}'>🔍</span>
-                  </a>
+        {{#each items as |item|}}
+          <div>
+            <div
+              class='inv-row'
+              data-equipped='{{and (or (eq item.type "armor") (eq item.type "weapon")) item.system.equipped}}'
+              data-item-id='{{item._id}}'
+              data-sortable='{{@root.isManualInventorySort}}'
+            >
+              <div class='inv-carry'>
+                {{#if @root.isManualInventorySort}}
+                  <span class='inv-drag-handle' data-item-id='{{item._id}}' draggable='true' title='Drag to reorder'><i
+                      class='fas fa-grip-lines-vertical'
+                    ></i></span>
+                {{else}}
+                  {{#if
+                    (or
+                      (eq item.type 'weapon')
+                      (eq item.type 'spell')
+                      (eq item.type 'gear')
+                      (eq item.type 'armor')
+                      (eq item.type 'artifact')
+                    )
+                  }}{{else}}
+                    <span class='tw-text-xs tw-muted'>—</span>
+                  {{/if}}
                 {{/if}}
-              {{/if}}
+              </div>
+
+              <div class='inv-main'>
+                {{#if item.hasDescription}}
+                  <button
+                    type='button'
+                    class='entity-link inv-name-toggle'
+                    data-action='toggle-description'
+                    data-item-id='{{item._id}}'
+                    aria-expanded='{{item.descriptionExpanded}}'
+                  >
+                    <span class='inv-name-label'>{{item.name}}</span>
+                  </button>
+                {{else}}
+                  <span class='entity-link inv-name-static'>{{item.name}}</span>
+                {{/if}}
+                <span class='tw-text-xs tw-muted'>({{item.type}})</span>
+                {{#unless item.system.ignoreSlots}}
+                  <span class='item-slots' title='slots'>
+                    {{repeat '●' item.system.slotSize}}
+                  </span>
+                {{/unless}}
+              </div>
+
+              <div class='inv-actions'>
+                <!-- WEAPON DAMAGE -->
+                {{#if (and (or (eq item.type 'weapon') (eq item.type 'spell')) item.system.damageDie)}}
+                  <a
+                    class='icon-link die-link'
+                    role='button'
+                    tabindex='0'
+                    data-action='use-item'
+                    data-item-id='{{item._id}}'
+                    title='Roll {{item.system.damageDie}}'
+                  >
+                    <span class='die-text'>{{item.system.damageDie}}</span>
+                  </a>
+                {{else if (or (eq item.type 'weapon') (eq item.type 'spell'))}}
+                  <span class='die-text die-disabled' title='No damage die'>—</span>
+                {{/if}}
+
+                <!-- GEAR -->
+                {{#if (and (eq item.type 'gear') (gt item.system.usesMax 0))}}
+                  <a data-action='use-item' data-item-id='{{item._id}}'><i class='fas fa-bolt fa-xs'></i></a>
+                  <span class='die-text'>{{item.system.usesCurrent}} / {{item.system.usesMax}}</span>
+                {{/if}}
+
+                <!-- ARMOR -->
+                {{#if (eq item.type 'armor')}}
+                  <span class='die-text'> <i class='fas fa-shield-alt'></i> {{item.system.armorValue}}</span>
+                {{/if}}
+
+                <!-- EQUIP -->
+                {{#if (and (ne (lookup item.system 'equipped') undefined) (ne item.type 'spell'))}}
+                  <a data-action='toggle-equip' class='equip-toggle' data-equipped='{{item.system.equipped}}'><i
+                      class='fas fa-hand'
+                    ></i></a>
+                {{/if}}
+
+                <!-- GM ACTION -->
+                {{#if @root.canEditItems}}
+                  <a class='icon-link item-edit' role='button' tabindex='0' data-item-id='{{item._id}}' title='Edit'><i
+                      class='fas fa-edit'
+                    ></i></a>
+                {{/if}}
+                {{#if
+                  (or
+                    (eq item.type 'weapon')
+                    (eq item.type 'spell')
+                    (eq item.type 'gear')
+                    (eq item.type 'armor')
+                    (eq item.type 'artifact')
+                    @root.canEditItems
+                  )
+                }}
+                  <a
+                    class='icon-link item-delete'
+                    role='button'
+                    tabindex='0'
+                    data-item-id='{{item._id}}'
+                    title='Delete'
+                  ><i class='fas fa-trash'></i></a>
+                {{/if}}
+              </div>
             </div>
-
-            <div class='inv-actions'>
-              <!-- WEAPON DAMAGE -->
-              {{#if (and (eq item.type 'weapon') item.system.damageDie)}}
-                <a
-                  class='icon-link die-link'
-                  role='button'
-                  tabindex='0'
-                  data-action='use-item'
-                  data-item-id='{{item._id}}'
-                  title='Roll {{item.system.damageDie}}'
-                >
-                  <span class='die-text'>{{item.system.damageDie}}</span>
-                </a>
-              {{else if (eq item.type 'weapon')}}
-                <span class='die-text die-disabled' title='No damage die'>—</span>
+            {{#if item.hasDescription}}
+              {{#if item.descriptionExpanded}}
+                <div class='inv-desc' data-item-id='{{item._id}}'>
+                  <div class='inv-desc-inner'>{{{item.enrichedDescription}}}</div>
+                </div>
+              {{else}}
+                <div class='inv-desc is-collapsed' data-item-id='{{item._id}}'>
+                  <div class='inv-desc-inner'>{{{item.enrichedDescription}}}</div>
+                </div>
               {{/if}}
-
-              <!-- GEAR -->
-              {{#if (and (eq item.type 'gear') (gt item.system.usesMax 0))}}
-                <a data-action='use-item' data-item-id='{{item._id}}'><i class='fas fa-bolt fa-xs'></i></a>
-                <span class='die-text'>{{item.system.usesCurrent}} / {{item.system.usesMax}}</span>
-              {{/if}}
-
-              <!-- ARMOR -->
-              {{#if (eq item.type 'armor')}}
-                <span class='die-text'> <i class='fas fa-shield-alt'></i> {{item.system.armorValue}}</span>
-              {{/if}}
-
-              <!-- EQUIP -->
-              {{#if (ne (lookup item.system 'equipped') undefined)}}
-                <a data-action='toggle-equip' class='equip-toggle' data-equipped='{{item.system.equipped}}'><i
-                    class='fas fa-hand'
-                  ></i></a>
-              {{/if}}
-
-              <!-- GM ACTION -->
-              {{#if @root.canEditItems}}
-                <a class='icon-link item-edit' role='button' tabindex='0' data-item-id='{{item._id}}' title='Edit'><i
-                    class='fas fa-edit'
-                  ></i></a>
-              {{/if}}
-              {{#if
-                (or
-                  (eq item.type 'weapon')
-                  (eq item.type 'gear')
-                  (eq item.type 'armor')
-                  (eq item.type 'artifact')
-                  @root.canEditItems
-                )
-              }}
-                <a
-                  class='icon-link item-delete'
-                  role='button'
-                  tabindex='0'
-                  data-item-id='{{item._id}}'
-                  title='Delete'
-                ><i class='fas fa-trash'></i></a>
-              {{/if}}
-            </div>
+            {{/if}}
           </div>
         {{/each}}
       </div>
@@ -351,17 +412,29 @@
       <!-- DESCRIPTION TAB -->
       <div class='tab card' data-group='primary' data-tab='description'>
         <div class='section-title'>{{localize (concat 'LH.ui.tabs.description' item.system.state)}}</div>
-        <textarea
-          class='big-input'
-          name='system.identity.description'
-          rows='10'
-        >{{system.identity.description}}</textarea>
+        {{editor
+          enrichedDescription
+          target='system.identity.description'
+          button=true
+          owner=owner
+          editable=editable
+          engine='prosemirror'
+          collaborate=false
+        }}
       </div>
 
       <!-- NOTES TAB -->
       <div class='tab card' data-group='primary' data-tab='notes'>
         <div class='section-title'>{{localize 'LH.ui.tabs.notes'}}</div>
-        <textarea class='big-input' name='system.notes' rows='10'>{{system.notes}}</textarea>
+        {{editor
+          enrichedNotes
+          target='system.notes'
+          button=true
+          owner=owner
+          editable=editable
+          engine='prosemirror'
+          collaborate=false
+        }}
       </div>
 
       <!-- LOG TAB -->

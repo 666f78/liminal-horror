@@ -8,10 +8,12 @@ import { ConditionDataModel } from './item.condition.js';
 import { ConsequenceDataModel } from './item.consequence.js';
 import { GearDataModel } from './item.gear.js';
 import { InjuryDataModel } from './item.injury.js';
+import { SpellDataModel } from './item.spell.js';
 import { WeaponDataModel } from './item.weapon.js';
 
 export const typeLabels = {
   weapon: 'Weapon',
+  spell: 'Spell',
   gear: 'Gear',
   armor: 'Armor',
   artifact: 'Artifact',
@@ -30,6 +32,7 @@ export function registerDataModels() {
 
   CONFIG.Item.dataModels = {
     weapon: WeaponDataModel,
+    spell: SpellDataModel,
     gear: GearDataModel,
     armor: ArmorDataModel,
     artifact: ArtifactDataModel,

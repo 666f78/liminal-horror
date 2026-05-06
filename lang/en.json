@@ -36,6 +36,7 @@
       "background": "Background",
       "hp": "HP",
       "armor": "Armor",
+      "autoArmorHint": "Armor is calculated automatically. You can change this in system settings.",
       "stability": "Stability",
       "cash": "Cash",
       "actions": "Actions",
@@ -46,7 +47,18 @@
         "log": "Log"
       },
       "inventory": "Inventory",
-      "slots": "slots"
+      "slots": "slots",
+      "sort": "Sort",
+      "inventorySort": {
+        "default": "Default",
+        "manual": "Manual (DnD)",
+        "name": "Name",
+        "type": "Type",
+        "slotSize": "Slot size",
+        "equipped": "Equipped",
+        "ascending": "Ascending",
+        "descending": "Descending"
+      }
     },
     "status": {
       "dead": "DEAD",
@@ -65,6 +77,7 @@
     "msg": {
       "hpLoss": "HP Loss",
       "weapon": "Weapon",
+      "spell": "Spell",
       "absorbedDamage": "No damage (absorbed)",
       "absorbedStress": "No stress (absorbed)",
       "deprivedRestBlocked": "Deprived status prevents rest",

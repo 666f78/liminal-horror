@@ -11,4 +11,13 @@ export const FLAGS = {
 
 export const MAX_SLOTS = 10;
 
-export const SLOT_TYPES = new Set(['weapon', 'gear', 'armor', 'artifact', 'injury', 'consequence', 'condition']);
+export const SLOT_TYPES = new Set([
+  'weapon',
+  'spell',
+  'gear',
+  'armor',
+  'artifact',
+  'injury',
+  'consequence',
+  'condition',
+]);

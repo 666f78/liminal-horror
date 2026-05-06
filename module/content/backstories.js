@@ -2,6 +2,8 @@ import { dLog, dWarn } from '../utils/debug.js';
 import { sendRollMessage } from '../utils/chat.js';
 import { t } from '../utils/i18n.js';
 
+const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
 function gear(name, slotSize = 1, ignoreSlots = false) {
   return { name, type: 'gear', system: { slotSize, ignoreSlots } };
 }
@@ -259,6 +261,6 @@ export async function applyBackstory(actor, id) {
 export async function rollBackstory(actor) {
   const roll = await new Roll('1d20').evaluate();
   await sendRollMessage(roll, { actor, flavor: 'Backstory (1d20)' });
-  const idx = Math.clamped(roll.total, 1, 20);
+  const idx = clamp(roll.total, 1, 20);
   return applyBackstory(actor, idx);
 }

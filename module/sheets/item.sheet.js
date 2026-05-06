@@ -13,7 +13,7 @@ export class LHItemSheet extends foundry.appv1.sheets.ItemSheet {
   getData(options) {
     const data = super.getData(options) ?? {};
     const flags = this.item.flags?.['liminal-horror'] ?? {};
-    const isCarryable = ['weapon', 'gear', 'armor', 'artifact'].includes(this.item.type);
+    const isCarryable = ['weapon', 'spell', 'gear', 'armor', 'artifact'].includes(this.item.type);
 
     return {
       ...data,

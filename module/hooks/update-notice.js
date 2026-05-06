@@ -140,7 +140,6 @@ async function createChatNotice(content) {
   await ChatMessage.create({
     speaker: { alias: 'Liminal Horror' },
     content,
-    type: CONST.CHAT_MESSAGE_TYPES.OTHER,
   });
 }
 
