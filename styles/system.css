@@ -1384,3 +1384,7 @@ button[data-tool^='lh-']:hover {
   border: 1px solid var(--lh-border, rgba(0, 0, 0, 0.14));
   font-style: italic;
 }
+/* ===== AppV2 ===== */
+.lh-appv2 section {
+  overflow: auto;
+}
