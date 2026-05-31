@@ -1,4 +1,3 @@
-
 import { sendRollMessage } from '../utils/chat.js';
 
 const INITIATIVE_CONFIG = Object.freeze({ formula: '1d20', decimals: 0 });
