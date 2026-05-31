@@ -3,6 +3,25 @@ async function rollTotal(formula) {
   return roll.total;
 }
 
+function getBackstoryOptions(selectedId = '') {
+  return Array.from({ length: 20 }, (_, index) => {
+    const id = String(index + 1);
+    const padded = id.padStart(2, '0');
+    const name = t(`LH.backstory.${id}.name`);
+
+    return {
+      id,
+      name: `${padded} - ${name}`,
+      selected: String(selectedId) === id,
+    };
+  });
+}
+
+function getBackstoryName(id) {
+  if (!id) return '';
+  return t(`LH.backstory.${Number(id)}.name`);
+}
+
 export class InvestigatorCreator extends foundry.applications.api.HandlebarsApplicationMixin(
   foundry.applications.api.ApplicationV2
 ) {
@@ -57,20 +76,38 @@ export class InvestigatorCreator extends foundry.applications.api.HandlebarsAppl
       virtue: '',
       flaw: '',
       misfortune: '',
+      backstoryId: '',
     };
 
     return {
       ...this.details,
       ...this.stats,
       lockAttributes: this.lockAttributes,
+      backstoryOptions: getBackstoryOptions(this.details.backstoryId),
     };
   }
 
   static async submit(e, form, { object }) {
+    const backstoryName = getBackstoryName(object.backstoryId);
+
+    const details = {
+      aesthetics: object.aesthetics,
+      firstEncounter: object.firstEncounter,
+      ideology: object.ideology,
+      physique: object.physique,
+      face: object.face,
+      speech: object.speech,
+      virtue: object.virtue,
+      flaw: object.flaw,
+      misfortune: object.misfortune,
+      backstory: backstoryName,
+    };
+
     await this.actor.update({
       system: {
         identity: {
-          description: '',
+          description: buildGeneratedDescription(details),
+          background: backstoryName,
         },
         attributes: {
           str: { value: object.str, base: object.str },
@@ -111,6 +148,11 @@ export class InvestigatorCreator extends foundry.applications.api.HandlebarsAppl
       this.lockAttributes = true;
       this.render();
       return;
+    } else if (key === 'backstory') {
+      this.details ??= {};
+      this.details.backstoryId = String(Math.floor(Math.random() * 20) + 1);
+      this.render();
+      return;
     }
 
     const maxByKey = {
@@ -128,5 +170,76 @@ export class InvestigatorCreator extends foundry.applications.api.HandlebarsAppl
     this.details ??= {};
     this.details[key] = game.i18n.localize(`LH.char.${key}.${Math.floor(Math.random() * maxByKey[key]) + 1}`);
     this.render();
+  }
+
+  static async swapAttributes() {
+    if (!this.lockAttributes) {
+      ui.notifications.warn(t('LH.investigatorCreator.rollAttributesFirst'));
+      return;
+    }
+
+    const hasAllAttributes = ATTRIBUTE_KEYS.every(key => this.stats?.[key] !== '' && this.stats?.[key] != null);
+
+    if (!hasAllAttributes) {
+      ui.notifications.warn(t('LH.investigatorCreator.rollAttributesFirst'));
+      return;
+    }
+
+    const optionHtml = `
+      <option value="str">${t('LH.attr.full.str')}</option>
+      <option value="dex">${t('LH.attr.full.dex')}</option>
+      <option value="ctrl">${t('LH.attr.full.ctrl')}</option>
+      <option value="luck">${t('LH.attr.full.luck')}</option>
+    `;
+
+    new Dialog({
+      title: t('LH.investigatorCreator.swapAttributes'),
+      content: `
+        <form>
+          <div class="form-group">
+            <label>${t('LH.investigatorCreator.firstAttribute')}</label>
+            <div class="form-fields">
+              <select name="first">${optionHtml}</select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>${t('LH.investigatorCreator.secondAttribute')}</label>
+            <div class="form-fields">
+              <select name="second">${optionHtml}</select>
+            </div>
+          </div>
+        </form>
+      `,
+      buttons: {
+        swap: {
+          icon: '<i class="fa-solid fa-right-left"></i>',
+          label: t('LH.investigatorCreator.swap'),
+          callback: html => {
+            const root = html instanceof HTMLElement ? html : html[0];
+            const form = root.querySelector('form');
+
+            const first = form.elements.first.value;
+            const second = form.elements.second.value;
+
+            if (first === second) {
+              ui.notifications.warn(t('LH.investigatorCreator.swapDifferentAttributes'));
+              return;
+            }
+
+            const firstValue = this.stats[first];
+            this.stats[first] = this.stats[second];
+            this.stats[second] = firstValue;
+
+            this.render();
+          },
+        },
+        cancel: {
+          icon: '<i class="fa-solid fa-xmark"></i>',
+          label: t('Cancel'),
+        },
+      },
+      default: 'swap',
+    }).render(true);
   }
 }

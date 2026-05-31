@@ -1,3 +1,4 @@
+
 import { sendRollMessage } from '../utils/chat.js';
 
 const INITIATIVE_CONFIG = Object.freeze({ formula: '1d20', decimals: 0 });
@@ -29,7 +30,6 @@ async function applyInvestigatorInitiative(combat, combatant) {
   await sendRollMessage(roll, {
     actor,
     flavor: `Initiative 1d20 <= ${dexterityValue}: ${success ? 'SUCCESS' : 'FAILURE'}`,
-    flags: { core: { initiativeRoll: true} }
   });
 
   await combat.setInitiative(combatant.id, initiative);

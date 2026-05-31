@@ -1,14 +1,5 @@
+
 # Changelog
-
-## [0.1.5]
-
-### Added
-
-- Investigator Creator UI
-
-### Changed
-
-- Replaced Background header with Investigator Creator 
 
 ## [0.1.4]
 
