@@ -1,5 +1,6 @@
 import { applyBackstory, getBackstoryOptions, rollBackstory } from '../content/backstories.js';
 import { applyDamage, applyStress } from '../services/effects.js';
+import { InvestigatorCreator } from '../apps/investigator-creator.js';
 import { equipItem, isAutoArmorCalculationEnabled, recalcArmor, useItem } from '../services/items.js';
 import { restActor } from '../services/rest.js';
 import { quickRoll, rollAttribute } from '../services/rolls.js';
@@ -119,45 +120,11 @@ export class LHActorSheet extends foundry.appv1.sheets.ActorSheet {
 
     if (game.user.isGM) {
       buttons.unshift({
-        label: 'Backstory',
+        label: 'Investigator Creator',
         class: 'lh-backstory',
         icon: 'fas fa-user',
-        onclick: async (event) => {
-          if (event?.shiftKey) {
-            await rollBackstory(this.actor);
-            return;
-          }
-
-          const options = getBackstoryOptions();
-          const select = `<select class="lh-dialog-select" name="bg" style="width:100%">${options
-            .map((option) => `<option value="${option.id}">${option.name}</option>`)
-            .join('')}</select>`;
-
-          new Dialog(
-            {
-              title: 'Choose Backstory',
-              content: `<p>${select}</p>`,
-              buttons: {
-                choose: {
-                  icon: '<i class="fas fa-check"></i>',
-                  label: 'Apply',
-                  callback: async (html) => {
-                    const id = Number(html.find("select[name='bg']").val());
-                    await applyBackstory(this.actor, id);
-                  },
-                },
-                roll: {
-                  icon: '<i class="fas fa-dice-d20"></i>',
-                  label: 'Roll (1d20)',
-                  callback: async () => {
-                    await rollBackstory(this.actor);
-                  },
-                },
-              },
-              default: 'choose',
-            },
-            { classes: ['lh'] }
-          ).render(true);
+        onclick: () => {
+          new InvestigatorCreator(this.actor).render(true);
         },
       });
     }

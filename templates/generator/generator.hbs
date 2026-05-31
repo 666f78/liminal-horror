@@ -1,0 +1,260 @@
+<div class="standard-form">
+  <fieldset>
+    <legend>
+      <i class="fa-solid fa-chart-simple"></i>
+      {{{localize "LH.investigatorCreator.attributesHeader"}}}
+    </legend>
+
+    <div class="form-group">
+      <label>
+        <i class="fa-solid fa-bicep"></i>
+        {{{localize "LH.attr.full.str"}}}
+      </label>
+      <div class="form-fields">
+        <input type="text" name="str" value="{{str}}" placeholder="—" readonly>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <i class="fa-solid fa-bullseye-arrow"></i>
+        {{{localize "LH.attr.full.dex"}}}
+      </label>
+      <div class="form-fields">
+        <input type="text" name="dex" value="{{dex}}" placeholder="—" readonly>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <i class="fa-solid fa-brain"></i>
+        {{{localize "LH.attr.full.ctrl"}}}
+      </label>
+      <div class="form-fields">
+        <input type="text" name="ctrl" value="{{ctrl}}" placeholder="—" readonly>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <i class="fa-solid fa-clover"></i>
+        {{{localize "LH.attr.full.luck"}}}
+      </label>
+      <div class="form-fields">
+        <input type="text" name="luck" value="{{luck}}" placeholder="—" readonly>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <i class="fa-solid fa-shield-heart"></i>
+        {{{localize "LH.ui.hp"}}}
+      </label>
+      <div class="form-fields">
+        <input type="text" name="hp" value="{{hp}}" placeholder="—" readonly>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <i class="fa-regular fa-money-bill-1"></i>
+        {{{localize "LH.ui.cash"}}}
+      </label>
+      <div class="form-fields">
+        <input type="text" name="cash" value="{{cash}}" placeholder="—" readonly>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="form-fields">
+        <button
+          type="button"
+          data-action="roll"
+          data-key="attributes"
+          style="width: 100%;"
+          {{#if lockAttributes}}disabled{{/if}}
+        >
+          <i class="fa-solid fa-dice"></i>
+          {{{localize "LH.investigatorCreator.rollAttributes"}}}
+        </button>
+
+        <button
+          type="button"
+          data-action="swapAttributes"
+          style="width: 100%;"
+          {{#unless lockAttributes}}disabled{{/unless}}
+        >
+          <i class="fa-solid fa-right-left"></i>
+          {{{localize "LH.investigatorCreator.swapAttributes"}}}
+        </button>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>
+      <i class="fa-solid fa-user-pen"></i>
+      {{{localize "LH.investigatorCreator.rollDetails"}}}
+    </legend>
+
+    <div class="form-group">
+      <label>
+        <i class="fa-solid fa-shirt"></i>
+        {{{localize "LH.char.labels.aesthetics"}}}
+      </label>
+      <div class="form-fields" style="flex: 5">
+        <input type="text" name="aesthetics" value="{{aesthetics}}" readonly>
+        <button type="button" data-action="roll" data-key="aesthetics" style="flex: 0 0 40px">
+          <i class="fa-solid fa-shuffle"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <i class="fa-solid fa-lightbulb"></i>
+        {{{localize "LH.investigatorCreator.ideology"}}}
+      </label>
+      <div class="form-fields" style="flex: 5">
+        <input type="text" name="ideology" value="{{ideology}}" readonly>
+        <button type="button" data-action="roll" data-key="ideology" style="flex: 0 0 40px">
+          <i class="fa-solid fa-shuffle"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <i class="fa-solid fa-person-limbs-wide"></i>
+        {{{localize "LH.char.labels.physique"}}}
+      </label>
+      <div class="form-fields" style="flex: 5">
+        <input type="text" name="physique" value="{{physique}}" readonly>
+        <button type="button" data-action="roll" data-key="physique" style="flex: 0 0 40px">
+          <i class="fa-solid fa-shuffle"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <i class="fa-solid fa-user"></i>
+        {{{localize "LH.char.labels.face"}}}
+      </label>
+      <div class="form-fields" style="flex: 5">
+        <input type="text" name="face" value="{{face}}" readonly>
+        <button type="button" data-action="roll" data-key="face" style="flex: 0 0 40px">
+          <i class="fa-solid fa-shuffle"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <i class="fa-solid fa-ear"></i>
+        {{{localize "LH.char.labels.speech"}}}
+      </label>
+      <div class="form-fields" style="flex: 5">
+        <input type="text" name="speech" value="{{speech}}" readonly>
+        <button type="button" data-action="roll" data-key="speech" style="flex: 0 0 40px">
+          <i class="fa-solid fa-shuffle"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <i class="fa-solid fa-angel"></i>
+        {{{localize "LH.char.labels.virtue"}}}
+      </label>
+      <div class="form-fields" style="flex: 5">
+        <input type="text" name="virtue" value="{{virtue}}" readonly>
+        <button type="button" data-action="roll" data-key="virtue" style="flex: 0 0 40px">
+          <i class="fa-solid fa-shuffle"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <i class="fa-solid fa-face-angry-horns"></i>
+        {{{localize "LH.char.labels.flaw"}}}
+      </label>
+      <div class="form-fields" style="flex: 5">
+        <input type="text" name="flaw" value="{{flaw}}" readonly>
+        <button type="button" data-action="roll" data-key="flaw" style="flex: 0 0 40px">
+          <i class="fa-solid fa-shuffle"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <i class="fa-solid fa-arrow-trend-down"></i>
+        {{{localize "LH.char.labels.misfortune"}}}
+      </label>
+      <div class="form-fields" style="flex: 5">
+        <input type="text" name="misfortune" value="{{misfortune}}" readonly>
+        <button type="button" data-action="roll" data-key="misfortune" style="flex: 0 0 40px">
+          <i class="fa-solid fa-shuffle"></i>
+        </button>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>
+      <i class="fa-solid fa-address-card"></i>
+      {{{localize "LH.ui.background"}}}
+    </legend>
+
+    <div class="form-group stacked">
+      <label>
+        <i class="fa-solid fa-eye"></i>
+        {{{localize "LH.char.labels.firstEncounter"}}}
+      </label>
+      <div class="form-fields">
+        <input type="text" name="firstEncounter" value="{{firstEncounter}}" readonly>
+        <button type="button" data-action="roll" data-key="firstEncounter">
+          <i class="fa-solid fa-shuffle"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group stacked">
+      <label>
+        <i class="fa-solid fa-briefcase"></i>
+        {{{localize "LH.char.labels.backstory"}}}
+      </label>
+
+      <div class="form-fields">
+        <select name="backstoryId">
+          <option value="">
+            {{{localize "LH.investigatorCreator.chooseBackstory"}}}
+          </option>
+
+          {{#each backstoryOptions}}
+            <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>
+              {{this.name}}
+            </option>
+          {{/each}}
+        </select>
+
+        <button type="button" data-action="roll" data-key="backstory">
+          <i class="fa-solid fa-shuffle"></i>
+        </button>
+      </div>
+
+      <p class="hint">
+        {{{localize "LH.investigatorCreator.chooseBackstoryHint"}}}
+      </p>
+    </div>
+  </fieldset>
+
+  <footer class="form-footer">
+    <button type="submit">
+      <i class="fa-solid fa-user-plus"></i>
+      {{{localize "LH.investigatorCreator.save"}}}
+    </button>
+  </footer>
+</div>
