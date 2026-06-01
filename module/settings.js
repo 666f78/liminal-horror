@@ -1,4 +1,14 @@
 export const SETTINGS_NS = 'liminal-horror';
+export const APPENDIX_LUCK_SETTING = 'appendixLuck';
+export const AUTO_ARMOR_CALCULATION_SETTING = 'autoArmorCalculation';
+
+export function isAppendixLuckEnabled() {
+  return game.settings.get(SETTINGS_NS, APPENDIX_LUCK_SETTING);
+}
+
+export function isAutoArmorCalculationSettingEnabled() {
+  return game.settings.get(SETTINGS_NS, AUTO_ARMOR_CALCULATION_SETTING);
+}
 
 async function syncArmorForAllActors(enabled) {
   if (!enabled || !game.user.isGM || !game?.liminalhorror?.api?.recalcArmor) return;
@@ -17,7 +27,7 @@ export function registerSystemSettings() {
     default: '0.0.0',
   });
 
-  game.settings.register(SETTINGS_NS, 'appendixLuck', {
+  game.settings.register(SETTINGS_NS, APPENDIX_LUCK_SETTING, {
     name: 'Appendix L: Luck',
     hint: 'Enables the Luck attribute on sheets. Allows spending and rolling Luck. (GM only)',
     scope: 'world',
@@ -26,7 +36,7 @@ export function registerSystemSettings() {
     default: false,
   });
 
-  game.settings.register(SETTINGS_NS, 'autoArmorCalculation', {
+  game.settings.register(SETTINGS_NS, AUTO_ARMOR_CALCULATION_SETTING, {
     name: 'Automatic armor calculation',
     hint: 'If enabled, armor is recalculated from equipped armor items. If disabled, armor is entered manually on the actor sheet.',
     scope: 'world',

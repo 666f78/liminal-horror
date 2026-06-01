@@ -1,3 +1,4 @@
+import { isAppendixLuckEnabled } from '../settings.js';
 import { getAttr } from '../utils/attrs.js';
 import { renderCard } from '../utils/chat-card.js';
 import { sendRollMessage } from '../utils/chat.js';
@@ -55,7 +56,7 @@ export async function rollAttribute(actor, key, options = {}) {
       flags.attackerId = actor.id;
     }
 
-    if (game.settings.get('liminal-horror', 'appendixLuck')) {
+    if (isAppendixLuckEnabled()) {
       const eligible = ['str', 'dex', 'con'];
       if (eligible.includes(key)) {
         const cost = Math.max(0, roll.total - target);

@@ -1,5 +1,6 @@
 import { openDamageDialog, openStressDialog } from '../apps/effect-dialogs.js';
 import { FLAGS, SYSTEM_ID } from '../data/constants.js';
+import { isAppendixLuckEnabled } from '../settings.js';
 import { createChatMessage } from '../utils/chat.js';
 import { dLog, withGroup } from '../utils/debug.js';
 import { t } from '../utils/i18n.js';
@@ -97,7 +98,7 @@ const registerLuckButtons = () => {
   Hooks.on('renderChatMessageHTML', (message, html) => {
     const offer = message.getFlag(SYSTEM_ID, LUCK_FLAG);
     if (!offer) return;
-    if (!game.settings.get(SYSTEM_ID, 'appendixLuck')) return;
+    if (!isAppendixLuckEnabled()) return;
 
     const actor = resolveActor(offer.actorId);
     if (!actor) return;

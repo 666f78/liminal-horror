@@ -28,6 +28,12 @@
   --lh-accent-strong: rgba(0, 0, 0, 0.65);
   --lh-shadow-light: rgba(0, 0, 0, 0.03);
   --lh-shadow-dark: rgba(0, 0, 0, 0.28);
+  --lh-bg-dark-hover: #242424;
+  --lh-control-h: 30px;
+  --lh-button-h: 32px;
+  --lh-radius-sm: 7px;
+  --lh-radius: 8px;
+  --lh-radius-card: 10px;
   --lh-avatar-col: 220px;
   --lh-hero-max: 560px;
   --lh-pair-num-w: 52px;
@@ -79,20 +85,25 @@ body {
   background: var(--lh-bg-app);
   padding: 6px;
 }
-body.game .window-app.lh-confirm-dialog .window-header {
+body.game .window-app.lh-confirm-dialog .window-header,
+body.game .application.lh-confirm-dialog .window-header {
   background: var(--lh-bg-header);
   color: var(--lh-text-light);
 }
 body.game .window-app.lh-confirm-dialog .window-header .window-title,
-body.game .window-app.lh-confirm-dialog .window-header a {
+body.game .window-app.lh-confirm-dialog .window-header a,
+body.game .application.lh-confirm-dialog .window-header .window-title,
+body.game .application.lh-confirm-dialog .window-header a {
   color: var(--lh-text-light);
 }
-body.game .window-app.lh-confirm-dialog .window-content {
+body.game .window-app.lh-confirm-dialog .window-content,
+body.game .application.lh-confirm-dialog .window-content {
   background: var(--lh-bg-app);
   color: var(--lh-text-main);
   padding: 10px;
 }
-body.game .window-app.lh-confirm-dialog .dialog-content {
+body.game .window-app.lh-confirm-dialog .dialog-content,
+body.game .application.lh-confirm-dialog .dialog-content {
   color: var(--lh-text-main);
 }
 .lh-dialog-select,
@@ -105,16 +116,19 @@ body.game .window-app.lh-confirm-dialog .dialog-content {
   border: 1px solid var(--lh-border-strong) !important;
   box-shadow: none !important;
 }
-body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons {
+body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons,
+body.game .application.lh-confirm-dialog.dialog .dialog-buttons {
   gap: 8px;
   margin-top: 10px;
 }
 body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button,
-body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default {
+body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default,
+body.game .application.lh-confirm-dialog.dialog .dialog-buttons button,
+body.game .application.lh-confirm-dialog.dialog .dialog-buttons button.default {
   background: var(--lh-bg-btn);
   color: var(--lh-text-main);
   border: 1px solid var(--lh-border-strong);
-  border-radius: 8px;
+  border-radius: var(--lh-radius);
   box-shadow: none;
   margin: 0;
   text-transform: none;
@@ -122,9 +136,186 @@ body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default {
 body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button:hover,
 body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button:focus,
 body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default:hover,
-body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default:focus {
+body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default:focus,
+body.game .application.lh-confirm-dialog.dialog .dialog-buttons button:hover,
+body.game .application.lh-confirm-dialog.dialog .dialog-buttons button:focus,
+body.game .application.lh-confirm-dialog.dialog .dialog-buttons button.default:hover,
+body.game .application.lh-confirm-dialog.dialog .dialog-buttons button.default:focus {
   background: var(--lh-bg-hover);
   border-color: var(--lh-accent-strong);
+}
+
+body.game .window-app.lh-swap-dialog .window-content,
+body.game .application.lh-swap-dialog .window-content {
+  padding: 8px;
+}
+
+body.game .window-app.lh-swap-dialog .dialog-content,
+body.game .application.lh-swap-dialog .dialog-content {
+  margin: 0;
+}
+
+body.game .application.lh-swap-dialog .dialog-content,
+.lh-swap-attributes-dialog {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+body.game .application.lh-swap-dialog .dialog-content > .generator-row,
+body.game .application.lh-swap-dialog .lh-swap-attributes-dialog .generator-row {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+  min-width: 0;
+  height: var(--lh-control-h);
+}
+
+body.game .application.lh-swap-dialog .dialog-content > .generator-row > .generator-label,
+body.game .application.lh-swap-dialog .lh-swap-attributes-dialog .generator-label {
+  display: inline-flex;
+  flex: 0 0 156px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: var(--lh-control-h);
+  min-height: var(--lh-control-h);
+  margin: 0;
+  padding: 0 10px;
+  color: var(--lh-text-light);
+  background: var(--lh-bg-pill);
+  border: 1px solid var(--lh-bg-pill);
+  border-right: 0;
+  border-radius: var(--lh-radius) 0 0 var(--lh-radius);
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+body.game .application.lh-swap-dialog .dialog-content > .generator-row > .generator-control-select,
+body.game .application.lh-swap-dialog .lh-swap-attributes-dialog .generator-control-select {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+body.game .application.lh-swap-dialog .dialog-content select.big-input,
+body.game .application.lh-swap-dialog .lh-swap-attributes-dialog select.big-input {
+  width: 100%;
+  box-sizing: border-box;
+  height: var(--lh-control-h);
+  min-height: var(--lh-control-h);
+  margin: 0;
+  padding: 0 28px 0 10px;
+  color: var(--lh-text-main);
+  background: var(--lh-bg-btn);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--lh-text-muted) 50%),
+    linear-gradient(135deg, var(--lh-text-muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) calc(50% - 2px),
+    calc(100% - 9px) calc(50% - 2px);
+  background-size:
+    5px 5px,
+    5px 5px;
+  background-repeat: no-repeat;
+  border: 1px solid var(--lh-border-strong);
+  border-left: 0;
+  border-radius: 0 var(--lh-radius) var(--lh-radius) 0;
+  box-shadow: inset 0 -1px 0 var(--lh-shadow-light);
+  font: inherit;
+  font-weight: 700;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+body.game .application.lh-swap-dialog .dialog-content select.big-input:focus,
+body.game .application.lh-swap-dialog .lh-swap-attributes-dialog select.big-input:focus {
+  outline: 1px solid var(--lh-text-muted);
+  outline-offset: 1px;
+  box-shadow: 0 0 6px var(--color-shadow-primary);
+}
+
+body.game .application.lh-swap-dialog .dialog-content select.big-input option,
+body.game .application.lh-swap-dialog .lh-swap-attributes-dialog select.big-input option {
+  color: var(--lh-text-main);
+  background: var(--lh-bg-card);
+}
+
+body.game .window-app.lh-swap-dialog.dialog .dialog-buttons,
+body.game .application.lh-swap-dialog.dialog .dialog-buttons,
+body.game .application.lh-swap-dialog .form-footer {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+body.game .window-app.lh-swap-dialog.dialog .dialog-buttons button,
+body.game .application.lh-swap-dialog.dialog .dialog-buttons button,
+body.game .application.lh-swap-dialog .form-footer button {
+  flex: 1 1 0;
+  min-height: var(--lh-button-h);
+  margin: 0;
+  color: var(--lh-text-main);
+  background: var(--lh-bg-btn);
+  border: 1px solid var(--lh-border-strong);
+  border-radius: var(--lh-radius);
+  box-shadow: none;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+body.game .window-app.lh-swap-dialog.dialog .dialog-buttons button.default,
+body.game .application.lh-swap-dialog.dialog .dialog-buttons button.default,
+body.game .application.lh-swap-dialog.dialog .dialog-buttons button[data-action='swap'],
+body.game .application.lh-swap-dialog .form-footer button[data-action='swap'] {
+  background: var(--lh-accent) !important;
+  color: var(--lh-text-light) !important;
+  border-color: var(--lh-accent) !important;
+}
+
+body.game .window-app.lh-swap-dialog.dialog .dialog-buttons button.default:hover,
+body.game .window-app.lh-swap-dialog.dialog .dialog-buttons button.default:focus,
+body.game .application.lh-swap-dialog.dialog .dialog-buttons button.default:hover,
+body.game .application.lh-swap-dialog.dialog .dialog-buttons button.default:focus,
+body.game .application.lh-swap-dialog.dialog .dialog-buttons button[data-action='swap']:hover,
+body.game .application.lh-swap-dialog.dialog .dialog-buttons button[data-action='swap']:focus,
+body.game .application.lh-swap-dialog .form-footer button[data-action='swap']:hover,
+body.game .application.lh-swap-dialog .form-footer button[data-action='swap']:focus {
+  background: var(--lh-bg-dark-hover) !important;
+  color: var(--lh-text-light) !important;
+  border-color: var(--lh-bg-dark-hover) !important;
+}
+
+body.game .application.lh-swap-dialog.dialog .dialog-buttons button[data-action='cancel']:hover,
+body.game .application.lh-swap-dialog.dialog .dialog-buttons button[data-action='cancel']:focus,
+body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:hover,
+body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:focus {
+  background: var(--lh-bg-hover) !important;
+  border-color: var(--lh-accent-strong) !important;
+}
+
+@media (max-width: 420px) {
+  body.game .application.lh-swap-dialog .dialog-content > .generator-row,
+  body.game .application.lh-swap-dialog .lh-swap-attributes-dialog .generator-row {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  body.game .application.lh-swap-dialog .dialog-content > .generator-row > .generator-label,
+  body.game .application.lh-swap-dialog .lh-swap-attributes-dialog .generator-label {
+    flex-basis: auto;
+    border-radius: var(--lh-radius) var(--lh-radius) 0 0;
+  }
+
+  body.game .application.lh-swap-dialog .dialog-content select.big-input,
+  body.game .application.lh-swap-dialog .lh-swap-attributes-dialog select.big-input {
+    border-left: 1px solid var(--lh-border-strong);
+    border-radius: 0 0 var(--lh-radius) var(--lh-radius);
+  }
 }
 .lh {
   background: transparent;
@@ -168,7 +359,7 @@ body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default:fo
 .lh .card {
   background: var(--lh-bg-card);
   border: 1px solid var(--lh-border);
-  border-radius: 10px;
+  border-radius: var(--lh-radius-card);
   padding: var(--lh-card-pad);
   box-shadow: 0 1px 0 var(--lh-shadow-light);
 }
@@ -232,7 +423,7 @@ body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default:fo
 .lh .big-input {
   width: 100%;
   border: 1px solid var(--lh-border);
-  border-radius: 8px;
+  border-radius: var(--lh-radius);
   padding: 6px 8px;
   background: var(--lh-bg-btn);
   font-size: 0.95rem;
@@ -256,7 +447,7 @@ body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default:fo
   height: 100%;
   padding: 6px 8px;
   border: 1px solid var(--lh-border);
-  border-radius: 8px;
+  border-radius: var(--lh-radius);
   background: var(--lh-bg-btn);
   overflow-y: auto;
 }
@@ -272,7 +463,7 @@ body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default:fo
   display: flex;
   flex: 0 0 auto;
   align-items: center;
-  min-height: 30px;
+  min-height: var(--lh-control-h);
   margin: 0;
   padding: 2px 4px;
   overflow: visible;
@@ -342,7 +533,7 @@ body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default:fo
 .lh .avatar {
   background: var(--lh-bg-card);
   border: 1px solid var(--lh-border);
-  border-radius: 8px;
+  border-radius: var(--lh-radius);
   padding: 8px;
   display: grid;
   grid-template-rows: auto 1fr;
@@ -353,7 +544,7 @@ body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default:fo
   width: 100%;
   aspect-ratio: 1 / 1;
   border: 1px solid var(--lh-border);
-  border-radius: 8px;
+  border-radius: var(--lh-radius);
   overflow: hidden;
   background: var(--lh-bg-app);
 }
@@ -424,9 +615,9 @@ body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default:fo
   letter-spacing: 0.02em;
   text-transform: uppercase;
   text-align: center;
-  border-radius: 8px 0 0 8px;
-  min-height: 30px;
-  height: 30px;
+  border-radius: var(--lh-radius) 0 0 var(--lh-radius);
+  min-height: var(--lh-control-h);
+  height: var(--lh-control-h);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -490,7 +681,7 @@ body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default:fo
 .lh .chip {
   background: var(--lh-bg-btn);
   border: 1px solid var(--lh-border-strong);
-  border-radius: 7px;
+  border-radius: var(--lh-radius-sm);
   box-shadow: inset 0 -1px 0 var(--lh-shadow-light);
 }
 .lh .pair,
@@ -503,7 +694,7 @@ body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default:fo
   overflow: hidden;
   background: var(--lh-bg-btn);
   border: 1px solid var(--lh-border-strong);
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 var(--lh-radius) var(--lh-radius) 0;
   box-sizing: border-box;
 }
 .lh .pair {
@@ -551,21 +742,21 @@ body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default:fo
 .lh .tile > .num.chip {
   width: 96px;
   min-width: 96px;
-  height: 30px;
+  height: var(--lh-control-h);
   background: var(--lh-bg-btn);
   border: 1px solid var(--lh-border-strong);
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 var(--lh-radius) var(--lh-radius) 0;
   box-sizing: border-box;
 }
 .lh .tile > .deprived {
   justify-content: center;
   width: 96px;
   min-width: 96px;
-  height: 30px;
+  height: var(--lh-control-h);
   gap: 0;
   background: var(--lh-bg-btn);
   border: 1px solid var(--lh-border-strong);
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 var(--lh-radius) var(--lh-radius) 0;
   box-sizing: border-box;
 }
 .lh .tile > .deprived .checkbox {
@@ -910,7 +1101,7 @@ body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default:fo
   grid-template-columns: max-content 48px 30px;
   align-items: center;
   border: 1px solid var(--lh-border);
-  border-radius: 8px;
+  border-radius: var(--lh-radius);
   overflow: hidden;
   background: var(--lh-bg-btn);
   height: 28px;
@@ -957,7 +1148,7 @@ body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default:fo
   cursor: pointer;
 }
 .lh .seg-btn:hover {
-  background: #242424;
+  background: var(--lh-bg-dark-hover);
 }
 
 .lh .seg-btn.is-disabled,
@@ -981,9 +1172,9 @@ body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default:fo
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 32px;
+  height: var(--lh-button-h);
   padding: 0 10px;
-  border-radius: 8px;
+  border-radius: var(--lh-radius);
   border: 1px solid var(--lh-border);
   background: var(--lh-bg-btn);
   font-weight: 700;
@@ -1307,7 +1498,7 @@ button[data-tool^='lh-']:hover {
 .lh-card {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border-radius: var(--lh-radius);
   padding: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   max-width: 720px;
@@ -1385,6 +1576,386 @@ button[data-tool^='lh-']:hover {
   font-style: italic;
 }
 /* ===== AppV2 ===== */
+.application.lh-appv2,
+.window-app.lh-appv2 {
+  --color-scrollbar: rgba(0, 0, 0, 0.72);
+  --color-scrollbar-track: transparent;
+  color: var(--lh-text-main);
+}
+
+.application.lh-appv2 .window-header,
+.window-app.lh-appv2 .window-header {
+  background: var(--lh-bg-header);
+  color: var(--lh-text-light);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.55);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+}
+
+.application.lh-appv2 .window-header .window-title,
+.application.lh-appv2 .window-header a,
+.window-app.lh-appv2 .window-header .window-title,
+.window-app.lh-appv2 .window-header a {
+  color: inherit;
+}
+
+.application.lh-appv2 .window-content,
+.window-app.lh-appv2 .window-content {
+  background: var(--lh-bg-app);
+  color: var(--lh-text-main);
+  padding: 8px;
+}
+
 .lh-appv2 section {
-  overflow: auto;
+  overflow: visible;
+}
+
+.lh-creator {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  color: var(--lh-text-main);
+  font-family: var(--font-primary);
+}
+
+.lh-creator-panel {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 10px;
+  background: var(--lh-bg-card);
+  border: 1px solid var(--lh-border);
+  border-radius: var(--lh-radius);
+  box-shadow: 0 1px 0 var(--lh-shadow-light);
+}
+
+.lh-creator-panel-head {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.lh-creator-panel-head-inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.lh-creator-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+  color: var(--lh-text-muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.lh-creator-title i,
+.lh-creator-field-label i {
+  flex: 0 0 14px;
+  text-align: center;
+  color: var(--lh-text-main);
+  opacity: 0.72;
+}
+
+.lh-creator-note {
+  margin: 0;
+  color: var(--lh-text-muted);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.lh-creator-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(150px, 1fr));
+  gap: 6px 12px;
+  min-width: 0;
+}
+
+.lh-creator-stat {
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  height: var(--lh-control-h);
+  margin: 0;
+}
+
+.lh-creator-stat-label {
+  display: inline-flex;
+  flex: 0 0 88px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 0 8px;
+  color: var(--lh-text-light);
+  background: var(--lh-bg-pill);
+  border-radius: var(--lh-radius) 0 0 var(--lh-radius);
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.lh-creator-stat-input {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  height: var(--lh-control-h);
+  margin: 0;
+  padding: 0 8px;
+  color: var(--lh-text-main);
+  background: var(--lh-bg-btn);
+  border: 1px solid var(--lh-border-strong);
+  border-left: 0;
+  border-radius: 0 var(--lh-radius) var(--lh-radius) 0;
+  box-shadow: inset 0 -1px 0 var(--lh-shadow-light);
+  font: inherit;
+  font-weight: 800;
+  text-align: center;
+}
+
+.lh-creator-stat-input[readonly],
+.lh-creator-input[readonly] {
+  color: var(--lh-text-main);
+  opacity: 1;
+}
+
+.lh-creator-action-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  min-width: 0;
+}
+
+.lh-creator-button,
+.lh-creator-icon-button {
+  font-family: var(--font-primary);
+  text-shadow: none;
+  box-shadow: none;
+}
+
+.lh-creator-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 0;
+  min-height: var(--lh-button-h);
+  margin: 0;
+  padding: 0 10px;
+  color: var(--lh-text-main);
+  background: var(--lh-bg-btn);
+  border: 1px solid var(--lh-border-strong);
+  border-radius: var(--lh-radius);
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.15;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.lh-creator-button-primary {
+  color: var(--lh-text-light);
+  background: var(--lh-accent);
+  border-color: var(--lh-accent);
+}
+
+.lh-creator-button-secondary {
+  color: var(--lh-text-muted);
+  background: var(--lh-bg-btn);
+}
+
+.lh-creator-button:hover,
+.lh-creator-button:focus {
+  border-color: var(--lh-accent-strong);
+  box-shadow: 0 0 0 2px var(--lh-accent-hover);
+}
+
+.lh-creator-button-primary:hover,
+.lh-creator-button-primary:focus {
+  color: var(--lh-text-light);
+  background: var(--lh-bg-dark-hover);
+  border-color: var(--lh-bg-dark-hover);
+}
+
+.lh-creator-button:disabled {
+  opacity: 0.46;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.lh-creator-button-compact {
+  flex: 0 0 auto;
+  min-height: var(--lh-control-h);
+  padding: 0 10px;
+  font-size: 0.86rem;
+}
+
+.lh-creator-field-list {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+}
+
+.lh-creator-field-list-details {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px 12px;
+}
+
+.lh-creator-field {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+  margin: 0;
+}
+
+.lh-creator-field-wide {
+  grid-column: 1 / -1;
+}
+
+.lh-creator-field-list-details .lh-creator-field-wide {
+  order: -1;
+}
+
+.lh-creator-field-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  color: var(--lh-text-muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.lh-creator-field-control {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 32px;
+  gap: 7px;
+  min-width: 0;
+}
+
+.lh-creator-input {
+  width: 100%;
+  min-width: 0;
+  height: var(--lh-control-h);
+  margin: 0;
+  padding: 0 8px;
+  color: var(--lh-text-main);
+  background: var(--lh-bg-btn);
+  border: 1px solid var(--lh-border-strong);
+  border-radius: var(--lh-radius);
+  box-shadow: inset 0 -1px 0 var(--lh-shadow-light);
+  font: inherit;
+}
+
+select.lh-creator-input {
+  padding-right: 28px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--lh-text-muted) 50%),
+    linear-gradient(135deg, var(--lh-text-muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) calc(50% - 2px),
+    calc(100% - 9px) calc(50% - 2px);
+  background-size:
+    5px 5px,
+    5px 5px;
+  background-repeat: no-repeat;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.lh-creator-input:focus,
+.lh-creator-stat-input:focus {
+  outline: 1px solid var(--lh-text-muted);
+  outline-offset: 1px;
+  box-shadow: 0 0 6px var(--color-shadow-primary);
+}
+
+.lh-creator-input option {
+  color: var(--lh-text-main);
+  background: var(--lh-bg-card);
+}
+
+.lh-creator-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  min-width: 32px;
+  height: var(--lh-control-h);
+  min-height: var(--lh-control-h);
+  margin: 0;
+  padding: 0;
+  color: var(--lh-text-light);
+  background: var(--lh-bg-btn-dark);
+  border: 1px solid var(--lh-bg-btn-dark);
+  border-radius: var(--lh-radius-sm);
+  cursor: pointer;
+}
+
+.lh-creator-icon-button:hover,
+.lh-creator-icon-button:focus {
+  background: var(--lh-bg-dark-hover);
+  border-color: var(--lh-bg-dark-hover);
+  box-shadow: 0 0 0 2px var(--lh-accent-hover);
+}
+
+.lh-creator-hint {
+  grid-column: 2;
+  margin: -2px 0 0;
+  color: var(--lh-text-muted);
+  font-size: 0.75rem;
+  line-height: 1.3;
+}
+
+.lh-creator-footer {
+  display: grid;
+  min-width: 0;
+}
+
+.lh-creator-save {
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .lh-creator-stat-grid {
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+  }
+
+  .lh-creator-field-list-details {
+    grid-template-columns: 1fr;
+  }
+
+  .lh-creator-field {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .lh-creator-hint {
+    grid-column: 1;
+  }
+
+  .lh-creator-panel-head-inline {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 420px) {
+  .lh-creator-stat-grid,
+  .lh-creator-action-row {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,8 +1,9 @@
 import { createChatMessage, sendRollMessage } from '../utils/chat.js';
 import { t } from '../utils/i18n.js';
+import { isAutoArmorCalculationSettingEnabled } from '../settings.js';
 
 export function isAutoArmorCalculationEnabled() {
-  return game.settings.get('liminal-horror', 'autoArmorCalculation');
+  return isAutoArmorCalculationSettingEnabled();
 }
 
 export async function equipItem(item, actor) {

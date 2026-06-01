@@ -1,6 +1,7 @@
 import { dLog, dWarn } from '../utils/debug.js';
 import { sendRollMessage } from '../utils/chat.js';
 import { t } from '../utils/i18n.js';
+import { INVESTIGATOR_BACKSTORY_COUNT } from './investigator-generator.js';
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
@@ -230,6 +231,9 @@ export function getBackstoryOptions() {
   return RAW_BACKSTORIES.map((entry) => ({
     id: entry.id,
     name: `${String(entry.id).padStart(2, '0')} - ${t(entry.name)}`,
+    itemsHint: localizeItems(entry.items)
+      .map((item) => item.name)
+      .join(', '),
   }));
 }
 
@@ -259,8 +263,8 @@ export async function applyBackstory(actor, id) {
 }
 
 export async function rollBackstory(actor) {
-  const roll = await new Roll('1d20').evaluate();
-  await sendRollMessage(roll, { actor, flavor: 'Backstory (1d20)' });
-  const idx = clamp(roll.total, 1, 20);
+  const roll = await new Roll(`1d${INVESTIGATOR_BACKSTORY_COUNT}`).evaluate();
+  await sendRollMessage(roll, { actor, flavor: `Backstory (1d${INVESTIGATOR_BACKSTORY_COUNT})` });
+  const idx = clamp(roll.total, 1, INVESTIGATOR_BACKSTORY_COUNT);
   return applyBackstory(actor, idx);
 }

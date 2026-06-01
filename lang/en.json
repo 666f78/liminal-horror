@@ -14,7 +14,8 @@
       "equipped": "Equipped",
       "unequipped": "Unequipped",
       "apply": "Apply",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "roll": "Roll"
     },
     "attr": {
       "full": {
@@ -36,7 +37,19 @@
       "ideology": "Ideology",
       "attributesHeader": "Attributes",
       "save": "Save to Character Sheet",
-      "rollAttributes": "Roll Attributes"
+      "rollAttributes": "Roll Attributes",
+      "rollAllDetails": "Roll Details",
+      "attributesRollHint": "Attributes are rolled once. After rolling, two of them can be swapped once.",
+      "swapAttributes": "Swap Attributes",
+      "swapAttributesOnce": "Attributes can only be swapped once.",
+      "swapAttributesOnceHint": "Attributes can only be swapped once after rolling.",
+      "rollAttributesFirst": "Roll attributes first",
+      "firstAttribute": "First Attribute",
+      "secondAttribute": "Second Attribute",
+      "swap": "Swap",
+      "swapDifferentAttributes": "Choose two different attributes",
+      "chooseBackstory": "Choose Background",
+      "chooseBackstoryHint": "The selected background is saved to the character sheet."
     },
     "ui": {
       "deprivedFull": "Deprived",

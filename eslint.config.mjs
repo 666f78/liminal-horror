@@ -4,6 +4,9 @@ import globals from 'globals';
 
 export default defineConfig([
   {
+    ignores: ['todo.*'],
+  },
+  {
     files: ['**/*.{js,mjs,cjs}'],
     plugins: { js },
     extends: ['js/recommended'],

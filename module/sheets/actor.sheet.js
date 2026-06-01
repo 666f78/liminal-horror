@@ -1,6 +1,6 @@
-import { applyBackstory, getBackstoryOptions, rollBackstory } from '../content/backstories.js';
 import { applyDamage, applyStress } from '../services/effects.js';
 import { InvestigatorCreator } from '../apps/investigator-creator.js';
+import { isAppendixLuckEnabled } from '../settings.js';
 import { equipItem, isAutoArmorCalculationEnabled, recalcArmor, useItem } from '../services/items.js';
 import { restActor } from '../services/rest.js';
 import { quickRoll, rollAttribute } from '../services/rolls.js';
@@ -218,7 +218,7 @@ export class LHActorSheet extends foundry.appv1.sheets.ActorSheet {
       inventorySortDirectionIcon:
         inventorySortDirection === 'desc' ? 'fas fa-sort-amount-down' : 'fas fa-sort-amount-up',
       portraitSrc,
-      showLuck: game.settings.get('liminal-horror', 'appendixLuck'),
+      showLuck: isAppendixLuckEnabled(),
       autoArmorCalculation: isAutoArmorCalculationEnabled(),
       disableDamageAction: this._isDamageActionDisabled(),
       disableStressAction: this._isStressActionDisabled(),
