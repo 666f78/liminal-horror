@@ -15,6 +15,11 @@
       "unequipped": "Unequipped",
       "apply": "Apply",
       "cancel": "Cancel",
+      "ok": "OK",
+      "yes": "Yes",
+      "no": "No",
+      "edit": "Edit",
+      "delete": "Delete",
       "roll": "Roll"
     },
     "attr": {
@@ -45,7 +50,9 @@
       "swapAttributesOnceHint": "Attributes can only be swapped once after rolling.",
       "rollAttributesFirst": "Roll attributes first",
       "firstAttribute": "First Attribute",
+      "firstAttributeShort": "First",
       "secondAttribute": "Second Attribute",
+      "secondAttributeShort": "Second",
       "swap": "Swap",
       "swapDifferentAttributes": "Choose two different attributes",
       "chooseBackstory": "Choose Background",
@@ -68,6 +75,8 @@
         "log": "Log"
       },
       "inventory": "Inventory",
+      "deleteItem": "Delete Item",
+      "deleteItemConfirm": "Delete {name}?",
       "slots": "slots",
       "sort": "Sort",
       "inventorySort": {
@@ -747,8 +756,16 @@
       }
     },
     "dialogs": {
+      "pickInvestigator": {
+        "title": "Choose Investigator",
+        "label": "Investigator",
+        "ownerSuffix": "(you)",
+        "noneAvailable": "There are no investigators available"
+      },
       "damage": {
         "title": "Add Injury",
+        "toolTitle": "Add Injuries",
+        "pickTitle": "Add Injuries to Investigator",
         "type": "Type",
         "severity": "Severity",
         "description": "Description (editable)",
@@ -757,6 +774,8 @@
       },
       "stress": {
         "title": "Add Consequence",
+        "toolTitle": "Add Consequence",
+        "pickTitle": "Add Consequence to Investigator",
         "consequence": "Consequence",
         "random": "Random (d20)",
         "applied": "Stress applied"

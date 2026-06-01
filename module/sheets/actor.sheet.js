@@ -4,7 +4,7 @@ import { isAppendixLuckEnabled } from '../settings.js';
 import { equipItem, isAutoArmorCalculationEnabled, recalcArmor, useItem } from '../services/items.js';
 import { restActor } from '../services/rest.js';
 import { quickRoll, rollAttribute } from '../services/rolls.js';
-import { t } from '../utils/i18n.js';
+import { t, td } from '../utils/i18n.js';
 import { recalcSlots } from '../utils/slots.js';
 
 const isActivateEvent = (event) => event.type === 'click' || event.key === 'Enter' || event.key === ' ';
@@ -120,7 +120,7 @@ export class LHActorSheet extends foundry.appv1.sheets.ActorSheet {
 
     if (game.user.isGM) {
       buttons.unshift({
-        label: 'Investigator Creator',
+        label: t('LH.investigatorCreator.windowHeader'),
         class: 'lh-backstory',
         icon: 'fas fa-user',
         onclick: () => {
@@ -316,29 +316,31 @@ export class LHActorSheet extends foundry.appv1.sheets.ActorSheet {
       const item = this.actor.items.get(itemId);
       if (!item) return;
 
-      const confirmed = await Dialog.wait(
-        {
-          title: 'Delete Item',
-          content: `<p>Delete <strong>${foundry.utils.escapeHTML(item.name)}</strong>?</p>`,
-          buttons: {
-            yes: {
-              icon: '<i class="fas fa-check"></i>',
-              label: 'Yes',
-              callback: () => true,
-            },
-            no: {
-              icon: '<i class="fas fa-times"></i>',
-              label: 'No',
-              callback: () => false,
-            },
+      const confirmed = await foundry.applications.api.DialogV2.wait({
+        classes: ['lh', 'lh-confirm-dialog'],
+        window: { title: t('LH.ui.deleteItem') },
+        position: { width: 320 },
+        rejectClose: false,
+        content: `<p class="lh-dialog-message">${td('LH.ui.deleteItemConfirm', {
+          name: `<strong>${foundry.utils.escapeHTML(item.name)}</strong>`,
+        })}</p>`,
+        buttons: [
+          {
+            action: 'yes',
+            icon: 'fa-solid fa-check',
+            label: t('LH.core.yes'),
+            callback: () => true,
           },
-          default: 'no',
-          close: () => false,
-        },
-        {
-          classes: ['lh', 'lh-confirm-dialog'],
-        }
-      );
+          {
+            action: 'no',
+            icon: 'fa-solid fa-times',
+            label: t('LH.core.no'),
+            default: true,
+            callback: () => false,
+          },
+        ],
+      });
+
       if (!confirmed) return;
 
       await item.delete();

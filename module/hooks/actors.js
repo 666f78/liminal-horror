@@ -62,6 +62,7 @@ export const registerActorHooks = () => {
       createChatMessage({
         actor,
         content,
+        whisperMode: 'public',
       });
     }
   });

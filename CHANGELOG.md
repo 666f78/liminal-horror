@@ -1,5 +1,35 @@
 # Changelog
 
+## [0.1.5]
+
+### Added
+
+- Added an Investigator Creator sheet tool for rolling investigator attributes, HP, cash, descriptive details, first contact with the unknown, and backstory
+- Added one-time attribute swapping after rolling investigator attributes
+- Added backstory item previews and automatic backstory item creation from the Investigator Creator
+- Added a shared investigator generation helper so the sidebar generator and Investigator Creator use the same roll and description logic
+- Added a `Roll Details` action to roll all investigator descriptive details at once
+
+### Changed
+
+- Migrated system dialogs to Foundry DialogV2
+- Updated injury, consequence, investigator picker, item delete confirmation, update notice, and attribute swap dialogs to match the system sheet styling
+- Reworked the Investigator Creator layout and styling to better match the actor sheet
+- Improved Ukrainian translations for the Investigator Creator and related dialog labels
+- Localized actor sheet header controls, inventory edit/delete tooltips, item delete confirmation, scene control labels, and investigator picker dialogs
+- Improved generated investigator descriptions so only changed generated fields are updated instead of replacing unrelated description content
+- Hid and skipped Luck rolls in investigator generation when Appendix L: Luck is disabled
+- Standardized several shared CSS variables and dialog control styles
+
+### Fixed
+
+- Fixed Deprived status change messages being sent as GM whispers when the roll mode was not public
+- Fixed remaining hardcoded English labels in Investigator Creator, item deletion, update notice, and GM scene-control dialogs
+
+### Acknowledgments
+
+- Thanks to @CodaBool
+
 ## [0.1.4]
 
 ### Added

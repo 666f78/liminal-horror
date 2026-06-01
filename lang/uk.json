@@ -15,6 +15,11 @@
       "unequipped": "Знято",
       "apply": "Застосувати",
       "cancel": "Скасувати",
+      "ok": "ОК",
+      "yes": "Так",
+      "no": "Ні",
+      "edit": "Редагувати",
+      "delete": "Видалити",
       "roll": "Кинути"
     },
     "attr": {
@@ -32,24 +37,26 @@
       }
     },
     "investigatorCreator": {
-      "windowHeader": "Творець слідчого",
+      "windowHeader": "Створення дослідника",
       "rollDetails": "Деталі",
       "ideology": "Ідеологія",
       "attributesHeader": "Характеристики",
-      "save": "Зберегти в аркуш персонажа",
+      "save": "Зберегти в аркуш",
       "rollAttributes": "Кинути характеристики",
       "rollAllDetails": "Кинути деталі",
-      "attributesRollHint": "Характеристики кидаються один раз. Після цього можна один раз поміняти дві з них між собою.",
+      "attributesRollHint": "Характеристики кидаються один раз. Після кидка можна один раз поміняти місцями дві з них.",
       "swapAttributes": "Поміняти характеристики",
-      "swapAttributesOnce": "Характеристики можна поміняти лише один раз.",
-      "swapAttributesOnceHint": "Характеристики можна поміняти лише один раз після кидка.",
+      "swapAttributesOnce": "Характеристики вже було поміняно.",
+      "swapAttributesOnceHint": "Після кидка характеристики можна поміняти лише один раз.",
       "rollAttributesFirst": "Спершу киньте характеристики",
       "firstAttribute": "Перша характеристика",
+      "firstAttributeShort": "Перша",
       "secondAttribute": "Друга характеристика",
+      "secondAttributeShort": "Друга",
       "swap": "Поміняти",
       "swapDifferentAttributes": "Оберіть дві різні характеристики",
-      "chooseBackstory": "Оберіть передісторію",
-      "chooseBackstoryHint": "Обрана передісторія буде збережена в аркуш персонажа."
+      "chooseBackstory": "Обрати передісторію",
+      "chooseBackstoryHint": "Обрана передісторія буде записана в аркуш."
     },
     "ui": {
       "deprivedFull": "Позбавлений",
@@ -68,6 +75,8 @@
         "log": "Журнал"
       },
       "inventory": "Інвентар",
+      "deleteItem": "Видалити предмет",
+      "deleteItemConfirm": "Видалити {name}?",
       "slots": "слоти",
       "sort": "Сорт.",
       "inventorySort": {
@@ -747,8 +756,16 @@
       }
     },
     "dialogs": {
+      "pickInvestigator": {
+        "title": "Обрати дослідника",
+        "label": "Дослідник",
+        "ownerSuffix": "(ваш)",
+        "noneAvailable": "Немає доступних дослідників"
+      },
       "damage": {
         "title": "Додати Травму",
+        "toolTitle": "Додати травму",
+        "pickTitle": "Додати травму досліднику",
         "type": "Тип",
         "severity": "Серйозність",
         "description": "Опис (редагується)",
@@ -757,6 +774,8 @@
       },
       "stress": {
         "title": "Додати Наслідок",
+        "toolTitle": "Додати наслідок",
+        "pickTitle": "Додати наслідок досліднику",
         "consequence": "Наслідок",
         "random": "Випадково (d20)",
         "applied": "Стрес застосовано"

@@ -229,14 +229,14 @@ export class InvestigatorCreator extends foundry.applications.api.HandlebarsAppl
         content: `
         <div class="lh lh-swap-attributes-dialog">
           <div class="generator-row">
-            <label class="generator-label" for="lh-swap-first">${t('LH.investigatorCreator.firstAttribute')}</label>
+            <label class="generator-label" for="lh-swap-first" title="${t('LH.investigatorCreator.firstAttribute')}">${t('LH.investigatorCreator.firstAttributeShort')}</label>
             <div class="generator-control generator-control-select">
               <select id="lh-swap-first" class="big-input" name="first">${firstOptionHtml}</select>
             </div>
           </div>
 
           <div class="generator-row">
-            <label class="generator-label" for="lh-swap-second">${t('LH.investigatorCreator.secondAttribute')}</label>
+            <label class="generator-label" for="lh-swap-second" title="${t('LH.investigatorCreator.secondAttribute')}">${t('LH.investigatorCreator.secondAttributeShort')}</label>
             <div class="generator-control generator-control-select">
               <select id="lh-swap-second" class="big-input" name="second">${secondOptionHtml}</select>
             </div>

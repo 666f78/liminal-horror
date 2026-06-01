@@ -1,6 +1,7 @@
 ﻿import { openDamageDialog, openStressDialog } from '../apps/effect-dialogs.js';
 import { rollVoidResearchDie } from '../apps/void-research-die.js';
 import { dLog, dWarn, withGroup } from '../utils/debug.js';
+import { t } from '../utils/i18n.js';
 import { pickInvestigatorDialog } from '../utils/pickPlayer.js';
 
 const TOKEN_CONTROL_NAME = 'tokens';
@@ -21,13 +22,13 @@ function getTools() {
   return {
     'lh-apply-damage': {
       name: 'lh-apply-damage',
-      title: 'Add Injuries',
+      title: t('LH.dialogs.damage.toolTitle'),
       icon: 'fa-solid fa-heart-crack',
       order: 901,
       button: true,
       onChange: async () => {
         try {
-          const actor = await selectActor({ title: 'Add Injuries to Investigator' });
+          const actor = await selectActor({ title: t('LH.dialogs.damage.pickTitle') });
           if (actor) await openDamageDialog(actor);
         } catch (e) {
           dWarn('sceneControls.tool.lh-apply-damage error', e);
@@ -36,13 +37,13 @@ function getTools() {
     },
     'lh-apply-stress': {
       name: 'lh-apply-stress',
-      title: 'Add Consequence',
+      title: t('LH.dialogs.stress.toolTitle'),
       icon: 'fa-solid fa-brain',
       order: 902,
       button: true,
       onChange: async () => {
         try {
-          const actor = await selectActor({ title: 'Add Consequence to Investigator' });
+          const actor = await selectActor({ title: t('LH.dialogs.stress.pickTitle') });
           if (actor) await openStressDialog(actor);
         } catch (e) {
           dWarn('sceneControls.tool.lh-apply-stress error', e);

@@ -401,9 +401,13 @@
 
                 <!-- GM ACTION -->
                 {{#if @root.canEditItems}}
-                  <a class='icon-link item-edit' role='button' tabindex='0' data-item-id='{{item._id}}' title='Edit'><i
-                      class='fas fa-edit'
-                    ></i></a>
+                  <a
+                    class='icon-link item-edit'
+                    role='button'
+                    tabindex='0'
+                    data-item-id='{{item._id}}'
+                    title='{{localize "LH.core.edit"}}'
+                  ><i class='fas fa-edit'></i></a>
                 {{/if}}
                 {{#if
                   (or
@@ -420,7 +424,7 @@
                     role='button'
                     tabindex='0'
                     data-item-id='{{item._id}}'
-                    title='Delete'
+                    title='{{localize "LH.core.delete"}}'
                   ><i class='fas fa-trash'></i></a>
                 {{/if}}
               </div>

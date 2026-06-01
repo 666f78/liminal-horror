@@ -1,5 +1,6 @@
 import { SETTINGS_NS } from '../settings.js';
 import { dWarn } from '../utils/debug.js';
+import { t } from '../utils/i18n.js';
 
 // Debug: always show update notice on each world launch
 const FORCE_SHOW_EVERY_START = false;
@@ -144,21 +145,12 @@ async function createChatNotice(content) {
 }
 
 async function showDialogNotice(content) {
-  const dialogApi = foundry?.applications?.api?.DialogV2;
-  if (dialogApi) {
-    await dialogApi.wait({
-      window: { title: 'Liminal Horror Update', resizable: true },
-      position: { width: 820 },
-      content,
-      buttons: [{ action: 'ok', label: 'OK', default: true }],
-    });
-    return;
-  }
-
-  await Dialog.prompt({
-    title: 'Liminal Horror Update',
+  await foundry.applications.api.DialogV2.wait({
+    classes: ['lh', 'lh-confirm-dialog'],
+    window: { title: 'Liminal Horror Update', resizable: true },
+    position: { width: 820 },
     content,
-    callback: () => {},
+    buttons: [{ action: 'ok', label: t('LH.core.ok'), default: true }],
   });
 }
 

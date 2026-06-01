@@ -1,5 +1,7 @@
+import { t } from './i18n.js';
+
 export async function pickInvestigatorDialog({
-  title = 'Choose Investigator',
+  title = t('LH.dialogs.pickInvestigator.title'),
   onlyOwned = false,
   preselectActorId = null,
 } = {}) {
@@ -9,13 +11,16 @@ export async function pickInvestigatorDialog({
   actors.sort((a, b) => a.name.localeCompare(b.name, 'uk'));
 
   if (!actors.length) {
-    ui.notifications.warn('There are no investigators available');
+    ui.notifications.warn(t('LH.dialogs.pickInvestigator.noneAvailable'));
     return null;
   }
 
   const options = actors
     .map((a) => {
-      const owner = a.ownership?.[game.user.id] >= CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER ? ' (you)' : '';
+      const owner =
+        a.ownership?.[game.user.id] >= CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER
+          ? ` ${t('LH.dialogs.pickInvestigator.ownerSuffix')}`
+          : '';
       return `<option value="${a.id}">${a.name}${owner}</option>`;
     })
     .join('');
@@ -23,27 +28,31 @@ export async function pickInvestigatorDialog({
   const fallbackId =
     preselectActorId ?? canvas.tokens?.controlled?.[0]?.actor?.id ?? game.user?.investigator?.id ?? actors[0].id;
 
-  return new Promise((resolve) => {
-    new Dialog(
-      {
-        title,
-        content: `
-        <div class="lh" style="min-width:320px">
-          <label>Investigator</label>
-          <select id="lh-char" style="width:100%">${options}</select>
+  const selection = await foundry.applications.api.DialogV2.wait({
+    classes: ['lh', 'lh-confirm-dialog'],
+    window: { title },
+    modal: true,
+    position: { width: 340 },
+    rejectClose: false,
+    content: `
+        <div class="lh-dialog-form lh-pick-dialog">
+          <label class="lh-dialog-label" for="lh-char">${t('LH.dialogs.pickInvestigator.label')}</label>
+          <select id="lh-char" class="lh-dialog-select" name="actorId">${options}</select>
         </div>
       `,
-        buttons: {
-          ok: {
-            label: 'OK',
-            callback: (html) => resolve(game.actors.get(html.find('#lh-char').val()) ?? null),
-          },
-          cancel: { label: 'Cancel', callback: () => resolve(null) },
-        },
-        default: 'ok',
-        render: (html) => html.find('#lh-char').val(fallbackId),
+    buttons: [
+      {
+        action: 'ok',
+        label: t('LH.core.ok'),
+        default: true,
+        callback: (_event, button) => button.form?.elements?.actorId?.value ?? null,
       },
-      { classes: ['lh'] }
-    ).render(true);
+      { action: 'cancel', label: t('LH.core.cancel'), callback: () => null },
+    ],
+    render: (_event, dialog) => {
+      dialog.element.querySelector('[name="actorId"]').value = fallbackId;
+    },
   });
+
+  return selection ? (game.actors.get(selection) ?? null) : null;
 }
