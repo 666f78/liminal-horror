@@ -1,27 +1,37 @@
-const PUBLIC_ROLL_MODE = 'publicroll';
+const PUBLIC_MESSAGE_MODE = 'public';
 const GM_ROLE = 'GM';
+const LEGACY_MESSAGE_MODES = {
+  publicroll: 'public',
+  gmroll: 'gm',
+  blindroll: 'blind',
+  selfroll: 'self',
+};
 
 export const getGmRecipients = () => ChatMessage.getWhisperRecipients(GM_ROLE).map((user) => user.id);
 
-export const shouldWhisperToGMs = () => game.settings.get('core', 'rollMode') !== PUBLIC_ROLL_MODE;
+const getMessageMode = () => game.settings.get('core', 'messageMode') ?? PUBLIC_MESSAGE_MODE;
+
+const normalizeMessageMode = (mode) => LEGACY_MESSAGE_MODES[mode] ?? mode;
+
+export const shouldWhisperToGMs = () => ['gm', 'blind'].includes(normalizeMessageMode(getMessageMode()));
 
 export function applyWhisper(message = {}, mode = 'auto') {
   if (!message || typeof message !== 'object') return message;
 
-  if (mode === 'gm') {
-    message.whisper = getGmRecipients();
-  } else if (Array.isArray(mode) && mode.length) {
+  if (Array.isArray(mode) && mode.length) {
     message.whisper = mode;
-  } else if (mode === 'auto' && shouldWhisperToGMs()) {
-    message.whisper = getGmRecipients();
+    return message;
   }
+
+  const messageMode = mode === 'auto' ? undefined : normalizeMessageMode(mode);
+  ChatMessage.applyMode(message, messageMode);
 
   return message;
 }
 
 const resolveSpeaker = ({ actor, user } = {}) => ChatMessage.getSpeaker({ actor, user });
 
-export function createChatMessage({ actor, user = game.user, content, flags, type, whisperMode = 'auto' } = {}) {
+export function createChatMessage({ actor, user = game.user, content, flags, type, whisperMode = 'public' } = {}) {
   if (actor && actor.type !== 'investigator') return;
   const message = {
     user: user?.id ?? game.userId,

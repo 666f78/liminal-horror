@@ -33,6 +33,11 @@ export const registerActorHooks = () => {
     const systemChanges = foundry.utils.getProperty(changes, 'system');
     if (!systemChanges) return;
 
+    const nextDeprived = foundry.utils.getProperty(changes, 'system.status.deprived') ?? actor.system?.status?.deprived;
+    if (nextDeprived === true) {
+      foundry.utils.setProperty(changes, 'system.defense.hp', 0);
+    }
+
     const flattened = foundry.utils.flattenObject(systemChanges);
     const diffs = [];
 

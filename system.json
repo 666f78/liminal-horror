@@ -8,10 +8,10 @@
       "url": "https://666f78-dh.pp.ua/"
     }
   ],
-  "version": "0.1.4",
+  "version": "0.1.5",
   "url": "https://github.com/666f78/liminal-horror",
   "manifest": "https://github.com/666f78/liminal-horror/releases/latest/download/system.json",
-  "download": "https://github.com/666f78/liminal-horror/releases/download/0.1.4/system.zip",
+  "download": "https://github.com/666f78/liminal-horror/releases/download/0.1.5/system.zip",
   "compatibility": {
     "minimum": "14",
     "verified": "14"

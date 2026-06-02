@@ -13,6 +13,9 @@
       "slotsCapacityExceeded": "Slots capacity exceeded! HP reduced to 0",
       "equipped": "Equipped",
       "unequipped": "Unequipped",
+      "used": "Used",
+      "restored": "Restored",
+      "gotRidOf": "Got rid of",
       "apply": "Apply",
       "cancel": "Cancel",
       "ok": "OK",
@@ -20,7 +23,8 @@
       "no": "No",
       "edit": "Edit",
       "delete": "Delete",
-      "roll": "Roll"
+      "roll": "Roll",
+      "thrownAway": "Thrown away"
     },
     "attr": {
       "full": {
@@ -36,19 +40,23 @@
         "luck": "LUCK"
       }
     },
-    "investigatorCreator": {
-      "windowHeader": "Investigator Creator",
+    "investigatorGenerator": {
+      "windowHeader": "Investigator Generator",
       "rollDetails": "Details",
       "ideology": "Ideology",
       "attributesHeader": "Attributes",
       "save": "Save to Character Sheet",
-      "rollAttributes": "Roll Attributes",
+      "rollAttributes": "Roll Missing Attributes",
       "rollAllDetails": "Roll Details",
-      "attributesRollHint": "Attributes are rolled once. After rolling, two of them can be swapped once.",
+      "attributesRollHint": "Each attribute can be rolled once. The main button rolls only missing values. After rolling STR, DEX, and CTRL, two of them can be swapped once.",
+      "rerollSettingHint": "Player rerolls can be enabled in system settings. If you need to reroll, ask your GM to reset your attribute locks.",
       "swapAttributes": "Swap Attributes",
+      "resetAttributeLocks": "Reset Locks",
       "swapAttributesOnce": "Attributes can only be swapped once.",
       "swapAttributesOnceHint": "Attributes can only be swapped once after rolling.",
       "rollAttributesFirst": "Roll attributes first",
+      "attributeAlreadyRolled": "This attribute has already been rolled",
+      "attributesAlreadyRolled": "All attributes have already been rolled",
       "firstAttribute": "First Attribute",
       "firstAttributeShort": "First",
       "secondAttribute": "Second Attribute",
@@ -56,7 +64,8 @@
       "swap": "Swap",
       "swapDifferentAttributes": "Choose two different attributes",
       "chooseBackstory": "Choose Background",
-      "chooseBackstoryHint": "The selected background is saved to the character sheet."
+      "chooseBackstoryHint": "The selected background is saved to the character sheet.",
+      "attributeLocksReset": "Investigator Generator attribute locks reset"
     },
     "ui": {
       "deprivedFull": "Deprived",
@@ -637,10 +646,10 @@
         "20": "Contractor — Stocked toolbelt, utility knife (d6), heavy duty flashlight, drill."
       },
       "aesthetics": {
-        "1": "All Business, All the Time.",
+        "1": "All Business, All the Time",
         "2": "Streetwear",
         "3": "Band Tees",
-        "4": "Paint it Black.",
+        "4": "Paint it Black",
         "5": "Athleisure",
         "6": "Crisp and Ironed",
         "7": "Casual Comfort",
@@ -659,28 +668,28 @@
         "20": "Denim on Denim"
       },
       "firstEncounter": {
-        "1": "Lost a loved one under mysterious circumstances.",
-        "2": "The evidence online is too much to be ignored.",
-        "3": "You witnessed something in the darkness.",
-        "4": "You survived an attack you cannot explain.",
-        "5": "Something is lurking in your dreams.",
-        "6": "Someone close to you is pulling you in, or pushing you away.",
-        "7": "Cult activity (perhaps they recruited someone significant).",
-        "8": "You may be a card carrying member in a secret society.",
-        "9": "You read something not meant for mortal minds.",
+        "1": "Lost a loved one under mysterious circumstances",
+        "2": "The evidence online is too much to be ignored",
+        "3": "You witnessed something in the darkness",
+        "4": "You survived an attack you cannot explain",
+        "5": "Something is lurking in your dreams",
+        "6": "Someone close to you is pulling you in, or pushing you away",
+        "7": "Cult activity (perhaps they recruited someone significant)",
+        "8": "You may be a card carrying member in a secret society",
+        "9": "You read something not meant for mortal minds",
         "10": "You haven’t yet — that’s what session 1 is for!"
       },
       "ideology": {
-        "1": "Everything has a rational explanation rooted in science.",
-        "2": "Individuals can make a difference.",
-        "3": "You ascribe to a specific political ideology.",
-        "4": "A specific religion guides you.",
-        "5": "Morality is black and white.",
-        "6": "You believe in fate and it directly impacts your life.",
-        "7": "Belief in higher powers such as astrology, spirituality, etc.",
-        "8": "Free will is the only truth.",
-        "9": "There are deep truths others are not aware of. The answers are out there.",
-        "10": "You believe in the power of community."
+        "1": "Everything has a rational explanation rooted in science",
+        "2": "Individuals can make a difference",
+        "3": "You ascribe to a specific political ideology",
+        "4": "A specific religion guides you",
+        "5": "Morality is black and white",
+        "6": "You believe in fate and it directly impacts your life",
+        "7": "Belief in higher powers such as astrology, spirituality, etc",
+        "8": "Free will is the only truth",
+        "9": "There are deep truths others are not aware of. The answers are out there",
+        "10": "You believe in the power of community"
       },
       "physique": {
         "1": "Athletic",

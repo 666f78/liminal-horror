@@ -18,11 +18,11 @@ const formatOutcome = ({ success, critSuccess, critFail }) => {
 };
 
 export async function rollAttribute(actor, key, options = {}) {
-  const { cardTitle, cardRows, note, gmAction, flavor } = options;
+  const { cardTitle, cardRows, note, gmAction, flavor, targetOverride } = options;
 
   const attributeLabel = cardTitle ?? ATTRIBUTE_LABELS[key] ?? key.toUpperCase();
   const { value: rawTarget } = getAttr(actor, key);
-  const target = Number(rawTarget) || 0;
+  const target = Number(targetOverride ?? rawTarget) || 0;
 
   const roll = await new Roll('1d20').evaluate();
   const nat = roll.dice?.[0]?.results?.[0]?.result ?? roll.total;
@@ -76,9 +76,9 @@ export async function rollAttribute(actor, key, options = {}) {
     }
   }
 
-  await sendRollMessage(roll, messageOptions);
+  const message = await sendRollMessage(roll, messageOptions);
 
-  return { roll, success, critFail, critSuccess };
+  return { roll, message, success, critFail, critSuccess };
 }
 
 export async function quickRoll(actor, formula = '1d6', label = 'Quick Roll') {

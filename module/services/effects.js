@@ -1,4 +1,4 @@
-import { getAttr, setAttrValue } from '../utils/attrs.js';
+import { getAttr } from '../utils/attrs.js';
 import { renderCard } from '../utils/chat-card.js';
 import { createChatMessage } from '../utils/chat.js';
 import { t } from '../utils/i18n.js';
@@ -35,7 +35,7 @@ const getDefenses = (actor, path) => {
   return clamp(foundry.utils.getProperty(system, path));
 };
 
-const postCardMessage = (actor, content) => createChatMessage({ actor, content });
+const postCardMessage = (actor, content) => createChatMessage({ actor, content, whisperMode: 'auto' });
 
 const applyEffect = async (actor, rawAmount, key, { defenses = true } = {}) => {
   if (!actor) throw new Error('Actor is required to apply an effect');
@@ -51,8 +51,6 @@ const applyEffect = async (actor, rawAmount, key, { defenses = true } = {}) => {
   const hpCurrent = clamp(system.defense?.hp);
   const hpRemaining = Math.max(0, hpCurrent - effectiveAmount);
   const hpLoss = hpCurrent - hpRemaining;
-
-  await actor.update({ 'system.defense.hp': hpRemaining });
 
   const absorbed = amount > 0 && effectiveAmount === 0;
   const rows = [];
@@ -72,6 +70,7 @@ const applyEffect = async (actor, rawAmount, key, { defenses = true } = {}) => {
   }
 
   if (hpRemaining > 0 || effectiveAmount <= hpCurrent) {
+    await actor.update({ 'system.defense.hp': hpRemaining });
     return;
   }
 
@@ -80,14 +79,17 @@ const applyEffect = async (actor, rawAmount, key, { defenses = true } = {}) => {
   const attrRemaining = Math.max(0, attrValue - overflow);
   const attrLoss = attrValue - attrRemaining;
 
-  await setAttrValue(actor, config.attributeKey, attrRemaining);
-
   if (attrRemaining > 0) {
     await rollAttribute(actor, config.attributeKey, {
       cardTitle: t(`${config.title}`),
       cardRows: [{ label: t(`${config.overflowLabel}`), value: clamp(attrLoss) }],
       note: t(`${config.note}`),
       gmAction: config.gmAction,
+      targetOverride: attrRemaining,
+    });
+    await actor.update({
+      'system.defense.hp': hpRemaining,
+      [`system.attributes.${config.attributeKey}.value`]: attrRemaining,
     });
     return;
   }
@@ -97,6 +99,10 @@ const applyEffect = async (actor, rawAmount, key, { defenses = true } = {}) => {
     '<span style="color:red; font-weight:bold;">' + config.deathLabel + '</span>',
   ];
 
+  await actor.update({
+    'system.defense.hp': hpRemaining,
+    [`system.attributes.${config.attributeKey}.value`]: attrRemaining,
+  });
   await postCardMessage(actor, renderCard(t(config.title), deathRows));
 };
 

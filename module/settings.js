@@ -1,6 +1,7 @@
 export const SETTINGS_NS = 'liminal-horror';
 export const APPENDIX_LUCK_SETTING = 'appendixLuck';
 export const AUTO_ARMOR_CALCULATION_SETTING = 'autoArmorCalculation';
+export const INVESTIGATOR_GENERATOR_REROLL_SETTING = 'investigatorGeneratorReroll';
 
 export function isAppendixLuckEnabled() {
   return game.settings.get(SETTINGS_NS, APPENDIX_LUCK_SETTING);
@@ -8,6 +9,10 @@ export function isAppendixLuckEnabled() {
 
 export function isAutoArmorCalculationSettingEnabled() {
   return game.settings.get(SETTINGS_NS, AUTO_ARMOR_CALCULATION_SETTING);
+}
+
+export function isInvestigatorGeneratorRerollEnabled() {
+  return game.settings.get(SETTINGS_NS, INVESTIGATOR_GENERATOR_REROLL_SETTING);
 }
 
 async function syncArmorForAllActors(enabled) {
@@ -46,6 +51,15 @@ export function registerSystemSettings() {
     onChange: (value) => {
       syncArmorForAllActors(value);
     },
+  });
+
+  game.settings.register(SETTINGS_NS, INVESTIGATOR_GENERATOR_REROLL_SETTING, {
+    name: 'Allow Investigator Generator rerolls for players',
+    hint: 'If enabled, players may reroll Investigator Generator attributes. GMs can always reroll.',
+    scope: 'world',
+    config: true,
+    type: Boolean,
+    default: false,
   });
 
   game.settings.register(SETTINGS_NS, 'debug', {

@@ -6,6 +6,8 @@ export function isAutoArmorCalculationEnabled() {
   return isAutoArmorCalculationSettingEnabled();
 }
 
+const renderUsesChangeMessage = (label, item) => `<b>${label}:</b> ${item.name}`;
+
 export async function equipItem(item, actor) {
   const type = item?.type;
   if (type !== 'armor' && type !== 'weapon') return;
@@ -50,12 +52,32 @@ export async function useItem(item, actor) {
   }
 
   if (item.type === 'gear') {
-    const current = item.system?.usesCurrent;
-    if (!current || current <= 0) return;
+    const current = Number(item.system?.usesCurrent ?? 0);
+    if (current <= 0) return;
 
-    const newCurrent = current - 1;
-    await item.update({ 'system.usesCurrent': newCurrent });
+    const nextCurrent = Math.max(0, current - 1);
+    await item.update({ 'system.usesCurrent': nextCurrent });
+    await createChatMessage({
+      actor: actor ?? item.parent,
+      content: renderUsesChangeMessage(t('LH.core.used'), item),
+    });
   }
+}
+
+export async function restoreItemUse(item, actor) {
+  if (!item) throw new Error('Item is required');
+  if (item.type !== 'gear') return;
+
+  const current = Number(item.system?.usesCurrent ?? 0);
+  const max = Number(item.system?.usesMax ?? 0);
+  if (max <= 0 || current >= max) return;
+
+  const nextCurrent = Math.min(max, current + 1);
+  await item.update({ 'system.usesCurrent': nextCurrent });
+  await createChatMessage({
+    actor: actor ?? item.parent,
+    content: renderUsesChangeMessage(t('LH.core.restored'), item),
+  });
 }
 
 export async function recalcArmor(actor) {

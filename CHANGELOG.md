@@ -4,18 +4,32 @@
 
 ### Added
 
-- Added an Investigator Creator sheet tool for rolling investigator attributes, HP, cash, descriptive details, first contact with the unknown, and backstory
+- Added an Investigator Generator sheet tool for rolling investigator attributes, HP, cash, descriptive details, first contact with the unknown, and backstory
 - Added one-time attribute swapping after rolling investigator attributes
-- Added backstory item previews and automatic backstory item creation from the Investigator Creator
-- Added a shared investigator generation helper so the sidebar generator and Investigator Creator use the same roll and description logic
+- Added one-time individual attribute rolls in Investigator Generator, with the main roll button filling only missing values
+- Added a system setting to allow player rerolls in Investigator Generator while always allowing GM rerolls
+- Added a GM-only Investigator Generator control to reset player attribute roll locks
+- Added live refresh for open Investigator Generator windows when attribute roll locks are reset
+- Allowed GMs to repeat Investigator Generator attribute swaps while keeping player swaps one-time
+- Added backstory item previews and automatic backstory item creation from the Investigator Generator
+- Added a shared investigator generation helper so the sidebar generator and Investigator Generator use the same roll and description logic
 - Added a `Roll Details` action to roll all investigator descriptive details at once
+- Added right-click restoration for gear uses in actor inventory rows, capped by the item's maximum uses
+- Added public chat messages when discarding items or removing injuries, consequences, and conditions
 
 ### Changed
 
+- Migrated actor and item sheets to Foundry ApplicationV2 sheet APIs
 - Migrated system dialogs to Foundry DialogV2
+- Made Investigator Generator available to players from investigator sheets
+- Allowed players to edit and delete items, injuries, consequences, and conditions on actor sheets they own
+- Renamed Investigator Creator to Investigator Generator across UI labels, localization keys, file names, and class names
+- Reworked item sheet layout and styling for the new ApplicationV2 sheet shell
 - Updated injury, consequence, investigator picker, item delete confirmation, update notice, and attribute swap dialogs to match the system sheet styling
-- Reworked the Investigator Creator layout and styling to better match the actor sheet
-- Improved Ukrainian translations for the Investigator Creator and related dialog labels
+- Reworked the Investigator Generator layout and styling to better match the actor sheet
+- Removed numeric prefixes from Investigator Generator background dropdown options
+- Improved Ukrainian translations for the Investigator Generator and related dialog labels
+- Removed trailing periods from generated Ideology, Aesthetics, and First Encounter detail results
 - Localized actor sheet header controls, inventory edit/delete tooltips, item delete confirmation, scene control labels, and investigator picker dialogs
 - Improved generated investigator descriptions so only changed generated fields are updated instead of replacing unrelated description content
 - Hid and skipped Luck rolls in investigator generation when Appendix L: Luck is disabled
@@ -23,8 +37,11 @@
 
 ### Fixed
 
+- Fixed item sheet checkbox styling to match the actor sheet Deprived checkbox
+- Fixed gear use and restoration changes to post public chat messages
+- Fixed HP loss chat cards using the wrong visibility mode by honoring Foundry v14 message mode
 - Fixed Deprived status change messages being sent as GM whispers when the roll mode was not public
-- Fixed remaining hardcoded English labels in Investigator Creator, item deletion, update notice, and GM scene-control dialogs
+- Fixed remaining hardcoded English labels in Investigator Generator, item deletion, update notice, and GM scene-control dialogs
 
 ### Acknowledgments
 

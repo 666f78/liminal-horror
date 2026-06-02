@@ -87,17 +87,12 @@ function buildModalNoticeHtml(currentVersion, sections) {
   const versionCards = sections
     .map((section) => {
       const isCurrent = section.version === currentVersion;
-      const badge = isCurrent
-        ? '<span style="font-size:0.75rem;line-height:1;padding:0.2rem 0.4rem;border-radius:999px;background:var(--color-warm-2);color:var(--color-text-light-0);">Current</span>'
-        : '';
-      const cardStyle = isCurrent
-        ? 'border:1px solid var(--color-warm-1);box-shadow:0 0 0 1px var(--color-warm-2) inset;border-radius:8px;padding:0.6rem 0.8rem;margin:0 0 0.75rem;background:color-mix(in srgb, var(--color-bg) 92%, black 8%);'
-        : 'border:1px solid var(--color-border-light-primary);border-radius:8px;padding:0.6rem 0.8rem;margin:0 0 0.75rem;background:color-mix(in srgb, var(--color-bg) 92%, black 8%);';
+      const badge = isCurrent ? '<span class="lh-update-badge">Current</span>' : '';
       const bodyHtml = renderSectionHtml(section.body);
       return `
-        <article style="${cardStyle}">
+        <article class="lh-update-card ${isCurrent ? 'lh-update-card-current' : ''}">
           <header>
-            <h3 style="display:flex;align-items:center;gap:0.45rem;margin:0 0 0.45rem;">${foundry.utils.escapeHTML(section.version)} ${badge}</h3>
+            <h3 class="lh-update-version">${foundry.utils.escapeHTML(section.version)} ${badge}</h3>
           </header>
           ${bodyHtml}
         </article>
@@ -106,15 +101,15 @@ function buildModalNoticeHtml(currentVersion, sections) {
     .join('\n');
 
   return `
-    <section class="lh-update-notice" style="display:flex;flex-direction:column;">
+    <section class="lh-update-notice">
       <h2>Liminal Horror changelog</h2>
       <p>Current system version: <strong>${foundry.utils.escapeHTML(currentVersion)}</strong></p>
-      <p style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+      <p class="lh-update-links">
         <a href="${bugsUrl}" target="_blank" rel="noopener noreferrer">Bugs</a>
         <a href="${readmeUrl}" target="_blank" rel="noopener noreferrer">Readme</a>
         <a href="${discussionsUrl}" target="_blank" rel="noopener noreferrer">Discussions</a>
       </p>
-      <div style="max-height:min(56vh, 540px);overflow-y:auto;padding-right:0.4rem;margin-top:0.5rem;">${versionCards || '<p>No version entries found.</p>'}</div>
+      <div class="lh-update-scroll">${versionCards || '<p>No version entries found.</p>'}</div>
     </section>
   `;
 }
@@ -128,7 +123,7 @@ function buildChatNoticeHtml(currentVersion, notesHtml) {
     <section class="lh-update-notice">
       <h2>Liminal Horror updated to ${foundry.utils.escapeHTML(currentVersion)}</h2>
       ${notesHtml}
-      <p style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+      <p class="lh-update-links">
         <a href="${bugsUrl}" target="_blank" rel="noopener noreferrer">Bugs</a>
         <a href="${readmeUrl}" target="_blank" rel="noopener noreferrer">Readme</a>
         <a href="${discussionsUrl}" target="_blank" rel="noopener noreferrer">Discussions</a>
@@ -146,7 +141,7 @@ async function createChatNotice(content) {
 
 async function showDialogNotice(content) {
   await foundry.applications.api.DialogV2.wait({
-    classes: ['lh', 'lh-confirm-dialog'],
+    classes: ['lh', 'lh-confirm-dialog', 'lh-update-dialog'],
     window: { title: 'Liminal Horror Update', resizable: true },
     position: { width: 820 },
     content,

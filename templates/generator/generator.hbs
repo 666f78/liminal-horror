@@ -3,9 +3,10 @@
     <header class='lh-creator-panel-head'>
       <h2 class='lh-creator-title'>
         <i class='fa-solid fa-chart-simple'></i>
-        {{{localize 'LH.investigatorCreator.attributesHeader'}}}
+        {{{localize 'LH.investigatorGenerator.attributesHeader'}}}
       </h2>
-      <p class='lh-creator-note'>{{{localize 'LH.investigatorCreator.attributesRollHint'}}}</p>
+      <p class='lh-creator-note'>{{{localize 'LH.investigatorGenerator.attributesRollHint'}}}</p>
+      <p class='lh-creator-note'>{{{localize 'LH.investigatorGenerator.rerollSettingHint'}}}</p>
     </header>
 
     <div class='lh-creator-stat-grid'>
@@ -15,6 +16,16 @@
           {{{localize 'LH.attr.short.str'}}}
         </span>
         <input class='lh-creator-stat-input' type='number' name='str' value='{{str}}' placeholder='-' readonly />
+        <button
+          type='button'
+          class='lh-creator-stat-roll-button'
+          data-action='roll'
+          data-key='stat:str'
+          title='{{localize "LH.core.roll"}}'
+          {{disabled (lookup statRollDisabled 'str')}}
+        >
+          <i class='fa-solid fa-dice'></i>
+        </button>
       </label>
 
       <label class='lh-creator-stat'>
@@ -23,6 +34,16 @@
           {{{localize 'LH.attr.short.dex'}}}
         </span>
         <input class='lh-creator-stat-input' type='number' name='dex' value='{{dex}}' placeholder='-' readonly />
+        <button
+          type='button'
+          class='lh-creator-stat-roll-button'
+          data-action='roll'
+          data-key='stat:dex'
+          title='{{localize "LH.core.roll"}}'
+          {{disabled (lookup statRollDisabled 'dex')}}
+        >
+          <i class='fa-solid fa-dice'></i>
+        </button>
       </label>
 
       <label class='lh-creator-stat'>
@@ -31,6 +52,16 @@
           {{{localize 'LH.attr.short.ctrl'}}}
         </span>
         <input class='lh-creator-stat-input' type='number' name='ctrl' value='{{ctrl}}' placeholder='-' readonly />
+        <button
+          type='button'
+          class='lh-creator-stat-roll-button'
+          data-action='roll'
+          data-key='stat:ctrl'
+          title='{{localize "LH.core.roll"}}'
+          {{disabled (lookup statRollDisabled 'ctrl')}}
+        >
+          <i class='fa-solid fa-dice'></i>
+        </button>
       </label>
 
       {{#if showLuck}}
@@ -40,30 +71,60 @@
             {{{localize 'LH.attr.short.luck'}}}
           </span>
           <input class='lh-creator-stat-input' type='number' name='luck' value='{{luck}}' placeholder='-' readonly />
+          <button
+            type='button'
+            class='lh-creator-stat-roll-button'
+            data-action='roll'
+            data-key='stat:luck'
+            title='{{localize "LH.core.roll"}}'
+            {{disabled (lookup statRollDisabled 'luck')}}
+          >
+            <i class='fa-solid fa-dice'></i>
+          </button>
         </label>
       {{/if}}
 
       <label class='lh-creator-stat'>
         <span class='lh-creator-stat-label'>{{{localize 'LH.ui.hp'}}}</span>
         <input class='lh-creator-stat-input' type='number' name='hp' value='{{hp}}' placeholder='-' readonly />
+        <button
+          type='button'
+          class='lh-creator-stat-roll-button'
+          data-action='roll'
+          data-key='stat:hp'
+          title='{{localize "LH.core.roll"}}'
+          {{disabled (lookup statRollDisabled 'hp')}}
+        >
+          <i class='fa-solid fa-dice'></i>
+        </button>
       </label>
 
       <label class='lh-creator-stat'>
         <span class='lh-creator-stat-label'>{{{localize 'LH.ui.cash'}}}</span>
         <input class='lh-creator-stat-input' type='number' name='cash' value='{{cash}}' placeholder='-' readonly />
+        <button
+          type='button'
+          class='lh-creator-stat-roll-button'
+          data-action='roll'
+          data-key='stat:cash'
+          title='{{localize "LH.core.roll"}}'
+          {{disabled (lookup statRollDisabled 'cash')}}
+        >
+          <i class='fa-solid fa-dice'></i>
+        </button>
       </label>
     </div>
 
-    <div class='lh-creator-action-row'>
+    <div class='lh-creator-action-row {{actionRowClass}}'>
       <button
         type='button'
         class='lh-creator-button lh-creator-button-primary'
         data-action='roll'
         data-key='attributes'
-        {{disabled lockAttributes}}
+        {{disabled disableRollAttributes}}
       >
         <i class='fa-solid fa-dice'></i>
-        {{{localize 'LH.investigatorCreator.rollAttributes'}}}
+        {{{localize 'LH.investigatorGenerator.rollAttributes'}}}
       </button>
 
       <button
@@ -73,8 +134,15 @@
         {{disabled disableSwapAttributes}}
       >
         <i class='fa-solid fa-right-left'></i>
-        {{{localize 'LH.investigatorCreator.swapAttributes'}}}
+        {{{localize 'LH.investigatorGenerator.swapAttributes'}}}
       </button>
+
+      {{#if isGM}}
+        <button type='button' class='lh-creator-button lh-creator-button-secondary' data-action='resetAttributeLocks'>
+          <i class='fa-solid fa-rotate-left'></i>
+          {{{localize 'LH.investigatorGenerator.resetAttributeLocks'}}}
+        </button>
+      {{/if}}
     </div>
   </section>
 
@@ -82,7 +150,7 @@
     <header class='lh-creator-panel-head lh-creator-panel-head-inline'>
       <h2 class='lh-creator-title'>
         <i class='fa-solid fa-user-pen'></i>
-        {{{localize 'LH.investigatorCreator.rollDetails'}}}
+        {{{localize 'LH.investigatorGenerator.rollDetails'}}}
       </h2>
 
       <button
@@ -92,7 +160,7 @@
         data-key='details'
       >
         <i class='fa-solid fa-dice'></i>
-        {{{localize 'LH.investigatorCreator.rollAllDetails'}}}
+        {{{localize 'LH.investigatorGenerator.rollAllDetails'}}}
       </button>
     </header>
 
@@ -111,7 +179,7 @@
             data-key='aesthetics'
             title='{{localize "LH.core.roll"}}'
           >
-            <i class='fa-solid fa-shuffle'></i>
+            <i class='fa-solid fa-dice'></i>
           </button>
         </span>
       </label>
@@ -119,7 +187,7 @@
       <label class='lh-creator-field lh-creator-field-wide'>
         <span class='lh-creator-field-label'>
           <i class='fa-solid fa-lightbulb'></i>
-          {{{localize 'LH.investigatorCreator.ideology'}}}
+          {{{localize 'LH.investigatorGenerator.ideology'}}}
         </span>
         <span class='lh-creator-field-control'>
           <input class='lh-creator-input' type='text' name='ideology' value='{{ideology}}' readonly />
@@ -130,124 +198,126 @@
             data-key='ideology'
             title='{{localize "LH.core.roll"}}'
           >
-            <i class='fa-solid fa-shuffle'></i>
+            <i class='fa-solid fa-dice'></i>
           </button>
         </span>
       </label>
 
-      <label class='lh-creator-field'>
-        <span class='lh-creator-field-label'>
-          <i class='fa-solid fa-person'></i>
-          {{{localize 'LH.char.labels.physique'}}}
-        </span>
-        <span class='lh-creator-field-control'>
-          <input class='lh-creator-input' type='text' name='physique' value='{{physique}}' readonly />
-          <button
-            type='button'
-            class='lh-creator-icon-button'
-            data-action='roll'
-            data-key='physique'
-            title='{{localize "LH.core.roll"}}'
-          >
-            <i class='fa-solid fa-shuffle'></i>
-          </button>
-        </span>
-      </label>
+      <div class='lh-creator-detail-columns'>
+        <label class='lh-creator-field'>
+          <span class='lh-creator-field-label'>
+            <i class='fa-solid fa-person'></i>
+            {{{localize 'LH.char.labels.physique'}}}
+          </span>
+          <span class='lh-creator-field-control'>
+            <input class='lh-creator-input' type='text' name='physique' value='{{physique}}' readonly />
+            <button
+              type='button'
+              class='lh-creator-icon-button'
+              data-action='roll'
+              data-key='physique'
+              title='{{localize "LH.core.roll"}}'
+            >
+              <i class='fa-solid fa-dice'></i>
+            </button>
+          </span>
+        </label>
 
-      <label class='lh-creator-field'>
-        <span class='lh-creator-field-label'>
-          <i class='fa-solid fa-user'></i>
-          {{{localize 'LH.char.labels.face'}}}
-        </span>
-        <span class='lh-creator-field-control'>
-          <input class='lh-creator-input' type='text' name='face' value='{{face}}' readonly />
-          <button
-            type='button'
-            class='lh-creator-icon-button'
-            data-action='roll'
-            data-key='face'
-            title='{{localize "LH.core.roll"}}'
-          >
-            <i class='fa-solid fa-shuffle'></i>
-          </button>
-        </span>
-      </label>
+        <label class='lh-creator-field'>
+          <span class='lh-creator-field-label'>
+            <i class='fa-solid fa-user'></i>
+            {{{localize 'LH.char.labels.face'}}}
+          </span>
+          <span class='lh-creator-field-control'>
+            <input class='lh-creator-input' type='text' name='face' value='{{face}}' readonly />
+            <button
+              type='button'
+              class='lh-creator-icon-button'
+              data-action='roll'
+              data-key='face'
+              title='{{localize "LH.core.roll"}}'
+            >
+              <i class='fa-solid fa-dice'></i>
+            </button>
+          </span>
+        </label>
 
-      <label class='lh-creator-field'>
-        <span class='lh-creator-field-label'>
-          <i class='fa-solid fa-ear-listen'></i>
-          {{{localize 'LH.char.labels.speech'}}}
-        </span>
-        <span class='lh-creator-field-control'>
-          <input class='lh-creator-input' type='text' name='speech' value='{{speech}}' readonly />
-          <button
-            type='button'
-            class='lh-creator-icon-button'
-            data-action='roll'
-            data-key='speech'
-            title='{{localize "LH.core.roll"}}'
-          >
-            <i class='fa-solid fa-shuffle'></i>
-          </button>
-        </span>
-      </label>
+        <label class='lh-creator-field'>
+          <span class='lh-creator-field-label'>
+            <i class='fa-solid fa-ear-listen'></i>
+            {{{localize 'LH.char.labels.speech'}}}
+          </span>
+          <span class='lh-creator-field-control'>
+            <input class='lh-creator-input' type='text' name='speech' value='{{speech}}' readonly />
+            <button
+              type='button'
+              class='lh-creator-icon-button'
+              data-action='roll'
+              data-key='speech'
+              title='{{localize "LH.core.roll"}}'
+            >
+              <i class='fa-solid fa-dice'></i>
+            </button>
+          </span>
+        </label>
 
-      <label class='lh-creator-field'>
-        <span class='lh-creator-field-label'>
-          <i class='fa-solid fa-hands-praying'></i>
-          {{{localize 'LH.char.labels.virtue'}}}
-        </span>
-        <span class='lh-creator-field-control'>
-          <input class='lh-creator-input' type='text' name='virtue' value='{{virtue}}' readonly />
-          <button
-            type='button'
-            class='lh-creator-icon-button'
-            data-action='roll'
-            data-key='virtue'
-            title='{{localize "LH.core.roll"}}'
-          >
-            <i class='fa-solid fa-shuffle'></i>
-          </button>
-        </span>
-      </label>
+        <label class='lh-creator-field'>
+          <span class='lh-creator-field-label'>
+            <i class='fa-solid fa-hands-praying'></i>
+            {{{localize 'LH.char.labels.virtue'}}}
+          </span>
+          <span class='lh-creator-field-control'>
+            <input class='lh-creator-input' type='text' name='virtue' value='{{virtue}}' readonly />
+            <button
+              type='button'
+              class='lh-creator-icon-button'
+              data-action='roll'
+              data-key='virtue'
+              title='{{localize "LH.core.roll"}}'
+            >
+              <i class='fa-solid fa-dice'></i>
+            </button>
+          </span>
+        </label>
 
-      <label class='lh-creator-field'>
-        <span class='lh-creator-field-label'>
-          <i class='fa-solid fa-face-frown'></i>
-          {{{localize 'LH.char.labels.flaw'}}}
-        </span>
-        <span class='lh-creator-field-control'>
-          <input class='lh-creator-input' type='text' name='flaw' value='{{flaw}}' readonly />
-          <button
-            type='button'
-            class='lh-creator-icon-button'
-            data-action='roll'
-            data-key='flaw'
-            title='{{localize "LH.core.roll"}}'
-          >
-            <i class='fa-solid fa-shuffle'></i>
-          </button>
-        </span>
-      </label>
+        <label class='lh-creator-field'>
+          <span class='lh-creator-field-label'>
+            <i class='fa-solid fa-face-frown'></i>
+            {{{localize 'LH.char.labels.flaw'}}}
+          </span>
+          <span class='lh-creator-field-control'>
+            <input class='lh-creator-input' type='text' name='flaw' value='{{flaw}}' readonly />
+            <button
+              type='button'
+              class='lh-creator-icon-button'
+              data-action='roll'
+              data-key='flaw'
+              title='{{localize "LH.core.roll"}}'
+            >
+              <i class='fa-solid fa-dice'></i>
+            </button>
+          </span>
+        </label>
 
-      <label class='lh-creator-field'>
-        <span class='lh-creator-field-label'>
-          <i class='fa-solid fa-arrow-trend-down'></i>
-          {{{localize 'LH.char.labels.misfortune'}}}
-        </span>
-        <span class='lh-creator-field-control'>
-          <input class='lh-creator-input' type='text' name='misfortune' value='{{misfortune}}' readonly />
-          <button
-            type='button'
-            class='lh-creator-icon-button'
-            data-action='roll'
-            data-key='misfortune'
-            title='{{localize "LH.core.roll"}}'
-          >
-            <i class='fa-solid fa-shuffle'></i>
-          </button>
-        </span>
-      </label>
+        <label class='lh-creator-field'>
+          <span class='lh-creator-field-label'>
+            <i class='fa-solid fa-arrow-trend-down'></i>
+            {{{localize 'LH.char.labels.misfortune'}}}
+          </span>
+          <span class='lh-creator-field-control'>
+            <input class='lh-creator-input' type='text' name='misfortune' value='{{misfortune}}' readonly />
+            <button
+              type='button'
+              class='lh-creator-icon-button'
+              data-action='roll'
+              data-key='misfortune'
+              title='{{localize "LH.core.roll"}}'
+            >
+              <i class='fa-solid fa-dice'></i>
+            </button>
+          </span>
+        </label>
+      </div>
     </div>
   </section>
 
@@ -274,7 +344,7 @@
             data-key='firstEncounter'
             title='{{localize "LH.core.roll"}}'
           >
-            <i class='fa-solid fa-shuffle'></i>
+            <i class='fa-solid fa-dice'></i>
           </button>
         </span>
       </label>
@@ -287,7 +357,7 @@
         <span class='lh-creator-field-control'>
           <select class='lh-creator-input' name='backstoryId'>
             <option value=''>
-              {{{localize 'LH.investigatorCreator.chooseBackstory'}}}
+              {{{localize 'LH.investigatorGenerator.chooseBackstory'}}}
             </option>
 
             {{#each backstoryOptions}}
@@ -304,7 +374,7 @@
             data-key='backstory'
             title='{{localize "LH.core.roll"}}'
           >
-            <i class='fa-solid fa-shuffle'></i>
+            <i class='fa-solid fa-dice'></i>
           </button>
         </span>
         <span class='lh-creator-hint' data-backstory-items-hint>
@@ -315,9 +385,13 @@
   </section>
 
   <footer class='lh-creator-footer'>
-    <button type='submit' class='lh-creator-button lh-creator-button-primary lh-creator-save'>
+    <button
+      type='submit'
+      class='lh-creator-button lh-creator-button-primary lh-creator-save'
+      {{disabled partialAttributes}}
+    >
       <i class='fa-solid fa-user-plus'></i>
-      {{{localize 'LH.investigatorCreator.save'}}}
+      {{{localize 'LH.investigatorGenerator.save'}}}
     </button>
   </footer>
 </div>

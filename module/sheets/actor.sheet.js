@@ -1,9 +1,10 @@
 import { applyDamage, applyStress } from '../services/effects.js';
-import { InvestigatorCreator } from '../apps/investigator-creator.js';
+import { InvestigatorGenerator } from '../apps/investigator-generator.js';
 import { isAppendixLuckEnabled } from '../settings.js';
-import { equipItem, isAutoArmorCalculationEnabled, recalcArmor, useItem } from '../services/items.js';
+import { equipItem, isAutoArmorCalculationEnabled, recalcArmor, restoreItemUse, useItem } from '../services/items.js';
 import { restActor } from '../services/rest.js';
 import { quickRoll, rollAttribute } from '../services/rolls.js';
+import { createChatMessage } from '../utils/chat.js';
 import { t, td } from '../utils/i18n.js';
 import { recalcSlots } from '../utils/slots.js';
 
@@ -14,6 +15,7 @@ const INVENTORY_SORT_FLAG = 'inventorySort';
 const INVENTORY_MANUAL_ORDER_FLAG = 'manualInventoryOrder';
 const INVENTORY_SORT_DIRECTION_FLAG = 'inventorySortDirection';
 const INVENTORY_SORT_MODES = ['default', 'manual', 'name', 'type', 'slotSize', 'equipped'];
+const STATUS_ITEM_TYPES = new Set(['injury', 'consequence', 'condition']);
 
 const getPlainTextDescription = (content = '') => {
   if (!content) return '';
@@ -84,51 +86,112 @@ const sortInventoryItems = (items, mode, manualOrder = [], direction = 'asc') =>
   return withIndex.map(({ item }) => item);
 };
 
-export class LHActorSheet extends foundry.appv1.sheets.ActorSheet {
+const TEMPLATE_PATHS = Object.freeze({
+  investigator: 'systems/liminal-horror/templates/actors/actor-sheet.hbs',
+  limited: 'systems/liminal-horror/templates/actors/actor-limited.hbs',
+  monster: 'systems/liminal-horror/templates/actors/actor-monster-sheet.hbs',
+});
+
+const renderSheet = (sheet) => {
+  if (!sheet) return;
+  if (sheet instanceof foundry.applications.api.ApplicationV2) return sheet.render({ force: true });
+  return sheet.render(true);
+};
+
+export class LHActorSheet extends foundry.applications.api.HandlebarsApplicationMixin(
+  foundry.applications.sheets.ActorSheetV2
+) {
   constructor(...args) {
     super(...args);
     this._expandedItemDescriptions = new Set();
     this._draggedInventoryItemId = null;
   }
 
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['lh', 'sheet', 'actor'],
+  static DEFAULT_OPTIONS = {
+    classes: ['lh', 'sheet', 'actor'],
+    position: {
       width: 660,
       height: 760,
-      tabs: [{ navSelector: '.tabs', contentSelector: '.sheet-body', initial: 'items' }],
-    });
-  }
-
-  get template() {
-    if (this.actor.limited) {
-      return 'systems/liminal-horror/templates/actors/actor-limited.hbs';
-    }
-    if (this.actor.type === 'monster') {
-      return 'systems/liminal-horror/templates/actors/actor-monster-sheet.hbs';
-    }
-    return 'systems/liminal-horror/templates/actors/actor-sheet.hbs';
-  }
-
-  _getHeaderButtons() {
-    if (this.actor.limited) {
-      this.position.width = 600;
-      this.position.height = 'auto';
-      return super._getHeaderButtons().filter((b) => b.class === 'close');
-    }
-    const buttons = super._getHeaderButtons?.() ?? super.getHeaderButtons?.() ?? [];
-
-    if (game.user.isGM) {
-      buttons.unshift({
-        label: t('LH.investigatorCreator.windowHeader'),
-        class: 'lh-backstory',
-        icon: 'fas fa-user',
-        onclick: () => {
-          new InvestigatorCreator(this.actor).render(true);
+    },
+    window: {
+      resizable: true,
+      controls: [
+        {
+          action: 'openInvestigatorGenerator',
+          icon: 'fa-solid fa-user',
+          label: 'LH.investigatorGenerator.windowHeader',
+          visible: LHActorSheet._canUseInvestigatorGenerator,
         },
-      });
+      ],
+    },
+    form: {
+      submitOnChange: true,
+      closeOnSubmit: false,
+    },
+    actions: {
+      openInvestigatorGenerator: LHActorSheet._onOpenInvestigatorGenerator,
+      rest: LHActorSheet._onRest,
+      dof: LHActorSheet._onDof,
+      rollAttr: LHActorSheet._onRollAttr,
+      applyDamage: LHActorSheet._onApplyDamage,
+      applyStress: LHActorSheet._onApplyStress,
+      toggleEquip: LHActorSheet._onToggleEquip,
+      useItem: LHActorSheet._onUseItem,
+      restoreItemUse: LHActorSheet._onRestoreItemUse,
+      editItem: LHActorSheet._onEditItem,
+      deleteItem: LHActorSheet._onDeleteItem,
+      toggleDescription: LHActorSheet._onToggleDescription,
+      inventorySortDirection: LHActorSheet._onInventorySortDirection,
+    },
+  };
+
+  static PARTS = {
+    sheet: {
+      template: TEMPLATE_PATHS.investigator,
+      scrollable: [''],
+    },
+  };
+
+  static TABS = {
+    primary: {
+      tabs: [{ id: 'items' }, { id: 'description' }, { id: 'notes' }, { id: 'log' }],
+      initial: 'items',
+    },
+  };
+
+  static _canUseInvestigatorGenerator() {
+    return this.isEditable && !this.actor.limited;
+  }
+
+  get title() {
+    return this.actor.name || super.title;
+  }
+
+  _initializeApplicationOptions(options) {
+    const applicationOptions = super._initializeApplicationOptions(options);
+    if (applicationOptions.document?.type === 'monster') applicationOptions.classes.push('lh-monster-sheet');
+    return applicationOptions;
+  }
+
+  _configureRenderParts(options) {
+    const parts = super._configureRenderParts(options);
+    parts.sheet.template = this.actor.limited
+      ? TEMPLATE_PATHS.limited
+      : this.actor.type === 'monster'
+        ? TEMPLATE_PATHS.monster
+        : TEMPLATE_PATHS.investigator;
+    return parts;
+  }
+
+  _configureRenderOptions(options) {
+    super._configureRenderOptions(options);
+    if (this.actor.limited) {
+      options.position = foundry.utils.mergeObject(options.position ?? {}, { width: 600, height: 'auto' });
     }
-    return buttons;
+  }
+
+  _getHeaderControls() {
+    return this.actor.limited ? [] : super._getHeaderControls();
   }
 
   _isDamageActionDisabled(system = this.actor.system) {
@@ -157,8 +220,8 @@ export class LHActorSheet extends foundry.appv1.sheets.ActorSheet {
     return labels.join(' / ');
   }
 
-  async getData(options) {
-    const data = await super.getData(options);
+  async _prepareContext(options) {
+    const data = await super._prepareContext(options);
     const actorImage = this.actor.img ?? '';
     const isDefaultImage = typeof actorImage === 'string' && actorImage.includes('mystery-man.svg');
     const tokenSrc = this.actor.prototypeToken?.texture?.src;
@@ -181,12 +244,12 @@ export class LHActorSheet extends foundry.appv1.sheets.ActorSheet {
     const manualInventoryOrder = this.actor.getFlag('liminal-horror', INVENTORY_MANUAL_ORDER_FLAG) ?? [];
     const inventorySortDirection = this.actor.getFlag('liminal-horror', INVENTORY_SORT_DIRECTION_FLAG) ?? 'asc';
     const items = await Promise.all(
-      (data.items ?? []).map(async (item) => {
+      this.actor.items.contents.map(async (item) => {
         const description = item.system?.description ?? '';
         const hasDescription = Boolean(getPlainTextDescription(description));
 
         return {
-          ...item,
+          ...item.toObject(),
           hasDescription,
           enrichedDescription: hasDescription
             ? await foundry.applications.ux.TextEditor.implementation.enrichHTML(description, enrichmentOptions)
@@ -206,8 +269,17 @@ export class LHActorSheet extends foundry.appv1.sheets.ActorSheet {
     return {
       ...data,
       items: sortedItems,
+      actor: this.actor,
       system: this.actor.system,
-      canEditItems: game.user.isGM,
+      owner: this.actor.isOwner,
+      canEditItems: this.isEditable,
+      activeTab: this.tabGroups.primary,
+      tabClasses: {
+        items: this.tabGroups.primary === 'items' ? 'active' : '',
+        description: this.tabGroups.primary === 'description' ? 'active' : '',
+        notes: this.tabGroups.primary === 'notes' ? 'active' : '',
+        log: this.tabGroups.primary === 'log' ? 'active' : '',
+      },
       isManualInventorySort: inventorySort === 'manual',
       showInventorySortDirection: !['default', 'manual'].includes(inventorySort),
       inventorySort,
@@ -228,223 +300,290 @@ export class LHActorSheet extends foundry.appv1.sheets.ActorSheet {
     };
   }
 
-  activateListeners(html) {
-    super.activateListeners(html);
+  _processFormData(event, form, formData) {
+    const submitData = super._processFormData(event, form, formData);
+    delete submitData.damageAmount;
+    delete submitData.stressAmount;
+    return submitData;
+  }
+
+  async _onRender(context, options) {
+    await super._onRender(context, options);
     for (const actor of game.actors?.contents ?? []) recalcSlots(actor);
 
-    html.on('click', '.action-rest', async (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      const isFullRest = event.shiftKey === true;
-      await restActor(this.actor, { full: isFullRest });
+    if (!this.element.dataset.lhKeydownBound) {
+      this.element.dataset.lhKeydownBound = 'true';
+      this.element.addEventListener('keydown', async (event) => {
+        if (!isActivateEvent(event)) return;
+        const target = event.target.closest(
+          "[data-action='rollAttr'], [data-action='toggleEquip'], [data-action='useItem'], .item-edit, .item-delete"
+        );
+        if (!target) return;
+        event.preventDefault();
+        await this.options.actions[target.dataset.action]?.call(this, event, target);
+      });
+    }
+
+    this.element
+      .querySelector("[data-action='inventorySort']")
+      ?.addEventListener('change', this._onInventorySort.bind(this));
+    this.#activateItemUseContextListeners();
+    this.#activateInventoryDragListeners();
+  }
+
+  static async _onOpenInvestigatorGenerator() {
+    await new InvestigatorGenerator(this.actor).render({ force: true });
+  }
+
+  static async _onRest(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    await restActor(this.actor, { full: event.shiftKey === true });
+  }
+
+  static async _onDof(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    await quickRoll(this.actor, '1d6', t('LH.core.dof'));
+  }
+
+  static async _onRollAttr(event, target) {
+    event.preventDefault();
+    await rollAttribute(this.actor, target.dataset.key);
+  }
+
+  static async _onApplyDamage(event) {
+    event.preventDefault();
+    if (this._isDamageActionDisabled()) return;
+
+    const input = this.element.querySelector("input[name='damageAmount']");
+    const amount = Number(input?.value) || 0;
+    await applyDamage(this.actor, amount);
+    await recalcSlots(this.actor);
+    if (input) input.value = 1;
+  }
+
+  static async _onApplyStress(event) {
+    event.preventDefault();
+    if (this._isStressActionDisabled()) return;
+
+    const input = this.element.querySelector("input[name='stressAmount']");
+    const amount = Number(input?.value) || 0;
+    await applyStress(this.actor, amount);
+    await recalcSlots(this.actor);
+    if (input) input.value = 1;
+  }
+
+  static async _onToggleEquip(event, target) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const item = this.actor.items.get(getItemId(target));
+    if (!item) return;
+
+    await equipItem(item, this.actor);
+    await recalcSlots(this.actor);
+    await recalcArmor(this.actor);
+  }
+
+  static async _onUseItem(event, target) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const item = this.actor.items.get(getItemId(target));
+    if (item) await useItem(item, this.actor);
+  }
+
+  static async _onRestoreItemUse(event, target) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const item = this.actor.items.get(getItemId(target));
+    if (item) await restoreItemUse(item, this.actor);
+  }
+
+  static async _onEditItem(event, target) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    renderSheet(this.actor.items.get(getItemId(target))?.sheet);
+  }
+
+  static async _onDeleteItem(event, target) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const itemId = getItemId(target);
+    if (!itemId) return;
+
+    const item = this.actor.items.get(itemId);
+    if (!item) return;
+
+    const confirmed = await foundry.applications.api.DialogV2.wait({
+      classes: ['lh', 'lh-confirm-dialog'],
+      window: { title: t('LH.ui.deleteItem') },
+      position: { width: 320 },
+      rejectClose: false,
+      content: `<p class="lh-dialog-message">${td('LH.ui.deleteItemConfirm', {
+        name: `<strong>${foundry.utils.escapeHTML(item.name)}</strong>`,
+      })}</p>`,
+      buttons: [
+        {
+          action: 'yes',
+          icon: 'fa-solid fa-check',
+          label: t('LH.core.yes'),
+          callback: () => true,
+        },
+        {
+          action: 'no',
+          icon: 'fa-solid fa-times',
+          label: t('LH.core.no'),
+          default: true,
+          callback: () => false,
+        },
+      ],
     });
 
-    html.on('click', '.action-dof', async (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      await quickRoll(this.actor, '1d6', t('LH.core.dof'));
+    if (!confirmed) return;
+
+    const label = STATUS_ITEM_TYPES.has(item.type) ? t('LH.core.gotRidOf') : t('LH.core.thrownAway');
+    await createChatMessage({
+      actor: this.actor,
+      content: `<b>${label}:</b> ${foundry.utils.escapeHTML(item.name)}`,
     });
+    await item.delete();
+    await recalcSlots(this.actor);
+    await recalcArmor(this.actor);
+  }
 
-    html.on('click keydown', "[data-action='roll-attr']", async (event) => {
-      if (!isActivateEvent(event)) return;
-      await rollAttribute(this.actor, event.currentTarget.dataset.key);
-    });
+  static _onToggleDescription(event, target) {
+    event.preventDefault();
+    event.stopPropagation();
 
-    html.on('click', "[data-action='apply-damage']", async () => {
-      if (this._isDamageActionDisabled()) return;
+    const itemId = getItemId(target);
+    if (!itemId) return;
 
-      const input = html.find("input[name='damageAmount']");
-      const amount = Number(input.val()) || 0;
-      await applyDamage(this.actor, amount);
-      await recalcSlots(this.actor);
-      input.val(1);
-    });
+    const isExpanded = this._expandedItemDescriptions.has(itemId);
+    if (isExpanded) this._expandedItemDescriptions.delete(itemId);
+    else this._expandedItemDescriptions.add(itemId);
 
-    html.on('click', "[data-action='apply-stress']", async () => {
-      if (this._isStressActionDisabled()) return;
+    const content = this.element.querySelector(`.inv-desc[data-item-id="${itemId}"]`);
+    const button = target.closest("[data-action='toggleDescription']");
+    const nextExpanded = !isExpanded;
 
-      const input = html.find("input[name='stressAmount']");
-      const amount = Number(input.val()) || 0;
-      await applyStress(this.actor, amount);
-      await recalcSlots(this.actor);
-      input.val(1);
-    });
+    content?.classList.toggle('is-collapsed', !nextExpanded);
+    button?.setAttribute('aria-expanded', String(nextExpanded));
+  }
 
-    html.on('click keydown', "[data-action='toggle-equip']", async (event) => {
-      if (!isActivateEvent(event)) return;
-      event.preventDefault();
-      event.stopPropagation();
+  async _onInventorySort(event) {
+    const mode = event.currentTarget.value;
+    if (!INVENTORY_SORT_MODES.includes(mode)) return;
+    await this.actor.setFlag('liminal-horror', INVENTORY_SORT_FLAG, mode);
+    await this.render();
+  }
 
-      const itemId = getItemId(event.currentTarget);
-      const item = this.actor.items.get(itemId);
-      if (!item) return;
+  static async _onInventorySortDirection(event) {
+    event.preventDefault();
+    const currentDirection = this.actor.getFlag('liminal-horror', INVENTORY_SORT_DIRECTION_FLAG) ?? 'asc';
+    const nextDirection = currentDirection === 'desc' ? 'asc' : 'desc';
+    await this.actor.setFlag('liminal-horror', INVENTORY_SORT_DIRECTION_FLAG, nextDirection);
+    await this.render();
+  }
 
-      await equipItem(item, this.actor);
-      await recalcSlots(this.actor);
-      await recalcArmor(this.actor);
-    });
-
-    html.on('click keydown', "[data-action='use-item']", async (event) => {
-      if (!isActivateEvent(event)) return;
-      event.preventDefault();
-      event.stopPropagation();
-
-      const itemId = getItemId(event.currentTarget);
-      const item = this.actor.items.get(itemId);
-      if (!item) return;
-
-      await useItem(item, this.actor);
-    });
-
-    html.on('click keydown', '.item-edit', async (event) => {
-      if (!isActivateEvent(event)) return;
-      event.preventDefault();
-      event.stopPropagation();
-
-      const itemId = getItemId(event.currentTarget);
-      this.actor.items.get(itemId)?.sheet?.render(true);
-    });
-
-    html.on('click keydown', '.item-delete', async (event) => {
-      if (!isActivateEvent(event)) return;
-      event.preventDefault();
-      event.stopPropagation();
-
-      const itemId = getItemId(event.currentTarget);
-      if (!itemId) return;
-
-      const item = this.actor.items.get(itemId);
-      if (!item) return;
-
-      const confirmed = await foundry.applications.api.DialogV2.wait({
-        classes: ['lh', 'lh-confirm-dialog'],
-        window: { title: t('LH.ui.deleteItem') },
-        position: { width: 320 },
-        rejectClose: false,
-        content: `<p class="lh-dialog-message">${td('LH.ui.deleteItemConfirm', {
-          name: `<strong>${foundry.utils.escapeHTML(item.name)}</strong>`,
-        })}</p>`,
-        buttons: [
-          {
-            action: 'yes',
-            icon: 'fa-solid fa-check',
-            label: t('LH.core.yes'),
-            callback: () => true,
-          },
-          {
-            action: 'no',
-            icon: 'fa-solid fa-times',
-            label: t('LH.core.no'),
-            default: true,
-            callback: () => false,
-          },
-        ],
+  #activateInventoryDragListeners() {
+    this.element.querySelectorAll('.inv-drag-handle[draggable="true"]').forEach((handle) => {
+      handle.addEventListener('dragstart', (event) => {
+        const itemId = getItemId(event.currentTarget);
+        if (!itemId) return;
+        this._draggedInventoryItemId = itemId;
+        event.currentTarget.closest('.inv-row')?.classList.add('is-dragging');
+        event.dataTransfer?.setData('text/plain', itemId);
+        if (event.dataTransfer) event.dataTransfer.effectAllowed = 'move';
       });
 
-      if (!confirmed) return;
-
-      await item.delete();
-      await recalcSlots(this.actor);
-      await recalcArmor(this.actor);
+      handle.addEventListener('dragend', (event) => {
+        this._draggedInventoryItemId = null;
+        event.currentTarget.closest('.inv-row')?.classList.remove('is-dragging');
+        this.element.querySelectorAll('.inv-row.drop-before, .inv-row.drop-after').forEach((row) => {
+          row.classList.remove('drop-before', 'drop-after');
+        });
+      });
     });
 
-    html.on('click', "[data-action='toggle-description']", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
+    this.element.querySelectorAll('.inv-row[data-sortable="true"]').forEach((row) => {
+      row.addEventListener('dragover', (event) => {
+        if (!this._draggedInventoryItemId) return;
 
-      const itemId = getItemId(event.currentTarget);
-      if (!itemId) return;
+        const targetId = getItemId(event.currentTarget);
+        if (!targetId || targetId === this._draggedInventoryItemId) return;
 
-      const isExpanded = this._expandedItemDescriptions.has(itemId);
-      if (isExpanded) this._expandedItemDescriptions.delete(itemId);
-      else this._expandedItemDescriptions.add(itemId);
+        event.preventDefault();
+        if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
 
-      const content = html[0]?.querySelector(`.inv-desc[data-item-id="${itemId}"]`);
-      const button = event.currentTarget.closest("[data-action='toggle-description']");
-      const nextExpanded = !isExpanded;
+        const rect = event.currentTarget.getBoundingClientRect();
+        const insertAfter = event.clientY > rect.top + rect.height / 2;
 
-      content?.classList.toggle('is-collapsed', !nextExpanded);
-      button?.setAttribute('aria-expanded', String(nextExpanded));
+        this.element.querySelectorAll('.inv-row.drop-before, .inv-row.drop-after').forEach((row) => {
+          row.classList.remove('drop-before', 'drop-after');
+        });
+        event.currentTarget.classList.add(insertAfter ? 'drop-after' : 'drop-before');
+      });
+
+      row.addEventListener('dragleave', (event) => {
+        event.currentTarget.classList.remove('drop-before', 'drop-after');
+      });
+
+      row.addEventListener('drop', async (event) => {
+        const sourceId = this._draggedInventoryItemId ?? event.dataTransfer?.getData('text/plain');
+        const targetId = getItemId(event.currentTarget);
+        if (!sourceId || !targetId || sourceId === targetId) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const rect = event.currentTarget.getBoundingClientRect();
+        const insertAfter = event.clientY > rect.top + rect.height / 2;
+        const currentOrder = normalizeManualInventoryOrder(
+          this.actor.items.contents,
+          this.actor.getFlag('liminal-horror', INVENTORY_MANUAL_ORDER_FLAG) ?? []
+        );
+        const sourceIndex = currentOrder.indexOf(sourceId);
+        const targetIndex = currentOrder.indexOf(targetId);
+        if (sourceIndex === -1 || targetIndex === -1) return;
+
+        currentOrder.splice(sourceIndex, 1);
+        const insertionIndex = targetIndex + (insertAfter ? 1 : 0) - (sourceIndex < targetIndex ? 1 : 0);
+        currentOrder.splice(Math.max(0, insertionIndex), 0, sourceId);
+
+        this.element.querySelectorAll('.inv-row.drop-before, .inv-row.drop-after').forEach((row) => {
+          row.classList.remove('drop-before', 'drop-after');
+        });
+        await this.actor.setFlag('liminal-horror', INVENTORY_MANUAL_ORDER_FLAG, currentOrder);
+        await this.render();
+      });
     });
+  }
 
-    html.on('change', "[data-action='inventory-sort']", async (event) => {
-      const mode = event.currentTarget.value;
-      if (!INVENTORY_SORT_MODES.includes(mode)) return;
-      await this.actor.setFlag('liminal-horror', INVENTORY_SORT_FLAG, mode);
-      this.render(false);
-    });
+  async _onDragStart(event) {
+    if (event.currentTarget.matches?.('.inv-drag-handle')) return;
+    return super._onDragStart(event);
+  }
 
-    html.on('click', "[data-action='inventory-sort-direction']", async (event) => {
-      event.preventDefault();
-      const currentDirection = this.actor.getFlag('liminal-horror', INVENTORY_SORT_DIRECTION_FLAG) ?? 'asc';
-      const nextDirection = currentDirection === 'desc' ? 'asc' : 'desc';
-      await this.actor.setFlag('liminal-horror', INVENTORY_SORT_DIRECTION_FLAG, nextDirection);
-      this.render(false);
-    });
-
-    html.on('dragstart', '.inv-drag-handle[draggable="true"]', (event) => {
+  async _onSortItem(event, item) {
+    if (this.actor.getFlag('liminal-horror', INVENTORY_SORT_FLAG) === 'manual') {
       const itemId = getItemId(event.currentTarget);
       if (!itemId) return;
       this._draggedInventoryItemId = itemId;
-      event.currentTarget.closest('.inv-row')?.classList.add('is-dragging');
-      event.originalEvent?.dataTransfer?.setData('text/plain', itemId);
-      if (event.originalEvent?.dataTransfer) {
-        event.originalEvent.dataTransfer.effectAllowed = 'move';
-      }
-    });
+      return item;
+    }
+    return super._onSortItem(event, item);
+  }
 
-    html.on('dragend', '.inv-drag-handle[draggable="true"]', (event) => {
-      this._draggedInventoryItemId = null;
-      event.currentTarget.closest('.inv-row')?.classList.remove('is-dragging');
-      html.find('.inv-row.drop-before, .inv-row.drop-after').removeClass('drop-before drop-after');
-    });
-
-    html.on('dragover', '.inv-row[data-sortable="true"]', (event) => {
-      if (!this._draggedInventoryItemId) return;
-
-      const targetId = getItemId(event.currentTarget);
-      if (!targetId || targetId === this._draggedInventoryItemId) return;
-
-      event.preventDefault();
-      const originalEvent = event.originalEvent;
-      if (originalEvent?.dataTransfer) originalEvent.dataTransfer.dropEffect = 'move';
-
-      const rect = event.currentTarget.getBoundingClientRect();
-      const insertAfter = (originalEvent?.clientY ?? rect.top) > rect.top + rect.height / 2;
-
-      html.find('.inv-row.drop-before, .inv-row.drop-after').removeClass('drop-before drop-after');
-      event.currentTarget.classList.add(insertAfter ? 'drop-after' : 'drop-before');
-    });
-
-    html.on('dragleave', '.inv-row[data-sortable="true"]', (event) => {
-      event.currentTarget.classList.remove('drop-before', 'drop-after');
-    });
-
-    html.on('drop', '.inv-row[data-sortable="true"]', async (event) => {
-      const sourceId = this._draggedInventoryItemId ?? event.originalEvent?.dataTransfer?.getData('text/plain');
-      const targetId = getItemId(event.currentTarget);
-      if (!sourceId || !targetId || sourceId === targetId) return;
-
-      event.preventDefault();
-      event.stopPropagation();
-
-      const rect = event.currentTarget.getBoundingClientRect();
-      const insertAfter = (event.originalEvent?.clientY ?? rect.top) > rect.top + rect.height / 2;
-      const currentOrder = normalizeManualInventoryOrder(
-        this.actor.items.contents,
-        this.actor.getFlag('liminal-horror', INVENTORY_MANUAL_ORDER_FLAG) ?? []
-      );
-      const sourceIndex = currentOrder.indexOf(sourceId);
-      const targetIndex = currentOrder.indexOf(targetId);
-      if (sourceIndex === -1 || targetIndex === -1) return;
-
-      currentOrder.splice(sourceIndex, 1);
-      const insertionIndex = targetIndex + (insertAfter ? 1 : 0) - (sourceIndex < targetIndex ? 1 : 0);
-      currentOrder.splice(Math.max(0, insertionIndex), 0, sourceId);
-
-      html.find('.inv-row.drop-before, .inv-row.drop-after').removeClass('drop-before drop-after');
-      await this.actor.setFlag('liminal-horror', INVENTORY_MANUAL_ORDER_FLAG, currentOrder);
-      this.render(false);
-    });
+  #activateItemUseContextListeners() {
+    for (const target of this.element.querySelectorAll("[data-action='useItem']")) {
+      if (target.dataset.lhContextBound) continue;
+      target.dataset.lhContextBound = 'true';
+      target.addEventListener('contextmenu', (event) => this.options.actions.restoreItemUse.call(this, event, target));
+    }
   }
 }

@@ -79,11 +79,33 @@ body {
 }
 
 /* ===== Sheet Shell ===== */
-.window-app.lh .window-content {
+.window-app.lh .window-content,
+.application.lh .window-content {
   --color-scrollbar: rgba(0, 0, 0, 0.72);
   --color-scrollbar-track: transparent;
   background: var(--lh-bg-app);
   padding: 6px;
+  min-height: 0;
+  overflow-y: auto;
+}
+.application.lh {
+  --background: var(--lh-bg-app);
+  --color-border: var(--lh-border);
+  --color-text-primary: var(--lh-text-main);
+  color: var(--lh-text-main);
+  font-family: var(--font-primary);
+  gap: 0;
+  background: var(--lh-bg-app);
+  border: 0;
+}
+.application.lh .window-content,
+.application.lh [data-application-part] {
+  border: 0;
+  box-shadow: none;
+}
+.application.lh .window-content > .layout {
+  background: var(--lh-bg-app);
+  min-height: 0;
 }
 body.game .window-app.lh-confirm-dialog .window-header,
 body.game .application.lh-confirm-dialog .window-header {
@@ -198,6 +220,115 @@ body.game .application.lh-confirm-dialog .form-footer button[data-action='yes']:
   background: var(--lh-bg-dark-hover);
   color: var(--lh-text-light);
   border-color: var(--lh-bg-dark-hover);
+}
+
+body.game .application.lh-update-dialog .window-content,
+body.game .window-app.lh-update-dialog .window-content {
+  background: var(--lh-bg-app);
+  color: var(--lh-text-main);
+  padding: 10px;
+}
+
+body.game .application.lh-update-dialog .dialog-content,
+body.game .window-app.lh-update-dialog .dialog-content {
+  margin: 0;
+  color: var(--lh-text-main);
+}
+
+.lh-update-notice {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  color: var(--lh-text-main);
+  font-family: var(--font-primary);
+}
+
+.lh-update-notice h2 {
+  margin: 0 0 12px;
+  color: var(--lh-text-main);
+  font-size: 1.35rem;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.lh-update-notice h3 {
+  color: var(--lh-text-main);
+  font-weight: 900;
+}
+
+.lh-update-notice p {
+  margin: 0 0 10px;
+  color: var(--lh-text-main);
+  line-height: 1.35;
+}
+
+.lh-update-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.lh-update-links a {
+  color: #b6453b;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.lh-update-scroll {
+  max-height: min(56vh, 540px);
+  margin-top: 6px;
+  padding: 0 6px 0 0;
+  overflow-y: auto;
+  scrollbar-color: var(--lh-accent-strong) transparent;
+}
+
+.lh-update-card {
+  margin: 0 0 10px;
+  padding: 12px 14px;
+  color: var(--lh-text-main);
+  background: var(--lh-bg-card);
+  border: 1px solid var(--lh-border);
+  border-radius: var(--lh-radius);
+  box-shadow: 0 1px 0 var(--lh-shadow-light);
+}
+
+.lh-update-card-current {
+  border-color: var(--lh-border-strong);
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.08);
+}
+
+.lh-update-version {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 10px;
+  font-size: 1.35rem;
+  line-height: 1.15;
+}
+
+.lh-update-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 18px;
+  padding: 0 7px;
+  color: var(--lh-text-light);
+  background: #b6453b;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.lh-update-card ul {
+  margin: 0 0 14px 20px;
+  padding: 0;
+}
+
+.lh-update-card li {
+  margin: 0 0 4px;
+  color: var(--lh-text-main);
+  line-height: 1.3;
 }
 
 body.game .window-app.lh-swap-dialog .window-content,
@@ -402,7 +533,12 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
   position: relative;
   display: grid;
   grid-template-columns: var(--lh-avatar-col) 1fr;
-  gap: 10px;
+  grid-auto-rows: max-content;
+  align-content: start;
+  align-items: start;
+  column-gap: 10px;
+  row-gap: 6px;
+  min-height: 0;
 }
 @media (max-width: 900px) {
   .lh .layout {
@@ -439,12 +575,64 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
 .lh .item-label-muted {
   color: var(--lh-text-muted);
 }
-.lh input[type='checkbox']::before {
-  color: var(--lh-border-strong);
-  font-weight: unset;
+.lh .deprived-checkbox {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  cursor: pointer;
 }
-.lh input[type='checkbox']::after {
-  --checkbox-checked-color: #ffffff;
+.lh .deprived-checkbox > input[type='checkbox'] {
+  position: absolute;
+  inset: 0;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+.lh .deprived-checkbox > .checkbox-box {
+  display: inline-grid;
+  place-content: center;
+  width: 16px;
+  height: 16px;
+  background: var(--lh-bg-btn);
+  border: 1px solid var(--lh-border-strong);
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+.lh .deprived-checkbox > .checkbox-box::before {
+  content: '\f00c';
+  font-family: var(--font-awesome);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--lh-text-main);
+  transform: scale(0);
+}
+.lh .deprived-checkbox > input[type='checkbox']:checked + .checkbox-box::before {
+  color: var(--lh-text-light);
+  transform: scale(1);
+}
+body.game .application.lh .deprived-checkbox > input[type='checkbox']:checked + .checkbox-box,
+body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .checkbox-box,
+.lh .deprived-checkbox > input[type='checkbox']:checked + .checkbox-box {
+  background: var(--lh-bg-btn-dark);
+  border-color: var(--lh-bg-btn-dark);
+}
+.lh .deprived-checkbox > input[type='checkbox']:focus-visible + .checkbox-box {
+  outline: 1px solid var(--lh-text-muted);
+  outline-offset: 2px;
+}
+.lh .deprived-checkbox > input[type='checkbox']:disabled + .checkbox-box,
+.lh .deprived-checkbox > input[type='checkbox'][readonly] + .checkbox-box {
+  opacity: 0.65;
+}
+.lh .deprived-checkbox:has(input[type='checkbox']:disabled),
+.lh .deprived-checkbox:has(input[type='checkbox'][readonly]) {
+  cursor: inherit;
 }
 .gm-stress-btn,
 .gm-damage-btn,
@@ -465,9 +653,182 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
   background-color: var(--lh-bg-btn);
 }
 .lh .line {
-  height: 1px;
-  background: var(--lh-border);
-  margin: 8px 0;
+  height: 0;
+  background: transparent;
+  margin: 4px 0;
+}
+
+.lh .layout.lh-item {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  min-height: auto;
+}
+
+.lh .lh-item .item-card {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  background: var(--lh-bg-card);
+  border: 1px solid var(--lh-border);
+  border-radius: var(--lh-radius-card);
+  padding: 10px;
+  box-shadow: 0 1px 0 var(--lh-shadow-light);
+}
+
+.lh .lh-item .item-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.lh .lh-item .item-name-input,
+.lh .lh-item .item-input,
+.lh .lh-item .item-textarea {
+  width: 100%;
+  min-width: 0;
+  color: var(--lh-text-main);
+  background: var(--lh-bg-btn);
+  border: 1px solid var(--lh-border);
+  border-radius: var(--lh-radius);
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  line-height: 1.25;
+}
+
+.lh .lh-item .item-name-input,
+.lh .lh-item .item-input {
+  height: 32px;
+  padding: 4px 8px;
+}
+
+.lh .lh-item .item-textarea {
+  min-height: 64px;
+  padding: 6px 8px;
+  resize: vertical;
+}
+
+.lh .lh-item .item-name-input:focus,
+.lh .lh-item .item-input:focus,
+.lh .lh-item .item-textarea:focus {
+  outline: 1px solid var(--lh-text-muted);
+  outline-offset: 1px;
+  box-shadow: 0 0 6px var(--color-shadow-primary);
+}
+
+.lh .lh-item .item-type-pill {
+  color: var(--lh-text-muted);
+  font-size: 0.78rem;
+  line-height: 1;
+  text-transform: lowercase;
+  white-space: nowrap;
+}
+
+.lh .lh-item .item-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.lh .lh-item .item-fields-single {
+  grid-template-columns: 1fr;
+}
+
+.lh .lh-item .item-panel,
+.lh .lh-item .item-carry-panel {
+  display: grid;
+  align-content: start;
+  gap: 7px;
+  min-width: 0;
+}
+
+.lh .lh-item .item-carry-panel {
+  border-top: 1px solid var(--lh-border);
+  padding-top: 8px;
+}
+
+.lh .lh-item .item-section-title {
+  color: var(--lh-text-muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.lh .lh-item .item-form-row {
+  display: grid;
+  gap: 3px;
+}
+
+.lh .lh-item .item-form-group {
+  display: flex;
+  align-items: center;
+  min-height: 24px;
+}
+
+.lh .lh-item .item-form-group label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+
+.lh .lh-item .item-checkbox {
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+.lh .lh-item .item-checkbox > input[type='checkbox'] {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+.lh .lh-item .item-checkbox > .checkbox-box {
+  display: inline-grid;
+  place-content: center;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  background: var(--lh-bg-btn);
+  border: 1px solid var(--lh-border-strong);
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.lh .lh-item .item-checkbox > .checkbox-box::before {
+  content: '\f00c';
+  font-family: var(--font-awesome);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--lh-text-light);
+  transform: scale(0);
+}
+
+.lh .lh-item .item-checkbox > input[type='checkbox']:checked + .checkbox-box {
+  background: var(--lh-bg-btn-dark);
+  border-color: var(--lh-bg-btn-dark);
+}
+
+.lh .lh-item .item-checkbox > input[type='checkbox']:checked + .checkbox-box::before {
+  transform: scale(1);
+}
+
+.lh .lh-item .item-checkbox > input[type='checkbox']:focus-visible + .checkbox-box {
+  outline: 1px solid var(--lh-text-muted);
+  outline-offset: 2px;
+}
+
+@media (max-width: 700px) {
+  .lh .lh-item .item-fields {
+    grid-template-columns: 1fr;
+  }
 }
 /* ===== Form Inputs ===== */
 .lh input,
@@ -494,6 +855,25 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
   margin-bottom: 5px;
   position: relative;
   height: 260px;
+  color: var(--lh-text-main);
+}
+.lh prose-mirror {
+  --min-height: 260px;
+  color: var(--lh-text-main);
+}
+.lh prose-mirror button.toggle {
+  top: 0;
+  right: 0;
+  color: var(--lh-text-main);
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+.lh prose-mirror .editor-container {
+  min-height: 0;
+  border: 1px solid var(--lh-border);
+  border-radius: var(--lh-radius);
+  background: var(--lh-bg-btn);
 }
 .lh .editor-content {
   --color-scrollbar: rgba(0, 0, 0, 0.72);
@@ -513,6 +893,11 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
   overflow: visible;
 }
 .lh .editor.prosemirror menu.editor-menu {
+  --button-text-color: var(--lh-text-main);
+  --button-hover-text-color: var(--lh-text-main);
+  --button-focus-text-color: var(--lh-text-main);
+  --button-hover-background-color: #f5f5f5;
+  --button-focus-background-color: #f5f5f5;
   position: static;
   z-index: 1;
   display: flex;
@@ -523,6 +908,19 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
   padding: 2px 4px;
   overflow: visible;
   background: transparent;
+  color: var(--lh-text-main);
+}
+.lh .editor.prosemirror menu.editor-menu button,
+.lh .editor.prosemirror menu.editor-menu .pm-dropdown,
+.lh .editor.prosemirror menu.editor-menu label,
+.lh .editor.prosemirror menu.editor-menu span {
+  color: var(--lh-text-main);
+  text-shadow: none;
+}
+.lh .editor.prosemirror menu.editor-menu button i,
+.lh .editor.prosemirror menu.editor-menu svg {
+  color: inherit;
+  fill: currentColor;
 }
 .lh .editor.prosemirror menu.editor-menu button:hover,
 .lh .editor.prosemirror menu.editor-menu button:focus,
@@ -560,30 +958,22 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
 .lh .editor-content a {
   color: var(--lh-text-main);
 }
-.lh .editor .editor-edit {
-  top: 8px;
-  right: 12px;
-  width: 22px;
-  height: 22px;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.lh .editor-content ul,
+.lh prose-mirror .editor-content ul {
+  margin: 0.35rem 0;
+  padding-left: 1.25rem;
 }
-.lh .editor .editor-edit i {
-  font-size: 14px;
-  line-height: 1;
+.lh .editor-content li,
+.lh prose-mirror .editor-content li {
+  margin: 0.18rem 0;
+  color: var(--lh-text-main);
+  line-height: 1.35;
 }
-.lh .editor .editor-edit:hover,
-.lh .editor .editor-edit:focus {
-  background: transparent;
-  box-shadow: none;
+.lh .editor-content strong,
+.lh prose-mirror .editor-content strong {
+  color: var(--lh-text-main);
+  font-weight: 800;
 }
-
 /* ===== Portrait Panel ===== */
 .lh .avatar {
   background: var(--lh-bg-card);
@@ -782,14 +1172,20 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
   color: var(--lh-text-main);
 }
 .lh .pair .num:last-child,
+.lh .pair .num[data-deprived='true'],
 .lh.lh-monster-sheet .monster-values-dual .monster-num:last-child {
   border-left: 1px solid var(--lh-border);
   border-radius: 0;
   background: rgba(0, 0, 0, 0.035);
   color: var(--lh-text-muted);
 }
+.lh .pair .num[data-deprived='true'] {
+  border-left: 0;
+}
 .lh .pair .num:last-child:focus,
 .lh .pair .num:last-child:focus-visible,
+.lh .pair .num[data-deprived='true']:focus,
+.lh .pair .num[data-deprived='true']:focus-visible,
 .lh.lh-monster-sheet .monster-values-dual .monster-num:last-child:focus,
 .lh.lh-monster-sheet .monster-values-dual .monster-num:last-child:focus-visible {
   color: var(--lh-text-main);
@@ -836,7 +1232,6 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
 .lh .deprived .checkbox {
   width: 16px;
   height: 16px;
-  accent-color: var(--lh-accent);
 }
 
 /* ===== Tabs ===== */
@@ -844,18 +1239,27 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
   grid-column: 1 / -1;
   display: flex;
   gap: 20px;
-  margin: 8px 4px 0;
-  border-bottom: 1px solid var(--lh-border);
+  align-items: flex-end;
+  justify-content: space-around;
+  margin: -2px 4px -4px;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
 }
 .lh .tabs .item {
   position: relative;
-  padding: 8px 2px;
-  margin-bottom: -1px;
+  padding: 2px 2px 3px;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
   font-weight: 800;
   letter-spacing: 0.02em;
   cursor: pointer;
   user-select: none;
-  font-size: 0.95rem;
+  font-size: 0.84rem;
   color: var(--lh-text-muted);
   text-decoration: none;
   transition: color 0.15s ease;
@@ -864,12 +1268,17 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
 .lh .tabs .item.active {
   color: var(--lh-text-main);
 }
+.lh .tabs .item.active {
+  text-shadow:
+    0 0 4px rgba(200, 0, 0, 0.56),
+    0 0 7px rgba(200, 0, 0, 0.26);
+}
 .lh .tabs .item::after {
   content: '';
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -1px;
+  bottom: 0;
   height: 2px;
   background: transparent;
   transform: scaleX(0);
@@ -891,6 +1300,8 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
 .lh .sheet-body {
   grid-column: 1 / -1;
   background: var(--lh-bg-app);
+  min-height: 0;
+  overflow: visible;
 }
 
 /* ===== Inventory ===== */
@@ -898,7 +1309,7 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 6px 0 6px;
+  margin: 4px 0 6px;
 }
 .lh .inv-meta {
   display: flex;
@@ -1305,14 +1716,18 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
 }
 
 /* ===== Sheet Header ===== */
-.window-app.lh .window-header {
+.window-app.lh .window-header,
+.application.lh .window-header {
   background: var(--lh-bg-header);
   color: var(--lh-text-light);
   border-bottom: 1px solid rgba(0, 0, 0, 0.55);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset;
 }
 .window-app.lh .window-header .window-title,
-.window-app.lh .window-header a {
+.window-app.lh .window-header a,
+.application.lh .window-header .window-title,
+.application.lh .window-header a,
+.application.lh .window-header button {
   color: inherit;
 }
 .lh .item-slots {
@@ -1773,7 +2188,7 @@ button[data-tool^='lh-']:hover {
 
 .lh-creator-stat-label {
   display: inline-flex;
-  flex: 0 0 88px;
+  flex: 0 0 76px;
   align-items: center;
   justify-content: center;
   gap: 6px;
@@ -1801,11 +2216,45 @@ button[data-tool^='lh-']:hover {
   background: var(--lh-bg-btn);
   border: 1px solid var(--lh-border-strong);
   border-left: 0;
-  border-radius: 0 var(--lh-radius) var(--lh-radius) 0;
+  border-radius: 0;
   box-shadow: inset 0 -1px 0 var(--lh-shadow-light);
   font: inherit;
   font-weight: 800;
   text-align: center;
+}
+
+.lh-creator-stat-roll-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 var(--lh-control-h);
+  width: var(--lh-control-h);
+  height: var(--lh-control-h);
+  min-height: var(--lh-control-h);
+  margin: 0;
+  padding: 0;
+  color: var(--lh-text-light);
+  background: var(--lh-bg-btn-dark);
+  border: 1px solid var(--lh-bg-btn-dark);
+  border-radius: 0 var(--lh-radius) var(--lh-radius) 0;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.lh-creator-stat-roll-button:hover,
+.lh-creator-stat-roll-button:focus {
+  color: var(--lh-text-light);
+  background: #3b3b3b;
+  border-color: #3b3b3b;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.18);
+}
+
+.lh-creator-stat-roll-button:disabled {
+  color: var(--lh-text-muted);
+  background: var(--lh-bg-btn);
+  border-color: var(--lh-border-strong);
+  cursor: default;
+  opacity: 1;
 }
 
 .lh-creator-stat-input[readonly],
@@ -1821,8 +2270,13 @@ button[data-tool^='lh-']:hover {
   min-width: 0;
 }
 
+.lh-creator-action-row-gm {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .lh-creator-button,
-.lh-creator-icon-button {
+.lh-creator-icon-button,
+.lh-creator-stat-roll-button {
   font-family: var(--font-primary);
   text-shadow: none;
   box-shadow: none;
@@ -1892,8 +2346,27 @@ button[data-tool^='lh-']:hover {
 }
 
 .lh-creator-field-list-details {
+  gap: 7px;
+}
+
+.lh-creator-detail-columns {
+  position: relative;
+  display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 7px 12px;
+  gap: 7px 24px;
+  min-width: 0;
+}
+
+.lh-creator-detail-columns::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: var(--lh-text-main);
+  transform: translateX(-50%);
+  pointer-events: none;
 }
 
 .lh-creator-field {
@@ -1909,8 +2382,8 @@ button[data-tool^='lh-']:hover {
   grid-column: 1 / -1;
 }
 
-.lh-creator-field-list-details .lh-creator-field-wide {
-  order: -1;
+.lh-creator-detail-columns {
+  grid-column: 1 / -1;
 }
 
 .lh-creator-field-label {
@@ -2024,6 +2497,14 @@ select.lh-creator-input {
     grid-template-columns: 1fr;
   }
 
+  .lh-creator-detail-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .lh-creator-detail-columns::before {
+    display: none;
+  }
+
   .lh-creator-field {
     grid-template-columns: 1fr;
     gap: 5px;
@@ -2041,7 +2522,8 @@ select.lh-creator-input {
 
 @media (max-width: 420px) {
   .lh-creator-stat-grid,
-  .lh-creator-action-row {
+  .lh-creator-action-row,
+  .lh-creator-action-row-gm {
     grid-template-columns: 1fr;
   }
 }

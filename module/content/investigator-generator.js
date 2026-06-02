@@ -17,6 +17,15 @@ export const INVESTIGATOR_BACKSTORY_COUNT = 20;
 
 export const INVESTIGATOR_DETAIL_KEYS = INVESTIGATOR_DESCRIPTION_FIELDS.filter((key) => key !== 'firstEncounter');
 
+export const INVESTIGATOR_STAT_ROLL_FORMULAS = {
+  str: '3d6',
+  dex: '3d6',
+  ctrl: '3d6',
+  luck: '3d6',
+  hp: '1d6',
+  cash: '1d6 * 100',
+};
+
 export const INVESTIGATOR_FIELD_ROLL_MAX = {
   aesthetics: 20,
   backstory: INVESTIGATOR_BACKSTORY_COUNT,
@@ -66,6 +75,16 @@ export async function rollTotal(formula) {
   return roll.total;
 }
 
+export function getRequiredInvestigatorStatKeys({ showLuck = shouldShowLuck() } = {}) {
+  return Object.keys(INVESTIGATOR_STAT_ROLL_FORMULAS).filter((key) => showLuck || key !== 'luck');
+}
+
+export async function rollInvestigatorStat(key) {
+  const formula = INVESTIGATOR_STAT_ROLL_FORMULAS[key];
+  if (!formula) return 0;
+  return rollTotal(formula);
+}
+
 export function rollInvestigatorField(key) {
   const max = INVESTIGATOR_FIELD_ROLL_MAX[key];
   if (!max) return '';
@@ -86,22 +105,12 @@ export function rollInvestigatorBackstoryId() {
 }
 
 export async function rollInvestigatorAttributes({ showLuck = shouldShowLuck() } = {}) {
-  const [str, dex, ctrl, luck, hp, cash] = await Promise.all([
-    rollTotal('3d6'),
-    rollTotal('3d6'),
-    rollTotal('3d6'),
-    showLuck ? rollTotal('3d6') : 0,
-    rollTotal('1d6'),
-    rollTotal('1d6 * 100'),
-  ]);
+  const keys = getRequiredInvestigatorStatKeys({ showLuck });
+  const rolls = Object.fromEntries(await Promise.all(keys.map(async (key) => [key, await rollInvestigatorStat(key)])));
 
   return {
-    str,
-    dex,
-    ctrl,
-    luck,
-    hp,
-    cash,
+    ...getInitialInvestigatorStats(),
+    ...rolls,
   };
 }
 

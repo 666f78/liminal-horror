@@ -230,7 +230,7 @@ function localizeItems(items) {
 export function getBackstoryOptions() {
   return RAW_BACKSTORIES.map((entry) => ({
     id: entry.id,
-    name: `${String(entry.id).padStart(2, '0')} - ${t(entry.name)}`,
+    name: t(entry.name),
     itemsHint: localizeItems(entry.items)
       .map((item) => item.name)
       .join(', '),
