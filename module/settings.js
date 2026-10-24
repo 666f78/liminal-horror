@@ -2,6 +2,7 @@ export const SETTINGS_NS = 'liminal-horror';
 export const APPENDIX_LUCK_SETTING = 'appendixLuck';
 export const AUTO_ARMOR_CALCULATION_SETTING = 'autoArmorCalculation';
 export const INVESTIGATOR_GENERATOR_REROLL_SETTING = 'investigatorGeneratorReroll';
+export const PARTY_MEMBERS_SETTING = 'partyMembers';
 
 export function isAppendixLuckEnabled() {
   return game.settings.get(SETTINGS_NS, APPENDIX_LUCK_SETTING);
@@ -24,6 +25,14 @@ async function syncArmorForAllActors(enabled) {
 }
 
 export function registerSystemSettings() {
+  game.settings.register(SETTINGS_NS, PARTY_MEMBERS_SETTING, {
+    name: 'LH.partyOverview.membersSetting',
+    scope: 'world',
+    config: false,
+    type: Array,
+    default: [],
+  });
+
   game.settings.register(SETTINGS_NS, 'lastSeenSystemVersion', {
     name: 'Last Seen System Version',
     scope: 'world',

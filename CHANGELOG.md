@@ -6,6 +6,9 @@
 
 - Added a support link for users who want to support continued development of the system
 - Added an inline undo action to refund spent Luck and restore the original roll result
+- Added a GM-only Party Overview window with HP, attributes, optional Luck, inventory slots, and character statuses
+- Added persistent manual party selection shared between GMs, live updates, and quick access to character sheets
+- Added compact status badges with icons and overflow tooltips that adapt to available space
 
 ### Changed
 
@@ -13,6 +16,7 @@
 - Updated Voidcrawl roll cards with event colors, icons, and improved text readability
 - Updated Luck spending to show success and the spent amount on the original roll card instead of posting a separate chat message
 - Localized Luck spending and undo controls and messages in English and Ukrainian
+- Localized Party Overview controls, status tooltips, and messages in English and Ukrainian
 
 ### Fixed
 

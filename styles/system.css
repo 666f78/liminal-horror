@@ -2529,6 +2529,308 @@ button[data-tool^='lh-']:hover {
   overflow: visible;
 }
 
+/* ===== Party Overview ===== */
+.lh-party {
+  --lh-party-warning: #b6453b;
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+}
+
+.application.lh-party-window .window-content {
+  overflow: auto;
+}
+
+.application.lh-party-window .window-resize-handle {
+  filter: brightness(0.55);
+}
+
+.lh-party-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lh-party-count,
+.lh-party-empty {
+  margin: 0;
+  color: var(--lh-text-muted);
+  line-height: 1.5;
+}
+
+.lh-party-toolbar button.lh-party-edit {
+  --button-background-color: var(--lh-bg-btn-dark);
+  --button-border-color: var(--lh-bg-btn-dark);
+  --button-text-color: var(--lh-text-light);
+  --button-focus-outline-color: var(--lh-accent-strong);
+  --button-hover-background-color: var(--lh-bg-dark-hover);
+  --button-hover-border-color: var(--lh-bg-dark-hover);
+  --button-hover-text-color: var(--lh-text-light);
+  gap: 6px;
+  color: var(--lh-text-light);
+  background: var(--lh-bg-btn-dark);
+  border-color: var(--lh-bg-btn-dark);
+  box-shadow: none;
+  text-shadow: none;
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.lh-party-toolbar button.lh-party-edit:hover,
+.lh-party-toolbar button.lh-party-edit:focus-visible {
+  color: var(--lh-text-light);
+  background: var(--lh-bg-dark-hover);
+  border-color: var(--lh-bg-dark-hover);
+}
+
+.lh-party-table-wrap {
+  min-width: 0;
+  max-height: 60vh;
+  overflow: auto;
+  border: 1px solid var(--lh-border);
+  border-radius: var(--lh-radius);
+}
+
+.lh-party-table {
+  --table-header-bg-color: var(--lh-bg-header);
+  --table-header-text-color: var(--lh-text-light);
+  --table-row-color-even: var(--lh-bg-card);
+  --table-row-color-odd: var(--lh-bg-card);
+  width: 100%;
+  min-width: 700px;
+  margin: 0;
+  border: 0;
+  border-collapse: collapse;
+  background: var(--lh-bg-card);
+  color: var(--lh-text-main);
+}
+
+.lh-party-table thead {
+  border: 0;
+  text-shadow: none;
+}
+
+.lh-party-table th,
+.lh-party-table td {
+  padding: 8px;
+  border-bottom: 1px solid var(--lh-border);
+  text-align: center;
+  vertical-align: middle;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.lh-party-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--table-header-bg-color);
+  color: var(--table-header-text-color);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.lh-party-table th:first-child,
+.lh-party-table td:first-child {
+  text-align: left;
+}
+
+.lh-party-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.lh-party-table tbody tr:hover {
+  background: var(--lh-bg-hover);
+}
+
+.lh-party-table button.lh-party-actor {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  min-width: 160px;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--lh-text-main);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  white-space: normal;
+}
+
+.lh-party-actor img,
+.lh-party-member-choice img {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: var(--lh-radius-sm);
+  object-fit: cover;
+}
+
+.lh-party-table button.lh-party-actor:hover span {
+  text-decoration: underline;
+}
+
+.lh-party-actor span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.lh-party-base {
+  color: var(--lh-text-muted);
+  font-size: 0.8rem;
+}
+
+.lh-party-table td[data-warning='true'] strong {
+  color: var(--lh-party-warning);
+}
+
+.lh-party-statuses {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 90px;
+  white-space: nowrap;
+}
+
+.lh-party-status,
+.lh-party-status-detail {
+  --lh-status-color: #62656b;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.lh-party-status[data-status='dead'],
+.lh-party-status-detail[data-status='dead'] {
+  --lh-status-color: #b6453b;
+}
+
+.lh-party-status[data-status='paralysis'],
+.lh-party-status-detail[data-status='paralysis'],
+.lh-party-status[data-status='deprived'],
+.lh-party-status-detail[data-status='deprived'] {
+  --lh-status-color: #9b5d0c;
+}
+
+.lh-party-status {
+  padding: 3px 6px;
+  border-radius: 999px;
+  color: var(--lh-status-color);
+  background: color-mix(in srgb, var(--lh-status-color) 12%, var(--lh-bg-card));
+  font-size: 0.75rem;
+}
+
+.lh-party-status-icon {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  width: 1em;
+  color: var(--lh-status-color);
+}
+
+.lh-party-status[data-status='paralysis'] > .lh-party-status-icon::after,
+.lh-party-status-detail[data-status='paralysis'] > .lh-party-status-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 1.1em;
+  border-top: 1px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.lh-party-table button.lh-party-status-more {
+  flex: 0 0 auto;
+  width: auto;
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 2px 6px;
+  border: 1px solid var(--lh-border-strong);
+  border-radius: 999px;
+  color: var(--lh-text-muted);
+  background: transparent;
+  box-shadow: none;
+  text-shadow: none;
+  font-family: inherit;
+  font-size: 0.75rem;
+  line-height: normal;
+}
+
+.lh-party-table button.lh-party-status-more:hover,
+.lh-party-table button.lh-party-status-more:focus-visible {
+  color: var(--lh-text-main);
+  border-color: var(--lh-accent-strong);
+  background: var(--lh-bg-hover);
+}
+
+#tooltip.lh-party-status-tooltip,
+.locked-tooltip.lh-party-status-tooltip {
+  padding: 10px 12px;
+}
+
+.lh-party-status-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lh-party-status-tooltip .lh-party-status-detail {
+  white-space: nowrap;
+}
+
+.lh-party-status-tooltip .lh-party-status-detail[data-status='lost'] {
+  --lh-status-color: #aaa;
+}
+
+.lh-party-status-tooltip .lh-party-status-detail[data-status='dead'] {
+  --lh-status-color: #ff6860;
+}
+
+.lh-party-status-tooltip .lh-party-status-detail[data-status='paralysis'],
+.lh-party-status-tooltip .lh-party-status-detail[data-status='deprived'] {
+  --lh-status-color: #f59e42;
+}
+
+.lh-party-member-options {
+  display: grid;
+  gap: 6px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.lh-party-member-choice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border: 1px solid var(--lh-border);
+  border-radius: var(--lh-radius-sm);
+  background: var(--lh-bg-btn);
+}
+
+.lh-party-member-choice span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.lh-party-member-choice:has(input:checked) {
+  border-color: var(--lh-accent-strong);
+  background: var(--lh-bg-hover);
+}
+
 .lh-creator {
   display: grid;
   gap: 8px;

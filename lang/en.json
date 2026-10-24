@@ -67,6 +67,24 @@
       "chooseBackstoryHint": "The selected background is saved to the character sheet.",
       "attributeLocksReset": "Investigator Generator attribute locks reset"
     },
+    "partyOverview": {
+      "title": "Party Overview",
+      "membersSetting": "Party members",
+      "editMembers": "Edit Party",
+      "selectMembers": "Party Members",
+      "saveMembers": "Save Party",
+      "selectionHint": "Choose the investigators to show in the party. This roster is shared between GMs and saved between sessions.",
+      "count": "Investigators: {count}",
+      "investigator": "Investigator",
+      "status": "Status",
+      "otherStatuses": "Other statuses: {statuses}",
+      "openSheet": "Open character sheet",
+      "empty": "No investigators in the party yet. Use Edit Party to add them.",
+      "noneAvailable": "Create an investigator before editing the party.",
+      "actorUnavailable": "This investigator is no longer available.",
+      "gmOnly": "Only the GM can open the party overview.",
+      "refreshFailed": "Could not refresh the party overview. Close and reopen the window."
+    },
     "ui": {
       "deprivedFull": "Deprived",
       "deprived": "Deprived",

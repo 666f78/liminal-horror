@@ -1,9 +1,18 @@
 ﻿import { createItems } from '../content/create-items.js';
 import { generateActor, generateInvestigator } from '../content/random-investigator.js';
+import { openPartyOverview } from '../apps/party-overview.js';
 import { dLog, dWarn, withGroup } from '../utils/debug.js';
+import { t } from '../utils/i18n.js';
 
 const BUTTON_CONFIGS = {
   actors: [
+    {
+      className: 'lh-sidebar-party-overview',
+      iconClass: 'fa-solid fa-address-card',
+      labelKey: 'LH.partyOverview.title',
+      handler: openPartyOverview,
+      gmOnly: true,
+    },
     {
       className: 'lh-sidebar-investigator',
       iconClass: 'fa-solid fa-dice',
@@ -43,7 +52,7 @@ const ensureFooter = (rootElement) => {
   return footer;
 };
 
-const buildButton = ({ className, iconClass, label, handler }) => {
+const buildButton = ({ className, iconClass, label, labelKey, handler }) => {
   const button = document.createElement('button');
   button.type = 'button';
   button.className = className;
@@ -54,7 +63,7 @@ const buildButton = ({ className, iconClass, label, handler }) => {
     button.append(icon, ' ');
   }
 
-  button.append(label);
+  button.append(labelKey ? t(labelKey) : label);
 
   let running = false;
   button.addEventListener('click', async () => {
@@ -74,6 +83,7 @@ const buildButton = ({ className, iconClass, label, handler }) => {
 };
 
 const addButton = (rootElement, config) => {
+  if (config.gmOnly && !game.user.isGM) return;
   rootElement = resolveRootElement(rootElement);
   if (!rootElement) return;
   if (rootElement.querySelector(`.${config.className}`)) return;
