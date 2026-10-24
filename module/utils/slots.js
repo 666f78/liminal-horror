@@ -1,4 +1,5 @@
 import { SLOT_TYPES } from '../data/constants.js';
+import { renderCard } from './chat-card.js';
 import { t } from '../utils/i18n.js';
 import { createChatMessage } from '../utils/chat.js';
 
@@ -44,7 +45,13 @@ export async function recalcSlots(actor) {
     if (Object.keys(updates).length) await actor.update(updates, { diff: false });
 
     if (shouldNotify) {
-      await createChatMessage({ actor, content: t('LH.core.slotsCapacityExceeded') });
+      await createChatMessage({
+        actor,
+        content: renderCard(t('LH.ui.slots'), [t('LH.core.slotsCapacityExceeded')], {
+          tone: 'mixed',
+          icon: 'fa-boxes-stacked',
+        }),
+      });
     }
   } else if (actorId) {
     OVERFLOW_NOTIFIED.delete(actorId);

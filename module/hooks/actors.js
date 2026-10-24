@@ -1,3 +1,4 @@
+import { renderCard } from '../utils/chat-card.js';
 import { createChatMessage } from '../utils/chat.js';
 import { t } from '../utils/i18n.js';
 
@@ -55,16 +56,22 @@ export const registerActorHooks = () => {
     PENDING.set(actor.id, {
       ts: Date.now(),
       userId,
-      userName: game.users.get(userId)?.name ?? 'Unknown',
+      userName: game.users.get(userId)?.name ?? t('LH.ui.unknownUser'),
       diffs,
     });
+  });
 
-    const oldValue = foundry.utils.getProperty(actor.system, 'status.deprived');
-    const newValue = changes.system?.status?.deprived;
+  Hooks.on('updateActor', async (actor, changes, _options, userId) => {
+    if (userId !== game.user.id) return;
+    const newValue = foundry.utils.getProperty(changes, 'system.status.deprived');
 
-    if (newValue !== undefined && newValue !== oldValue) {
-      const content = `<span style="color:var(--lh-text-muted, #666);"><i>${newValue ? t('LH.msg.becameDeprived') : t('LH.msg.noLongerDeprived')}</i></span>`;
-      createChatMessage({
+    if (typeof newValue === 'boolean') {
+      const content = renderCard(
+        t('LH.ui.deprivedFull'),
+        [newValue ? t('LH.msg.becameDeprived') : t('LH.msg.noLongerDeprived')],
+        { tone: newValue ? 'mixed' : 'good', icon: newValue ? 'fa-moon' : 'fa-check' }
+      );
+      await createChatMessage({
         actor,
         content,
         whisperMode: 'public',

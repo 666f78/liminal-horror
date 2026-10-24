@@ -55,6 +55,45 @@ body {
   --input-text-color: var(--lh-text-main);
 }
 
+/* ===== Settings Sidebar ===== */
+.settings-sidebar .lh-support-card {
+  padding: 0.75rem;
+  border: 1px solid var(--color-warm-1);
+  border-radius: var(--lh-radius);
+  background: color-mix(in srgb, var(--color-warm-1) 14%, var(--background));
+}
+
+.settings-sidebar .lh-support-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.settings-sidebar .lh-support-card h4 {
+  flex: 1;
+  min-width: 0;
+  color: var(--color-text-emphatic);
+}
+
+.settings-sidebar .lh-support-card p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-13);
+  line-height: 1.35;
+}
+
+.settings-sidebar .lh-support-card small {
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-11);
+  line-height: 1.35;
+}
+
+.settings-sidebar .lh-support-card img {
+  width: 3.5rem;
+  height: auto;
+  flex-shrink: 0;
+}
+
 /* ===== Log ===== */
 .lh .tab[data-tab='log'].active {
   display: flex;
@@ -262,17 +301,111 @@ body.game .window-app.lh-update-dialog .dialog-content {
   line-height: 1.35;
 }
 
+.lh-update-overview {
+  padding: 12px 14px;
+  background: color-mix(in srgb, var(--lh-bg-app) 92%, var(--lh-bg-btn-dark));
+  border: 1px solid var(--lh-border);
+  border-radius: var(--lh-radius);
+}
+
+.lh-update-overview-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.lh-update-overview h2 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.lh-update-overview .lh-update-current-version {
+  margin: 0;
+  color: var(--lh-text-muted);
+  font-size: var(--font-size-13);
+}
+
+.lh-update-current-version strong {
+  color: var(--lh-text-main);
+}
+
 .lh-update-links {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.lh-update-links a {
-  color: #b6453b;
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 2px;
+.lh-update-links a:not(.button) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.4rem;
+  color: var(--lh-text-muted);
+  background: var(--lh-bg-hover);
+  border: 1px solid var(--lh-border);
+  border-radius: var(--lh-radius-sm);
+  font-size: var(--font-size-13);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.lh-update-overview .lh-update-links {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--lh-border);
+}
+
+.lh-update-links a:not(.button):hover,
+.lh-update-links a:not(.button):focus {
+  color: var(--lh-text-main);
+  border-color: var(--color-warm-1);
+}
+
+.lh-update-notice .lh-update-chat-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--lh-border);
+}
+
+.lh-update-chat-links .lh-update-links {
+  align-self: center;
+  flex-wrap: nowrap;
+  gap: 6px;
+}
+
+.lh-update-chat-links .lh-update-links a:not(.button) {
+  gap: 0.2rem;
+  padding: 0.15rem 0.3rem;
+  font-size: var(--font-size-12);
+  white-space: nowrap;
+}
+
+.lh-update-notice a.lh-update-support-link {
+  --button-background-color: var(--lh-bg-btn-dark);
+  --button-border-color: var(--color-warm-1);
+  --button-text-color: var(--lh-text-light);
+  --button-hover-background-color: var(--lh-bg-dark-hover);
+  --button-hover-border-color: var(--color-warm-1);
+  --button-hover-text-color: var(--lh-text-light);
+  margin-left: auto;
+  font-family: var(--font-primary);
+  font-weight: 600;
+  text-transform: none;
+}
+
+.lh-update-chat-links a.lh-update-support-link {
+  align-self: center;
+  margin-left: 0;
+}
+
+.lh-update-support-link i {
+  color: var(--color-warm-1);
 }
 
 .lh-update-scroll {
@@ -652,6 +785,41 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   --button-border-color: var(--lh-border);
   background-color: var(--lh-bg-btn);
 }
+
+.chat-message button.lh-luck-btn {
+  --button-background-color: var(--lh-bg-card);
+  --button-border-color: var(--lh-border);
+  --button-text-color: var(--lh-text-muted);
+  --button-hover-background-color: var(--lh-bg-hover);
+  --button-hover-border-color: #ad812c;
+  --button-hover-text-color: var(--lh-text-main);
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  height: var(--lh-control-h);
+  min-height: var(--lh-control-h);
+  padding: 0 8px;
+  border-radius: var(--lh-radius-sm);
+  box-shadow: none;
+  color: var(--lh-text-muted);
+  font-family: var(--font-primary);
+  font-size: var(--font-size-12);
+  font-weight: 500;
+}
+
+.chat-message button.lh-luck-btn:hover {
+  border-color: #ad812c;
+  color: var(--lh-text-main);
+}
+
+.chat-message button.lh-luck-btn:disabled {
+  background: var(--lh-bg-hover);
+  border-color: var(--lh-border);
+  box-shadow: none;
+  color: var(--lh-text-muted);
+}
+
 .lh .line {
   height: 0;
   background: transparent;
@@ -1754,6 +1922,322 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   text-transform: uppercase;
   color: var(--lh-text-main);
 }
+
+.chat-message:has(.lh.result-roll-card) .message-header,
+.chat-message:has(.lh.action-card) .message-header {
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--lh-border);
+}
+
+.chat-message:has(.lh.result-roll-card) .message-content,
+.chat-message:has(.lh.action-card) .message-content {
+  padding-top: 7px;
+}
+
+.chat-message:not(.whisper):has(.result-roll-card--success),
+.chat-message:not(.whisper):has(.result-roll-card--good),
+.chat-message:not(.whisper):has(.action-card--good) {
+  border-left: 3px solid #5c8464;
+}
+
+.chat-message:not(.whisper):has(.result-roll-card--critical-success) {
+  border-left: 3px solid #257b2f;
+}
+
+.chat-message:not(.whisper):has(.result-roll-card--mixed),
+.chat-message:not(.whisper):has(.action-card--mixed) {
+  border-left: 3px solid #ad812c;
+}
+
+.chat-message:not(.whisper):has(.result-roll-card--failure),
+.chat-message:not(.whisper):has(.result-roll-card--bad),
+.chat-message:not(.whisper):has(.action-card--bad) {
+  border-left: 3px solid #b6453b;
+}
+
+.chat-message:not(.whisper):has(.result-roll-card--critical-failure) {
+  border-left: 3px solid #000000;
+}
+
+.lh.result-roll-card,
+.lh.action-card {
+  --lh-roll-color: #a13d35;
+  color: var(--lh-text-main);
+  font-size: 0.9rem;
+}
+
+.lh.action-card--neutral,
+.lh.result-roll-card--neutral {
+  --lh-roll-color: var(--lh-text-muted);
+}
+
+.lh.result-roll-card--success,
+.lh.result-roll-card--good,
+.lh.action-card--good {
+  --lh-roll-color: #426e4b;
+}
+
+.lh.result-roll-card--critical-success {
+  --lh-roll-color: #257b2f;
+}
+
+.lh.result-roll-card--mixed,
+.lh.action-card--mixed {
+  --lh-roll-color: #805d18;
+}
+
+.lh.result-roll-card--critical-failure {
+  --lh-roll-color: #000000;
+}
+
+.lh-result-roll__heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+
+.lh-result-roll__heading > strong {
+  font-size: 1rem;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.lh-result-roll__heading > span {
+  flex: none;
+  color: var(--lh-text-muted);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.lh-result-roll__heading b {
+  color: var(--lh-text-main);
+}
+
+.lh-result-roll__details {
+  margin: 0 0 7px;
+  color: var(--lh-text-muted);
+  font-size: 0.8rem;
+}
+
+.lh-result-roll__description {
+  margin-top: 10px;
+  padding: 0 8px;
+  color: color-mix(in srgb, var(--lh-text-main) 80%, var(--lh-bg-card));
+  line-height: 1.5;
+}
+
+.lh-result-roll__result {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  padding: 6px 8px;
+  background: var(--lh-bg-hover);
+  border: 1px solid var(--lh-border);
+  border-radius: var(--lh-radius-sm);
+}
+
+.lh.result-roll-card--critical-success .lh-result-roll__result {
+  --lh-border-strong: rgba(255, 255, 255, 0.35);
+  background: var(--lh-roll-color);
+  border-color: var(--lh-roll-color);
+}
+
+.lh.result-roll-card--critical-failure .lh-result-roll__result {
+  background: var(--lh-roll-color);
+  border-color: var(--lh-roll-color);
+}
+
+.lh.result-roll-card--critical-failure .lh-result-roll__result {
+  --lh-border-strong: rgba(255, 255, 255, 0.35);
+}
+
+.lh-result-roll__result .dice-roll {
+  min-width: 0;
+}
+
+.lh-result-roll__result .dice-formula,
+.lh-result-roll__result .dice-total {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.lh-result-roll__result .dice-formula {
+  margin: 0;
+  color: var(--lh-text-muted);
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+.lh-result-roll__result .dice-total {
+  color: var(--lh-roll-color);
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+.lh.result-roll-card--critical-failure .lh-result-roll__result .dice-formula {
+  color: #fff;
+}
+
+.lh-result-roll__outcome {
+  min-width: 0;
+  padding-left: 9px;
+  border-left: 1px solid var(--lh-border-strong);
+}
+
+.lh-result-roll__outcome strong {
+  display: inline-block;
+  padding: 4px 7px;
+  color: var(--lh-roll-color);
+  background: transparent;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.lh-result-roll__outcome strong:has(> i) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  max-width: 100%;
+}
+
+.lh-result-roll__outcome strong > i {
+  flex: none;
+}
+
+.lh-result-roll__outcome strong > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.lh.result-roll-card--critical-success .lh-result-roll__result .dice-formula,
+.lh.result-roll-card--critical-success .lh-result-roll__result .dice-total,
+.lh.result-roll-card--critical-success .lh-result-roll__outcome strong {
+  color: #fff;
+}
+
+.lh.result-roll-card--critical-failure .lh-result-roll__result .dice-total,
+.lh.result-roll-card--critical-failure .lh-result-roll__outcome strong {
+  color: #ff4444;
+}
+
+.lh-result-roll__note {
+  margin: 7px 0 0;
+  color: var(--lh-roll-color);
+  font-size: 0.8rem;
+}
+
+.lh-action-card__result {
+  grid-template-columns: 38px minmax(0, 1fr);
+  min-height: 60px;
+}
+
+.lh-action-card__icon {
+  color: var(--lh-roll-color);
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.lh-action-card__body {
+  color: var(--lh-roll-color);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.lh-action-card__body > div + div {
+  margin-top: 5px;
+}
+
+.lh-generated-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--lh-border);
+  font-variant-numeric: tabular-nums;
+}
+
+.lh ul.lh-chat-details {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lh-generated-stats + ul.lh-chat-details {
+  margin-top: 8px;
+}
+
+.lh-chat-details li + li {
+  margin-top: 6px;
+}
+
+.lh-result-roll__note.lh-luck-spent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.chat-message button.lh-luck-undo-btn {
+  --button-background-color: transparent;
+  --button-border-color: transparent;
+  --button-focus-outline-color: transparent;
+  --button-text-color: var(--lh-text-muted);
+  --button-hover-background-color: transparent;
+  --button-hover-border-color: transparent;
+  --button-hover-text-color: var(--lh-text-main);
+  flex: 0 0 var(--lh-control-h);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--lh-control-h);
+  height: var(--lh-control-h);
+  min-height: var(--lh-control-h);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--lh-radius-sm);
+  outline: none;
+  background: transparent;
+  box-shadow: none;
+  color: var(--lh-text-muted);
+  font-size: 0.8rem;
+  transition: color 0.15s;
+}
+
+.chat-message button.lh-luck-undo-btn:hover,
+.chat-message button.lh-luck-undo-btn:focus,
+.chat-message button.lh-luck-undo-btn:active {
+  color: var(--lh-text-main);
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.chat-message button.lh-luck-undo-btn i {
+  margin: 0;
+}
+
+.chat-message button.lh-luck-undo-btn:disabled {
+  opacity: 0.5;
+}
+
+.lh-result-roll__result:has(.dice-roll.expanded) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.lh-result-roll__result:has(.dice-roll.expanded) .lh-result-roll__outcome {
+  padding: 0;
+  border: 0;
+}
+
 /* ===== Chat Styling ===== */
 .chat-message.whisper {
   background: none !important;
@@ -1765,8 +2249,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   color: var(--lh-text-main);
   opacity: 0.85;
 }
-.chat-message:not(.whisper),
-#chat-message {
+.chat-message:not(.whisper) {
   background: none !important;
   background-color: var(--lh-bg-card) !important;
 }
@@ -1909,6 +2392,18 @@ button[data-tool^='lh-']:hover {
 }
 
 /* ===== Void Research Die Chat Card ===== */
+.lh.void-roll-card .lh-result-roll__result {
+  --lh-border-strong: color-mix(in srgb, var(--lh-roll-color) 35%, transparent);
+  background: color-mix(in srgb, var(--lh-roll-color) 12%, var(--lh-bg-hover));
+  border-color: color-mix(in srgb, var(--lh-roll-color) 30%, var(--lh-border));
+}
+
+.lh.void-roll-card .lh-result-roll__outcome strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
 .lh-void-roll {
   display: grid;
   gap: 0.5rem;
@@ -2108,6 +2603,308 @@ button[data-tool^='lh-']:hover {
 
 .lh-appv2 section {
   overflow: visible;
+}
+
+/* ===== Party Overview ===== */
+.lh-party {
+  --lh-party-warning: #b6453b;
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+}
+
+.application.lh-party-window .window-content {
+  overflow: auto;
+}
+
+.application.lh-party-window .window-resize-handle {
+  filter: brightness(0.55);
+}
+
+.lh-party-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lh-party-count,
+.lh-party-empty {
+  margin: 0;
+  color: var(--lh-text-muted);
+  line-height: 1.5;
+}
+
+.lh-party-toolbar button.lh-party-edit {
+  --button-background-color: var(--lh-bg-btn-dark);
+  --button-border-color: var(--lh-bg-btn-dark);
+  --button-text-color: var(--lh-text-light);
+  --button-focus-outline-color: var(--lh-accent-strong);
+  --button-hover-background-color: var(--lh-bg-dark-hover);
+  --button-hover-border-color: var(--lh-bg-dark-hover);
+  --button-hover-text-color: var(--lh-text-light);
+  gap: 6px;
+  color: var(--lh-text-light);
+  background: var(--lh-bg-btn-dark);
+  border-color: var(--lh-bg-btn-dark);
+  box-shadow: none;
+  text-shadow: none;
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.lh-party-toolbar button.lh-party-edit:hover,
+.lh-party-toolbar button.lh-party-edit:focus-visible {
+  color: var(--lh-text-light);
+  background: var(--lh-bg-dark-hover);
+  border-color: var(--lh-bg-dark-hover);
+}
+
+.lh-party-table-wrap {
+  min-width: 0;
+  max-height: 60vh;
+  overflow: auto;
+  border: 1px solid var(--lh-border);
+  border-radius: var(--lh-radius);
+}
+
+.lh-party-table {
+  --table-header-bg-color: var(--lh-bg-header);
+  --table-header-text-color: var(--lh-text-light);
+  --table-row-color-even: var(--lh-bg-card);
+  --table-row-color-odd: var(--lh-bg-card);
+  width: 100%;
+  min-width: 700px;
+  margin: 0;
+  border: 0;
+  border-collapse: collapse;
+  background: var(--lh-bg-card);
+  color: var(--lh-text-main);
+}
+
+.lh-party-table thead {
+  border: 0;
+  text-shadow: none;
+}
+
+.lh-party-table th,
+.lh-party-table td {
+  padding: 8px;
+  border-bottom: 1px solid var(--lh-border);
+  text-align: center;
+  vertical-align: middle;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.lh-party-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--table-header-bg-color);
+  color: var(--table-header-text-color);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.lh-party-table th:first-child,
+.lh-party-table td:first-child {
+  text-align: left;
+}
+
+.lh-party-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.lh-party-table tbody tr:hover {
+  background: var(--lh-bg-hover);
+}
+
+.lh-party-table button.lh-party-actor {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  min-width: 160px;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--lh-text-main);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  white-space: normal;
+}
+
+.lh-party-actor img,
+.lh-party-member-choice img {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: var(--lh-radius-sm);
+  object-fit: cover;
+}
+
+.lh-party-table button.lh-party-actor:hover span {
+  text-decoration: underline;
+}
+
+.lh-party-actor span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.lh-party-base {
+  color: var(--lh-text-muted);
+  font-size: 0.8rem;
+}
+
+.lh-party-table td[data-warning='true'] strong {
+  color: var(--lh-party-warning);
+}
+
+.lh-party-statuses {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 90px;
+  white-space: nowrap;
+}
+
+.lh-party-status,
+.lh-party-status-detail {
+  --lh-status-color: #62656b;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.lh-party-status[data-status='dead'],
+.lh-party-status-detail[data-status='dead'] {
+  --lh-status-color: #b6453b;
+}
+
+.lh-party-status[data-status='paralysis'],
+.lh-party-status-detail[data-status='paralysis'],
+.lh-party-status[data-status='deprived'],
+.lh-party-status-detail[data-status='deprived'] {
+  --lh-status-color: #9b5d0c;
+}
+
+.lh-party-status {
+  padding: 3px 6px;
+  border-radius: 999px;
+  color: var(--lh-status-color);
+  background: color-mix(in srgb, var(--lh-status-color) 12%, var(--lh-bg-card));
+  font-size: 0.75rem;
+}
+
+.lh-party-status-icon {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  width: 1em;
+  color: var(--lh-status-color);
+}
+
+.lh-party-status[data-status='paralysis'] > .lh-party-status-icon::after,
+.lh-party-status-detail[data-status='paralysis'] > .lh-party-status-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 1.1em;
+  border-top: 1px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.lh-party-table button.lh-party-status-more {
+  flex: 0 0 auto;
+  width: auto;
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 2px 6px;
+  border: 1px solid var(--lh-border-strong);
+  border-radius: 999px;
+  color: var(--lh-text-muted);
+  background: transparent;
+  box-shadow: none;
+  text-shadow: none;
+  font-family: inherit;
+  font-size: 0.75rem;
+  line-height: normal;
+}
+
+.lh-party-table button.lh-party-status-more:hover,
+.lh-party-table button.lh-party-status-more:focus-visible {
+  color: var(--lh-text-main);
+  border-color: var(--lh-accent-strong);
+  background: var(--lh-bg-hover);
+}
+
+#tooltip.lh-party-status-tooltip,
+.locked-tooltip.lh-party-status-tooltip {
+  padding: 10px 12px;
+}
+
+.lh-party-status-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lh-party-status-tooltip .lh-party-status-detail {
+  white-space: nowrap;
+}
+
+.lh-party-status-tooltip .lh-party-status-detail[data-status='lost'] {
+  --lh-status-color: #aaa;
+}
+
+.lh-party-status-tooltip .lh-party-status-detail[data-status='dead'] {
+  --lh-status-color: #ff6860;
+}
+
+.lh-party-status-tooltip .lh-party-status-detail[data-status='paralysis'],
+.lh-party-status-tooltip .lh-party-status-detail[data-status='deprived'] {
+  --lh-status-color: #f59e42;
+}
+
+.lh-party-member-options {
+  display: grid;
+  gap: 6px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.lh-party-member-choice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border: 1px solid var(--lh-border);
+  border-radius: var(--lh-radius-sm);
+  background: var(--lh-bg-btn);
+}
+
+.lh-party-member-choice span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.lh-party-member-choice:has(input:checked) {
+  border-color: var(--lh-accent-strong);
+  background: var(--lh-bg-hover);
 }
 
 .lh-creator {

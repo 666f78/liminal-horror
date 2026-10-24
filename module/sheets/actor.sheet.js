@@ -4,6 +4,8 @@ import { isAppendixLuckEnabled } from '../settings.js';
 import { equipItem, isAutoArmorCalculationEnabled, recalcArmor, restoreItemUse, useItem } from '../services/items.js';
 import { restActor } from '../services/rest.js';
 import { quickRoll, rollAttribute } from '../services/rolls.js';
+import { getAttributeStatusLabels } from '../utils/attrs.js';
+import { renderCard } from '../utils/chat-card.js';
 import { createChatMessage } from '../utils/chat.js';
 import { t, td } from '../utils/i18n.js';
 import { recalcSlots } from '../utils/slots.js';
@@ -207,17 +209,7 @@ export class LHActorSheet extends foundry.applications.api.HandlebarsApplication
   }
 
   _getStatusRibbonText(system = this.actor.system) {
-    const labels = [];
-    const strength = Number(system?.attributes?.str?.value ?? 0);
-    const dexterity = Number(system?.attributes?.dex?.value ?? 0);
-    const control = Number(system?.attributes?.con?.value ?? 0);
-
-    if (!Number.isNaN(strength) && strength <= 0) labels.push(t('LH.status.dead'));
-    if (!Number.isNaN(dexterity) && dexterity <= 0) labels.push(t('LH.status.paralysis'));
-    if (!Number.isNaN(control) && control <= 0) labels.push(t('LH.status.lost'));
-
-    if (!labels.length) return null;
-    return labels.join(' / ');
+    return getAttributeStatusLabels(system).join(' / ') || null;
   }
 
   async _prepareContext(options) {
@@ -446,10 +438,14 @@ export class LHActorSheet extends foundry.applications.api.HandlebarsApplication
 
     if (!confirmed) return;
 
-    const label = STATUS_ITEM_TYPES.has(item.type) ? t('LH.core.gotRidOf') : t('LH.core.thrownAway');
+    const isStatus = STATUS_ITEM_TYPES.has(item.type);
+    const label = isStatus ? t('LH.core.gotRidOf') : t('LH.core.thrownAway');
     await createChatMessage({
       actor: this.actor,
-      content: `<b>${label}:</b> ${foundry.utils.escapeHTML(item.name)}`,
+      content: renderCard(label, [foundry.utils.escapeHTML(item.name)], {
+        tone: isStatus ? 'good' : 'neutral',
+        icon: isStatus ? 'fa-heart-circle-check' : 'fa-trash-can',
+      }),
     });
     await item.delete();
     await recalcSlots(this.actor);

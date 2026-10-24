@@ -5,34 +5,38 @@ export async function rollVoidResearchDie() {
   const roll = await new Roll('1d20').evaluate();
   const n = roll.total;
 
-  const { title, body, pickInvestigator } = resolveVoidTable(n);
+  const { title, body, pickInvestigator, outcomeType, icon } = resolveVoidTable(n);
 
   let investigatorNote = '';
   if (pickInvestigator) {
     const inv = pickRandomInvestigator();
-    if (inv) investigatorNote = `<div><b>${t('LH.void.randomInvestigator')}:</b> ${inv.name}</div>`;
-    else investigatorNote = `<div><i>${t('LH.void.randomInvestigatorNotFound')}</i></div>`;
+    if (inv) {
+      investigatorNote = `<div><b>${foundry.utils.escapeHTML(t('LH.void.randomInvestigator'))}:</b> ${foundry.utils.escapeHTML(inv.name)}</div>`;
+    } else {
+      investigatorNote = `<div><i>${foundry.utils.escapeHTML(t('LH.void.randomInvestigatorNotFound'))}</i></div>`;
+    }
   }
 
   const content = `
-<div class="lh-void-roll">
-    <div class="lh-void-head">
-        <span class="lh-pill lh-pill-d20">D20</span>
-        <span class="lh-title">${t('LH.void.die')}</span>
+<div class="lh result-roll-card result-roll-card--${outcomeType} void-roll-card">
+  <div class="lh-result-roll__heading">
+    <strong>${foundry.utils.escapeHTML(t('LH.void.die'))}</strong>
+  </div>
+  <div class="lh-result-roll__result">
+    ${await roll.render()}
+    <div class="lh-result-roll__outcome">
+      <strong><i class="fa-solid ${icon}" aria-hidden="true"></i><span>${foundry.utils.escapeHTML(t(title))}</span></strong>
     </div>
-    <span class="lh-result">${n}</span>
-
-  <div class="lh-section">
-    <div class="lh-subtitle">${t(`${title}`)}</div>
+  </div>
+  <div class="lh-section lh-result-roll__description">
+    <div class="lh-body">${foundry.utils.escapeHTML(t(body))}</div>
     ${investigatorNote ? `<div class="lh-investigator">${investigatorNote}</div>` : ''}
-    <div class="lh-body">${t(`${body}`)}</div>
   </div>
 </div>
 `.trim();
 
   await sendRollMessage(roll, {
     user: game.user,
-    flavor: '<b>Void Research Die</b>',
     content,
     whisperMode: 'gm',
     speaker: ChatMessage.getSpeaker(),
@@ -44,6 +48,8 @@ function resolveVoidTable(n) {
     return {
       title: 'LH.void.omen.title',
       body: 'LH.void.omen.description',
+      outcomeType: 'bad',
+      icon: 'fa-eye',
       pickInvestigator: true,
     };
   }
@@ -51,41 +57,55 @@ function resolveVoidTable(n) {
     return {
       title: 'LH.void.encounter.title',
       body: 'LH.void.encounter.description',
+      outcomeType: 'bad',
+      icon: 'fa-user',
     };
   }
   if (n >= 5 && n <= 7) {
     return {
       title: 'LH.void.horror.title',
       body: 'LH.void.horror.description',
+      outcomeType: 'bad',
+      icon: 'fa-brain',
     };
   }
   if (n >= 8 && n <= 10) {
     return {
       title: 'LH.void.setback.title',
       body: 'LH.void.setback.description',
+      outcomeType: 'bad',
+      icon: 'fa-bolt',
     };
   }
   if (n >= 11 && n <= 13) {
     return {
       title: 'LH.void.locality.title',
       body: 'LH.void.locality.description',
+      outcomeType: 'mixed',
+      icon: 'fa-right-left',
     };
   }
   if (n >= 14 && n <= 16) {
     return {
       title: 'LH.void.clue.title',
       body: 'LH.void.clue.description',
+      outcomeType: 'good',
+      icon: 'fa-lightbulb',
     };
   }
   if (n >= 17 && n <= 19) {
     return {
       title: 'LH.void.free.title',
       body: 'LH.void.free.description',
+      outcomeType: 'good',
+      icon: 'fa-check',
     };
   }
   return {
     title: 'LH.void.regroup.title',
     body: 'LH.void.regroup.description',
+    outcomeType: 'good',
+    icon: 'fa-bed',
   };
 }
 

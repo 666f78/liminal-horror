@@ -52,7 +52,7 @@ function getTools() {
     },
     'lh-void-research-die': {
       name: 'lh-void-research-die',
-      title: 'Voidcrawl',
+      title: t('LH.void.toolTitle'),
       icon: 'fa-solid fa-circle-notch',
       order: 903,
       button: true,

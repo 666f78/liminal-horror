@@ -12,6 +12,8 @@
 
 </div>
 
+> ☕ **[Support the project](https://666f78.pp.ua/donate)** — help support continued development.
+
 This is an **unofficial system** for [Foundry Virtual Tabletop](https://foundryvtt.com), designed to run games of **[Liminal Horror](https://liminalhorrorrpg.com)**.
 It provides investigator sheets, rolling mechanics, and tools adapted to the rules of the game.
 

@@ -1,4 +1,6 @@
+import { renderResultRollCard } from '../utils/chat-card.js';
 import { sendRollMessage } from '../utils/chat.js';
+import { t } from '../utils/i18n.js';
 
 const INITIATIVE_CONFIG = Object.freeze({ formula: '1d20', decimals: 0 });
 const NPC_TYPES = new Set(['monster', 'npc']);
@@ -28,7 +30,14 @@ async function applyInvestigatorInitiative(combat, combatant) {
 
   await sendRollMessage(roll, {
     actor,
-    flavor: `Initiative 1d20 <= ${dexterityValue}: ${success ? 'SUCCESS' : 'FAILURE'}`,
+    content: await renderResultRollCard({
+      title: t('LH.msg.initiative'),
+      target: dexterityValue,
+      roll,
+      outcome: t(success ? 'LH.roll.success' : 'LH.roll.failure'),
+      outcomeType: success ? 'success' : 'failure',
+      icon: 'fa-flag-checkered',
+    }),
     flags: { core: { initiativeRoll: true } },
   });
 

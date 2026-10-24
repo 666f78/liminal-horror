@@ -5,7 +5,7 @@ import { t } from '../utils/i18n.js';
 
 const ensureActor = (actor) => {
   if (actor) return true;
-  ui.notifications.warn('Actor not found (actor/token).');
+  ui.notifications.warn(t('LH.dialogs.actorNotFound'));
   return false;
 };
 

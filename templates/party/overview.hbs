@@ -1,0 +1,84 @@
+<section class='lh lh-party'>
+  <header class='lh-party-toolbar'>
+    <p class='lh-party-count'>{{memberCount}}</p>
+    <button type='button' class='btn lh-party-edit' data-action='editMembers'>
+      <i class='fa-solid fa-user-pen' aria-hidden='true'></i>
+      {{localize 'LH.partyOverview.editMembers'}}
+    </button>
+  </header>
+
+  {{#if members.length}}
+    <div class='lh-party-table-wrap'>
+      <table class='lh-party-table'>
+        <thead>
+          <tr>
+            <th scope='col'>{{localize 'LH.partyOverview.investigator'}}</th>
+            <th scope='col'>{{localize 'LH.ui.hp'}}</th>
+            <th scope='col'>{{localize 'LH.attr.short.str'}}</th>
+            <th scope='col'>{{localize 'LH.attr.short.dex'}}</th>
+            <th scope='col'>{{localize 'LH.attr.short.ctrl'}}</th>
+            {{#if showLuck}}<th scope='col'>{{localize 'LH.attr.short.luck'}}</th>{{/if}}
+            <th scope='col'>{{localize 'LH.ui.slots'}}</th>
+            <th scope='col'>{{localize 'LH.partyOverview.status'}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each members}}
+            <tr>
+              <td>
+                <button
+                  type='button'
+                  class='lh-party-actor'
+                  data-action='openActor'
+                  data-actor-id='{{id}}'
+                  title='{{localize "LH.partyOverview.openSheet"}}'
+                >
+                  <img src='{{img}}' alt='' />
+                  <span>{{name}}</span>
+                </button>
+              </td>
+              <td data-warning='{{hpReduced}}'>
+                <strong>{{hp}}</strong><span class='lh-party-base'> / {{hpMax}}</span>
+              </td>
+              {{#each attributes}}
+                <td data-warning='{{reduced}}'>
+                  <strong>{{value}}</strong><span class='lh-party-base'> / {{base}}</span>
+                </td>
+              {{/each}}
+              <td data-warning='{{overCapacity}}'>
+                <strong>{{slotsUsed}}</strong><span class='lh-party-base'> / {{slotsMax}}</span>
+              </td>
+              <td>
+                <div class='lh-party-statuses'>
+                  {{#if primaryStatus}}
+                    <span class='lh-party-status' data-status='{{primaryStatus.id}}'>
+                      <span class='lh-party-status-icon'><i
+                          class='fa-solid {{primaryStatus.icon}}'
+                          aria-hidden='true'
+                        ></i></span>
+                      {{primaryStatus.label}}
+                    </span>
+                    {{#if otherStatusCount}}
+                      <button
+                        type='button'
+                        class='lh-party-status-more'
+                        data-action='showStatuses'
+                        data-tooltip-html='{{otherStatusesTooltip}}'
+                        data-tooltip-class='lh-party-status-tooltip'
+                        aria-label='{{otherStatusesLabel}}'
+                      >+{{otherStatusCount}}</button>
+                    {{/if}}
+                  {{else}}
+                    <span class='lh-party-base'>—</span>
+                  {{/if}}
+                </div>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  {{else}}
+    <p class='lh-party-empty'>{{localize 'LH.partyOverview.empty'}}</p>
+  {{/if}}
+</section>

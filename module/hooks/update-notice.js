@@ -1,12 +1,16 @@
 import { SETTINGS_NS } from '../settings.js';
+import { renderCard } from '../utils/chat-card.js';
 import { dWarn } from '../utils/debug.js';
-import { t } from '../utils/i18n.js';
+import { t, td } from '../utils/i18n.js';
 
 // Debug: always show update notice on each world launch
 const FORCE_SHOW_EVERY_START = false;
+const SUPPORT_URL = 'https://666f78.pp.ua/donate';
+const getSupportTooltipHtml = () =>
+  `${foundry.utils.escapeHTML(t('LH.support.description'))}<br>${foundry.utils.escapeHTML(t('LH.support.disclaimer'))}`;
 
 function renderSectionHtml(sectionText) {
-  if (!sectionText) return '<p>No detailed notes were found for this version.</p>';
+  if (!sectionText) return `<p>${foundry.utils.escapeHTML(t('LH.update.noNotes'))}</p>`;
 
   const lines = sectionText.split('\n');
   const html = [];
@@ -82,12 +86,14 @@ function buildCurrentVersionNotesHtml(currentVersion, sections) {
 
 function buildModalNoticeHtml(currentVersion, sections) {
   const bugsUrl = game.system?.bugs || 'https://github.com/666f78/liminal-horror/issues';
-  const readmeUrl = game.system?.readme || 'https://raw.githubusercontent.com/666f78/liminal-horror/master/README.md';
+  const readmeUrl = 'https://github.com/666f78/liminal-horror#readme';
   const discussionsUrl = 'https://github.com/666f78/liminal-horror/discussions';
   const versionCards = sections
     .map((section) => {
       const isCurrent = section.version === currentVersion;
-      const badge = isCurrent ? '<span class="lh-update-badge">Current</span>' : '';
+      const badge = isCurrent
+        ? `<span class="lh-update-badge">${foundry.utils.escapeHTML(t('LH.update.current'))}</span>`
+        : '';
       const bodyHtml = renderSectionHtml(section.body);
       return `
         <article class="lh-update-card ${isCurrent ? 'lh-update-card-current' : ''}">
@@ -102,14 +108,22 @@ function buildModalNoticeHtml(currentVersion, sections) {
 
   return `
     <section class="lh-update-notice">
-      <h2>Liminal Horror changelog</h2>
-      <p>Current system version: <strong>${foundry.utils.escapeHTML(currentVersion)}</strong></p>
-      <p class="lh-update-links">
-        <a href="${bugsUrl}" target="_blank" rel="noopener noreferrer">Bugs</a>
-        <a href="${readmeUrl}" target="_blank" rel="noopener noreferrer">Readme</a>
-        <a href="${discussionsUrl}" target="_blank" rel="noopener noreferrer">Discussions</a>
-      </p>
-      <div class="lh-update-scroll">${versionCards || '<p>No version entries found.</p>'}</div>
+      <header class="lh-update-overview">
+        <div class="lh-update-overview-title">
+          <h2>${foundry.utils.escapeHTML(t('LH.update.changelogTitle'))}</h2>
+          <p class="lh-update-current-version">${foundry.utils.escapeHTML(t('LH.update.currentVersion'))}: <strong>${foundry.utils.escapeHTML(currentVersion)}</strong></p>
+        </div>
+        <nav class="lh-update-links" aria-label="${foundry.utils.escapeHTML(t('LH.update.linksLabel'))}">
+          <a href="${bugsUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-bug" inert></i>${foundry.utils.escapeHTML(t('LH.update.bugs'))}</a>
+          <a href="${readmeUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-book-open" inert></i>${foundry.utils.escapeHTML(t('LH.update.readme'))}</a>
+          <a href="${discussionsUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-comments" inert></i>${foundry.utils.escapeHTML(t('LH.update.discussions'))}</a>
+          <a class="button lh-update-support-link" href="${SUPPORT_URL}" target="_blank" rel="noopener noreferrer"
+             data-tooltip-html="${foundry.utils.escapeHTML(getSupportTooltipHtml())}">
+            <i class="fa-solid fa-heart" inert></i> ${foundry.utils.escapeHTML(t('LH.support.button'))}
+          </a>
+        </nav>
+      </header>
+      <div class="lh-update-scroll">${versionCards || `<p>${foundry.utils.escapeHTML(t('LH.update.noVersions'))}</p>`}</div>
     </section>
   `;
 }
@@ -121,13 +135,25 @@ function buildChatNoticeHtml(currentVersion, notesHtml) {
 
   return `
     <section class="lh-update-notice">
-      <h2>Liminal Horror updated to ${foundry.utils.escapeHTML(currentVersion)}</h2>
-      ${notesHtml}
-      <p class="lh-update-links">
-        <a href="${bugsUrl}" target="_blank" rel="noopener noreferrer">Bugs</a>
-        <a href="${readmeUrl}" target="_blank" rel="noopener noreferrer">Readme</a>
-        <a href="${discussionsUrl}" target="_blank" rel="noopener noreferrer">Discussions</a>
-      </p>
+      ${renderCard(
+        'Liminal Horror',
+        [td('LH.msg.systemUpdated', { version: foundry.utils.escapeHTML(currentVersion) })],
+        {
+          icon: 'fa-circle-up',
+          description: notesHtml,
+        }
+      )}
+      <div class="lh-update-chat-links">
+        <nav class="lh-update-links" aria-label="${foundry.utils.escapeHTML(t('LH.update.linksLabel'))}">
+          <a href="${bugsUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-bug" inert></i>${foundry.utils.escapeHTML(t('LH.update.bugs'))}</a>
+          <a href="${readmeUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-book-open" inert></i>${foundry.utils.escapeHTML(t('LH.update.readme'))}</a>
+          <a href="${discussionsUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-comments" inert></i>${foundry.utils.escapeHTML(t('LH.update.discussions'))}</a>
+        </nav>
+        <a class="button lh-update-support-link" href="${SUPPORT_URL}" target="_blank" rel="noopener noreferrer"
+           data-tooltip-html="${foundry.utils.escapeHTML(getSupportTooltipHtml())}">
+          <i class="fa-solid fa-heart" inert></i> ${foundry.utils.escapeHTML(t('LH.support.button'))}
+        </a>
+      </div>
     </section>
   `;
 }
@@ -142,7 +168,7 @@ async function createChatNotice(content) {
 async function showDialogNotice(content) {
   await foundry.applications.api.DialogV2.wait({
     classes: ['lh', 'lh-confirm-dialog', 'lh-update-dialog'],
-    window: { title: 'Liminal Horror Update', resizable: true },
+    window: { title: t('LH.update.title'), resizable: true },
     position: { width: 820 },
     content,
     buttons: [{ action: 'ok', label: t('LH.core.ok'), default: true }],
@@ -151,7 +177,7 @@ async function showDialogNotice(content) {
 
 export async function openSystemUpdateDialog({ includeChat = false } = {}) {
   if (!game.user.isGM) {
-    ui.notifications?.warn('Only the GM can open the system update dialog.');
+    ui.notifications?.warn(t('LH.update.gmOnly'));
     return;
   }
 

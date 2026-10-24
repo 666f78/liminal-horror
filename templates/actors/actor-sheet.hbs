@@ -10,9 +10,9 @@
         data-action='editImage'
         data-edit='img'
         alt='{{actor.name}}'
-        title='Click to change portrait'
+        title='{{localize "LH.ui.changePortrait"}}'
       />
-      <div class='portrait-overlay'><i class='fas fa-camera'></i>&nbsp;Photo</div>
+      <div class='portrait-overlay'><i class='fas fa-camera'></i>&nbsp;{{localize 'LH.ui.photo'}}</div>
     </div>
     <div>
       <div class='section-title section-title-with-buttons'>
@@ -34,7 +34,13 @@
 
   <!-- RIGHT: name + tiles -->
   <section class='hero card'>
-    <input class='big-input name-input' type='text' name='name' value='{{actor.name}}' placeholder='NAME' />
+    <input
+      class='big-input name-input'
+      type='text'
+      name='name'
+      value='{{actor.name}}'
+      placeholder='{{localize "LH.ui.namePlaceholder"}}'
+    />
     <div class='tiles'>
       <!-- HP -->
       <div class='tile'>
@@ -78,7 +84,7 @@
           tabindex='0'
           data-action='rollAttr'
           data-key='str'
-          title='Roll Strength (d20 ≤ target)'
+          title='{{localize "LH.ui.rollStrength"}}'
         >
           <i class='fas fa-dice-d20' aria-hidden='true'></i><span>{{localize
               (concat 'LH.attr.short.str' item.system.state)
@@ -134,7 +140,7 @@
           tabindex='0'
           data-action='rollAttr'
           data-key='dex'
-          title='Roll Dexterity (d20 ≤ target)'
+          title='{{localize "LH.ui.rollDexterity"}}'
         >
           <i class='fas fa-dice-d20' aria-hidden='true'></i><span>{{localize
               (concat 'LH.attr.short.dex' item.system.state)
@@ -176,7 +182,7 @@
           tabindex='0'
           data-action='rollAttr'
           data-key='con'
-          title='Roll Control (d20 ≤ target)'
+          title='{{localize "LH.ui.rollControl"}}'
         >
           <i class='fas fa-dice-d20' aria-hidden='true'></i><span>{{localize
               (concat 'LH.attr.short.ctrl' item.system.state)
@@ -213,7 +219,7 @@
             tabindex='0'
             data-action='rollAttr'
             data-key='luck'
-            title='Roll Luck (d20 <= target)'
+            title='{{localize "LH.ui.rollLuck"}}'
           >
             <i class='fas fa-dice-d20' aria-hidden='true'></i><span>{{localize
                 (concat 'LH.attr.short.luck' item.system.state)
@@ -346,9 +352,12 @@
           >
             <div class='inv-carry'>
               {{#if @root.isManualInventorySort}}
-                <span class='inv-drag-handle' data-item-id='{{item._id}}' draggable='true' title='Drag to reorder'><i
-                    class='fas fa-grip-lines-vertical'
-                  ></i></span>
+                <span
+                  class='inv-drag-handle'
+                  data-item-id='{{item._id}}'
+                  draggable='true'
+                  title='{{localize "LH.ui.dragToReorder"}}'
+                ><i class='fas fa-grip-lines-vertical'></i></span>
               {{else}}
                 {{#if
                   (or
@@ -378,9 +387,9 @@
               {{else}}
                 <span class='entity-link inv-name-static'>{{item.name}}</span>
               {{/if}}
-              <span class='tw-text-xs tw-muted'>({{item.type}})</span>
+              <span class='tw-text-xs tw-muted'>({{localize (concat 'TYPES.Item.' item.type)}})</span>
               {{#unless item.system.ignoreSlots}}
-                <span class='item-slots' title='slots'>
+                <span class='item-slots' title='{{localize "LH.ui.slots"}}'>
                   {{repeat '●' item.system.slotSize}}
                 </span>
               {{/unless}}
@@ -395,12 +404,12 @@
                   tabindex='0'
                   data-action='useItem'
                   data-item-id='{{item._id}}'
-                  title='Roll {{item.system.damageDie}}'
+                  title='{{localize "LH.ui.rollFormula" formula=item.system.damageDie}}'
                 >
                   <span class='die-text'>{{item.system.damageDie}}</span>
                 </a>
               {{else if (or (eq item.type 'weapon') (eq item.type 'spell'))}}
-                <span class='die-text die-disabled' title='No damage die'>—</span>
+                <span class='die-text die-disabled' title='{{localize "LH.ui.noDamageDie"}}'>—</span>
               {{/if}}
 
               <!-- GEAR -->
@@ -518,10 +527,10 @@
             {{/each}}
           </ul>
         {{else}}
-          <p><i>No changes logged yet.</i></p>
+          <p><i>{{localize 'LH.ui.noChangesLogged'}}</i></p>
         {{/if}}
       {{else}}
-        <p><i>GM only.</i></p>
+        <p><i>{{localize 'LH.ui.gmOnly'}}</i></p>
       {{/if}}
     </div>
   </section>

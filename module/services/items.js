@@ -1,3 +1,4 @@
+import { renderCard, renderResultRollCard } from '../utils/chat-card.js';
 import { createChatMessage, sendRollMessage } from '../utils/chat.js';
 import { t } from '../utils/i18n.js';
 import { isAutoArmorCalculationSettingEnabled } from '../settings.js';
@@ -5,8 +6,6 @@ import { isAutoArmorCalculationSettingEnabled } from '../settings.js';
 export function isAutoArmorCalculationEnabled() {
   return isAutoArmorCalculationSettingEnabled();
 }
-
-const renderUsesChangeMessage = (label, item) => `<b>${label}:</b> ${item.name}`;
 
 export async function equipItem(item, actor) {
   const type = item?.type;
@@ -34,7 +33,11 @@ export async function equipItem(item, actor) {
 
   await createChatMessage({
     actor,
-    content: `<b>${willEquip ? t('LH.core.equipped') : t('LH.core.unequipped')}:</b> ${item.name}`,
+    content: renderCard(
+      willEquip ? t('LH.core.equipped') : t('LH.core.unequipped'),
+      [foundry.utils.escapeHTML(item.name)],
+      { icon: willEquip ? 'fa-hand' : 'fa-box-archive' }
+    ),
   });
 }
 
@@ -46,7 +49,12 @@ export async function useItem(item, actor) {
     const roll = await new Roll(die).evaluate();
     await sendRollMessage(roll, {
       actor,
-      flavor: `<b>${t(item.type === 'spell' ? 'LH.msg.spell' : 'LH.msg.weapon')}:</b> ${item.name}`,
+      content: await renderResultRollCard({
+        title: t(item.type === 'spell' ? 'LH.msg.spell' : 'LH.msg.weapon'),
+        roll,
+        outcome: item.name,
+        icon: item.type === 'spell' ? 'fa-wand-magic-sparkles' : 'fa-crosshairs',
+      }),
     });
     return;
   }
@@ -59,7 +67,7 @@ export async function useItem(item, actor) {
     await item.update({ 'system.usesCurrent': nextCurrent });
     await createChatMessage({
       actor: actor ?? item.parent,
-      content: renderUsesChangeMessage(t('LH.core.used'), item),
+      content: renderCard(t('LH.core.used'), [foundry.utils.escapeHTML(item.name)], { icon: 'fa-box-open' }),
     });
   }
 }
@@ -76,7 +84,10 @@ export async function restoreItemUse(item, actor) {
   await item.update({ 'system.usesCurrent': nextCurrent });
   await createChatMessage({
     actor: actor ?? item.parent,
-    content: renderUsesChangeMessage(t('LH.core.restored'), item),
+    content: renderCard(t('LH.core.restored'), [foundry.utils.escapeHTML(item.name)], {
+      tone: 'good',
+      icon: 'fa-rotate-left',
+    }),
   });
 }
 

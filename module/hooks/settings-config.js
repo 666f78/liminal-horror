@@ -1,4 +1,5 @@
 import { openSystemUpdateDialog } from './update-notice.js';
+import { t } from '../utils/i18n.js';
 
 function resolveRoot(html) {
   if (html instanceof HTMLElement) return html;
@@ -26,7 +27,7 @@ function buildUpdateButton() {
   const button = document.createElement('button');
   button.type = 'button';
   button.className = 'lh-open-update-dialog';
-  button.innerHTML = '<i class="fa-solid fa-scroll"></i> Open Update Dialog';
+  button.innerHTML = `<i class="fa-solid fa-scroll"></i> ${foundry.utils.escapeHTML(t('LH.update.openDialog'))}`;
   button.addEventListener('click', async () => {
     await openSystemUpdateDialog({ includeChat: false });
   });

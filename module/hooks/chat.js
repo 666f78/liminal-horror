@@ -1,9 +1,8 @@
 import { openDamageDialog, openStressDialog } from '../apps/effect-dialogs.js';
 import { FLAGS, SYSTEM_ID } from '../data/constants.js';
 import { isAppendixLuckEnabled } from '../settings.js';
-import { createChatMessage } from '../utils/chat.js';
-import { dLog, withGroup } from '../utils/debug.js';
-import { t } from '../utils/i18n.js';
+import { dError, dLog, withGroup } from '../utils/debug.js';
+import { t, td } from '../utils/i18n.js';
 
 const GM_ACTION_FLAG = FLAGS.GM_ACTION;
 const DAMAGE_USED_FLAG = FLAGS.DAMAGE_USED;
@@ -24,23 +23,34 @@ const ACTIONS = Object.freeze({
 });
 
 const BUTTON_CONTAINER = '.message-content';
-const ALREADY_APPLIED_HINT = 'Already applied';
+const ALREADY_APPLIED_HINT = 'LH.msg.buttons.alreadyApplied';
+const PENDING_LUCK_UPDATES = new Set();
 
 const resolveActor = (attackerId) => game.actors.get(attackerId) ?? canvas.tokens?.get(attackerId)?.actor;
 
-const createButton = ({ label, className, disabled = false, title = '', onClick }) => {
+const createButton = ({ label, className, disabled = false, title = '', icon, onClick }) => {
   const button = document.createElement('button');
-  button.classList.add('lh', 'btn');
+  button.type = 'button';
+  button.classList.add('lh');
   if (className) {
     className
       .split(/\s+/)
       .filter(Boolean)
       .forEach((cls) => button.classList.add(cls));
   }
-  button.textContent = label;
+  if (icon) {
+    const iconElement = document.createElement('i');
+    iconElement.className = `fa-solid ${icon}`;
+    iconElement.setAttribute('aria-hidden', 'true');
+    button.append(iconElement);
+    button.setAttribute('aria-label', label);
+  } else {
+    button.classList.add('btn');
+    button.textContent = label;
+    button.style.marginTop = '10px';
+  }
   button.disabled = disabled;
   button.title = title;
-  button.style.marginTop = '10px';
 
   button.addEventListener('click', async (event) => {
     if (button.disabled) return;
@@ -50,8 +60,8 @@ const createButton = ({ label, className, disabled = false, title = '', onClick 
   return button;
 };
 
-const appendIfMissing = (html, selector, builder) => {
-  const container = html.querySelector(BUTTON_CONTAINER);
+const appendIfMissing = (html, selector, builder, containerSelector = BUTTON_CONTAINER) => {
+  const container = html.querySelector(containerSelector);
   if (!container) return null;
   if (container.querySelector(selector)) return null;
   const button = builder();
@@ -60,9 +70,34 @@ const appendIfMissing = (html, selector, builder) => {
   return button;
 };
 
+const renderLuckSpentResult = (html, cost) => {
+  const card = html.querySelector('.lh.result-roll-card');
+  const outcome = card?.querySelector('.lh-result-roll__outcome strong');
+  if (!card || !outcome) return;
+
+  card.classList.remove('result-roll-card--failure', 'result-roll-card--critical-failure');
+  card.classList.add('result-roll-card--success');
+  outcome.textContent = t('LH.roll.successWithLuck');
+
+  let note = card.querySelector('.lh-result-roll__note');
+  if (!note) {
+    note = document.createElement('p');
+    note.className = 'lh-result-roll__note';
+    card.append(note);
+  }
+  note.classList.add('lh-luck-spent');
+  note.textContent = td('LH.msg.luck.spent', { cost });
+
+  html.querySelector('.lh-luck-btn')?.remove();
+  for (const action of Object.values(ACTIONS)) {
+    html.querySelector(`.${action.buttonClass}`)?.remove();
+  }
+};
+
 const registerGmActionButtons = () => {
   Hooks.on('renderChatMessageHTML', (message, html) => {
     if (!game.user.isGM) return;
+    if (message.getFlag(SYSTEM_ID, LUCK_SPENT_FLAG)) return;
 
     const actionKey = message.getFlag(SYSTEM_ID, GM_ACTION_FLAG);
     const action = ACTIONS[actionKey];
@@ -77,15 +112,16 @@ const registerGmActionButtons = () => {
         label: action.getLabel(used),
         className: action.buttonClass,
         disabled: used,
-        title: used ? ALREADY_APPLIED_HINT : '',
+        title: used ? t(ALREADY_APPLIED_HINT) : '',
         onClick: async (button) => {
+          if (message.getFlag(SYSTEM_ID, LUCK_SPENT_FLAG)) return;
           dLog('chat.gmAction.click', actionKey);
           await action.onClick(attacker, {
             onApplied: async () => {
               await message.setFlag(SYSTEM_ID, DAMAGE_USED_FLAG, true);
               button.disabled = true;
               button.textContent = action.getLabel(true);
-              button.title = ALREADY_APPLIED_HINT;
+              button.title = t(ALREADY_APPLIED_HINT);
             },
           });
         },
@@ -98,48 +134,80 @@ const registerLuckButtons = () => {
   Hooks.on('renderChatMessageHTML', (message, html) => {
     const offer = message.getFlag(SYSTEM_ID, LUCK_FLAG);
     if (!offer) return;
-    if (!isAppendixLuckEnabled()) return;
+
+    const cost = Number(offer.cost ?? 0);
+    if (!Number.isFinite(cost) || cost <= 0) return;
+
+    const spent = Boolean(message.getFlag(SYSTEM_ID, LUCK_SPENT_FLAG));
+    if (spent) {
+      renderLuckSpentResult(html, cost);
+    }
+
+    if (!spent && !isAppendixLuckEnabled()) return;
 
     const actor = resolveActor(offer.actorId);
     if (!actor) return;
 
     const isOwner = actor.isOwner || game.user.isGM;
     if (!isOwner) return;
+    if (!message.canUserModify(game.user, 'update')) return;
 
-    const spent = Boolean(message.getFlag(SYSTEM_ID, LUCK_SPENT_FLAG));
-    const cost = Number(offer.cost ?? 0);
     const currentLuck = Number(actor.system?.attributes?.luck?.value ?? 0);
+    if (!Number.isFinite(currentLuck) || (!spent && currentLuck < cost)) return;
 
-    const canShow = !spent && cost > 0 && currentLuck >= cost;
-    if (!canShow) return;
+    const buttonClass = spent ? 'lh-luck-undo-btn' : 'lh-luck-btn';
+    appendIfMissing(
+      html,
+      `.${buttonClass}`,
+      () =>
+        createButton({
+          label: spent ? t('LH.msg.luck.undo') : td('LH.msg.luck.spend', { cost }),
+          className: buttonClass,
+          icon: spent ? 'fa-rotate-left' : undefined,
+          title: spent ? td('LH.msg.luck.undoHint', { cost }) : '',
+          onClick: async (button) => {
+            if (PENDING_LUCK_UPDATES.has(message.id)) return;
+            if (Boolean(message.getFlag(SYSTEM_ID, LUCK_SPENT_FLAG)) !== spent) return;
+            if (!spent && !isAppendixLuckEnabled()) return;
 
-    const label = offer.label ?? `Spend Luck (${cost}) to succeed`;
+            const latestActor = resolveActor(offer.actorId);
+            const canUpdateMessage = message.canUserModify(game.user, 'update');
+            if (!latestActor || !(latestActor.isOwner || game.user.isGM) || !canUpdateMessage) {
+              ui.notifications?.warn(t('LH.msg.luck.notOwner'));
+              return;
+            }
 
-    appendIfMissing(html, '.lh-luck-btn', () =>
-      createButton({
-        label,
-        className: 'lh-luck-btn',
-        onClick: async (button) => {
-          const latestActor = resolveActor(offer.actorId);
-          if (!latestActor || !(latestActor.isOwner || game.user.isGM)) {
-            ui.notifications?.warn('You do not control this actor.');
-            return;
-          }
+            const latestLuck = Number(latestActor.system?.attributes?.luck?.value ?? 0);
+            if (!Number.isFinite(latestLuck) || (!spent && latestLuck < cost)) {
+              ui.notifications?.warn(t(spent ? 'LH.msg.luck.undoFailed' : 'LH.msg.luck.notEnough'));
+              return;
+            }
 
-          const latestLuck = Number(latestActor.system?.attributes?.luck?.value ?? 0);
-          if (latestLuck < cost) return;
+            button.disabled = true;
+            PENDING_LUCK_UPDATES.add(message.id);
+            let luckUpdated = false;
+            try {
+              const updatedActor = await latestActor.update({
+                'system.attributes.luck.value': spent ? latestLuck + cost : latestLuck - cost,
+              });
+              if (!updatedActor) throw new Error('Luck update was cancelled');
+              luckUpdated = true;
 
-          await latestActor.update({ 'system.attributes.luck.value': Math.max(0, latestLuck - cost) });
-          await message.setFlag(SYSTEM_ID, LUCK_SPENT_FLAG, true);
-          button.disabled = true;
-          button.textContent = `Luck spent (${cost})`;
-
-          await createChatMessage({
-            actor: latestActor,
-            content: `<div class="lh roll-card"><header><strong>Luck</strong></header><div>Spent ${cost} Luck to succeed.</div></div>`,
-          });
-        },
-      })
+              const updatedMessage = await message.setFlag(SYSTEM_ID, LUCK_SPENT_FLAG, !spent);
+              if (!updatedMessage) throw new Error('Luck result update was cancelled');
+              if (!spent) renderLuckSpentResult(html, cost);
+            } catch (error) {
+              dError('chat.luck.update error', error);
+              const failureKey = spent ? 'LH.msg.luck.undoFailed' : 'LH.msg.luck.spendFailed';
+              const resultFailureKey = spent ? 'LH.msg.luck.undoResultUpdateFailed' : 'LH.msg.luck.resultUpdateFailed';
+              ui.notifications?.error(t(luckUpdated ? resultFailureKey : failureKey));
+            } finally {
+              PENDING_LUCK_UPDATES.delete(message.id);
+              button.disabled = luckUpdated || Boolean(message.getFlag(SYSTEM_ID, LUCK_SPENT_FLAG)) !== spent;
+            }
+          },
+        }),
+      spent ? '.lh-luck-spent' : BUTTON_CONTAINER
     );
   });
 };

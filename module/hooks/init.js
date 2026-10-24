@@ -4,6 +4,7 @@ import { registerSystemSettings } from '../settings.js';
 import { registerSheets } from '../sheets/index.js';
 import { registerHandlebars } from '../utils/handlebars.js';
 import { dError, dLog, withGroup } from '../utils/debug.js';
+import { t } from '../utils/i18n.js';
 import { showSystemUpdateNotice } from './update-notice.js';
 
 const exposeApi = () => {
@@ -33,7 +34,7 @@ const executeStageTasks = () => {
 
 const announceReady = () => {
   try {
-    ui.notifications?.info('Liminal Horror ready', { permanent: false });
+    ui.notifications?.info(t('LH.system.ready'), { permanent: false });
   } catch (error) {
     dError('[LH:init] ready notification failed', error);
   }
@@ -46,7 +47,7 @@ export const registerInitHook = () => {
         CONFIG.debug = CONFIG.debug || {};
         executeStageTasks();
       } catch (error) {
-        const message = 'Liminal Horror init error';
+        const message = t('LH.system.initError');
         console.error('[LH] init error', error);
         ui.notifications?.error(`${message}: ${error?.message ?? error}`);
       }

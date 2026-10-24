@@ -1,3 +1,4 @@
+import { renderCard, renderCardRows } from '../utils/chat-card.js';
 import { createChatMessage } from '../utils/chat.js';
 import { applyBackstory } from './backstories.js';
 import {
@@ -20,23 +21,22 @@ function getGeneratedActorName() {
 }
 
 function buildGeneratedActorChatContent({ actorName, backstory, str, dex, ctrl, luck, hp, cash, details, showLuck }) {
-  const luckRow = showLuck ? `<li><b>${t('LH.attr.short.luck')}:</b> ${luck}</li>` : '';
+  const stats = [
+    { label: t('LH.attr.short.str'), value: str },
+    { label: t('LH.attr.short.dex'), value: dex },
+    { label: t('LH.attr.short.ctrl'), value: ctrl },
+    ...(showLuck ? [{ label: t('LH.attr.short.luck'), value: luck }] : []),
+    { label: t('LH.ui.hp'), value: hp },
+    { label: t('LH.ui.cash'), value: cash },
+  ];
   const detailRows = buildInvestigatorDetailListItems(details);
 
-  return `
-  <div class="lh roll-card">
-    <header><strong>${actorName}</strong></header>
-    <ul>
-      <li><b>${t('LH.char.labels.backstory')}:</b> ${backstory}</li>
-      <li><b>${t('LH.attr.short.str')}:</b> ${str}</li>
-      <li><b>${t('LH.attr.short.dex')}:</b> ${dex}</li>
-      <li><b>${t('LH.attr.short.ctrl')}:</b> ${ctrl}</li>
-      ${luckRow}
-      <li><b>${t('LH.ui.hp')}:</b> ${hp}</li>
-      <li><b>${t('LH.ui.cash')}:</b> ${cash}</li>
-      ${detailRows}
-    </ul>
-  </div>`;
+  return renderCard(actorName, [{ label: t('LH.char.labels.backstory'), value: foundry.utils.escapeHTML(backstory) }], {
+    icon: 'fa-user',
+    description: `
+      <div class="lh-generated-stats">${renderCardRows(stats)}</div>
+      <ul class="lh-chat-details">${detailRows}</ul>`,
+  });
 }
 
 export async function generateActor() {
@@ -95,13 +95,14 @@ export async function generateInvestigator() {
   const details = Object.fromEntries(
     INVESTIGATOR_DESCRIPTION_FIELDS.map((field) => [field, rollInvestigatorField(field)])
   );
-  const content = `
-  <div class="lh roll-card">
-    <ul>
-      <li><b>${t('LH.char.labels.backstory')}:</b> ${rollInvestigatorField('backstory')}</li>
-      ${buildInvestigatorDetailListItems(details)}
-    </ul>
-  </div>`;
+  const content = renderCard(
+    t('LH.char.labels.generatedHeader'),
+    [{ label: t('LH.char.labels.backstory'), value: foundry.utils.escapeHTML(rollInvestigatorField('backstory')) }],
+    {
+      icon: 'fa-user',
+      description: `<ul class="lh-chat-details">${buildInvestigatorDetailListItems(details)}</ul>`,
+    }
+  );
 
   await createChatMessage({
     user: game.user,

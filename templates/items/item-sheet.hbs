@@ -1,26 +1,32 @@
 <div class='layout lh-item'>
   <section class='item-card'>
     <header class='item-header'>
-      <input class='item-name-input' type='text' name='name' value='{{item.name}}' placeholder='ITEM NAME' />
-      <span class='item-type-pill'>{{item.type}}</span>
+      <input
+        class='item-name-input'
+        type='text'
+        name='name'
+        value='{{item.name}}'
+        placeholder='{{localize "LH.itemSheet.namePlaceholder"}}'
+      />
+      <span class='item-type-pill'>{{localize (concat 'TYPES.Item.' item.type)}}</span>
     </header>
 
     <section class='{{itemFieldsClass}}'>
       <div class='item-panel'>
-        <div class='item-section-title'>BASIC</div>
+        <div class='item-section-title'>{{localize 'LH.itemSheet.basic'}}</div>
         <div class='item-form-row'>
-          <label class='item-label'>Description</label>
+          <label class='item-label'>{{localize 'LH.ui.tabs.description'}}</label>
           <textarea class='item-textarea' name='system.description' rows='3'>{{system.description}}</textarea>
         </div>
         {{#if system.damageDie}}
           <div class='item-form-row'>
-            <label class='item-label'>Damage</label>
+            <label class='item-label'>{{localize 'LH.core.damage'}}</label>
             <input class='item-input' type='text' name='system.damageDie' value='{{system.damageDie}}' />
           </div>
         {{/if}}
         {{#if (eq item.type 'armor')}}
           <div class='item-form-row'>
-            <label class='item-label'>Armor</label>
+            <label class='item-label'>{{localize 'LH.ui.armor'}}</label>
             <input class='item-input' type='number' name='system.armorValue' value='{{system.armorValue}}' />
           </div>
         {{/if}}
@@ -29,7 +35,7 @@
             <label class='item-checkbox'>
               <input type='checkbox' name='system.equipped' {{checked system.equipped}} />
               <span class='checkbox-box' aria-hidden='true'></span>
-              <span class='item-label'>Equipped</span>
+              <span class='item-label'>{{localize 'LH.core.equipped'}}</span>
             </label>
           </div>
         {{/if}}
@@ -37,18 +43,18 @@
 
       {{#if hasMeta}}
         <div class='item-panel'>
-          <div class='item-section-title'>META</div>
+          <div class='item-section-title'>{{localize 'LH.itemSheet.meta'}}</div>
           <div class='item-form-row'>
-            <label class='item-label'>Price ($)</label>
+            <label class='item-label'>{{localize 'LH.itemSheet.price'}}</label>
             <input class='item-input' type='number' name='system.price' value='{{system.price}}' />
           </div>
           {{#if (eq item.type 'gear')}}
             <div class='item-form-row'>
-              <label class='item-label'>Current use</label>
+              <label class='item-label'>{{localize 'LH.itemSheet.usesCurrent'}}</label>
               <input class='item-input' type='number' name='system.usesCurrent' value='{{system.usesCurrent}}' />
             </div>
             <div class='item-form-row'>
-              <label class='item-label'>Max use</label>
+              <label class='item-label'>{{localize 'LH.itemSheet.usesMax'}}</label>
               <input class='item-input' type='number' name='system.usesMax' value='{{system.usesMax}}' />
             </div>
           {{/if}}
@@ -58,9 +64,9 @@
 
     {{#if isCarryable}}
       <section class='item-carry-panel'>
-        <div class='item-section-title'>CARRY</div>
+        <div class='item-section-title'>{{localize 'LH.itemSheet.carry'}}</div>
         <div class='item-form-row'>
-          <label class='item-label'>Slot Size</label>
+          <label class='item-label'>{{localize 'LH.itemSheet.slotSize'}}</label>
           <input class='item-input' type='number' name='system.slotSize' value='{{system.slotSize}}' />
         </div>
 
@@ -68,7 +74,7 @@
           <label class='item-checkbox'>
             <input type='checkbox' name='system.ignoreSlots' {{checked system.ignoreSlots}} />
             <span class='checkbox-box' aria-hidden='true'></span>
-            <span class='item-label'>Ignore Slots</span>
+            <span class='item-label'>{{localize 'LH.itemSheet.ignoreSlots'}}</span>
           </label>
         </div>
       </section>
