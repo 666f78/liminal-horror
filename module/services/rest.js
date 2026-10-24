@@ -28,9 +28,10 @@ export async function restActor(
   }
 
   if (deprived && !ignoreDeprived) {
-    const blockedCard = renderCard(t('LH.core.rest'), [
-      `<span style="color:var(--lh-text-muted, #666);"><i>${t('LH.msg.deprivedRestBlocked')}</i></span>`,
-    ]);
+    const blockedCard = renderCard(t('LH.core.rest'), [t('LH.msg.deprivedRestBlocked')], {
+      tone: 'mixed',
+      icon: 'fa-moon',
+    });
     await createChatMessage({ actor, content: blockedCard });
     ui.notifications.warn(`${t('LH.core.restBlocked')}: ${t('LH.ui.deprivedFull')}`);
     return;
@@ -54,9 +55,7 @@ export async function restActor(
   if (deletions.length) await actor.deleteEmbeddedDocuments('Item', deletions);
 
   const restNote = full ? t('LH.core.fullRestCompleted') : t('LH.core.restCompleted');
-  const rows = [`<span style="color:var(--lh-text-muted, #666);"><i>${restNote}</i></span>`];
-
-  const restoredCard = renderCard(t('LH.core.rest'), rows);
+  const restoredCard = renderCard(t('LH.core.rest'), [restNote], { tone: 'good', icon: 'fa-bed' });
   await createChatMessage({ actor, content: restoredCard });
   ui.notifications.info(full ? 'Full Rest applied' : 'Rest applied');
 }

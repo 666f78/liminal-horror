@@ -1,3 +1,4 @@
+import { renderCard } from '../utils/chat-card.js';
 import { createChatMessage } from '../utils/chat.js';
 import { t } from '../utils/i18n.js';
 
@@ -63,7 +64,11 @@ export const registerActorHooks = () => {
     const newValue = changes.system?.status?.deprived;
 
     if (newValue !== undefined && newValue !== oldValue) {
-      const content = `<span style="color:var(--lh-text-muted, #666);"><i>${newValue ? t('LH.msg.becameDeprived') : t('LH.msg.noLongerDeprived')}</i></span>`;
+      const content = renderCard(
+        t('LH.ui.deprivedFull'),
+        [newValue ? t('LH.msg.becameDeprived') : t('LH.msg.noLongerDeprived')],
+        { tone: newValue ? 'mixed' : 'good', icon: newValue ? 'fa-moon' : 'fa-check' }
+      );
       createChatMessage({
         actor,
         content,

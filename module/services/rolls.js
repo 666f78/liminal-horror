@@ -1,6 +1,6 @@
 import { isAppendixLuckEnabled } from '../settings.js';
 import { getAttr } from '../utils/attrs.js';
-import { renderCardRows } from '../utils/chat-card.js';
+import { renderResultRollCard } from '../utils/chat-card.js';
 import { sendRollMessage } from '../utils/chat.js';
 import { t } from '../utils/i18n.js';
 
@@ -24,27 +24,6 @@ const getOutcomeType = ({ success, critSuccess, critFail }) => {
   return 'failure';
 };
 
-const renderResultRollCard = async ({ title, target, rows, roll, outcome, outcomeType, note }) => {
-  const targetLabel =
-    target === undefined ? '' : `<span>${foundry.utils.escapeHTML(t('LH.core.target'))}: <b>${target}</b></span>`;
-  const details = rows?.length ? `<div class="lh-result-roll__details">${renderCardRows(rows)}</div>` : '';
-  const noteMarkup = note ? `<p class="lh-result-roll__note">${foundry.utils.escapeHTML(note)}</p>` : '';
-
-  return `
-    <div class="lh result-roll-card result-roll-card--${outcomeType}">
-      <div class="lh-result-roll__heading">
-        <strong>${foundry.utils.escapeHTML(title)}</strong>
-        ${targetLabel}
-      </div>
-      ${details}
-      <div class="lh-result-roll__result">
-        ${await roll.render()}
-        <div class="lh-result-roll__outcome"><strong>${foundry.utils.escapeHTML(outcome)}</strong></div>
-      </div>
-      ${noteMarkup}
-    </div>`;
-};
-
 export async function rollAttribute(actor, key, options = {}) {
   const { cardTitle, cardRows, note, gmAction, flavor, targetOverride } = options;
 
@@ -60,24 +39,16 @@ export async function rollAttribute(actor, key, options = {}) {
 
   const outcome = formatOutcome({ success, critSuccess, critFail });
 
-  let messageOptions;
-  if (flavor) {
-    const outcomeColor = success ? 'color:green;' : 'color:red;';
-    let card = flavor + `<div style="font-weight:bold; ${outcomeColor} margin-top:4px;">${outcome}</div>`;
-    if (!success && note) card += `<div style="margin-top:6px; color:red;"><i>${note}</i></div>`;
-    messageOptions = { actor, flavor: card };
-  } else {
-    const card = await renderResultRollCard({
-      title: t(`${attributeLabel}`),
-      target,
-      rows: cardRows,
-      roll,
-      outcome,
-      outcomeType: getOutcomeType({ success, critSuccess, critFail }),
-      note: !success ? note : undefined,
-    });
-    messageOptions = { actor, content: card };
-  }
+  const card = await renderResultRollCard({
+    title: t(`${attributeLabel}`),
+    target,
+    rows: flavor ? [flavor] : cardRows,
+    roll,
+    outcome,
+    outcomeType: getOutcomeType({ success, critSuccess, critFail }),
+    note: !success ? note : undefined,
+  });
+  const messageOptions = { actor, content: card };
 
   if (!success) {
     const flags = {};

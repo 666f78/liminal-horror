@@ -14,6 +14,10 @@
 
 - Updated roll card styling and outcome colors
 - Updated Voidcrawl roll cards with event colors, icons, and improved text readability
+- Unified damage, stress, rest, status, item, and overload chat messages with the new roll card styling
+- Updated weapon, spell, initiative, and backstory rolls to use consistent result cards
+- Reworked generated investigator and system update chat messages with clearer headings, icons, and readable details
+- Localized initiative and system update chat labels in English and Ukrainian
 - Updated Luck spending to show success and the spent amount on the original roll card instead of posting a separate chat message
 - Localized Luck spending and undo controls and messages in English and Ukrainian
 - Localized Party Overview controls, status tooltips, and messages in English and Ukrainian

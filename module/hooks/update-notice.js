@@ -1,6 +1,7 @@
 import { SETTINGS_NS } from '../settings.js';
+import { renderCard } from '../utils/chat-card.js';
 import { dWarn } from '../utils/debug.js';
-import { t } from '../utils/i18n.js';
+import { t, td } from '../utils/i18n.js';
 
 // Debug: always show update notice on each world launch
 const FORCE_SHOW_EVERY_START = false;
@@ -132,8 +133,14 @@ function buildChatNoticeHtml(currentVersion, notesHtml) {
 
   return `
     <section class="lh-update-notice">
-      <h2>Liminal Horror updated to ${foundry.utils.escapeHTML(currentVersion)}</h2>
-      ${notesHtml}
+      ${renderCard(
+        'Liminal Horror',
+        [td('LH.msg.systemUpdated', { version: foundry.utils.escapeHTML(currentVersion) })],
+        {
+          icon: 'fa-circle-up',
+          description: notesHtml,
+        }
+      )}
       <div class="lh-update-chat-links">
         <nav class="lh-update-links" aria-label="Liminal Horror links">
           <a href="${bugsUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-bug" inert></i>Bugs</a>

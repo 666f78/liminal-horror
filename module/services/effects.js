@@ -7,6 +7,8 @@ import { rollAttribute } from './rolls.js';
 const EFFECTS = {
   damage: {
     title: 'LH.core.damage',
+    icon: 'fa-heart-crack',
+    deathIcon: 'fa-skull',
     defensesPath: 'defenses.armor',
     attributeKey: 'str',
     overflowLabel: 'LH.msg.damage.overflowLabel',
@@ -17,6 +19,8 @@ const EFFECTS = {
   },
   stress: {
     title: 'LH.core.stress',
+    icon: 'fa-brain',
+    deathIcon: 'fa-eye-slash',
     defensesPath: 'defenses.selfControl',
     attributeKey: 'con',
     overflowLabel: 'LH.msg.stress.overflowLabel',
@@ -55,18 +59,20 @@ const applyEffect = async (actor, rawAmount, key, { defenses = true } = {}) => {
   const absorbed = amount > 0 && effectiveAmount === 0;
   const rows = [];
   if (hpLoss > 0) {
-    rows.push(`<span style="font-weight:bold;">${t('LH.msg.hpLoss')}: ${clamp(hpLoss)}</span>`);
+    rows.push({ label: t('LH.msg.hpLoss'), value: clamp(hpLoss) });
   } else if (absorbed) {
     const absorbedLabel = config.title.toLowerCase();
-    rows.push(
-      `<span style="color:var(--lh-text-muted, #666);"><i>${
-        absorbedLabel === 'lh.core.damage' ? t('LH.msg.absorbedDamage') : t('LH.msg.absorbedStress')
-      }</i></span>`
-    );
+    rows.push(absorbedLabel === 'lh.core.damage' ? t('LH.msg.absorbedDamage') : t('LH.msg.absorbedStress'));
   }
 
   if (rows.length) {
-    await postCardMessage(actor, renderCard(t(`${config.title}`), rows));
+    await postCardMessage(
+      actor,
+      renderCard(t(config.title), rows, {
+        tone: absorbed ? 'neutral' : 'bad',
+        icon: absorbed ? 'fa-shield-halved' : config.icon,
+      })
+    );
   }
 
   if (hpRemaining > 0 || effectiveAmount <= hpCurrent) {
@@ -94,16 +100,13 @@ const applyEffect = async (actor, rawAmount, key, { defenses = true } = {}) => {
     return;
   }
 
-  const deathRows = [
-    { label: t(config.overflowLabel), value: clamp(attrLoss) },
-    '<span style="color:red; font-weight:bold;">' + config.deathLabel + '</span>',
-  ];
+  const deathRows = [{ label: t(config.overflowLabel), value: clamp(attrLoss) }, config.deathLabel];
 
   await actor.update({
     'system.defense.hp': hpRemaining,
     [`system.attributes.${config.attributeKey}.value`]: attrRemaining,
   });
-  await postCardMessage(actor, renderCard(t(config.title), deathRows));
+  await postCardMessage(actor, renderCard(t(config.title), deathRows, { tone: 'bad', icon: config.deathIcon }));
 };
 
 export const applyDamage = (actor, amount, options) => applyEffect(actor, amount, 'damage', options);

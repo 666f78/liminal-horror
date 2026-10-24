@@ -133,6 +133,8 @@
       "mixedResult": "Mixed Result"
     },
     "msg": {
+      "initiative": "Initiative",
+      "systemUpdated": "Updated to {version}",
       "hpLoss": "HP Loss",
       "weapon": "Weapon",
       "spell": "Spell",

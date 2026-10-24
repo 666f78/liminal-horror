@@ -133,6 +133,8 @@
       "mixedResult": "Середній результат"
     },
     "msg": {
+      "initiative": "Ініціатива",
+      "systemUpdated": "Оновлено до {version}",
       "hpLoss": "Втрата ПЗ",
       "weapon": "Зброя",
       "spell": "Закляття",

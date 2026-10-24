@@ -1,4 +1,5 @@
 import { dLog, dWarn } from '../utils/debug.js';
+import { renderResultRollCard } from '../utils/chat-card.js';
 import { sendRollMessage } from '../utils/chat.js';
 import { t } from '../utils/i18n.js';
 import { INVESTIGATOR_BACKSTORY_COUNT } from './investigator-generator.js';
@@ -264,7 +265,16 @@ export async function applyBackstory(actor, id) {
 
 export async function rollBackstory(actor) {
   const roll = await new Roll(`1d${INVESTIGATOR_BACKSTORY_COUNT}`).evaluate();
-  await sendRollMessage(roll, { actor, flavor: `Backstory (1d${INVESTIGATOR_BACKSTORY_COUNT})` });
   const idx = clamp(roll.total, 1, INVESTIGATOR_BACKSTORY_COUNT);
+  const entry = resolveBackstory(idx);
+  await sendRollMessage(roll, {
+    actor,
+    content: await renderResultRollCard({
+      title: t('LH.char.labels.backstory'),
+      roll,
+      outcome: entry ? t(entry.name) : t('LH.char.labels.backstory'),
+      icon: 'fa-book-open',
+    }),
+  });
   return applyBackstory(actor, idx);
 }
