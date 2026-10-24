@@ -59,17 +59,19 @@ export const registerActorHooks = () => {
       userName: game.users.get(userId)?.name ?? t('LH.ui.unknownUser'),
       diffs,
     });
+  });
 
-    const oldValue = foundry.utils.getProperty(actor.system, 'status.deprived');
-    const newValue = changes.system?.status?.deprived;
+  Hooks.on('updateActor', async (actor, changes, _options, userId) => {
+    if (userId !== game.user.id) return;
+    const newValue = foundry.utils.getProperty(changes, 'system.status.deprived');
 
-    if (newValue !== undefined && newValue !== oldValue) {
+    if (typeof newValue === 'boolean') {
       const content = renderCard(
         t('LH.ui.deprivedFull'),
         [newValue ? t('LH.msg.becameDeprived') : t('LH.msg.noLongerDeprived')],
         { tone: newValue ? 'mixed' : 'good', icon: newValue ? 'fa-moon' : 'fa-check' }
       );
-      createChatMessage({
+      await createChatMessage({
         actor,
         content,
         whisperMode: 'public',

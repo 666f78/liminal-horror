@@ -29,6 +29,7 @@
 
 - Fixed injury and consequence actions remaining available after Luck turns a failed roll into a success
 - Fixed inconsistent Ukrainian Deprived and equipment labels
+- Fixed duplicate Deprived status messages during concurrent inventory overload updates
 - Minor bug fixes
 
 ### Acknowledgments
