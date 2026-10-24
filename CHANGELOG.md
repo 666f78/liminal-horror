@@ -8,7 +8,8 @@
 
 ### Changed
 
-- Updated roll card styling and outcome colors.
+- Updated roll card styling and outcome colors
+- Updated Voidcrawl roll cards with event colors, icons, and improved text readability
 
 ### Acknowledgments
 

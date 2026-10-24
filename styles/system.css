@@ -2008,6 +2008,13 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   font-size: 0.8rem;
 }
 
+.lh-result-roll__description {
+  margin-top: 10px;
+  padding: 0 8px;
+  color: color-mix(in srgb, var(--lh-text-main) 80%, var(--lh-bg-card));
+  line-height: 1.5;
+}
+
 .lh-result-roll__result {
   display: grid;
   grid-template-columns: 70px minmax(0, 1fr);
@@ -2258,6 +2265,18 @@ button[data-tool^='lh-']:hover {
 }
 
 /* ===== Void Research Die Chat Card ===== */
+.lh.void-roll-card .lh-result-roll__result {
+  --lh-border-strong: color-mix(in srgb, var(--lh-roll-color) 35%, transparent);
+  background: color-mix(in srgb, var(--lh-roll-color) 12%, var(--lh-bg-hover));
+  border-color: color-mix(in srgb, var(--lh-roll-color) 30%, var(--lh-border));
+}
+
+.lh.void-roll-card .lh-result-roll__outcome strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
 .lh-void-roll {
   display: grid;
   gap: 0.5rem;
