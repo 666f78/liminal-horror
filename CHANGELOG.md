@@ -2,6 +2,10 @@
 
 ## [0.1.6]
 
+### Added
+
+- Added a support link for users who want to support continued development of the system
+
 ### Changed
 
 - Updated roll card styling and outcome colors.

@@ -4,6 +4,9 @@ import { t } from '../utils/i18n.js';
 
 // Debug: always show update notice on each world launch
 const FORCE_SHOW_EVERY_START = false;
+const SUPPORT_URL = 'https://666f78.pp.ua/donate';
+const SUPPORT_TOOLTIP_HTML =
+  'Support ongoing development and improvements to this Foundry system.<br>This is an unofficial Foundry VTT adaptation and is not affiliated with the creators of Liminal Horror.';
 
 function renderSectionHtml(sectionText) {
   if (!sectionText) return '<p>No detailed notes were found for this version.</p>';
@@ -82,7 +85,7 @@ function buildCurrentVersionNotesHtml(currentVersion, sections) {
 
 function buildModalNoticeHtml(currentVersion, sections) {
   const bugsUrl = game.system?.bugs || 'https://github.com/666f78/liminal-horror/issues';
-  const readmeUrl = game.system?.readme || 'https://raw.githubusercontent.com/666f78/liminal-horror/master/README.md';
+  const readmeUrl = 'https://github.com/666f78/liminal-horror#readme';
   const discussionsUrl = 'https://github.com/666f78/liminal-horror/discussions';
   const versionCards = sections
     .map((section) => {
@@ -102,13 +105,21 @@ function buildModalNoticeHtml(currentVersion, sections) {
 
   return `
     <section class="lh-update-notice">
-      <h2>Liminal Horror changelog</h2>
-      <p>Current system version: <strong>${foundry.utils.escapeHTML(currentVersion)}</strong></p>
-      <p class="lh-update-links">
-        <a href="${bugsUrl}" target="_blank" rel="noopener noreferrer">Bugs</a>
-        <a href="${readmeUrl}" target="_blank" rel="noopener noreferrer">Readme</a>
-        <a href="${discussionsUrl}" target="_blank" rel="noopener noreferrer">Discussions</a>
-      </p>
+      <header class="lh-update-overview">
+        <div class="lh-update-overview-title">
+          <h2>Liminal Horror changelog</h2>
+          <p class="lh-update-current-version">Current version: <strong>${foundry.utils.escapeHTML(currentVersion)}</strong></p>
+        </div>
+        <nav class="lh-update-links" aria-label="Liminal Horror links">
+          <a href="${bugsUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-bug" inert></i>Bugs</a>
+          <a href="${readmeUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-book-open" inert></i>Readme</a>
+          <a href="${discussionsUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-comments" inert></i>Discussions</a>
+          <a class="button lh-update-support-link" href="${SUPPORT_URL}" target="_blank" rel="noopener noreferrer"
+             data-tooltip-html="${SUPPORT_TOOLTIP_HTML}">
+            <i class="fa-solid fa-heart" inert></i> Support Development
+          </a>
+        </nav>
+      </header>
       <div class="lh-update-scroll">${versionCards || '<p>No version entries found.</p>'}</div>
     </section>
   `;
@@ -123,11 +134,17 @@ function buildChatNoticeHtml(currentVersion, notesHtml) {
     <section class="lh-update-notice">
       <h2>Liminal Horror updated to ${foundry.utils.escapeHTML(currentVersion)}</h2>
       ${notesHtml}
-      <p class="lh-update-links">
-        <a href="${bugsUrl}" target="_blank" rel="noopener noreferrer">Bugs</a>
-        <a href="${readmeUrl}" target="_blank" rel="noopener noreferrer">Readme</a>
-        <a href="${discussionsUrl}" target="_blank" rel="noopener noreferrer">Discussions</a>
-      </p>
+      <div class="lh-update-chat-links">
+        <nav class="lh-update-links" aria-label="Liminal Horror links">
+          <a href="${bugsUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-bug" inert></i>Bugs</a>
+          <a href="${readmeUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-book-open" inert></i>Readme</a>
+          <a href="${discussionsUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-comments" inert></i>Discussions</a>
+        </nav>
+        <a class="button lh-update-support-link" href="${SUPPORT_URL}" target="_blank" rel="noopener noreferrer"
+           data-tooltip-html="${SUPPORT_TOOLTIP_HTML}">
+          <i class="fa-solid fa-heart" inert></i> Support Development
+        </a>
+      </div>
     </section>
   `;
 }

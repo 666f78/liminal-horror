@@ -96,9 +96,50 @@ function onRenderDocumentDirectory(app, htmlElement) {
   }
 }
 
+function onRenderSettings(_app, htmlElement) {
+  const rootElement = resolveRootElement(htmlElement);
+  const documentation = rootElement?.querySelector('section.documentation');
+  if (!documentation || rootElement.querySelector('.lh-support-card')) return;
+
+  const card = document.createElement('section');
+  card.className = 'lh-support-card flexcol';
+
+  const heading = document.createElement('h4');
+  heading.textContent = 'SUPPORT SYSTEM DEVELOPMENT';
+
+  const link = document.createElement('a');
+  link.className = 'button bright lh-support-development';
+  link.href = 'https://666f78.pp.ua/donate';
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+
+  const icon = document.createElement('i');
+  icon.className = 'fa-solid fa-heart';
+  icon.setAttribute('inert', '');
+  link.append(icon, ' Support Development');
+
+  const description = document.createElement('p');
+  description.textContent = 'Support ongoing development and improvements to this Foundry system.';
+
+  const disclaimer = document.createElement('small');
+  disclaimer.textContent = 'This is an unofficial Foundry VTT adaptation and is not affiliated with the creators of Liminal Horror.';
+
+  const logo = document.createElement('img');
+  logo.src = `systems/${game.system.id}/assets/img/logo.webp`;
+  logo.alt = 'Liminal Horror logo';
+
+  const header = document.createElement('div');
+  header.className = 'lh-support-card-header';
+  header.append(heading, logo);
+
+  card.append(header, link, description, disclaimer);
+  documentation.before(card);
+}
+
 export const registerSidebarHooks = () => {
   withGroup('sidebarHooks', () => {
     Hooks.on('renderDocumentDirectory', onRenderDocumentDirectory);
+    Hooks.on('renderSettings', onRenderSettings);
     dLog('sidebar buttons registered');
   });
 };

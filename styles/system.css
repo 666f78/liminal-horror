@@ -55,6 +55,45 @@ body {
   --input-text-color: var(--lh-text-main);
 }
 
+/* ===== Settings Sidebar ===== */
+.settings-sidebar .lh-support-card {
+  padding: 0.75rem;
+  border: 1px solid var(--color-warm-1);
+  border-radius: var(--lh-radius);
+  background: color-mix(in srgb, var(--color-warm-1) 14%, var(--background));
+}
+
+.settings-sidebar .lh-support-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.settings-sidebar .lh-support-card h4 {
+  flex: 1;
+  min-width: 0;
+  color: var(--color-text-emphatic);
+}
+
+.settings-sidebar .lh-support-card p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-13);
+  line-height: 1.35;
+}
+
+.settings-sidebar .lh-support-card small {
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-11);
+  line-height: 1.35;
+}
+
+.settings-sidebar .lh-support-card img {
+  width: 3.5rem;
+  height: auto;
+  flex-shrink: 0;
+}
+
 /* ===== Log ===== */
 .lh .tab[data-tab='log'].active {
   display: flex;
@@ -262,17 +301,111 @@ body.game .window-app.lh-update-dialog .dialog-content {
   line-height: 1.35;
 }
 
+.lh-update-overview {
+  padding: 12px 14px;
+  background: color-mix(in srgb, var(--lh-bg-app) 92%, var(--lh-bg-btn-dark));
+  border: 1px solid var(--lh-border);
+  border-radius: var(--lh-radius);
+}
+
+.lh-update-overview-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.lh-update-overview h2 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.lh-update-overview .lh-update-current-version {
+  margin: 0;
+  color: var(--lh-text-muted);
+  font-size: var(--font-size-13);
+}
+
+.lh-update-current-version strong {
+  color: var(--lh-text-main);
+}
+
 .lh-update-links {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.lh-update-links a {
-  color: #b6453b;
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 2px;
+.lh-update-links a:not(.button) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.4rem;
+  color: var(--lh-text-muted);
+  background: var(--lh-bg-hover);
+  border: 1px solid var(--lh-border);
+  border-radius: var(--lh-radius-sm);
+  font-size: var(--font-size-13);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.lh-update-overview .lh-update-links {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--lh-border);
+}
+
+.lh-update-links a:not(.button):hover,
+.lh-update-links a:not(.button):focus {
+  color: var(--lh-text-main);
+  border-color: var(--color-warm-1);
+}
+
+.lh-update-notice .lh-update-chat-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--lh-border);
+}
+
+.lh-update-chat-links .lh-update-links {
+  align-self: center;
+  flex-wrap: nowrap;
+  gap: 6px;
+}
+
+.lh-update-chat-links .lh-update-links a:not(.button) {
+  gap: 0.2rem;
+  padding: 0.15rem 0.3rem;
+  font-size: var(--font-size-12);
+  white-space: nowrap;
+}
+
+.lh-update-notice a.lh-update-support-link {
+  --button-background-color: var(--lh-bg-btn-dark);
+  --button-border-color: var(--color-warm-1);
+  --button-text-color: var(--lh-text-light);
+  --button-hover-background-color: var(--lh-bg-dark-hover);
+  --button-hover-border-color: var(--color-warm-1);
+  --button-hover-text-color: var(--lh-text-light);
+  margin-left: auto;
+  font-family: var(--font-primary);
+  font-weight: 600;
+  text-transform: none;
+}
+
+.lh-update-chat-links a.lh-update-support-link {
+  align-self: center;
+  margin-left: 0;
+}
+
+.lh-update-support-link i {
+  color: var(--color-warm-1);
 }
 
 .lh-update-scroll {
@@ -1982,8 +2115,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   color: var(--lh-text-main);
   opacity: 0.85;
 }
-.chat-message:not(.whisper),
-#chat-message {
+.chat-message:not(.whisper) {
   background: none !important;
   background-color: var(--lh-bg-card) !important;
 }

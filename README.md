@@ -9,8 +9,11 @@
 ![Status: Unofficial](https://img.shields.io/badge/Status-Unofficial-critical)
 ![Release: Beta](https://img.shields.io/badge/Release-Beta-yellow)
 [![Changelog](https://img.shields.io/badge/Changelog-md-orange)](https://github.com/666f78/liminal-horror/blob/master/CHANGELOG.md)
-
 </div>
+
+> ☕ **[Support the project](https://666f78.pp.ua/donate)** — help support continued development.
+
+
 
 This is an **unofficial system** for [Foundry Virtual Tabletop](https://foundryvtt.com), designed to run games of **[Liminal Horror](https://liminalhorrorrpg.com)**.
 It provides investigator sheets, rolling mechanics, and tools adapted to the rules of the game.
