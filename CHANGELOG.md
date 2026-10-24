@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.6]
+
+### Changed
+
+- Updated roll card styling and outcome colors.
+
+### Acknowledgments
+
+- Thanks to Viktor "Korpuskul" Solopenko
+- Thanks to Maia (my-ee-uh)
+
 ## [0.1.5]
 
 ### Added

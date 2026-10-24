@@ -652,6 +652,41 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   --button-border-color: var(--lh-border);
   background-color: var(--lh-bg-btn);
 }
+
+.chat-message button.lh-luck-btn {
+  --button-background-color: var(--lh-bg-card);
+  --button-border-color: var(--lh-border);
+  --button-text-color: var(--lh-text-muted);
+  --button-hover-background-color: var(--lh-bg-hover);
+  --button-hover-border-color: #ad812c;
+  --button-hover-text-color: var(--lh-text-main);
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  height: var(--lh-control-h);
+  min-height: var(--lh-control-h);
+  padding: 0 8px;
+  border-radius: var(--lh-radius-sm);
+  box-shadow: none;
+  color: var(--lh-text-muted);
+  font-family: var(--font-primary);
+  font-size: var(--font-size-12);
+  font-weight: 500;
+}
+
+.chat-message button.lh-luck-btn:hover {
+  border-color: #ad812c;
+  color: var(--lh-text-main);
+}
+
+.chat-message button.lh-luck-btn:disabled {
+  background: var(--lh-bg-hover);
+  border-color: var(--lh-border);
+  box-shadow: none;
+  color: var(--lh-text-muted);
+}
+
 .lh .line {
   height: 0;
   background: transparent;
@@ -1754,6 +1789,188 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   text-transform: uppercase;
   color: var(--lh-text-main);
 }
+
+.chat-message:has(.lh.result-roll-card) .message-header {
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--lh-border);
+}
+
+.chat-message:has(.lh.result-roll-card) .message-content {
+  padding-top: 7px;
+}
+
+.chat-message:not(.whisper):has(.result-roll-card--success),
+.chat-message:not(.whisper):has(.result-roll-card--good) {
+  border-left: 3px solid #5c8464;
+}
+
+.chat-message:not(.whisper):has(.result-roll-card--critical-success) {
+  border-left: 3px solid #257b2f;
+}
+
+.chat-message:not(.whisper):has(.result-roll-card--mixed) {
+  border-left: 3px solid #ad812c;
+}
+
+.chat-message:not(.whisper):has(.result-roll-card--failure),
+.chat-message:not(.whisper):has(.result-roll-card--bad) {
+  border-left: 3px solid #b6453b;
+}
+
+.chat-message:not(.whisper):has(.result-roll-card--critical-failure) {
+  border-left: 3px solid #000000;
+}
+
+.lh.result-roll-card {
+  --lh-roll-color: #a13d35;
+  color: var(--lh-text-main);
+  font-size: 0.9rem;
+}
+
+.lh.result-roll-card--success,
+.lh.result-roll-card--good {
+  --lh-roll-color: #426e4b;
+}
+
+.lh.result-roll-card--critical-success {
+  --lh-roll-color: #257b2f;
+}
+
+.lh.result-roll-card--mixed {
+  --lh-roll-color: #805d18;
+}
+
+.lh.result-roll-card--critical-failure {
+  --lh-roll-color: #000000;
+}
+
+.lh-result-roll__heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+
+.lh-result-roll__heading > strong {
+  font-size: 1rem;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.lh-result-roll__heading > span {
+  flex: none;
+  color: var(--lh-text-muted);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.lh-result-roll__heading b {
+  color: var(--lh-text-main);
+}
+
+.lh-result-roll__details {
+  margin: 0 0 7px;
+  color: var(--lh-text-muted);
+  font-size: 0.8rem;
+}
+
+.lh-result-roll__result {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  padding: 6px 8px;
+  background: var(--lh-bg-hover);
+  border: 1px solid var(--lh-border);
+  border-radius: var(--lh-radius-sm);
+}
+
+.lh.result-roll-card--critical-success .lh-result-roll__result {
+  --lh-border-strong: rgba(255, 255, 255, 0.35);
+  background: var(--lh-roll-color);
+  border-color: var(--lh-roll-color);
+}
+
+.lh.result-roll-card--critical-failure .lh-result-roll__result {
+  background: var(--lh-roll-color);
+  border-color: var(--lh-roll-color);
+}
+
+.lh.result-roll-card--critical-failure .lh-result-roll__result {
+  --lh-border-strong: rgba(255, 255, 255, 0.35);
+}
+
+.lh-result-roll__result .dice-roll {
+  min-width: 0;
+}
+
+.lh-result-roll__result .dice-formula,
+.lh-result-roll__result .dice-total {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.lh-result-roll__result .dice-formula {
+  margin: 0;
+  color: var(--lh-text-muted);
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+.lh-result-roll__result .dice-total {
+  color: var(--lh-roll-color);
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+.lh.result-roll-card--critical-failure .lh-result-roll__result .dice-formula {
+  color: #fff;
+}
+
+.lh-result-roll__outcome {
+  min-width: 0;
+  padding-left: 9px;
+  border-left: 1px solid var(--lh-border-strong);
+}
+
+.lh-result-roll__outcome strong {
+  display: inline-block;
+  padding: 4px 7px;
+  color: var(--lh-roll-color);
+  background: transparent;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.lh.result-roll-card--critical-success .lh-result-roll__result .dice-formula,
+.lh.result-roll-card--critical-success .lh-result-roll__result .dice-total,
+.lh.result-roll-card--critical-success .lh-result-roll__outcome strong {
+  color: #fff;
+}
+
+.lh.result-roll-card--critical-failure .lh-result-roll__result .dice-total,
+.lh.result-roll-card--critical-failure .lh-result-roll__outcome strong {
+  color: #ff4444;
+}
+
+.lh-result-roll__note {
+  margin: 7px 0 0;
+  color: var(--lh-roll-color);
+  font-size: 0.8rem;
+}
+
+.lh-result-roll__result:has(.dice-roll.expanded) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.lh-result-roll__result:has(.dice-roll.expanded) .lh-result-roll__outcome {
+  padding: 0;
+  border: 0;
+}
+
 /* ===== Chat Styling ===== */
 .chat-message.whisper {
   background: none !important;

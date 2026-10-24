@@ -1,5 +1,5 @@
-export const renderCard = (title, rows = []) => {
-  const content = rows
+export const renderCardRows = (rows = []) =>
+  rows
     .map((row) => {
       if (typeof row === 'string') return `<div>${row}</div>`;
       const label = row?.label ? `<b>${row.label}:</b> ` : '';
@@ -8,5 +8,5 @@ export const renderCard = (title, rows = []) => {
     })
     .join('');
 
-  return `<div class="lh roll-card"><header><strong>${title}</strong></header>${content}</div>`;
-};
+export const renderCard = (title, rows = []) =>
+  `<div class="lh roll-card"><header><strong>${title}</strong></header>${renderCardRows(rows)}</div>`;

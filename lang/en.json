@@ -107,8 +107,8 @@
     "roll": {
       "success": "Success",
       "failure": "Failure",
-      "successCritical": "Success (Critical)",
-      "failureCritical": "Failure (Critical)",
+      "successCritical": "Critical Success",
+      "failureCritical": "Critical Failure",
       "badResult": "Bad Result",
       "goodResult": "Good Result",
       "mixedResult": "Mixed Result"
