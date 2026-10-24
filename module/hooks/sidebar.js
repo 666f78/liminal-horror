@@ -122,7 +122,8 @@ function onRenderSettings(_app, htmlElement) {
   description.textContent = 'Support ongoing development and improvements to this Foundry system.';
 
   const disclaimer = document.createElement('small');
-  disclaimer.textContent = 'This is an unofficial Foundry VTT adaptation and is not affiliated with the creators of Liminal Horror.';
+  disclaimer.textContent =
+    'This is an unofficial Foundry VTT adaptation and is not affiliated with the creators of Liminal Horror.';
 
   const logo = document.createElement('img');
   logo.src = `systems/${game.system.id}/assets/img/logo.webp`;

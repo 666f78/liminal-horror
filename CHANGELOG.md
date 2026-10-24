@@ -5,11 +5,19 @@
 ### Added
 
 - Added a support link for users who want to support continued development of the system
+- Added an inline undo action to refund spent Luck and restore the original roll result
 
 ### Changed
 
 - Updated roll card styling and outcome colors
 - Updated Voidcrawl roll cards with event colors, icons, and improved text readability
+- Updated Luck spending to show success and the spent amount on the original roll card instead of posting a separate chat message
+- Localized Luck spending and undo controls and messages in English and Ukrainian
+
+### Fixed
+
+- Fixed injury and consequence actions remaining available after Luck turns a failed roll into a success
+- Minor bug fixes
 
 ### Acknowledgments
 

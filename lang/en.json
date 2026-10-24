@@ -106,6 +106,7 @@
     },
     "roll": {
       "success": "Success",
+      "successWithLuck": "Success with Luck",
       "failure": "Failure",
       "successCritical": "Critical Success",
       "failureCritical": "Critical Failure",
@@ -122,6 +123,18 @@
       "deprivedRestBlocked": "Deprived status prevents rest",
       "becameDeprived": "Became Deprived",
       "noLongerDeprived": "No longer Deprived",
+      "luck": {
+        "spend": "Spend Luck ({cost}) to succeed",
+        "spent": "Luck spent: {cost}",
+        "undo": "Undo",
+        "undoHint": "Return {cost} Luck and restore the original result.",
+        "notOwner": "You cannot change the Luck spend for this roll.",
+        "notEnough": "Not enough Luck to change this result.",
+        "spendFailed": "Could not spend Luck. Please try again.",
+        "resultUpdateFailed": "Luck was spent, but the roll result could not be saved. Ask your GM before trying again.",
+        "undoFailed": "Could not undo the Luck spend. The roll result was not changed.",
+        "undoResultUpdateFailed": "Luck was returned, but the original roll result could not be restored. Ask your GM before trying again."
+      },
       "damage": {
         "title": "Damage",
         "overflowLabel": "Strength loss",

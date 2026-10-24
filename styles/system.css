@@ -2102,6 +2102,57 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   font-size: 0.8rem;
 }
 
+.lh-result-roll__note.lh-luck-spent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.chat-message button.lh-luck-undo-btn {
+  --button-background-color: transparent;
+  --button-border-color: transparent;
+  --button-focus-outline-color: transparent;
+  --button-text-color: var(--lh-text-muted);
+  --button-hover-background-color: transparent;
+  --button-hover-border-color: transparent;
+  --button-hover-text-color: var(--lh-text-main);
+  flex: 0 0 var(--lh-control-h);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--lh-control-h);
+  height: var(--lh-control-h);
+  min-height: var(--lh-control-h);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--lh-radius-sm);
+  outline: none;
+  background: transparent;
+  box-shadow: none;
+  color: var(--lh-text-muted);
+  font-size: 0.8rem;
+  transition: color 0.15s;
+}
+
+.chat-message button.lh-luck-undo-btn:hover,
+.chat-message button.lh-luck-undo-btn:focus,
+.chat-message button.lh-luck-undo-btn:active {
+  color: var(--lh-text-main);
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.chat-message button.lh-luck-undo-btn i {
+  margin: 0;
+}
+
+.chat-message button.lh-luck-undo-btn:disabled {
+  opacity: 0.5;
+}
+
 .lh-result-roll__result:has(.dice-roll.expanded) {
   grid-template-columns: minmax(0, 1fr);
 }

@@ -95,7 +95,6 @@ export async function rollAttribute(actor, key, options = {}) {
           flags.luck = {
             actorId: actor.id,
             cost,
-            label: `Spend Luck (${cost}) to succeed`,
           };
         }
       }
