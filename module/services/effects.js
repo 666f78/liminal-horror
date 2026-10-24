@@ -13,7 +13,7 @@ const EFFECTS = {
     attributeKey: 'str',
     overflowLabel: 'LH.msg.damage.overflowLabel',
     hpLabel: 'HP loss',
-    deathLabel: 'DEAD',
+    deathLabel: 'LH.status.dead',
     note: 'LH.msg.damage.note',
     gmAction: 'apply-damage',
   },
@@ -25,7 +25,7 @@ const EFFECTS = {
     attributeKey: 'con',
     overflowLabel: 'LH.msg.stress.overflowLabel',
     hpLabel: 'HP loss',
-    deathLabel: 'LOST',
+    deathLabel: 'LH.status.lost',
     note: 'LH.msg.stress.note',
     gmAction: 'apply-stress',
   },
@@ -100,7 +100,7 @@ const applyEffect = async (actor, rawAmount, key, { defenses = true } = {}) => {
     return;
   }
 
-  const deathRows = [{ label: t(config.overflowLabel), value: clamp(attrLoss) }, config.deathLabel];
+  const deathRows = [{ label: t(config.overflowLabel), value: clamp(attrLoss) }, t(config.deathLabel)];
 
   await actor.update({
     'system.defense.hp': hpRemaining,

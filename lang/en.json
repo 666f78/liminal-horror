@@ -1,4 +1,22 @@
 {
+  "TYPES": {
+    "Actor": {
+      "investigator": "Investigator",
+      "npc": "Non-player Character",
+      "monster": "Monster",
+      "vehicle": "Vehicle"
+    },
+    "Item": {
+      "weapon": "Weapon",
+      "spell": "Spell",
+      "gear": "Gear",
+      "armor": "Armor",
+      "artifact": "Artifact",
+      "injury": "Injury",
+      "consequence": "Consequence",
+      "condition": "Condition"
+    }
+  },
   "LH": {
     "core": {
       "damage": "Damage",
@@ -39,6 +57,75 @@
         "ctrl": "CTRL",
         "luck": "LUCK"
       }
+    },
+    "system": {
+      "ready": "Liminal Horror ready",
+      "initError": "Liminal Horror init error"
+    },
+    "settings": {
+      "lastSeenSystemVersion": "Last Seen System Version",
+      "appendixLuck": {
+        "name": "Appendix L: Luck",
+        "hint": "Enables the Luck attribute on sheets. Allows spending and rolling Luck. (GM only)"
+      },
+      "autoArmorCalculation": {
+        "name": "Automatic armor calculation",
+        "hint": "If enabled, armor is recalculated from equipped armor items. If disabled, armor is entered manually on the actor sheet."
+      },
+      "investigatorGeneratorReroll": {
+        "name": "Allow Investigator Generator rerolls for players",
+        "hint": "If enabled, players may reroll Investigator Generator attributes. GMs can always reroll."
+      },
+      "debug": {
+        "name": "Enable Debug Logging",
+        "hint": "Enable debug and hook logging (for developers only)",
+        "enabled": "Liminal Horror: Debug ON"
+      }
+    },
+    "sidebar": {
+      "rollBackground": "Roll Investigator Background",
+      "generateActor": "Generate Actor",
+      "createItems": "Create Default Items",
+      "actionFailed": "Sidebar action failed"
+    },
+    "support": {
+      "heading": "SUPPORT SYSTEM DEVELOPMENT",
+      "button": "Support Development",
+      "description": "Support ongoing development and improvements to this Foundry system.",
+      "disclaimer": "This is an unofficial Foundry VTT adaptation and is not affiliated with the creators of Liminal Horror.",
+      "logoAlt": "Liminal Horror logo"
+    },
+    "update": {
+      "title": "Liminal Horror Update",
+      "openDialog": "Open Update Dialog",
+      "changelogTitle": "Liminal Horror changelog",
+      "currentVersion": "Current version",
+      "current": "Current",
+      "noNotes": "No detailed notes were found for this version.",
+      "noVersions": "No version entries found.",
+      "linksLabel": "Liminal Horror links",
+      "bugs": "Bugs",
+      "readme": "Readme",
+      "discussions": "Discussions",
+      "gmOnly": "Only the GM can open the system update dialog."
+    },
+    "sheets": {
+      "actor": "Liminal Horror Actor Sheet",
+      "item": "Liminal Horror Item Sheet"
+    },
+    "packs": {
+      "items": "LH Items"
+    },
+    "itemSheet": {
+      "namePlaceholder": "ITEM NAME",
+      "basic": "BASIC",
+      "meta": "META",
+      "carry": "CARRY",
+      "price": "Price ($)",
+      "usesCurrent": "Current use",
+      "usesMax": "Max use",
+      "slotSize": "Slot Size",
+      "ignoreSlots": "Ignore Slots"
     },
     "investigatorGenerator": {
       "windowHeader": "Investigator Generator",
@@ -86,6 +173,19 @@
       "refreshFailed": "Could not refresh the party overview. Close and reopen the window."
     },
     "ui": {
+      "namePlaceholder": "NAME",
+      "changePortrait": "Click to change portrait",
+      "photo": "Photo",
+      "rollStrength": "Roll Strength (d20 ≤ target)",
+      "rollDexterity": "Roll Dexterity (d20 ≤ target)",
+      "rollControl": "Roll Control (d20 ≤ target)",
+      "rollLuck": "Roll Luck (d20 ≤ target)",
+      "rollFormula": "Roll {formula}",
+      "dragToReorder": "Drag to reorder",
+      "noDamageDie": "No damage die",
+      "noChangesLogged": "No changes logged yet.",
+      "gmOnly": "GM only.",
+      "unknownUser": "Unknown",
       "deprivedFull": "Deprived",
       "deprived": "Deprived",
       "background": "Background",
@@ -123,6 +223,7 @@
       "lost": "LOST"
     },
     "roll": {
+      "quickRoll": "Quick Roll",
       "success": "Success",
       "successWithLuck": "Success with Luck",
       "failure": "Failure",
@@ -166,6 +267,7 @@
         "note": "Consequence!"
       },
       "buttons": {
+        "alreadyApplied": "Already applied",
         "consequenceAdd": "Add Consequence",
         "consequenceAdded": "Consequence added",
         "injuryAdd": "Add Injury",
@@ -173,6 +275,7 @@
       }
     },
     "void": {
+      "toolTitle": "Voidcrawl",
       "die": "VOIDCRAWL DIE",
       "randomInvestigator": "Random Investigator",
       "randomInvestigatorNotFound": "Random Investigator not found",
@@ -798,6 +901,7 @@
       }
     },
     "dialogs": {
+      "actorNotFound": "Actor not found (actor/token).",
       "pickInvestigator": {
         "title": "Choose Investigator",
         "label": "Investigator",

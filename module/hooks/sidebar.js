@@ -16,20 +16,20 @@ const BUTTON_CONFIGS = {
     {
       className: 'lh-sidebar-investigator',
       iconClass: 'fa-solid fa-dice',
-      label: 'Roll Investigator Background',
+      labelKey: 'LH.sidebar.rollBackground',
       handler: generateInvestigator,
     },
     {
       className: 'lh-sidebar-generate-actor',
       iconClass: 'fa-solid fa-user-plus',
-      label: 'Generate Actor',
+      labelKey: 'LH.sidebar.generateActor',
       handler: generateActor,
     },
   ],
   items: {
     className: 'lh-sidebar-items',
     iconClass: 'fa-solid fa-plus',
-    label: 'Create Default Items',
+    labelKey: 'LH.sidebar.createItems',
     handler: createItems,
   },
 };
@@ -52,7 +52,7 @@ const ensureFooter = (rootElement) => {
   return footer;
 };
 
-const buildButton = ({ className, iconClass, label, labelKey, handler }) => {
+const buildButton = ({ className, iconClass, labelKey, handler }) => {
   const button = document.createElement('button');
   button.type = 'button';
   button.className = className;
@@ -63,7 +63,7 @@ const buildButton = ({ className, iconClass, label, labelKey, handler }) => {
     button.append(icon, ' ');
   }
 
-  button.append(labelKey ? t(labelKey) : label);
+  button.append(t(labelKey));
 
   let running = false;
   button.addEventListener('click', async () => {
@@ -73,7 +73,7 @@ const buildButton = ({ className, iconClass, label, labelKey, handler }) => {
       await handler();
     } catch (error) {
       dWarn('sidebarHooks.button action error', error);
-      ui.notifications?.error(error?.message ?? 'Sidebar action failed');
+      ui.notifications?.error(error?.message ?? t('LH.sidebar.actionFailed'));
     } finally {
       running = false;
     }
@@ -115,7 +115,7 @@ function onRenderSettings(_app, htmlElement) {
   card.className = 'lh-support-card flexcol';
 
   const heading = document.createElement('h4');
-  heading.textContent = 'SUPPORT SYSTEM DEVELOPMENT';
+  heading.textContent = t('LH.support.heading');
 
   const link = document.createElement('a');
   link.className = 'button bright lh-support-development';
@@ -126,18 +126,17 @@ function onRenderSettings(_app, htmlElement) {
   const icon = document.createElement('i');
   icon.className = 'fa-solid fa-heart';
   icon.setAttribute('inert', '');
-  link.append(icon, ' Support Development');
+  link.append(icon, ` ${t('LH.support.button')}`);
 
   const description = document.createElement('p');
-  description.textContent = 'Support ongoing development and improvements to this Foundry system.';
+  description.textContent = t('LH.support.description');
 
   const disclaimer = document.createElement('small');
-  disclaimer.textContent =
-    'This is an unofficial Foundry VTT adaptation and is not affiliated with the creators of Liminal Horror.';
+  disclaimer.textContent = t('LH.support.disclaimer');
 
   const logo = document.createElement('img');
   logo.src = `systems/${game.system.id}/assets/img/logo.webp`;
-  logo.alt = 'Liminal Horror logo';
+  logo.alt = t('LH.support.logoAlt');
 
   const header = document.createElement('div');
   header.className = 'lh-support-card-header';

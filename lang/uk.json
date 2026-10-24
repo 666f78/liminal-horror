@@ -1,4 +1,22 @@
 {
+  "TYPES": {
+    "Actor": {
+      "investigator": "Дослідник",
+      "npc": "Неігровий персонаж",
+      "monster": "Монстр",
+      "vehicle": "Транспорт"
+    },
+    "Item": {
+      "weapon": "Зброя",
+      "spell": "Закляття",
+      "gear": "Спорядження",
+      "armor": "Броня",
+      "artifact": "Артефакт",
+      "injury": "Поранення",
+      "consequence": "Наслідок",
+      "condition": "Стан"
+    }
+  },
   "LH": {
     "core": {
       "damage": "Шкода",
@@ -11,7 +29,7 @@
       "restCompleted": "Відпочинок завершений",
       "fullRestCompleted": "Повний відпочинок завершений",
       "slotsCapacityExceeded": "Місткість слотів перевищено! ПЗ зменшено до 0",
-      "equipped": "Одягнуто",
+      "equipped": "Екіпіровано",
       "unequipped": "Знято",
       "apply": "Застосувати",
       "cancel": "Скасувати",
@@ -39,6 +57,75 @@
         "ctrl": "КОН",
         "luck": "ТАЛ"
       }
+    },
+    "system": {
+      "ready": "Liminal Horror готова до гри",
+      "initError": "Помилка ініціалізації Liminal Horror"
+    },
+    "settings": {
+      "lastSeenSystemVersion": "Остання переглянута версія системи",
+      "appendixLuck": {
+        "name": "Додаток L: Талан",
+        "hint": "Додає характеристику Талан до аркушів і дозволяє витрачати Талан та робити його перевірки. Лише для ГМа."
+      },
+      "autoArmorCalculation": {
+        "name": "Автоматичний розрахунок броні",
+        "hint": "Якщо увімкнено, броня розраховується за екіпірованими предметами броні. Якщо вимкнено, значення броні вводиться вручну в аркуші персонажа."
+      },
+      "investigatorGeneratorReroll": {
+        "name": "Дозволити гравцям перероли в Генераторі дослідника",
+        "hint": "Якщо увімкнено, гравці можуть повторно кидати характеристики в Генераторі дослідника. ГМ завжди може робити перероли."
+      },
+      "debug": {
+        "name": "Увімкнути журнал налагодження",
+        "hint": "Записувати повідомлення налагодження та хуків у консоль. Лише для розробників.",
+        "enabled": "Liminal Horror: налагодження увімкнено"
+      }
+    },
+    "sidebar": {
+      "rollBackground": "Кинути передісторію дослідника",
+      "generateActor": "Згенерувати персонажа",
+      "createItems": "Створити стандартні предмети",
+      "actionFailed": "Не вдалося виконати дію бічної панелі"
+    },
+    "support": {
+      "heading": "ПІДТРИМАТИ РОЗРОБКУ СИСТЕМИ",
+      "button": "Підтримати розробку",
+      "description": "Підтримайте подальшу розробку та вдосконалення цієї системи для Foundry.",
+      "disclaimer": "Це неофіційна адаптація для Foundry VTT, не пов’язана з авторами Liminal Horror.",
+      "logoAlt": "Логотип Liminal Horror"
+    },
+    "update": {
+      "title": "Оновлення Liminal Horror",
+      "openDialog": "Відкрити вікно оновлень",
+      "changelogTitle": "Історія змін Liminal Horror",
+      "currentVersion": "Поточна версія",
+      "current": "Поточна",
+      "noNotes": "Докладних приміток для цієї версії не знайдено.",
+      "noVersions": "Записів про версії не знайдено.",
+      "linksLabel": "Посилання Liminal Horror",
+      "bugs": "Помилки",
+      "readme": "Документація",
+      "discussions": "Обговорення",
+      "gmOnly": "Лише ГМ може відкрити вікно оновлень системи."
+    },
+    "sheets": {
+      "actor": "Аркуш персонажа Liminal Horror",
+      "item": "Аркуш предмета Liminal Horror"
+    },
+    "packs": {
+      "items": "Предмети LH"
+    },
+    "itemSheet": {
+      "namePlaceholder": "НАЗВА ПРЕДМЕТА",
+      "basic": "ОСНОВНЕ",
+      "meta": "ДОДАТКОВО",
+      "carry": "ПЕРЕНЕСЕННЯ",
+      "price": "Ціна ($)",
+      "usesCurrent": "Залишок використань",
+      "usesMax": "Максимум використань",
+      "slotSize": "Кількість слотів",
+      "ignoreSlots": "Не займає слотів"
     },
     "investigatorGenerator": {
       "windowHeader": "Генератор дослідника",
@@ -86,6 +173,19 @@
       "refreshFailed": "Не вдалося оновити панель загону. Закрийте й відкрийте вікно знову."
     },
     "ui": {
+      "namePlaceholder": "ІМ’Я",
+      "changePortrait": "Натисніть, щоб змінити портрет",
+      "photo": "Фото",
+      "rollStrength": "Перевірка Сили (d20 ≤ ціль)",
+      "rollDexterity": "Перевірка Спритності (d20 ≤ ціль)",
+      "rollControl": "Перевірка Контролю (d20 ≤ ціль)",
+      "rollLuck": "Перевірка Талану (d20 ≤ ціль)",
+      "rollFormula": "Кинути {formula}",
+      "dragToReorder": "Перетягніть, щоб змінити порядок",
+      "noDamageDie": "Немає кістки шкоди",
+      "noChangesLogged": "Змін ще не записано.",
+      "gmOnly": "Лише для ГМа.",
+      "unknownUser": "Невідомий користувач",
       "deprivedFull": "Позбавлений",
       "deprived": "Позб.",
       "background": "Передісторія",
@@ -123,6 +223,7 @@
       "lost": "Загублений"
     },
     "roll": {
+      "quickRoll": "Швидкий кидок",
       "success": "Успіх",
       "successWithLuck": "Успіх завдяки Талану",
       "failure": "Невдача",
@@ -140,7 +241,7 @@
       "spell": "Закляття",
       "absorbedDamage": "Шкода поглинута",
       "absorbedStress": "Стрес поглинутий",
-      "deprivedRestBlocked": "Статус позбитого не дозволяє відпочити",
+      "deprivedRestBlocked": "Статус «Позбавлений» не дозволяє відпочити",
       "becameDeprived": "Став Позбавленим",
       "noLongerDeprived": "Більше не Позбавлений",
       "luck": {
@@ -166,6 +267,7 @@
         "note": "Наслідок!"
       },
       "buttons": {
+        "alreadyApplied": "Уже застосовано",
         "consequenceAdd": "Додати наслідок",
         "consequenceAdded": "Наслідок додано",
         "injuryAdd": "Додати поранення",
@@ -173,6 +275,7 @@
       }
     },
     "void": {
+      "toolTitle": "Дослідження Порожнечі",
       "die": "КІСТКА ДОСЛІДЖЕННЯ ПОРОЖНЕЧІ",
       "randomInvestigator": "Випадковий Дослідник",
       "randomInvestigatorNotFound": "Випадкового Дослідника не знайдено",
@@ -798,6 +901,7 @@
       }
     },
     "dialogs": {
+      "actorNotFound": "Персонажа або його токен не знайдено.",
       "pickInvestigator": {
         "title": "Обрати дослідника",
         "label": "Дослідник",

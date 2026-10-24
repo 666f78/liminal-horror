@@ -21,10 +21,14 @@
 - Updated Luck spending to show success and the spent amount on the original roll card instead of posting a separate chat message
 - Localized Luck spending and undo controls and messages in English and Ukrainian
 - Localized Party Overview controls, status tooltips, and messages in English and Ukrainian
+- Localized system settings, sidebar controls, support links, update dialogs, and notifications in English and Ukrainian
+- Localized actor and item sheet tooltips, placeholders, field labels, sheet names, and actor and item types
+- Localized the item compendium label and remaining chat result labels
 
 ### Fixed
 
 - Fixed injury and consequence actions remaining available after Luck turns a failed roll into a success
+- Fixed inconsistent Ukrainian Deprived and equipment labels
 - Minor bug fixes
 
 ### Acknowledgments

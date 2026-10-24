@@ -55,7 +55,7 @@
   "packs": [
     {
       "name": "items",
-      "label": "LH Items",
+      "label": "LH.packs.items",
       "path": "packs/items",
       "type": "Item",
       "system": "liminal-horror",

@@ -23,7 +23,7 @@ const ACTIONS = Object.freeze({
 });
 
 const BUTTON_CONTAINER = '.message-content';
-const ALREADY_APPLIED_HINT = 'Already applied';
+const ALREADY_APPLIED_HINT = 'LH.msg.buttons.alreadyApplied';
 const PENDING_LUCK_UPDATES = new Set();
 
 const resolveActor = (attackerId) => game.actors.get(attackerId) ?? canvas.tokens?.get(attackerId)?.actor;
@@ -112,7 +112,7 @@ const registerGmActionButtons = () => {
         label: action.getLabel(used),
         className: action.buttonClass,
         disabled: used,
-        title: used ? ALREADY_APPLIED_HINT : '',
+        title: used ? t(ALREADY_APPLIED_HINT) : '',
         onClick: async (button) => {
           if (message.getFlag(SYSTEM_ID, LUCK_SPENT_FLAG)) return;
           dLog('chat.gmAction.click', actionKey);
@@ -121,7 +121,7 @@ const registerGmActionButtons = () => {
               await message.setFlag(SYSTEM_ID, DAMAGE_USED_FLAG, true);
               button.disabled = true;
               button.textContent = action.getLabel(true);
-              button.title = ALREADY_APPLIED_HINT;
+              button.title = t(ALREADY_APPLIED_HINT);
             },
           });
         },

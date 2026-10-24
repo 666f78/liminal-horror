@@ -81,7 +81,7 @@ export async function rollAttribute(actor, key, options = {}) {
   return { roll, message, success, critFail, critSuccess };
 }
 
-export async function quickRoll(actor, formula = '1d6', label = 'Quick Roll') {
+export async function quickRoll(actor, formula = '1d6', label = t('LH.roll.quickRoll')) {
   const roll = await new Roll(formula).evaluate();
   const total = Number(roll.total) || 0;
 

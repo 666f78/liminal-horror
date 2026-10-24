@@ -56,7 +56,7 @@ export const registerActorHooks = () => {
     PENDING.set(actor.id, {
       ts: Date.now(),
       userId,
-      userName: game.users.get(userId)?.name ?? 'Unknown',
+      userName: game.users.get(userId)?.name ?? t('LH.ui.unknownUser'),
       diffs,
     });
 

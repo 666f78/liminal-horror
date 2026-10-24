@@ -22,12 +22,12 @@ export function registerSheets() {
   DocumentSheetConfig.registerSheet(foundry.documents.Actor, 'liminal-horror', LHActorSheet, {
     types: ACTOR_TYPES,
     makeDefault: true,
-    label: 'Liminal Horror Actor Sheet',
+    label: 'LH.sheets.actor',
   });
 
   DocumentSheetConfig.registerSheet(foundry.documents.Item, 'liminal-horror', LHItemSheet, {
     types: ITEM_TYPES,
     makeDefault: true,
-    label: 'Liminal Horror Item Sheet',
+    label: 'LH.sheets.item',
   });
 }

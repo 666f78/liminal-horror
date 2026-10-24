@@ -57,5 +57,5 @@ export async function restActor(
   const restNote = full ? t('LH.core.fullRestCompleted') : t('LH.core.restCompleted');
   const restoredCard = renderCard(t('LH.core.rest'), [restNote], { tone: 'good', icon: 'fa-bed' });
   await createChatMessage({ actor, content: restoredCard });
-  ui.notifications.info(full ? 'Full Rest applied' : 'Rest applied');
+  ui.notifications.info(restNote);
 }

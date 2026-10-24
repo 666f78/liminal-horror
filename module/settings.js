@@ -1,3 +1,5 @@
+import { t } from './utils/i18n.js';
+
 export const SETTINGS_NS = 'liminal-horror';
 export const APPENDIX_LUCK_SETTING = 'appendixLuck';
 export const AUTO_ARMOR_CALCULATION_SETTING = 'autoArmorCalculation';
@@ -34,7 +36,7 @@ export function registerSystemSettings() {
   });
 
   game.settings.register(SETTINGS_NS, 'lastSeenSystemVersion', {
-    name: 'Last Seen System Version',
+    name: 'LH.settings.lastSeenSystemVersion',
     scope: 'world',
     config: false,
     type: String,
@@ -42,8 +44,8 @@ export function registerSystemSettings() {
   });
 
   game.settings.register(SETTINGS_NS, APPENDIX_LUCK_SETTING, {
-    name: 'Appendix L: Luck',
-    hint: 'Enables the Luck attribute on sheets. Allows spending and rolling Luck. (GM only)',
+    name: 'LH.settings.appendixLuck.name',
+    hint: 'LH.settings.appendixLuck.hint',
     scope: 'world',
     config: true,
     type: Boolean,
@@ -51,8 +53,8 @@ export function registerSystemSettings() {
   });
 
   game.settings.register(SETTINGS_NS, AUTO_ARMOR_CALCULATION_SETTING, {
-    name: 'Automatic armor calculation',
-    hint: 'If enabled, armor is recalculated from equipped armor items. If disabled, armor is entered manually on the actor sheet.',
+    name: 'LH.settings.autoArmorCalculation.name',
+    hint: 'LH.settings.autoArmorCalculation.hint',
     scope: 'world',
     config: true,
     type: Boolean,
@@ -63,8 +65,8 @@ export function registerSystemSettings() {
   });
 
   game.settings.register(SETTINGS_NS, INVESTIGATOR_GENERATOR_REROLL_SETTING, {
-    name: 'Allow Investigator Generator rerolls for players',
-    hint: 'If enabled, players may reroll Investigator Generator attributes. GMs can always reroll.',
+    name: 'LH.settings.investigatorGeneratorReroll.name',
+    hint: 'LH.settings.investigatorGeneratorReroll.hint',
     scope: 'world',
     config: true,
     type: Boolean,
@@ -72,8 +74,8 @@ export function registerSystemSettings() {
   });
 
   game.settings.register(SETTINGS_NS, 'debug', {
-    name: 'Enable Debug Logging',
-    hint: 'Enable debug and hook logging (for developers only)',
+    name: 'LH.settings.debug.name',
+    hint: 'LH.settings.debug.hint',
     scope: 'client',
     config: true,
     type: Boolean,
@@ -84,7 +86,7 @@ export function registerSystemSettings() {
         CONFIG.debug = CONFIG.debug || {};
         CONFIG.debug.lh = !!val;
         CONFIG.debug.hooks = !!val;
-        if (val) ui.notifications?.info('Liminal Horror: Debug ON');
+        if (val) ui.notifications?.info(t('LH.settings.debug.enabled'));
       } catch (e) {
         console.error('[LH] debug toggle error', e);
       }
