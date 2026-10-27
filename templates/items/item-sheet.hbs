@@ -30,7 +30,33 @@
             <input class='item-input' type='number' name='system.armorValue' value='{{system.armorValue}}' />
           </div>
         {{/if}}
-        {{#if (or (eq item.type 'armor') (eq item.type 'weapon'))}}
+        {{#if (eq item.type 'weapon')}}
+          <div class='item-form-row'>
+            <label class='item-label'>{{localize 'LH.equipment.weaponGrip'}}</label>
+            <select class='item-input' name='system.twoHanded' data-dtype='Boolean'>
+              <option value='false' {{ifThen system.twoHanded '' 'selected'}}>{{localize
+                  'LH.equipment.oneHanded'
+                }}</option>
+              <option value='true' {{ifThen system.twoHanded 'selected' ''}}>{{localize
+                  'LH.equipment.twoHanded'
+                }}</option>
+            </select>
+          </div>
+          {{#unless system.twoHanded}}
+            <div class='item-form-row'>
+              <label class='item-label'>{{localize 'LH.equipment.hand'}}</label>
+              <select class='item-input' name='system.hand'>
+                <option value='main' {{ifThen (eq system.hand 'main') 'selected' ''}}>{{localize
+                    'LH.equipment.mainHand'
+                  }}</option>
+                <option value='off' {{ifThen (eq system.hand 'off') 'selected' ''}}>{{localize
+                    'LH.equipment.offHand'
+                  }}</option>
+              </select>
+            </div>
+          {{/unless}}
+        {{/if}}
+        {{#if (or (eq item.type 'armor') (eq item.type 'weapon') (eq item.type 'spell'))}}
           <div class='item-form-group'>
             <label class='item-checkbox'>
               <input type='checkbox' name='system.equipped' {{checked system.equipped}} />

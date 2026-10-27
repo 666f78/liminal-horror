@@ -10,11 +10,18 @@ export const renderCardRows = (rows = []) =>
     })
     .join('');
 
+const renderCardIcon = (icon) => {
+  const icons = (Array.isArray(icon) ? icon : [icon])
+    .map((name) => `<i class="fa-solid ${foundry.utils.escapeHTML(name)}" aria-hidden="true"></i>`)
+    .join('');
+  return Array.isArray(icon) ? `<span class="lh-action-card__icons">${icons}</span>` : icons;
+};
+
 export const renderCard = (title, rows = [], { tone = 'neutral', icon = 'fa-circle-info', description = '' } = {}) => `
   <div class="lh action-card action-card--${foundry.utils.escapeHTML(tone)}">
     <header class="lh-result-roll__heading"><strong>${foundry.utils.escapeHTML(title)}</strong></header>
     <div class="lh-result-roll__result lh-action-card__result">
-      <div class="lh-action-card__icon"><i class="fa-solid ${foundry.utils.escapeHTML(icon)}" aria-hidden="true"></i></div>
+      <div class="lh-action-card__icon">${renderCardIcon(icon)}</div>
       <div class="lh-result-roll__outcome lh-action-card__body">${renderCardRows(rows)}</div>
     </div>
     ${description ? `<div class="lh-result-roll__description">${description}</div>` : ''}
@@ -25,6 +32,7 @@ export const renderResultRollCard = async ({
   target,
   rows,
   roll,
+  rollTemplate,
   outcome,
   outcomeType = 'neutral',
   note,
@@ -47,7 +55,7 @@ export const renderResultRollCard = async ({
       </div>
       ${details}
       <div class="lh-result-roll__result">
-        ${await roll.render()}
+        ${await roll.render({ template: rollTemplate })}
         <div class="lh-result-roll__outcome"><strong>${outcomeMarkup}</strong></div>
       </div>
       ${noteMarkup}

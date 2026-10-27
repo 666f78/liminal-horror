@@ -1,5 +1,6 @@
 import { openSystemUpdateDialog } from './update-notice.js';
 import { t } from '../utils/i18n.js';
+import { OFF_HAND_DIE_REDUCTION_SETTING, OFF_HAND_MINIMUM_DIE_SETTING, SETTINGS_NS } from '../settings.js';
 
 function resolveRoot(html) {
   if (html instanceof HTMLElement) return html;
@@ -41,6 +42,21 @@ function onRenderSettingsConfig(_app, html) {
   if (!game.user.isGM) return;
 
   const root = resolveRoot(html);
+  if (!root) return;
+
+  const reductionInput = root.querySelector(`input[name="${SETTINGS_NS}.${OFF_HAND_DIE_REDUCTION_SETTING}"]`);
+  const minimumInput = root.querySelector(`select[name="${SETTINGS_NS}.${OFF_HAND_MINIMUM_DIE_SETTING}"]`);
+  if (reductionInput && minimumInput) {
+    const updateMinimumInput = () => {
+      minimumInput.disabled = !reductionInput.checked;
+    };
+    updateMinimumInput();
+    if (!reductionInput.dataset.lhMinimumDieBound) {
+      reductionInput.dataset.lhMinimumDieBound = 'true';
+      reductionInput.addEventListener('change', updateMinimumInput);
+    }
+  }
+
   const systemTab = findSystemTab(root);
   if (!(systemTab instanceof HTMLElement)) return;
   if (systemTab.querySelector('[data-lh-update-button="true"]')) return;

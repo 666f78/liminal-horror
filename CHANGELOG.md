@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.1.7]
+
+### Added
+
+- Added primary and offhand weapon assignment, with one-handed and two-handed weapons respecting hand occupancy on actor and item sheets
+- Added automatic dual-wielding attacks from either equipped weapon, rolling both weapons and keeping the highest result
+- Added GM world settings for offhand die reduction and a minimum die of 1d2 or 1d4, with reduction enabled and a 1d2 minimum by default
+- Added independent spell equipping without occupying weapon hands
+- Added compact 1H / 2H labels beside weapon names with localized handedness tooltips
+
+### Changed
+
+- Aligned inventory values, equipment controls, and edit/delete actions in consistent columns on investigator and monster sheets
+- Updated equipment chat cards with item- and hand-specific icons, paired hand icons for two-handed weapons, and distinct green/check and gray/minus equipped and unequipped states
+- Simplified dual-wielding chat cards and displayed their formulas as `(1d4, 1d4)kh` while preserving native roll calculations and expandable dice results
+- Highlighted weapon damage totals in muted red
+- Localized weapon handedness, hand selection, dual-wielding labels, and related settings in English and Ukrainian
+
+### Fixed
+
+- Blocked weapon and spell attacks while unequipped, with disabled inventory controls and validation for macro/API calls
+- Fixed automatically unequipped weapons missing chat notifications when replaced, showing each unequip before the new equip message
+
 ## [0.1.6]
 
 ### Added

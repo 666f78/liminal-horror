@@ -20,6 +20,7 @@
   --lh-bg-whisper: #ece9f6;
   --lh-text-main: #0f1115;
   --lh-text-muted: rgba(0, 0, 0, 0.58);
+  --lh-damage-color: #a13d35;
   --lh-text-light: #f5f5f5;
   --lh-border: rgba(0, 0, 0, 0.14);
   --lh-border-strong: rgba(0, 0, 0, 0.28);
@@ -1549,7 +1550,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh .inv-row {
   display: grid;
-  grid-template-columns: 18px 1fr auto;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
   gap: 6px;
   align-items: center;
   padding: 6px 8px;
@@ -1614,10 +1615,10 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh .inv-main .inv-name-toggle {
   display: inline-block;
-  flex: 0 0 auto;
+  flex: 0 1 auto;
   width: auto;
   min-width: 0;
-  max-width: none;
+  max-width: 100%;
   margin: 0;
   padding: 0 0.45em 0 0;
   border: 0;
@@ -1690,9 +1691,36 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   margin-bottom: 0;
 }
 .lh .inv-actions {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(48px, max-content) repeat(4, 16px);
   gap: 8px;
   align-items: center;
+}
+.lh .inv-actions > * {
+  grid-row: 1;
+  justify-self: center;
+}
+.lh .inv-stat {
+  display: flex;
+  grid-column: 1;
+  justify-self: stretch;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.lh .inv-actions > .equip-toggle {
+  grid-column: 2;
+}
+.lh .inv-actions > .equip-toggle[data-hand='off'],
+.lh .inv-actions > .equip-toggle:not([data-hand]) {
+  grid-column: 3;
+}
+.lh .inv-actions > .item-edit {
+  grid-column: 4;
+}
+.lh .inv-actions > .item-delete {
+  grid-column: 5;
 }
 .lh .armor-badge {
   cursor: pointer;
@@ -1907,6 +1935,14 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .equip-toggle[data-equipped='false'] i {
   opacity: 0.3;
 }
+.lh .die-disabled {
+  color: var(--lh-text-muted);
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+.lh .die-link[aria-disabled='true']:hover {
+  text-shadow: none;
+}
 .lh .inv-head .tw-muted[data-over='true'] {
   color: #b6453b;
   font-weight: 700;
@@ -1936,8 +1972,13 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 
 .chat-message:not(.whisper):has(.result-roll-card--success),
 .chat-message:not(.whisper):has(.result-roll-card--good),
-.chat-message:not(.whisper):has(.action-card--good) {
+.chat-message:not(.whisper):has(.action-card--good),
+.chat-message:not(.whisper):has(.action-card--equipped) {
   border-left: 3px solid #5c8464;
+}
+
+.chat-message:not(.whisper):has(.action-card--unequipped) {
+  border-left: 3px solid var(--lh-text-muted);
 }
 
 .chat-message:not(.whisper):has(.result-roll-card--critical-success) {
@@ -1961,19 +2002,22 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 
 .lh.result-roll-card,
 .lh.action-card {
-  --lh-roll-color: #a13d35;
+  --lh-roll-color: var(--lh-damage-color);
   color: var(--lh-text-main);
   font-size: 0.9rem;
 }
 
 .lh.action-card--neutral,
+.lh.action-card--unequipped,
+.lh.result-roll-card--damage,
 .lh.result-roll-card--neutral {
   --lh-roll-color: var(--lh-text-muted);
 }
 
 .lh.result-roll-card--success,
 .lh.result-roll-card--good,
-.lh.action-card--good {
+.lh.action-card--good,
+.lh.action-card--equipped {
   --lh-roll-color: #426e4b;
 }
 
@@ -2078,6 +2122,10 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   line-height: 1.1;
 }
 
+.lh.result-roll-card--damage .dice-total {
+  color: var(--lh-damage-color);
+}
+
 .lh.result-roll-card--critical-failure .lh-result-roll__result .dice-formula {
   color: #fff;
 }
@@ -2140,6 +2188,42 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   color: var(--lh-roll-color);
   font-size: 1.4rem;
   text-align: center;
+}
+
+.lh-action-card__icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 1rem;
+}
+
+.lh.action-card:is(.action-card--equipped, .action-card--unequipped) .lh-action-card__icon {
+  position: relative;
+}
+
+.lh.action-card:is(.action-card--equipped, .action-card--unequipped) .lh-action-card__icon::after {
+  position: absolute;
+  right: 0;
+  bottom: -4px;
+  display: grid;
+  place-items: center;
+  width: 14px;
+  height: 14px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: var(--lh-bg-card);
+  font-family: var(--font-primary);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.lh.action-card--equipped .lh-action-card__icon::after {
+  content: '\2713';
+}
+
+.lh.action-card--unequipped .lh-action-card__icon::after {
+  content: '\2212';
 }
 
 .lh-action-card__body {

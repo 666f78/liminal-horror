@@ -1,4 +1,4 @@
-import { recalcArmor } from '../services/items.js';
+import { recalcArmor, updateWeaponEquipment } from '../services/items.js';
 
 export class LHItemSheet extends foundry.applications.api.HandlebarsApplicationMixin(
   foundry.applications.sheets.ItemSheetV2
@@ -52,11 +52,17 @@ export class LHItemSheet extends foundry.applications.api.HandlebarsApplicationM
       (foundry.utils.hasProperty(submitData, 'system.equipped') ||
         foundry.utils.hasProperty(submitData, 'system.armorValue'));
 
-    await super._processSubmitData(event, form, submitData, options);
+    if (this.item.type === 'weapon' && this.item.parent?.items?.has(this.item.id)) {
+      const updated = await updateWeaponEquipment(this.item, submitData, options);
+      return updated ? { updated } : {};
+    }
+
+    const result = await super._processSubmitData(event, form, submitData, options);
 
     if (recalculateArmor) {
       await this.item.parent.update({});
       await recalcArmor(this.item.parent);
     }
+    return result;
   }
 }

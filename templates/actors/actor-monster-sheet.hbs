@@ -306,7 +306,10 @@
         <div>
           <div
             class='inv-row'
-            data-equipped='{{and (or (eq item.type "armor") (eq item.type "weapon")) item.system.equipped}}'
+            data-equipped='{{and
+              (or (eq item.type "armor") (eq item.type "weapon") (eq item.type "spell"))
+              item.system.equipped
+            }}'
             data-item-id='{{item._id}}'
             data-sortable='{{@root.isManualInventorySort}}'
           >
@@ -347,6 +350,14 @@
               {{else}}
                 <span class='entity-link inv-name-static'>{{item.name}}</span>
               {{/if}}
+              {{#if (eq item.type 'weapon')}}
+                <span
+                  class='tw-text-xs tw-muted'
+                  title='{{localize (ifThen item.system.twoHanded "LH.equipment.twoHanded" "LH.equipment.oneHanded")}}'
+                >{{#if item.system.twoHanded}}{{localize 'LH.equipment.twoHandedShort'}}{{else}}{{localize
+                      'LH.equipment.oneHandedShort'
+                    }}{{/if}}</span>
+              {{/if}}
               <span class='tw-text-xs tw-muted'>({{localize (concat 'TYPES.Item.' item.type)}})</span>
               {{#unless item.system.ignoreSlots}}
                 <span class='item-slots' title='{{localize "LH.ui.slots"}}'>
@@ -356,37 +367,73 @@
             </div>
 
             <div class='inv-actions'>
-              <!-- WEAPON DAMAGE -->
-              {{#if (and (or (eq item.type 'weapon') (eq item.type 'spell')) item.system.damageDie)}}
-                <a
-                  class='icon-link die-link'
-                  role='button'
-                  tabindex='0'
-                  data-action='useItem'
-                  data-item-id='{{item._id}}'
-                  title='{{localize "LH.ui.rollFormula" formula=item.system.damageDie}}'
-                >
-                  <span class='die-text'>{{item.system.damageDie}}</span>
-                </a>
-              {{else if (or (eq item.type 'weapon') (eq item.type 'spell'))}}
-                <span class='die-text die-disabled' title='{{localize "LH.ui.noDamageDie"}}'>—</span>
-              {{/if}}
+              <div class='inv-stat'>
+                <!-- WEAPON DAMAGE -->
+                {{#if (and (or (eq item.type 'weapon') (eq item.type 'spell')) item.system.damageDie)}}
+                  <a
+                    class='icon-link die-link {{ifThen item.attackDisabled "die-disabled" ""}}'
+                    role='button'
+                    tabindex='{{ifThen item.attackDisabled "-1" "0"}}'
+                    aria-disabled='{{item.attackDisabled}}'
+                    data-action='{{ifThen item.attackDisabled "" "useItem"}}'
+                    data-item-id='{{item._id}}'
+                    title='{{item.attackTitle}}'
+                  >
+                    <span class='die-text'>{{item.system.damageDie}}</span>
+                  </a>
+                {{else if (or (eq item.type 'weapon') (eq item.type 'spell'))}}
+                  <span class='die-text die-disabled' title='{{localize "LH.ui.noDamageDie"}}'>—</span>
+                {{/if}}
 
-              <!-- GEAR -->
-              {{#if (and (eq item.type 'gear') (gt item.system.usesMax 0))}}
-                <a data-action='useItem' data-item-id='{{item._id}}'><i class='fas fa-bolt fa-xs'></i></a>
-                <span class='die-text'>{{item.system.usesCurrent}} / {{item.system.usesMax}}</span>
-              {{/if}}
+                <!-- GEAR -->
+                {{#if (and (eq item.type 'gear') (gt item.system.usesMax 0))}}
+                  <a data-action='useItem' data-item-id='{{item._id}}'><i class='fas fa-bolt fa-xs'></i></a>
+                  <span class='die-text'>{{item.system.usesCurrent}} / {{item.system.usesMax}}</span>
+                {{/if}}
 
-              <!-- ARMOR -->
-              {{#if (eq item.type 'armor')}}
-                <span class='die-text'> <i class='fas fa-shield-alt'></i> {{item.system.armorValue}}</span>
-              {{/if}}
+                <!-- ARMOR -->
+                {{#if (eq item.type 'armor')}}
+                  <span class='die-text'> <i class='fas fa-shield-alt'></i> {{item.system.armorValue}}</span>
+                {{/if}}
+              </div>
 
               <!-- EQUIP -->
-              {{#if (and (ne (lookup item.system 'equipped') undefined) (ne item.type 'spell'))}}
-                <a data-action='toggleEquip' class='equip-toggle' data-equipped='{{item.system.equipped}}'><i
-                    class='fas fa-hand'
+              {{#if (eq item.type 'weapon')}}
+                <a
+                  data-action='toggleEquip'
+                  class='equip-toggle'
+                  data-hand='main'
+                  data-equipped='{{item.mainHandEquipped}}'
+                  role='button'
+                  tabindex='0'
+                  aria-pressed='{{item.mainHandEquipped}}'
+                  aria-label='{{localize "LH.equipment.mainHand"}}'
+                  title='{{localize (ifThen item.system.twoHanded "LH.equipment.bothHands" "LH.equipment.mainHand")}}'
+                ><i class='fas fa-hand-fist' aria-hidden='true'></i></a>
+                <a
+                  data-action='toggleEquip'
+                  class='equip-toggle'
+                  data-hand='off'
+                  data-equipped='{{item.offHandEquipped}}'
+                  role='button'
+                  tabindex='0'
+                  aria-pressed='{{item.offHandEquipped}}'
+                  aria-label='{{localize "LH.equipment.offHand"}}'
+                  title='{{localize (ifThen item.system.twoHanded "LH.equipment.bothHands" "LH.equipment.offHand")}}'
+                ><i class='fas fa-hand' aria-hidden='true'></i></a>
+              {{else if (or (eq item.type 'armor') (eq item.type 'spell'))}}
+                <a
+                  data-action='toggleEquip'
+                  class='equip-toggle'
+                  data-equipped='{{item.system.equipped}}'
+                  role='button'
+                  tabindex='0'
+                  aria-pressed='{{item.system.equipped}}'
+                  aria-label='{{localize "LH.core.equipped"}}'
+                  title='{{localize "LH.core.equipped"}}'
+                ><i
+                    class='fas {{ifThen (eq item.type "spell") "fa-wand-magic-sparkles" "fa-hand"}}'
+                    aria-hidden='true'
                   ></i></a>
               {{/if}}
 

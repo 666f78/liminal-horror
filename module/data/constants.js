@@ -11,6 +11,10 @@ export const FLAGS = {
 
 export const MAX_SLOTS = 10;
 
+export const WEAPON_HANDS = Object.freeze({ MAIN: 'main', OFF: 'off' });
+export const WEAPON_DIE_SIZES = Object.freeze([2, 4, 6, 8, 10, 12, 20]);
+export const OFF_HAND_MINIMUM_DIE_SIZES = Object.freeze([2, 4]);
+
 export const SLOT_TYPES = new Set([
   'weapon',
   'spell',

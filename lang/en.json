@@ -44,6 +44,22 @@
       "roll": "Roll",
       "thrownAway": "Thrown away"
     },
+    "equipment": {
+      "weaponGrip": "Weapon grip",
+      "oneHanded": "One-handed weapon",
+      "twoHanded": "Two-handed weapon",
+      "oneHandedShort": "1H",
+      "twoHandedShort": "2H",
+      "hand": "Weapon role",
+      "mainHand": "Primary weapon",
+      "offHand": "Offhand weapon",
+      "bothHands": "Both hands",
+      "equipToAttack": "Equip this weapon or spell before attacking.",
+      "conflictingWeapons": "Weapons occupy the same hand. Re-equip them before attacking.",
+      "unsupportedOffHandFormula": "Cannot reduce the off-hand formula {formula}. Use standard dice (d2, d4, d6, d8, d10, d12, d20), optionally with arithmetic and dice modifiers.",
+      "dualWielding": "Dual Wielding",
+      "rollBoth": "Roll both weapons: {formula}; keep the highest result"
+    },
     "attr": {
       "full": {
         "str": "STRENGTH",
@@ -75,6 +91,14 @@
       "investigatorGeneratorReroll": {
         "name": "Allow Investigator Generator rerolls for players",
         "hint": "If enabled, players may reroll Investigator Generator attributes. GMs can always reroll."
+      },
+      "offHandDieReduction": {
+        "name": "Reduce the offhand weapon's die",
+        "hint": "When dual wielding, reduce the offhand weapon's die by one size. If disabled, both weapons use their normal dice."
+      },
+      "offHandMinimumDie": {
+        "name": "Minimum offhand weapon die",
+        "hint": "The minimum die size when reducing the offhand weapon's die: 1d2 or 1d4. Only applies when die reduction is enabled."
       },
       "debug": {
         "name": "Enable Debug Logging",

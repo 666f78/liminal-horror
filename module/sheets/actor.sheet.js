@@ -1,7 +1,16 @@
 import { applyDamage, applyStress } from '../services/effects.js';
 import { InvestigatorGenerator } from '../apps/investigator-generator.js';
 import { isAppendixLuckEnabled } from '../settings.js';
-import { equipItem, isAutoArmorCalculationEnabled, recalcArmor, restoreItemUse, useItem } from '../services/items.js';
+import {
+  equipItem,
+  getItemAttack,
+  getWeaponHand,
+  isAutoArmorCalculationEnabled,
+  recalcArmor,
+  restoreItemUse,
+  useItem,
+} from '../services/items.js';
+import { WEAPON_HANDS } from '../data/constants.js';
 import { restActor } from '../services/rest.js';
 import { quickRoll, rollAttribute } from '../services/rolls.js';
 import { getAttributeStatusLabels } from '../utils/attrs.js';
@@ -240,8 +249,28 @@ export class LHActorSheet extends foundry.applications.api.HandlebarsApplication
         const description = item.system?.description ?? '';
         const hasDescription = Boolean(getPlainTextDescription(description));
 
+        let attackDisabled = false;
+        let attackTitle = '';
+        if (item.type === 'weapon' || item.type === 'spell') {
+          try {
+            const attack = getItemAttack(item, this.actor);
+            attackTitle = td(attack.weapons.length === 2 ? 'LH.equipment.rollBoth' : 'LH.ui.rollFormula', {
+              formula: attack.formula,
+            });
+          } catch (error) {
+            attackDisabled = true;
+            attackTitle = error.message;
+          }
+        }
+
         return {
           ...item.toObject(),
+          attackDisabled,
+          attackTitle,
+          mainHandEquipped: Boolean(item.system?.equipped && getWeaponHand(item) === WEAPON_HANDS.MAIN),
+          offHandEquipped: Boolean(
+            item.system?.equipped && (item.system?.twoHanded || getWeaponHand(item) === WEAPON_HANDS.OFF)
+          ),
           hasDescription,
           enrichedDescription: hasDescription
             ? await foundry.applications.ux.TextEditor.implementation.enrichHTML(description, enrichmentOptions)
@@ -373,7 +402,7 @@ export class LHActorSheet extends foundry.applications.api.HandlebarsApplication
     const item = this.actor.items.get(getItemId(target));
     if (!item) return;
 
-    await equipItem(item, this.actor);
+    await equipItem(item, this.actor, target.dataset.hand);
     await recalcSlots(this.actor);
     await recalcArmor(this.actor);
   }
