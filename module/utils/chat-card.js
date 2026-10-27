@@ -17,15 +17,38 @@ const renderCardIcon = (icon) => {
   return Array.isArray(icon) ? `<span class="lh-action-card__icons">${icons}</span>` : icons;
 };
 
+const renderActionCardResult = (rows, icon) => `
+  <div class="lh-result-roll__result lh-action-card__result">
+    <div class="lh-action-card__icon">${renderCardIcon(icon)}</div>
+    <div class="lh-result-roll__outcome lh-action-card__body">${renderCardRows(rows)}</div>
+  </div>`;
+
 export const renderCard = (title, rows = [], { tone = 'neutral', icon = 'fa-circle-info', description = '' } = {}) => `
   <div class="lh action-card action-card--${foundry.utils.escapeHTML(tone)}">
     <header class="lh-result-roll__heading"><strong>${foundry.utils.escapeHTML(title)}</strong></header>
-    <div class="lh-result-roll__result lh-action-card__result">
-      <div class="lh-action-card__icon">${renderCardIcon(icon)}</div>
-      <div class="lh-result-roll__outcome lh-action-card__body">${renderCardRows(rows)}</div>
-    </div>
+    ${renderActionCardResult(rows, icon)}
     ${description ? `<div class="lh-result-roll__description">${description}</div>` : ''}
   </div>`;
+
+export const renderEquipmentChangeCard = (changes) => {
+  const sections = [false, true]
+    .map((equipped) => {
+      const items = changes.filter((change) => change.equipped === equipped);
+      if (!items.length) return '';
+      const tone = equipped ? 'equipped' : 'unequipped';
+      const title = t(equipped ? 'LH.core.equipped' : 'LH.core.unequipped');
+      const rows = items
+        .map(({ name, icon }) => renderActionCardResult([foundry.utils.escapeHTML(name)], icon))
+        .join('');
+      return `
+        <section class="lh action-card action-card--${tone}">
+          <header class="lh-result-roll__heading"><strong>${foundry.utils.escapeHTML(title)}</strong></header>
+          <div class="lh-equipment-change__items">${rows}</div>
+        </section>`;
+    })
+    .join('');
+  return `<div class="lh-equipment-change">${sections}</div>`;
+};
 
 export const renderResultRollCard = async ({
   title,

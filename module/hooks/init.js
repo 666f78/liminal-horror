@@ -32,14 +32,6 @@ const executeStageTasks = () => {
   }
 };
 
-const announceReady = () => {
-  try {
-    ui.notifications?.info(t('LH.system.ready'), { permanent: false });
-  } catch (error) {
-    dError('[LH:init] ready notification failed', error);
-  }
-};
-
 export const registerInitHook = () => {
   Hooks.once('init', () => {
     withGroup('init', () => {
@@ -56,7 +48,6 @@ export const registerInitHook = () => {
 
   Hooks.once('ready', () => {
     withGroup('ready', () => {
-      announceReady();
       showSystemUpdateNotice().catch((error) => {
         dError('[LH:ready] update notice failed', error);
       });

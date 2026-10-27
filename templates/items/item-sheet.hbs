@@ -1,109 +1,165 @@
 <div class='layout lh-item'>
   <section class='item-card'>
     <header class='item-header'>
-      <input
-        class='item-name-input'
-        type='text'
-        name='name'
-        value='{{item.name}}'
-        placeholder='{{localize "LH.itemSheet.namePlaceholder"}}'
-      />
-      <span class='item-type-pill'>{{localize (concat 'TYPES.Item.' item.type)}}</span>
-    </header>
-
-    <section class='{{itemFieldsClass}}'>
-      <div class='item-panel'>
-        <div class='item-section-title'>{{localize 'LH.itemSheet.basic'}}</div>
-        <div class='item-form-row'>
-          <label class='item-label'>{{localize 'LH.ui.tabs.description'}}</label>
-          <textarea class='item-textarea' name='system.description' rows='3'>{{system.description}}</textarea>
-        </div>
-        {{#if system.damageDie}}
-          <div class='item-form-row'>
-            <label class='item-label'>{{localize 'LH.core.damage'}}</label>
-            <input class='item-input' type='text' name='system.damageDie' value='{{system.damageDie}}' />
-          </div>
-        {{/if}}
-        {{#if (eq item.type 'armor')}}
-          <div class='item-form-row'>
-            <label class='item-label'>{{localize 'LH.ui.armor'}}</label>
-            <input class='item-input' type='number' name='system.armorValue' value='{{system.armorValue}}' />
-          </div>
-        {{/if}}
-        {{#if (eq item.type 'weapon')}}
-          <div class='item-form-row'>
-            <label class='item-label'>{{localize 'LH.equipment.weaponGrip'}}</label>
-            <select class='item-input' name='system.twoHanded' data-dtype='Boolean'>
-              <option value='false' {{ifThen system.twoHanded '' 'selected'}}>{{localize
-                  'LH.equipment.oneHanded'
-                }}</option>
-              <option value='true' {{ifThen system.twoHanded 'selected' ''}}>{{localize
-                  'LH.equipment.twoHanded'
-                }}</option>
-            </select>
-          </div>
-          {{#unless system.twoHanded}}
-            <div class='item-form-row'>
-              <label class='item-label'>{{localize 'LH.equipment.hand'}}</label>
-              <select class='item-input' name='system.hand'>
-                <option value='main' {{ifThen (eq system.hand 'main') 'selected' ''}}>{{localize
-                    'LH.equipment.mainHand'
-                  }}</option>
-                <option value='off' {{ifThen (eq system.hand 'off') 'selected' ''}}>{{localize
-                    'LH.equipment.offHand'
-                  }}</option>
-              </select>
-            </div>
-          {{/unless}}
-        {{/if}}
-        {{#if (or (eq item.type 'armor') (eq item.type 'weapon') (eq item.type 'spell'))}}
-          <div class='item-form-group'>
+      <div class='item-artwork'>
+        <img
+          class='item-image'
+          src='{{item.img}}'
+          data-action='{{ifThen editable "editImage" ""}}'
+          data-edit='img'
+          role='button'
+          tabindex='{{ifThen editable "0" "-1"}}'
+          aria-disabled='{{ifThen editable "false" "true"}}'
+          aria-label='{{localize "LH.itemSheet.changeImage"}}'
+          title='{{localize "LH.itemSheet.changeImage"}}'
+          alt='{{item.name}}'
+        />
+      </div>
+      <div class='item-identity'>
+        <input
+          class='item-name-input'
+          type='text'
+          name='name'
+          value='{{item.name}}'
+          aria-label='{{localize "LH.itemSheet.namePlaceholder"}}'
+          placeholder='{{localize "LH.itemSheet.namePlaceholder"}}'
+        />
+        <div class='item-header-details'>
+          <span class='item-type-pill'>{{localize (concat 'TYPES.Item.' item.type)}}</span>
+          {{#if canEquip}}
             <label class='item-checkbox'>
               <input type='checkbox' name='system.equipped' {{checked system.equipped}} />
               <span class='checkbox-box' aria-hidden='true'></span>
-              <span class='item-label'>{{localize 'LH.core.equipped'}}</span>
+              <span>{{localize 'LH.core.equipped'}}</span>
             </label>
-          </div>
-        {{/if}}
-      </div>
-
-      {{#if hasMeta}}
-        <div class='item-panel'>
-          <div class='item-section-title'>{{localize 'LH.itemSheet.meta'}}</div>
-          <div class='item-form-row'>
-            <label class='item-label'>{{localize 'LH.itemSheet.price'}}</label>
-            <input class='item-input' type='number' name='system.price' value='{{system.price}}' />
-          </div>
-          {{#if (eq item.type 'gear')}}
-            <div class='item-form-row'>
-              <label class='item-label'>{{localize 'LH.itemSheet.usesCurrent'}}</label>
-              <input class='item-input' type='number' name='system.usesCurrent' value='{{system.usesCurrent}}' />
-            </div>
-            <div class='item-form-row'>
-              <label class='item-label'>{{localize 'LH.itemSheet.usesMax'}}</label>
-              <input class='item-input' type='number' name='system.usesMax' value='{{system.usesMax}}' />
-            </div>
           {{/if}}
         </div>
-      {{/if}}
-    </section>
+      </div>
+    </header>
+
+    {{#if hasMeta}}
+      <section class='item-panel'>
+        <div class='item-section-title'>{{localize 'LH.itemSheet.parameters'}}</div>
+        <div class='item-fields'>
+          {{#if (or (eq item.type 'weapon') (eq item.type 'spell'))}}
+            <label class='item-form-row' for='{{rootId}}-damage'>
+              <span class='item-label'>{{localize 'LH.core.damage'}}</span>
+              <input
+                id='{{rootId}}-damage'
+                class='item-input'
+                type='text'
+                name='system.damageDie'
+                value='{{system.damageDie}}'
+              />
+            </label>
+          {{/if}}
+          {{#if (eq item.type 'armor')}}
+            <label class='item-form-row' for='{{rootId}}-armor'>
+              <span class='item-label'>{{localize 'LH.ui.armor'}}</span>
+              <input
+                id='{{rootId}}-armor'
+                class='item-input'
+                type='number'
+                name='system.armorValue'
+                value='{{system.armorValue}}'
+              />
+            </label>
+          {{/if}}
+          {{#if (eq item.type 'weapon')}}
+            <label class='item-form-row' for='{{rootId}}-grip'>
+              <span class='item-label'>{{localize 'LH.equipment.weaponGrip'}}</span>
+              <select id='{{rootId}}-grip' class='item-input' name='system.twoHanded' data-dtype='Boolean'>
+                <option value='false' {{ifThen system.twoHanded '' 'selected'}}>{{localize
+                    'LH.equipment.oneHanded'
+                  }}</option>
+                <option value='true' {{ifThen system.twoHanded 'selected' ''}}>{{localize
+                    'LH.equipment.twoHanded'
+                  }}</option>
+              </select>
+            </label>
+            {{#unless system.twoHanded}}
+              <label class='item-form-row item-form-wide' for='{{rootId}}-hand'>
+                <span class='item-label'>{{localize 'LH.equipment.hand'}}</span>
+                <select id='{{rootId}}-hand' class='item-input' name='system.hand'>
+                  <option value='main' {{ifThen (eq system.hand 'main') 'selected' ''}}>{{localize
+                      'LH.equipment.mainHand'
+                    }}</option>
+                  <option value='off' {{ifThen (eq system.hand 'off') 'selected' ''}}>{{localize
+                      'LH.equipment.offHand'
+                    }}</option>
+                </select>
+              </label>
+            {{/unless}}
+          {{/if}}
+          {{#if (eq item.type 'gear')}}
+            <label class='item-form-row' for='{{rootId}}-uses-current'>
+              <span class='item-label'>{{localize 'LH.itemSheet.usesCurrent'}}</span>
+              <input
+                id='{{rootId}}-uses-current'
+                class='item-input'
+                type='number'
+                name='system.usesCurrent'
+                value='{{system.usesCurrent}}'
+              />
+            </label>
+            <label class='item-form-row' for='{{rootId}}-uses-max'>
+              <span class='item-label'>{{localize 'LH.itemSheet.usesMax'}}</span>
+              <input
+                id='{{rootId}}-uses-max'
+                class='item-input'
+                type='number'
+                name='system.usesMax'
+                value='{{system.usesMax}}'
+              />
+            </label>
+          {{/if}}
+        </div>
+      </section>
+    {{/if}}
 
     {{#if isCarryable}}
       <section class='item-carry-panel'>
         <div class='item-section-title'>{{localize 'LH.itemSheet.carry'}}</div>
-        <div class='item-form-row'>
-          <label class='item-label'>{{localize 'LH.itemSheet.slotSize'}}</label>
-          <input class='item-input' type='number' name='system.slotSize' value='{{system.slotSize}}' />
-        </div>
-
-        <div class='item-form-group'>
-          <label class='item-checkbox'>
-            <input type='checkbox' name='system.ignoreSlots' {{checked system.ignoreSlots}} />
-            <span class='checkbox-box' aria-hidden='true'></span>
-            <span class='item-label'>{{localize 'LH.itemSheet.ignoreSlots'}}</span>
+        <div class='item-fields'>
+          {{#if hasMeta}}
+            <label class='item-form-row' for='{{rootId}}-price'>
+              <span class='item-label'>{{localize 'LH.itemSheet.price'}}</span>
+              <input
+                id='{{rootId}}-price'
+                class='item-input'
+                type='number'
+                name='system.price'
+                value='{{system.price}}'
+              />
+            </label>
+          {{/if}}
+          <label class='item-form-row' for='{{rootId}}-slots'>
+            <span class='item-label'>{{localize 'LH.itemSheet.slotSize'}}</span>
+            <input
+              id='{{rootId}}-slots'
+              class='item-input'
+              type='number'
+              name='system.slotSize'
+              value='{{system.slotSize}}'
+            />
           </label>
         </div>
+        <label class='item-checkbox'>
+          <input type='checkbox' name='system.ignoreSlots' {{checked system.ignoreSlots}} />
+          <span class='checkbox-box' aria-hidden='true'></span>
+          <span>{{localize 'LH.itemSheet.ignoreSlots'}}</span>
+        </label>
       </section>
     {{/if}}
+
+    <section class='item-description'>
+      <label class='item-section-title' for='{{rootId}}-description'>{{localize 'LH.ui.tabs.description'}}</label>
+      <textarea
+        id='{{rootId}}-description'
+        class='item-textarea'
+        name='system.description'
+        rows='4'
+      >{{system.description}}</textarea>
+    </section>
   </section>
 </div>

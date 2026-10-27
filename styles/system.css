@@ -836,19 +836,63 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 
 .lh .lh-item .item-card {
   display: grid;
-  gap: 10px;
+  gap: 14px;
   width: 100%;
   background: var(--lh-bg-card);
   border: 1px solid var(--lh-border);
   border-radius: var(--lh-radius-card);
-  padding: 10px;
+  padding: 14px;
   box-shadow: 0 1px 0 var(--lh-shadow-light);
 }
 
 .lh .lh-item .item-header {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: 72px minmax(0, 1fr);
   align-items: center;
+  gap: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--lh-border);
+}
+
+.lh .lh-item .item-artwork {
+  position: relative;
+  width: 72px;
+  height: 72px;
+}
+
+.lh .lh-item .item-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 4px;
+  object-fit: contain;
+  border: 1px solid var(--lh-border-strong);
+  border-radius: var(--lh-radius);
+  background: var(--lh-bg-pill);
+  cursor: pointer;
+}
+
+.lh .lh-item .item-image[aria-disabled='true'] {
+  cursor: default;
+}
+
+.lh .lh-item .item-image:not([aria-disabled='true']):hover,
+.lh .lh-item .item-image:focus-visible {
+  outline: 1px solid var(--lh-text-muted);
+  outline-offset: 2px;
+}
+
+.lh .lh-item .item-identity {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.lh .lh-item .item-header-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -872,9 +916,15 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   padding: 4px 8px;
 }
 
+.lh .lh-item .item-name-input {
+  height: 38px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
 .lh .lh-item .item-textarea {
-  min-height: 64px;
-  padding: 6px 8px;
+  min-height: 96px;
+  padding: 8px 10px;
   resize: vertical;
 }
 
@@ -890,31 +940,31 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   color: var(--lh-text-muted);
   font-size: 0.78rem;
   line-height: 1;
-  text-transform: lowercase;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
 .lh .lh-item .item-fields {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.lh .lh-item .item-fields-single {
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px 12px;
 }
 
 .lh .lh-item .item-panel,
-.lh .lh-item .item-carry-panel {
+.lh .lh-item .item-carry-panel,
+.lh .lh-item .item-description {
   display: grid;
   align-content: start;
-  gap: 7px;
+  gap: 10px;
   min-width: 0;
 }
 
-.lh .lh-item .item-carry-panel {
+.lh .lh-item .item-carry-panel,
+.lh .lh-item .item-description {
   border-top: 1px solid var(--lh-border);
-  padding-top: 8px;
+  padding-top: 12px;
 }
 
 .lh .lh-item .item-section-title {
@@ -928,23 +978,28 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 
 .lh .lh-item .item-form-row {
   display: grid;
-  gap: 3px;
+  gap: 5px;
+  min-width: 0;
+  margin: 0;
 }
 
-.lh .lh-item .item-form-group {
-  display: flex;
-  align-items: center;
-  min-height: 24px;
+.lh .lh-item .item-form-wide {
+  grid-column: 1 / -1;
 }
 
-.lh .lh-item .item-form-group label {
+.lh .lh-item .item-label {
+  color: var(--lh-text-muted);
+  font-size: 0.8rem;
+}
+
+.lh .lh-item .item-checkbox {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   margin: 0;
-}
-
-.lh .lh-item .item-checkbox {
+  justify-self: start;
+  color: var(--lh-text-muted);
+  font-size: 0.8rem;
   cursor: pointer;
   line-height: 1.2;
 }
@@ -994,11 +1049,6 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   outline-offset: 2px;
 }
 
-@media (max-width: 700px) {
-  .lh .lh-item .item-fields {
-    grid-template-columns: 1fr;
-  }
-}
 /* ===== Form Inputs ===== */
 .lh input,
 .lh textarea {
@@ -1977,7 +2027,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   border-left: 3px solid #5c8464;
 }
 
-.chat-message:not(.whisper):has(.action-card--unequipped) {
+.chat-message:not(.whisper):has(.action-card--unequipped):not(:has(.action-card--equipped)) {
   border-left: 3px solid var(--lh-text-muted);
 }
 
@@ -2182,6 +2232,16 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh-action-card__result {
   grid-template-columns: 38px minmax(0, 1fr);
   min-height: 60px;
+}
+
+.lh-equipment-change {
+  display: grid;
+  gap: 12px;
+}
+
+.lh-equipment-change__items {
+  display: grid;
+  gap: 6px;
 }
 
 .lh-action-card__icon {

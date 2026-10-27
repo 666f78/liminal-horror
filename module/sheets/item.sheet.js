@@ -39,10 +39,22 @@ export class LHItemSheet extends foundry.applications.api.HandlebarsApplicationM
       flags,
       isCarryable,
       hasMeta,
-      itemFieldsClass: hasMeta ? 'item-fields' : 'item-fields item-fields-single',
+      canEquip: ['weapon', 'armor', 'spell'].includes(this.item.type),
       editable: this.isEditable,
       owner: this.item.isOwner,
     };
+  }
+
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+    const image = this.element.querySelector('.item-image');
+    if (!image || image.dataset.lhKeyboardBound) return;
+    image.dataset.lhKeyboardBound = 'true';
+    image.addEventListener('keydown', (event) => {
+      if (!this.isEditable || !['Enter', ' '].includes(event.key)) return;
+      event.preventDefault();
+      image.click();
+    });
   }
 
   async _processSubmitData(event, form, submitData, options = {}) {

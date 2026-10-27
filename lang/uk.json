@@ -75,7 +75,6 @@
       }
     },
     "system": {
-      "ready": "Liminal Horror готова до гри",
       "initError": "Помилка ініціалізації Liminal Horror"
     },
     "settings": {
@@ -141,6 +140,8 @@
       "items": "Предмети LH"
     },
     "itemSheet": {
+      "parameters": "Параметри",
+      "changeImage": "Вибрати зображення предмета",
       "namePlaceholder": "НАЗВА ПРЕДМЕТА",
       "basic": "ОСНОВНЕ",
       "meta": "ДОДАТКОВО",

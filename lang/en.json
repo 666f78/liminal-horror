@@ -75,7 +75,6 @@
       }
     },
     "system": {
-      "ready": "Liminal Horror ready",
       "initError": "Liminal Horror init error"
     },
     "settings": {
@@ -141,6 +140,8 @@
       "items": "LH Items"
     },
     "itemSheet": {
+      "parameters": "Parameters",
+      "changeImage": "Choose item image",
       "namePlaceholder": "ITEM NAME",
       "basic": "BASIC",
       "meta": "META",

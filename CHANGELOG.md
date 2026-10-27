@@ -9,6 +9,7 @@
 - Added GM world settings for offhand die reduction and a minimum die of 1d2 or 1d4, with reduction enabled and a 1d2 minimum by default
 - Added independent spell equipping without occupying weapon hands
 - Added compact 1H / 2H labels beside weapon names with localized handedness tooltips
+- Added editable item images through Foundry's native image picker, available by clicking the image or using the keyboard
 
 ### Changed
 
@@ -17,11 +18,20 @@
 - Simplified dual-wielding chat cards and displayed their formulas as `(1d4, 1d4)kh` while preserving native roll calculations and expandable dice results
 - Highlighted weapon damage totals in muted red
 - Localized weapon handedness, hand selection, dual-wielding labels, and related settings in English and Ukrainian
+- Redesigned item sheets with an image and name header, compact parameter grids, grouped price and inventory slots, and a full-width description while preserving the existing palette and styling
+- Combined equipment changes into one chat message per action, listing removed items before equipped items with their individual icons and state colors
+- Kept ordinary weapon edits silent in chat when equipment state, hand assignment, and handedness remain unchanged
 
 ### Fixed
 
 - Blocked weapon and spell attacks while unequipped, with disabled inventory controls and validation for macro/API calls
-- Fixed automatically unequipped weapons missing chat notifications when replaced, showing each unequip before the new equip message
+- Fixed automatically unequipped weapons missing from replacement notifications, reporting only successfully updated items in the combined message
+- Fixed empty weapon and spell damage fields disappearing from item sheets
+- Fixed Handlebars attributes and selected options that caused Prettier's template parser to fail
+
+### Removed
+
+- Removed the startup "Liminal Horror ready" notification
 
 ## [0.1.6]
 

@@ -1,4 +1,4 @@
-import { renderCard, renderResultRollCard } from '../utils/chat-card.js';
+import { renderCard, renderEquipmentChangeCard, renderResultRollCard } from '../utils/chat-card.js';
 import { createChatMessage, sendRollMessage } from '../utils/chat.js';
 import { t, td } from '../utils/i18n.js';
 import {
@@ -40,13 +40,12 @@ function getEquipmentIcon(item) {
   return getWeaponHand(item) === WEAPON_HANDS.OFF ? 'fa-hand' : 'fa-hand-fist';
 }
 
-function sendEquipmentMessage(item, actor, equipped) {
+function sendEquipmentMessage(actor, changes) {
+  if (!changes.length) return;
   return createChatMessage({
     actor,
-    content: renderCard(
-      equipped ? t('LH.core.equipped') : t('LH.core.unequipped'),
-      [foundry.utils.escapeHTML(item.name)],
-      { tone: equipped ? 'equipped' : 'unequipped', icon: getEquipmentIcon(item) }
+    content: renderEquipmentChangeCard(
+      changes.map(({ item, equipped }) => ({ name: item.name, icon: getEquipmentIcon(item), equipped }))
     ),
   });
 }
@@ -83,14 +82,16 @@ export function getItemAttack(item, actor = item.parent) {
 
 export async function updateWeaponEquipment(item, changes, options = {}) {
   const actor = item.parent;
+  const wasEquipped = !!item.system.equipped;
+  const previousHand = getWeaponHand(item);
+  const wasTwoHanded = !!item.system.twoHanded;
   const system = foundry.utils.mergeObject(item.system.toObject(), changes.system ?? {}, { inplace: false });
   if (system.twoHanded) system.hand = WEAPON_HANDS.MAIN;
   const update = { ...changes, system };
 
-  if (!actor?.items?.has(item.id)) return item.update(update, options);
-
+  const isOwned = actor?.items?.has(item.id);
   const updates = [];
-  if (system.equipped) {
+  if (isOwned && system.equipped) {
     for (const other of actor.items) {
       if (other.id === item.id || other.type !== 'weapon' || !other.system?.equipped) continue;
       if (system.twoHanded || other.system.twoHanded || getWeaponHand(other) === system.hand) {
@@ -99,13 +100,23 @@ export async function updateWeaponEquipment(item, changes, options = {}) {
     }
   }
   updates.push({ ...update, _id: item.id });
-  const updated = await actor.updateEmbeddedDocuments('Item', updates, options);
-  for (const weapon of updated) {
-    if (weapon.id !== item.id && !weapon.system.equipped) {
-      await sendEquipmentMessage(weapon, actor, false);
-    }
+  const updated = isOwned
+    ? await actor.updateEmbeddedDocuments('Item', updates, options)
+    : [await item.update(update, options)].filter(Boolean);
+  const equipmentChanges = updated
+    .filter((weapon) => weapon.id !== item.id && !weapon.system.equipped)
+    .map((weapon) => ({ item: weapon, equipped: false }));
+  const target = updated.find((document) => document.id === item.id);
+  if (
+    target &&
+    (wasEquipped !== !!target.system.equipped ||
+      (target.system.equipped &&
+        (previousHand !== getWeaponHand(target) || wasTwoHanded !== !!target.system.twoHanded)))
+  ) {
+    equipmentChanges.push({ item: target, equipped: !!target.system.equipped });
   }
-  return updated.find((document) => document.id === item.id);
+  await sendEquipmentMessage(actor, equipmentChanges);
+  return target;
 }
 
 export function isAutoArmorCalculationEnabled() {
@@ -121,17 +132,19 @@ export async function equipItem(item, actor, hand) {
   const targetHand = item.system?.twoHanded ? WEAPON_HANDS.MAIN : (hand ?? getWeaponHand(item));
   const willEquip = !isEquipped || (type === 'weapon' && targetHand !== getWeaponHand(item));
 
-  const updated =
-    type === 'weapon'
-      ? await updateWeaponEquipment(item, { system: { equipped: willEquip, hand: targetHand } })
-      : await item.update({ 'system.equipped': willEquip });
+  if (type === 'weapon') {
+    await updateWeaponEquipment(item, { system: { equipped: willEquip, hand: targetHand } });
+    return;
+  }
+
+  const updated = await item.update({ 'system.equipped': willEquip });
   if (!updated) return;
 
   if (type === 'armor') {
     await recalcArmor(actor);
   }
 
-  await sendEquipmentMessage(item, actor, willEquip);
+  await sendEquipmentMessage(actor, [{ item: updated, equipped: !!updated.system.equipped }]);
 }
 
 export async function useItem(item, actor) {
