@@ -7,6 +7,7 @@ import {
   isOffHandDieReductionEnabled,
 } from '../settings.js';
 import { WEAPON_DIE_SIZES, WEAPON_HANDS } from '../data/constants.js';
+import { getArmorProtection, getEquippedArmorProtection } from '../utils/armor.js';
 
 function reduceOffHandFormula(formula) {
   if (!isOffHandDieReductionEnabled()) return formula;
@@ -34,7 +35,11 @@ export function getWeaponHand(item) {
 }
 
 function getEquipmentIcon(item) {
-  if (item.type === 'armor') return 'fa-shield-alt';
+  if (item.type === 'armor') {
+    const protection = getArmorProtection(item);
+    if (protection.stress > 0) return protection.physical > 0 ? ['fa-shield-alt', 'fa-brain'] : 'fa-brain';
+    return 'fa-shield-alt';
+  }
   if (item.type === 'spell') return 'fa-wand-magic-sparkles';
   if (item.system?.twoHanded) return ['fa-hand-fist', 'fa-hand'];
   return getWeaponHand(item) === WEAPON_HANDS.OFF ? 'fa-hand' : 'fa-hand-fist';
@@ -210,11 +215,9 @@ export async function restoreItemUse(item, actor) {
 export async function recalcArmor(actor) {
   if (!actor || !isAutoArmorCalculationEnabled()) return;
 
-  let total = 0;
-  for (const it of actor.items) {
-    if (it.type !== 'armor' || !it.system?.equipped) continue;
-    total += Number(it.system?.armorValue ?? 0) || 0;
-  }
-
-  await actor.update({ 'system.defenses.armor': total });
+  const protection = getEquippedArmorProtection(actor);
+  await actor.update({
+    'system.defenses.armor': protection.physical,
+    'system.defenses.selfControl': protection.stress,
+  });
 }

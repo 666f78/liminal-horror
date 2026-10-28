@@ -10,6 +10,7 @@
 - Added independent spell equipping without occupying weapon hands
 - Added compact 1H / 2H labels beside weapon names with localized handedness tooltips
 - Added editable item images through Foundry's native image picker, available by clicking the image or using the keyboard
+- Added independent physical and stress protection values to armor items, with zero stress protection for existing armor
 
 ### Changed
 
@@ -25,6 +26,10 @@
 - Standardized inventory action icons to the existing charcoal color (`#2a2a2a`) while retaining muted inactive states
 - Restyled inventory sorting and slot usage as two matching compact controls, retaining the red overloaded state
 - Replaced the browser's inventory sorting dropdown with a themed popover menu featuring a selected-item checkmark, keyboard navigation, and automatic dismissal
+- Applied the same themed menus to weapon grip and hand selection on item sheets
+- Extended automatic armor calculation to update physical armor and Stability independently from equipped armor items; both totals are read-only in automatic mode and editable in manual mode on investigator and monster sheets
+- Added distinct physical and stress protection icons and values to armor inventory rows and equipment chat cards
+- Localized physical and stress protection fields, automatic Stability tooltips, and the updated calculation setting hint in English and Ukrainian
 
 ### Fixed
 
@@ -33,6 +38,8 @@
 - Fixed empty weapon and spell damage fields disappearing from item sheets
 - Fixed Handlebars attributes and selected options that caused Prettier's template parser to fail
 - Removed the extra outline around the sorting control and replaced the menu's red focus highlight with charcoal selection and keyboard focus outlines
+- Positioned selection menus before their first visible frame and closed them when dragging or resizing their sheet windows
+- Recalculated both protection totals when armor is equipped, unequipped, edited, or deleted
 
 ### Removed
 

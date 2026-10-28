@@ -90,7 +90,8 @@ export class LHItemSheet extends foundry.applications.api.HandlebarsApplicationM
       this.item.type === 'armor' &&
       this.item.parent &&
       (foundry.utils.hasProperty(submitData, 'system.equipped') ||
-        foundry.utils.hasProperty(submitData, 'system.armorValue'));
+        foundry.utils.hasProperty(submitData, 'system.armorValue') ||
+        foundry.utils.hasProperty(submitData, 'system.stressProtection'));
 
     if (this.item.type === 'weapon' && this.item.parent?.items?.has(this.item.id)) {
       const updated = await updateWeaponEquipment(this.item, submitData, options);

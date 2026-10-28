@@ -1652,7 +1652,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   font-family: var(--font-primary);
 }
 .lh.lh-select-menu[data-measuring='true'] {
-  visibility: hidden;
+  opacity: 0;
 }
 .lh.lh-select-menu:is(:popover-open, [data-measuring='true']) {
   display: grid;
@@ -1886,6 +1886,16 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   align-items: center;
   gap: 8px;
   white-space: nowrap;
+}
+.lh .inv-stat-armor {
+  flex-wrap: wrap;
+  gap: 4px 6px;
+}
+.lh .armor-protection {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.75rem;
 }
 .lh .inv-actions > .equip-toggle {
   grid-column: 2;

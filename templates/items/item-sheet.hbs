@@ -55,13 +55,25 @@
           {{/if}}
           {{#if (eq item.type 'armor')}}
             <label class='item-form-row' for='{{rootId}}-armor'>
-              <span class='item-label'>{{localize 'LH.ui.armor'}}</span>
+              <span class='item-label'>{{localize 'LH.equipment.physicalProtection'}}</span>
               <input
                 id='{{rootId}}-armor'
                 class='item-input'
                 type='number'
                 name='system.armorValue'
                 value='{{system.armorValue}}'
+                min='0'
+              />
+            </label>
+            <label class='item-form-row' for='{{rootId}}-stress-protection'>
+              <span class='item-label'>{{localize 'LH.equipment.stressProtection'}}</span>
+              <input
+                id='{{rootId}}-stress-protection'
+                class='item-input'
+                type='number'
+                name='system.stressProtection'
+                value='{{system.stressProtection}}'
+                min='0'
               />
             </label>
           {{/if}}

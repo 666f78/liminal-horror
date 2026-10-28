@@ -45,6 +45,8 @@
       "thrownAway": "Thrown away"
     },
     "equipment": {
+      "physicalProtection": "Physical protection",
+      "stressProtection": "Stress protection",
       "weaponGrip": "Weapon grip",
       "oneHanded": "One-handed weapon",
       "twoHanded": "Two-handed weapon",
@@ -85,7 +87,7 @@
       },
       "autoArmorCalculation": {
         "name": "Automatic armor calculation",
-        "hint": "If enabled, armor is recalculated from equipped armor items. If disabled, armor is entered manually on the actor sheet."
+        "hint": "If enabled, physical armor and Stability are calculated from equipped armor items. If disabled, both values are entered manually on the actor sheet."
       },
       "investigatorGeneratorReroll": {
         "name": "Allow Investigator Generator rerolls for players",
@@ -217,6 +219,7 @@
       "hp": "HP",
       "armor": "Armor",
       "autoArmorHint": "Armor is calculated automatically. You can change this in system settings.",
+      "autoStressProtectionHint": "Stability is calculated from equipped armor's stress protection. You can change this in system settings.",
       "stability": "Stability",
       "cash": "Cash",
       "actions": "Actions",

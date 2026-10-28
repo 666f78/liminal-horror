@@ -132,14 +132,33 @@
 
       <!-- Stability -->
       <div class='monster-stat'>
-        <div class='monster-label'>{{localize (concat 'LH.ui.stability' item.system.state)}}</div>
+        <div class='monster-label'>
+          {{localize (concat 'LH.ui.stability' item.system.state)}}
+          {{#if autoArmorCalculation}}
+            <i
+              class='fa-solid fa-gear armor-auto-icon'
+              aria-label='{{localize "LH.ui.autoStressProtectionHint"}}'
+              title='{{localize "LH.ui.autoStressProtectionHint"}}'
+            ></i>
+          {{/if}}
+        </div>
         <div class='monster-values monster-values-single'>
-          <input
-            class='num chip monster-num monster-num-single'
-            type='number'
-            name='system.defenses.selfControl'
-            value='{{system.defenses.selfControl}}'
-          />
+          {{#if autoArmorCalculation}}
+            <input
+              class='num chip monster-num monster-num-single'
+              type='number'
+              name='system.defenses.selfControl'
+              value='{{system.defenses.selfControl}}'
+              readonly
+            />
+          {{else}}
+            <input
+              class='num chip monster-num monster-num-single'
+              type='number'
+              name='system.defenses.selfControl'
+              value='{{system.defenses.selfControl}}'
+            />
+          {{/if}}
         </div>
       </div>
 
@@ -384,7 +403,7 @@
             </div>
 
             <div class='inv-actions'>
-              <div class='inv-stat'>
+              <div class='inv-stat {{ifThen (eq item.type "armor") "inv-stat-armor" ""}}'>
                 <!-- WEAPON DAMAGE -->
                 {{#if (and (or (eq item.type 'weapon') (eq item.type 'spell')) item.system.damageDie)}}
                   <a
@@ -410,7 +429,16 @@
 
                 <!-- ARMOR -->
                 {{#if (eq item.type 'armor')}}
-                  <span class='die-text'> <i class='fas fa-shield-alt'></i> {{item.system.armorValue}}</span>
+                  {{#unless (and (gt item.system.stressProtection 0) (eq item.system.armorValue 0))}}
+                    <span class='armor-protection' title='{{localize "LH.equipment.physicalProtection"}}'>
+                      <i class='fas fa-shield-alt' aria-hidden='true'></i>{{item.system.armorValue}}
+                    </span>
+                  {{/unless}}
+                  {{#if (gt item.system.stressProtection 0)}}
+                    <span class='armor-protection' title='{{localize "LH.equipment.stressProtection"}}'>
+                      <i class='fas fa-brain' aria-hidden='true'></i>{{item.system.stressProtection}}
+                    </span>
+                  {{/if}}
                 {{/if}}
               </div>
 
