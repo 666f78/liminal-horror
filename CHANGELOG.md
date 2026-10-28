@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.1.7]
+## [0.2.0]
 
 ### Added
 
@@ -38,6 +38,7 @@
 - Muted physical and stress protection icons when armor is unequipped, matching inactive equipment controls
 - Renamed the sidebar action to `Generate Investigator` / `Згенерувати дослідника`
 - Restyled Party Overview statuses with neutral gray icons and labels without badge backgrounds, including neutral tooltip icons and smaller, borderless `+N` controls for additional statuses
+- Redesigned the README with updated feature descriptions, installation and getting-started instructions, and six screenshots covering investigator sheets, generation, Party Overview, item sheets, and the compendium
 
 ### Fixed
 
@@ -54,6 +55,11 @@
 ### Removed
 
 - Removed the startup "Liminal Horror ready" notification
+- Removed left-side accent borders from all chat messages, including whispers, while preserving their standard outer borders
+
+### Acknowledgments
+
+- Thanks to @CodaBool
 
 ## [0.1.6]
 
