@@ -21,6 +21,10 @@
 - Redesigned item sheets with an image and name header, compact parameter grids, grouped price and inventory slots, and a full-width description while preserving the existing palette and styling
 - Combined equipment changes into one chat message per action, listing removed items before equipped items with their individual icons and state colors
 - Kept ordinary weapon edits silent in chat when equipment state, hand assignment, and handedness remain unchanged
+- Refined investigator and monster inventories with item images, item types in tooltips, a separate 1H / 2H column, softer row separators, and clearer equipped weapon damage
+- Standardized inventory action icons to the existing charcoal color (`#2a2a2a`) while retaining muted inactive states
+- Restyled inventory sorting and slot usage as two matching compact controls, retaining the red overloaded state
+- Replaced the browser's inventory sorting dropdown with a themed popover menu featuring a selected-item checkmark, keyboard navigation, and automatic dismissal
 
 ### Fixed
 
@@ -28,6 +32,7 @@
 - Fixed automatically unequipped weapons missing from replacement notifications, reporting only successfully updated items in the combined message
 - Fixed empty weapon and spell damage fields disappearing from item sheets
 - Fixed Handlebars attributes and selected options that caused Prettier's template parser to fail
+- Removed the extra outline around the sorting control and replaced the menu's red focus highlight with charcoal selection and keyboard focus outlines
 
 ### Removed
 

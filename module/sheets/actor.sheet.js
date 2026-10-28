@@ -18,6 +18,7 @@ import { renderCard } from '../utils/chat-card.js';
 import { createChatMessage } from '../utils/chat.js';
 import { t, td } from '../utils/i18n.js';
 import { recalcSlots } from '../utils/slots.js';
+import { bindSelectMenu } from '../utils/select-menu.js';
 
 const isActivateEvent = (event) => event.type === 'click' || event.key === 'Enter' || event.key === ' ';
 
@@ -45,7 +46,7 @@ const getLocalizedInventorySortOptions = (currentSort) =>
     { value: 'equipped', label: t('LH.ui.inventorySort.equipped') },
   ].map((option) => ({
     ...option,
-    selectedAttr: option.value === currentSort ? 'selected' : '',
+    selected: option.value === currentSort,
   }));
 
 const normalizeManualInventoryOrder = (items, manualOrder = []) => {
@@ -242,6 +243,7 @@ export class LHActorSheet extends foundry.applications.api.HandlebarsApplication
     );
 
     const inventorySort = this.actor.getFlag('liminal-horror', INVENTORY_SORT_FLAG) ?? 'default';
+    const inventorySortOptions = getLocalizedInventorySortOptions(inventorySort);
     const manualInventoryOrder = this.actor.getFlag('liminal-horror', INVENTORY_MANUAL_ORDER_FLAG) ?? [];
     const inventorySortDirection = this.actor.getFlag('liminal-horror', INVENTORY_SORT_DIRECTION_FLAG) ?? 'asc';
     const items = await Promise.all(
@@ -304,7 +306,8 @@ export class LHActorSheet extends foundry.applications.api.HandlebarsApplication
       isManualInventorySort: inventorySort === 'manual',
       showInventorySortDirection: !['default', 'manual'].includes(inventorySort),
       inventorySort,
-      inventorySortOptions: getLocalizedInventorySortOptions(inventorySort),
+      inventorySortOptions,
+      inventorySortLabel: inventorySortOptions.find((option) => option.selected)?.label ?? t('LH.ui.inventorySort.default'),
       inventorySortDirection,
       inventorySortDirectionTitle:
         inventorySortDirection === 'desc' ? t('LH.ui.inventorySort.descending') : t('LH.ui.inventorySort.ascending'),
@@ -330,6 +333,7 @@ export class LHActorSheet extends foundry.applications.api.HandlebarsApplication
 
   async _onRender(context, options) {
     await super._onRender(context, options);
+    this._inventorySortMenuCleanup?.();
     for (const actor of game.actors?.contents ?? []) recalcSlots(actor);
 
     if (!this.element.dataset.lhKeydownBound) {
@@ -345,11 +349,18 @@ export class LHActorSheet extends foundry.applications.api.HandlebarsApplication
       });
     }
 
-    this.element
-      .querySelector("[data-action='inventorySort']")
-      ?.addEventListener('change', this._onInventorySort.bind(this));
+    this._inventorySortMenuCleanup = bindSelectMenu(
+      this.element,
+      this.element.querySelector('.inv-sort-select'),
+      this._onInventorySort.bind(this)
+    );
     this.#activateItemUseContextListeners();
     this.#activateInventoryDragListeners();
+  }
+
+  _onClose(options) {
+    this._inventorySortMenuCleanup?.();
+    super._onClose(options);
   }
 
   static async _onOpenInvestigatorGenerator() {
@@ -500,11 +511,11 @@ export class LHActorSheet extends foundry.applications.api.HandlebarsApplication
     button?.setAttribute('aria-expanded', String(nextExpanded));
   }
 
-  async _onInventorySort(event) {
-    const mode = event.currentTarget.value;
+  async _onInventorySort(mode) {
     if (!INVENTORY_SORT_MODES.includes(mode)) return;
     await this.actor.setFlag('liminal-horror', INVENTORY_SORT_FLAG, mode);
     await this.render();
+    this.element.querySelector('.inv-sort-select')?.focus();
   }
 
   static async _onInventorySortDirection(event) {

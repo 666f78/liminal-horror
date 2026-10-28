@@ -1,4 +1,5 @@
 import { recalcArmor, updateWeaponEquipment } from '../services/items.js';
+import { bindSelectMenu } from '../utils/select-menu.js';
 
 export class LHItemSheet extends foundry.applications.api.HandlebarsApplicationMixin(
   foundry.applications.sheets.ItemSheetV2
@@ -47,6 +48,10 @@ export class LHItemSheet extends foundry.applications.api.HandlebarsApplicationM
 
   async _onRender(context, options) {
     await super._onRender(context, options);
+    this._selectMenuCleanups?.forEach((cleanup) => cleanup?.());
+    this._selectMenuCleanups = [...this.element.querySelectorAll('[data-select-field]')].map((trigger) =>
+      bindSelectMenu(this.element, trigger, (value) => this._onSelectField(trigger, value))
+    );
     const image = this.element.querySelector('.item-image');
     if (!image || image.dataset.lhKeyboardBound) return;
     image.dataset.lhKeyboardBound = 'true';
@@ -55,6 +60,29 @@ export class LHItemSheet extends foundry.applications.api.HandlebarsApplicationM
       event.preventDefault();
       image.click();
     });
+  }
+
+  _onClose(options) {
+    this._selectMenuCleanups?.forEach((cleanup) => cleanup?.());
+    super._onClose(options);
+  }
+
+  async _onSelectField(trigger, value) {
+    if (!this.isEditable || trigger.disabled) return;
+    const fieldName = trigger.dataset.selectField;
+    const input = this.element.querySelector(`input[name="${fieldName}"]`);
+    if (!input || input.disabled) return;
+    const previousValue = input.value;
+    input.value = value;
+    try {
+      await this.submit();
+    } catch (error) {
+      input.value = previousValue;
+      ui.notifications.error(error, { console: true });
+      return;
+    }
+    await this.render();
+    this.element.querySelector(`[data-select-field="${fieldName}"]`)?.focus();
   }
 
   async _processSubmitData(event, form, submitData, options = {}) {

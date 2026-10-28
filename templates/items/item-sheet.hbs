@@ -66,29 +66,59 @@
             </label>
           {{/if}}
           {{#if (eq item.type 'weapon')}}
-            <label class='item-form-row' for='{{rootId}}-grip'>
-              <span class='item-label'>{{localize 'LH.equipment.weaponGrip'}}</span>
-              <select id='{{rootId}}-grip' class='item-input' name='system.twoHanded' data-dtype='Boolean'>
-                <option value='false' {{ifThen system.twoHanded '' 'selected'}}>{{localize
-                    'LH.equipment.oneHanded'
-                  }}</option>
-                <option value='true' {{ifThen system.twoHanded 'selected' ''}}>{{localize
-                    'LH.equipment.twoHanded'
-                  }}</option>
-              </select>
-            </label>
+            <div class='item-form-row'>
+              <label class='item-label' for='{{rootId}}-grip'>{{localize 'LH.equipment.weaponGrip'}}</label>
+              <input type='hidden' name='system.twoHanded' value='{{ifThen system.twoHanded "true" "false"}}' data-dtype='Boolean' />
+              <button
+                id='{{rootId}}-grip'
+                type='button'
+                class='item-input item-select-trigger'
+                data-select-field='system.twoHanded'
+                popovertarget='{{rootId}}-grip-menu'
+                aria-controls='{{rootId}}-grip-menu'
+                aria-haspopup='menu'
+                aria-expanded='false'
+                {{ifThen editable '' 'disabled'}}
+              >
+                <span>{{localize (ifThen system.twoHanded 'LH.equipment.twoHanded' 'LH.equipment.oneHanded')}}</span>
+                <i class='fas fa-chevron-down' aria-hidden='true'></i>
+              </button>
+              <div id='{{rootId}}-grip-menu' class='lh lh-select-menu' popover='auto' role='menu' aria-label='{{localize "LH.equipment.weaponGrip"}}'>
+                <button type='button' role='menuitemradio' data-value='false' aria-checked='{{ifThen system.twoHanded "false" "true"}}' tabindex='-1'>
+                  <span>{{localize 'LH.equipment.oneHanded'}}</span><i class='fas fa-check' aria-hidden='true'></i>
+                </button>
+                <button type='button' role='menuitemradio' data-value='true' aria-checked='{{ifThen system.twoHanded "true" "false"}}' tabindex='-1'>
+                  <span>{{localize 'LH.equipment.twoHanded'}}</span><i class='fas fa-check' aria-hidden='true'></i>
+                </button>
+              </div>
+            </div>
             {{#unless system.twoHanded}}
-              <label class='item-form-row item-form-wide' for='{{rootId}}-hand'>
-                <span class='item-label'>{{localize 'LH.equipment.hand'}}</span>
-                <select id='{{rootId}}-hand' class='item-input' name='system.hand'>
-                  <option value='main' {{ifThen (eq system.hand 'main') 'selected' ''}}>{{localize
-                      'LH.equipment.mainHand'
-                    }}</option>
-                  <option value='off' {{ifThen (eq system.hand 'off') 'selected' ''}}>{{localize
-                      'LH.equipment.offHand'
-                    }}</option>
-                </select>
-              </label>
+              <div class='item-form-row item-form-wide'>
+                <label class='item-label' for='{{rootId}}-hand'>{{localize 'LH.equipment.hand'}}</label>
+                <input type='hidden' name='system.hand' value='{{ifThen (eq system.hand "off") "off" "main"}}' />
+                <button
+                  id='{{rootId}}-hand'
+                  type='button'
+                  class='item-input item-select-trigger'
+                  data-select-field='system.hand'
+                  popovertarget='{{rootId}}-hand-menu'
+                  aria-controls='{{rootId}}-hand-menu'
+                  aria-haspopup='menu'
+                  aria-expanded='false'
+                  {{ifThen editable '' 'disabled'}}
+                >
+                  <span>{{localize (ifThen (eq system.hand 'off') 'LH.equipment.offHand' 'LH.equipment.mainHand')}}</span>
+                  <i class='fas fa-chevron-down' aria-hidden='true'></i>
+                </button>
+                <div id='{{rootId}}-hand-menu' class='lh lh-select-menu' popover='auto' role='menu' aria-label='{{localize "LH.equipment.hand"}}'>
+                  <button type='button' role='menuitemradio' data-value='main' aria-checked='{{ifThen (eq system.hand "off") "false" "true"}}' tabindex='-1'>
+                    <span>{{localize 'LH.equipment.mainHand'}}</span><i class='fas fa-check' aria-hidden='true'></i>
+                  </button>
+                  <button type='button' role='menuitemradio' data-value='off' aria-checked='{{ifThen (eq system.hand "off") "true" "false"}}' tabindex='-1'>
+                    <span>{{localize 'LH.equipment.offHand'}}</span><i class='fas fa-check' aria-hidden='true'></i>
+                  </button>
+                </div>
+              </div>
             {{/unless}}
           {{/if}}
           {{#if (eq item.type 'gear')}}

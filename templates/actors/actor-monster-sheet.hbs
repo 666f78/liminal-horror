@@ -273,31 +273,48 @@
       <div class='inv-head'>
         <div class='section-title'>{{localize (concat 'LH.ui.inventory' item.system.state)}}</div>
         <div class='inv-meta'>
-          <label class='inv-sort'>
-            <span class='tw-text-xs tw-muted'>{{localize 'LH.ui.sort'}}</span>
+          <div class='inv-sort' data-select-anchor title='{{localize "LH.ui.sort"}}'>
             {{#if showInventorySortDirection}}
               <button
                 type='button'
                 class='inv-sort-direction'
                 data-action='inventorySortDirection'
                 title='{{inventorySortDirectionTitle}}'
+                aria-label='{{inventorySortDirectionTitle}}'
               >
-                <i class='{{inventorySortDirectionIcon}}'></i>
+                <i class='{{inventorySortDirectionIcon}}' aria-hidden='true'></i>
               </button>
+            {{else}}
+              <span class='inv-sort-icon' aria-hidden='true'><i class='fas fa-sort'></i></span>
             {{/if}}
-            <select class='inv-sort-select' data-action='inventorySort'>
+            <button
+              type='button'
+              class='inv-sort-select'
+              popovertarget='{{rootId}}-inventory-sort'
+              aria-haspopup='menu'
+              aria-expanded='false'
+              aria-controls='{{rootId}}-inventory-sort'
+              aria-label='{{localize "LH.ui.sort"}}: {{inventorySortLabel}}'
+            >
+              <span>{{inventorySortLabel}}</span><i class='fas fa-chevron-down' aria-hidden='true'></i>
+            </button>
+            <div id='{{rootId}}-inventory-sort' class='lh lh-select-menu' popover='auto' role='menu' aria-label='{{localize "LH.ui.sort"}}'>
               {{#each inventorySortOptions as |option|}}
-                <option value='{{option.value}}' {{option.selectedAttr}}>
-                  {{option.label}}
-                </option>
+                <button type='button' role='menuitemradio' data-value='{{option.value}}' aria-checked='{{ifThen option.selected "true" "false"}}' tabindex='-1'>
+                  <span>{{option.label}}</span><i class='fas fa-check' aria-hidden='true'></i>
+                </button>
               {{/each}}
-            </select>
-          </label>
-          <div class='tw-text-xs tw-muted' data-over='{{gt system.inventory.slotsUsed system.inventory.slotsMax}}'>
-            {{localize (concat 'LH.ui.slots' item.system.state)}}:
-            {{system.inventory.slotsUsed}}
-            /
-            {{system.inventory.slotsMax}}
+            </div>
+          </div>
+          <div
+            class='inv-slots'
+            role='group'
+            aria-label='{{localize "LH.ui.slots"}}'
+            title='{{localize "LH.ui.slots"}}'
+            data-over='{{gt system.inventory.slotsUsed system.inventory.slotsMax}}'
+          >
+            <i class='fas fa-bag-shopping' aria-hidden='true'></i>
+            <span><strong>{{system.inventory.slotsUsed}}</strong> / {{system.inventory.slotsMax}}</span>
           </div>
         </div>
       </div>
@@ -311,6 +328,7 @@
               item.system.equipped
             }}'
             data-item-id='{{item._id}}'
+            data-item-type='{{item.type}}'
             data-sortable='{{@root.isManualInventorySort}}'
           >
             <div class='inv-carry'>
@@ -321,19 +339,15 @@
                   draggable='true'
                   title='{{localize "LH.ui.dragToReorder"}}'
                 ><i class='fas fa-grip-lines-vertical'></i></span>
-              {{else}}
-                {{#if
-                  (or
-                    (eq item.type 'weapon')
-                    (eq item.type 'spell')
-                    (eq item.type 'gear')
-                    (eq item.type 'armor')
-                    (eq item.type 'artifact')
-                  )
-                }}{{else}}
-                  <span class='tw-text-xs tw-muted'>—</span>
-                {{/if}}
               {{/if}}
+              <img
+                class='inv-image'
+                src='{{item.img}}'
+                alt=''
+                title='{{localize (concat "TYPES.Item." item.type)}}'
+                loading='lazy'
+                draggable='false'
+              />
             </div>
 
             <div class='inv-main'>
@@ -344,12 +358,21 @@
                   data-action='toggleDescription'
                   data-item-id='{{item._id}}'
                   aria-expanded='{{item.descriptionExpanded}}'
+                  title='{{item.name}} ({{localize (concat "TYPES.Item." item.type)}})'
                 >
                   <span class='inv-name-label'>{{item.name}}</span>
                 </button>
               {{else}}
-                <span class='entity-link inv-name-static'>{{item.name}}</span>
+                <span class='entity-link inv-name-static' title='{{item.name}} ({{localize (concat "TYPES.Item." item.type)}})'>{{item.name}}</span>
               {{/if}}
+              {{#unless item.system.ignoreSlots}}
+                <span class='item-slots' title='{{localize "LH.ui.slots"}}'>
+                  {{repeat '●' item.system.slotSize}}
+                </span>
+              {{/unless}}
+            </div>
+
+            <div class='inv-grip'>
               {{#if (eq item.type 'weapon')}}
                 <span
                   class='tw-text-xs tw-muted'
@@ -358,12 +381,6 @@
                       'LH.equipment.oneHandedShort'
                     }}{{/if}}</span>
               {{/if}}
-              <span class='tw-text-xs tw-muted'>({{localize (concat 'TYPES.Item.' item.type)}})</span>
-              {{#unless item.system.ignoreSlots}}
-                <span class='item-slots' title='{{localize "LH.ui.slots"}}'>
-                  {{repeat '●' item.system.slotSize}}
-                </span>
-              {{/unless}}
             </div>
 
             <div class='inv-actions'>

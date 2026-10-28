@@ -927,6 +927,22 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   padding: 8px 10px;
   resize: vertical;
 }
+.lh .lh-item .item-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  text-align: left;
+  box-shadow: none;
+}
+.lh .lh-item .item-select-trigger > i {
+  flex: none;
+  color: var(--lh-accent);
+  font-size: 0.65rem;
+}
+.lh .lh-item .item-select-trigger:hover {
+  background: var(--lh-bg-hover);
+}
 
 .lh .lh-item .item-name-input:focus,
 .lh .lh-item .item-input:focus,
@@ -1526,19 +1542,46 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 /* ===== Inventory ===== */
 .lh .inv-head {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
   margin: 4px 0 6px;
 }
 .lh .inv-meta {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
+  margin-left: auto;
 }
-.lh .inv-sort {
+.lh .inv-sort,
+.lh .inv-slots {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--lh-border);
+  border-radius: var(--lh-radius-sm);
+  background: var(--lh-bg-btn);
+  color: var(--lh-accent);
+  font-size: 0.75rem;
+}
+.lh .inv-slots {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.lh .inv-sort-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+}
+.lh .inv-sort-icon i,
+.lh .inv-slots > i {
+  font-size: 0.8rem;
 }
 .lh .inv-sort-direction {
   height: 18px;
@@ -1548,7 +1591,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   border: 0;
   border-radius: 0;
   background: transparent;
-  color: var(--lh-text-main);
+  color: var(--lh-accent);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1563,50 +1606,108 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   font-size: 0.72rem;
   line-height: 1;
   pointer-events: none;
-  opacity: 0.72;
 }
 .lh .inv-sort-select {
-  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 100%;
+  min-height: 0;
   min-width: 118px;
-  padding: 0 24px 0 6px;
-  border: 1px solid var(--lh-border);
-  border-radius: 6px;
-  background: var(--lh-bg-btn);
-  background-image:
-    linear-gradient(45deg, transparent 50%, var(--lh-text-muted) 50%),
-    linear-gradient(135deg, var(--lh-text-muted) 50%, transparent 50%);
-  background-position:
-    calc(100% - 12px) calc(50% - 1px),
-    calc(100% - 8px) calc(50% - 1px);
-  background-size:
-    4px 4px,
-    4px 4px;
-  background-repeat: no-repeat;
-  color: var(--lh-text-main);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
   font: inherit;
   font-size: 0.75rem;
   appearance: none;
   -webkit-appearance: none;
   box-shadow: none;
 }
-.lh .inv-sort-select:focus {
-  outline: 1px solid var(--lh-text-muted);
-  box-shadow: 0 0 6px var(--color-shadow-primary);
-  outline-offset: 1px;
+.lh .inv-sort-select > i {
+  font-size: 0.6rem;
 }
-.lh .inv-sort-select option {
+.lh .inv-sort-select:hover {
+  background: transparent;
+  box-shadow: none;
+}
+.lh .inv-sort-select:focus {
+  outline: none;
+  box-shadow: none;
+}
+.lh.lh-select-menu {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  padding: 4px;
+  max-width: calc(100vw - 16px);
+  overflow-y: auto;
+  border: 1px solid var(--lh-border-strong);
+  border-radius: var(--lh-radius-sm);
   background: var(--lh-bg-card);
-  color: var(--lh-text-main);
+  box-shadow: 0 4px 12px var(--lh-shadow-dark);
+  color: var(--lh-accent);
+  font-family: var(--font-primary);
+}
+.lh.lh-select-menu[data-measuring='true'] {
+  visibility: hidden;
+}
+.lh.lh-select-menu:is(:popover-open, [data-measuring='true']) {
+  display: grid;
+  gap: 2px;
+}
+.lh.lh-select-menu > button {
+  --button-focus-outline-color: var(--lh-accent);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  min-height: 28px;
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  box-shadow: none;
+  color: inherit;
+  font: inherit;
+  font-size: 0.75rem;
+  text-align: left;
+  white-space: nowrap;
+}
+.lh.lh-select-menu > button:is(:hover, :focus-visible) {
+  outline: none;
+  background: var(--lh-bg-hover);
+  box-shadow: none;
+}
+.lh.lh-select-menu > button[aria-checked='true'] {
+  outline: 1px solid var(--lh-accent);
+  outline-offset: -1px;
+  font-weight: 700;
+}
+.lh.lh-select-menu > button:focus {
+  outline: 1px solid var(--lh-accent);
+  outline-offset: -1px;
+  box-shadow: none;
+}
+.lh.lh-select-menu > button[aria-checked='false'] > i {
+  visibility: hidden;
 }
 .lh .inv-row {
   display: grid;
-  grid-template-columns: 18px minmax(0, 1fr) auto;
-  gap: 6px;
+  grid-template-columns: 24px minmax(0, 1fr) 24px auto;
+  gap: 8px;
   align-items: center;
   padding: 6px 8px;
-  border-top: 1px solid var(--lh-border-strong);
+  border-top: 1px solid var(--lh-border);
+  border-left: 3px solid transparent;
   background: var(--lh-bg-inventory);
   font-size: 0.95rem;
+}
+.lh .inv-row[data-sortable='true'] {
+  grid-template-columns: 46px minmax(0, 1fr) 24px auto;
 }
 .lh .inv-row[data-sortable='true'].is-dragging {
   opacity: 0.55;
@@ -1614,16 +1715,25 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .inv-carry {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   min-width: 0;
+}
+.lh .inv-image {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  border: 1px solid var(--lh-border);
+  border-radius: 3px;
+  background: var(--lh-bg-pill);
 }
 .lh .inv-drag-handle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 16px;
+  flex: none;
   min-height: 18px;
-  margin-left: -2px;
   color: var(--lh-text-muted);
   cursor: grab;
   opacity: 0.42;
@@ -1649,14 +1759,22 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   background: var(--lh-bg-hover);
 }
 .lh .inv-row[data-equipped='true'] {
-  background: rgba(0, 0, 0, 0.02);
-  border-left: 3px solid var(--lh-accent);
+  background: var(--lh-bg-hover);
+  border-left-color: var(--lh-accent);
 }
 .lh .inv-main {
   display: flex;
   gap: 6px;
   align-items: baseline;
   min-width: 0;
+}
+.lh .inv-grip {
+  text-align: center;
+  white-space: nowrap;
+}
+.lh .inv-main .item-slots {
+  flex: none;
+  color: var(--lh-text-muted);
 }
 .lh .inv-main .entity-link {
   white-space: nowrap;
@@ -1716,8 +1834,11 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   color: var(--lh-text-main);
 }
 .lh .inv-desc {
-  padding: 4px 8px 8px 32px;
+  padding: 4px 8px 8px 43px;
   background: var(--lh-bg-inventory);
+}
+.lh .inv-row[data-sortable='true'] + .inv-desc {
+  padding-left: 65px;
 }
 .lh .inv-desc.is-collapsed {
   display: none;
@@ -1742,9 +1863,16 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh .inv-actions {
   display: grid;
-  grid-template-columns: minmax(48px, max-content) repeat(4, 16px);
+  grid-template-columns: 60px repeat(4, 16px);
   gap: 8px;
   align-items: center;
+}
+.lh .inv-actions i {
+  color: var(--lh-accent);
+}
+.lh .inv-row[data-item-type='weapon'] .die-link:not([aria-disabled='true']) {
+  color: var(--lh-damage-color);
+  font-weight: 700;
 }
 .lh .inv-actions > * {
   grid-row: 1;
@@ -1993,8 +2121,9 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .die-link[aria-disabled='true']:hover {
   text-shadow: none;
 }
-.lh .inv-head .tw-muted[data-over='true'] {
+.lh .inv-slots[data-over='true'] {
   color: #b6453b;
+  border-color: currentColor;
   font-weight: 700;
 }
 
