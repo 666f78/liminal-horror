@@ -1,5 +1,66 @@
 # Changelog
 
+## [0.2.0]
+
+### Added
+
+- Added primary and offhand weapon assignment, with one-handed and two-handed weapons respecting hand occupancy on actor and item sheets
+- Added automatic dual-wielding attacks from either equipped weapon, rolling both weapons and keeping the highest result
+- Added GM world settings for offhand die reduction and a minimum die of 1d2 or 1d4, with reduction enabled and a 1d2 minimum by default
+- Added independent spell equipping without occupying weapon hands
+- Added compact 1H / 2H labels beside weapon names with localized handedness tooltips
+- Added editable item images through Foundry's native image picker, available by clicking the image or using the keyboard
+- Added independent physical and stress protection values to armor items, with zero stress protection for existing armor
+- Added type-specific monochrome Foundry SVG icons when creating items in the world or on actors, replacing missing/default bag images while preserving custom and catalog images
+
+### Changed
+
+- Aligned inventory values, equipment controls, and edit/delete actions in consistent columns on investigator and monster sheets
+- Updated equipment chat cards with item- and hand-specific icons, paired hand icons for two-handed weapons, and distinct green/check and gray/minus equipped and unequipped states
+- Simplified dual-wielding chat cards and displayed their formulas as `(1d4, 1d4)kh` while preserving native roll calculations and expandable dice results
+- Highlighted weapon damage totals in muted red
+- Localized weapon handedness, hand selection, dual-wielding labels, and related settings in English and Ukrainian
+- Redesigned item sheets with an image and name header, compact parameter grids, grouped price and inventory slots, and a full-width description while preserving the existing palette and styling
+- Combined equipment changes into one chat message per action, listing removed items before equipped items with their individual icons and state colors
+- Kept ordinary weapon edits silent in chat when equipment state, hand assignment, and handedness remain unchanged
+- Refined investigator and monster inventories with item images, item types in tooltips, a separate 1H / 2H column, softer row separators, and clearer equipped weapon damage
+- Standardized inventory action icons to the existing charcoal color (`#2a2a2a`) while retaining muted inactive states
+- Restyled inventory sorting and slot usage as two matching compact controls, retaining the red overloaded state
+- Replaced the browser's inventory sorting dropdown with a themed popover menu featuring a selected-item checkmark, keyboard navigation, and automatic dismissal
+- Applied the same themed menus to weapon grip and hand selection on item sheets
+- Extended automatic armor calculation to update physical armor and Stability independently from equipped armor items; both totals are read-only in automatic mode and editable in manual mode on investigator and monster sheets
+- Added distinct physical and stress protection icons and values to armor inventory rows and equipment chat cards
+- Localized physical and stress protection fields, automatic Stability tooltips, and the updated calculation setting hint in English and Ukrainian
+- Adapted standard and backstory item creation to current item fields and built-in monochrome Foundry SVG icons, assigning two-handed weapons when they occupy two or more slots
+- Classified the Ancient Amulet as stress-protecting armor and the Flashbang as gear without a damage roll
+- Removed red highlights from actor sheet tabs and changed inventory weapon attack dice to regular-weight charcoal text
+- Replaced armor and Stability automation gears with compact raised asterisks while retaining their tooltips
+- Muted physical and stress protection icons when armor is unequipped, matching inactive equipment controls
+- Renamed the sidebar action to `Generate Investigator` / `Згенерувати дослідника`
+- Restyled Party Overview statuses with neutral gray icons and labels without badge backgrounds, including neutral tooltip icons and smaller, borderless `+N` controls for additional statuses
+- Redesigned the README with updated feature descriptions, installation and getting-started instructions, and six screenshots covering investigator sheets, generation, Party Overview, item sheets, and the compendium
+
+### Fixed
+
+- Blocked weapon and spell attacks while unequipped, with disabled inventory controls and validation for macro/API calls
+- Fixed automatically unequipped weapons missing from replacement notifications, reporting only successfully updated items in the combined message
+- Fixed empty weapon and spell damage fields disappearing from item sheets
+- Fixed Handlebars attributes and selected options that caused Prettier's template parser to fail
+- Removed the extra outline around the sorting control and replaced the menu's red focus highlight with charcoal selection and keyboard focus outlines
+- Positioned selection menus before their first visible frame and closed them when dragging or resizing their sheet windows
+- Recalculated both protection totals when armor is equipped, unequipped, edited, or deleted
+- Fixed automation indicators overlapping localized armor and Stability labels or affecting their container widths on investigator and monster sheets
+- Fixed system update chat links overflowing with longer Ukrainian labels by allowing centered wrapping within the message width
+
+### Removed
+
+- Removed the startup "Liminal Horror ready" notification
+- Removed left-side accent borders from all chat messages, including whispers, while preserving their standard outer borders
+
+### Acknowledgments
+
+- Thanks to @CodaBool
+
 ## [0.1.6]
 
 ### Added

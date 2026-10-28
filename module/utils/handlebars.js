@@ -1,4 +1,19 @@
 export function registerHandlebars() {
+  Handlebars.registerHelper('lhDualWieldingFormula', function (formula) {
+    if (typeof formula !== 'string' || !formula.startsWith('{')) return formula;
+    const roll = new Roll(formula);
+    const pool = roll.terms[0];
+    if (
+      roll.terms.length !== 1 ||
+      !(pool instanceof foundry.dice.terms.PoolTerm) ||
+      pool.rolls.length !== 2 ||
+      pool.modifiers.length !== 1 ||
+      pool.modifiers[0] !== 'kh1'
+    )
+      return formula;
+    return `(${pool.rolls.map((weaponRoll) => weaponRoll.formula).join(', ')})kh`;
+  });
+
   Handlebars.registerHelper('pluralize', function (word, count) {
     if (typeof count !== 'number') count = Number(count) || 0;
     return count === 1 ? word : word + 's';

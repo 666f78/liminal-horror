@@ -3,17 +3,18 @@ import { renderResultRollCard } from '../utils/chat-card.js';
 import { sendRollMessage } from '../utils/chat.js';
 import { t } from '../utils/i18n.js';
 import { INVESTIGATOR_BACKSTORY_COUNT } from './investigator-generator.js';
+import { prepareCatalogItem } from './item-defaults.js';
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
 function gear(name, slotSize = 1, ignoreSlots = false) {
-  return { name, type: 'gear', system: { slotSize, ignoreSlots } };
+  return prepareCatalogItem({ name, type: 'gear', system: { slotSize, ignoreSlots } });
 }
 function armor(name, armorValue = 1, equipped, slotSize = 1) {
-  return { name, type: 'armor', system: { armorValue, equipped, slotSize, ignoreSlots: false } };
+  return prepareCatalogItem({ name, type: 'armor', system: { armorValue, equipped, slotSize, ignoreSlots: false } });
 }
 function weapon(name, die = '1d6') {
-  return { name, type: 'weapon', system: { damageDie: die, slotSize: 1, ignoreSlots: false } };
+  return prepareCatalogItem({ name, type: 'weapon', system: { damageDie: die, slotSize: 1, ignoreSlots: false } });
 }
 
 const RAW_BACKSTORIES = [

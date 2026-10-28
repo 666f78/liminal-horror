@@ -20,6 +20,7 @@
   --lh-bg-whisper: #ece9f6;
   --lh-text-main: #0f1115;
   --lh-text-muted: rgba(0, 0, 0, 0.58);
+  --lh-damage-color: #a13d35;
   --lh-text-light: #f5f5f5;
   --lh-border: rgba(0, 0, 0, 0.14);
   --lh-border-strong: rgba(0, 0, 0, 0.28);
@@ -375,7 +376,8 @@ body.game .window-app.lh-update-dialog .dialog-content {
 
 .lh-update-chat-links .lh-update-links {
   align-self: center;
-  flex-wrap: nowrap;
+  max-width: 100%;
+  justify-content: center;
   gap: 6px;
 }
 
@@ -835,19 +837,63 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 
 .lh .lh-item .item-card {
   display: grid;
-  gap: 10px;
+  gap: 14px;
   width: 100%;
   background: var(--lh-bg-card);
   border: 1px solid var(--lh-border);
   border-radius: var(--lh-radius-card);
-  padding: 10px;
+  padding: 14px;
   box-shadow: 0 1px 0 var(--lh-shadow-light);
 }
 
 .lh .lh-item .item-header {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: 72px minmax(0, 1fr);
   align-items: center;
+  gap: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--lh-border);
+}
+
+.lh .lh-item .item-artwork {
+  position: relative;
+  width: 72px;
+  height: 72px;
+}
+
+.lh .lh-item .item-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 4px;
+  object-fit: contain;
+  border: 1px solid var(--lh-border-strong);
+  border-radius: var(--lh-radius);
+  background: var(--lh-bg-pill);
+  cursor: pointer;
+}
+
+.lh .lh-item .item-image[aria-disabled='true'] {
+  cursor: default;
+}
+
+.lh .lh-item .item-image:not([aria-disabled='true']):hover,
+.lh .lh-item .item-image:focus-visible {
+  outline: 1px solid var(--lh-text-muted);
+  outline-offset: 2px;
+}
+
+.lh .lh-item .item-identity {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.lh .lh-item .item-header-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -871,10 +917,32 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   padding: 4px 8px;
 }
 
+.lh .lh-item .item-name-input {
+  height: 38px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
 .lh .lh-item .item-textarea {
-  min-height: 64px;
-  padding: 6px 8px;
+  min-height: 96px;
+  padding: 8px 10px;
   resize: vertical;
+}
+.lh .lh-item .item-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  text-align: left;
+  box-shadow: none;
+}
+.lh .lh-item .item-select-trigger > i {
+  flex: none;
+  color: var(--lh-accent);
+  font-size: 0.65rem;
+}
+.lh .lh-item .item-select-trigger:hover {
+  background: var(--lh-bg-hover);
 }
 
 .lh .lh-item .item-name-input:focus,
@@ -889,31 +957,31 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   color: var(--lh-text-muted);
   font-size: 0.78rem;
   line-height: 1;
-  text-transform: lowercase;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
 .lh .lh-item .item-fields {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.lh .lh-item .item-fields-single {
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px 12px;
 }
 
 .lh .lh-item .item-panel,
-.lh .lh-item .item-carry-panel {
+.lh .lh-item .item-carry-panel,
+.lh .lh-item .item-description {
   display: grid;
   align-content: start;
-  gap: 7px;
+  gap: 10px;
   min-width: 0;
 }
 
-.lh .lh-item .item-carry-panel {
+.lh .lh-item .item-carry-panel,
+.lh .lh-item .item-description {
   border-top: 1px solid var(--lh-border);
-  padding-top: 8px;
+  padding-top: 12px;
 }
 
 .lh .lh-item .item-section-title {
@@ -927,23 +995,28 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 
 .lh .lh-item .item-form-row {
   display: grid;
-  gap: 3px;
+  gap: 5px;
+  min-width: 0;
+  margin: 0;
 }
 
-.lh .lh-item .item-form-group {
-  display: flex;
-  align-items: center;
-  min-height: 24px;
+.lh .lh-item .item-form-wide {
+  grid-column: 1 / -1;
 }
 
-.lh .lh-item .item-form-group label {
+.lh .lh-item .item-label {
+  color: var(--lh-text-muted);
+  font-size: 0.8rem;
+}
+
+.lh .lh-item .item-checkbox {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   margin: 0;
-}
-
-.lh .lh-item .item-checkbox {
+  justify-self: start;
+  color: var(--lh-text-muted);
+  font-size: 0.8rem;
   cursor: pointer;
   line-height: 1.2;
 }
@@ -993,11 +1066,6 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   outline-offset: 2px;
 }
 
-@media (max-width: 700px) {
-  .lh .lh-item .item-fields {
-    grid-template-columns: 1fr;
-  }
-}
 /* ===== Form Inputs ===== */
 .lh input,
 .lh textarea {
@@ -1269,14 +1337,19 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh.lh-monster-sheet .monster-label-rollable:hover i {
   opacity: 1;
 }
+.lh .armor-auto-label {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
 .lh .armor-auto-icon {
   position: absolute;
-  top: 5px;
-  right: 13px;
+  top: 0;
+  left: calc(100% + 1px);
   width: auto;
   height: auto;
   color: var(--lh-text-light);
-  font-size: 6px;
+  font-size: 9px;
   line-height: 1;
   opacity: 0.5;
   pointer-events: auto;
@@ -1435,11 +1508,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .tabs .item:hover,
 .lh .tabs .item.active {
   color: var(--lh-text-main);
-}
-.lh .tabs .item.active {
-  text-shadow:
-    0 0 4px rgba(200, 0, 0, 0.56),
-    0 0 7px rgba(200, 0, 0, 0.26);
+  text-shadow: none;
 }
 .lh .tabs .item::after {
   content: '';
@@ -1475,19 +1544,46 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 /* ===== Inventory ===== */
 .lh .inv-head {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
   margin: 4px 0 6px;
 }
 .lh .inv-meta {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
+  margin-left: auto;
 }
-.lh .inv-sort {
+.lh .inv-sort,
+.lh .inv-slots {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--lh-border);
+  border-radius: var(--lh-radius-sm);
+  background: var(--lh-bg-btn);
+  color: var(--lh-accent);
+  font-size: 0.75rem;
+}
+.lh .inv-slots {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.lh .inv-sort-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+}
+.lh .inv-sort-icon i,
+.lh .inv-slots > i {
+  font-size: 0.8rem;
 }
 .lh .inv-sort-direction {
   height: 18px;
@@ -1497,7 +1593,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   border: 0;
   border-radius: 0;
   background: transparent;
-  color: var(--lh-text-main);
+  color: var(--lh-accent);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1512,50 +1608,108 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   font-size: 0.72rem;
   line-height: 1;
   pointer-events: none;
-  opacity: 0.72;
 }
 .lh .inv-sort-select {
-  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 100%;
+  min-height: 0;
   min-width: 118px;
-  padding: 0 24px 0 6px;
-  border: 1px solid var(--lh-border);
-  border-radius: 6px;
-  background: var(--lh-bg-btn);
-  background-image:
-    linear-gradient(45deg, transparent 50%, var(--lh-text-muted) 50%),
-    linear-gradient(135deg, var(--lh-text-muted) 50%, transparent 50%);
-  background-position:
-    calc(100% - 12px) calc(50% - 1px),
-    calc(100% - 8px) calc(50% - 1px);
-  background-size:
-    4px 4px,
-    4px 4px;
-  background-repeat: no-repeat;
-  color: var(--lh-text-main);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
   font: inherit;
   font-size: 0.75rem;
   appearance: none;
   -webkit-appearance: none;
   box-shadow: none;
 }
-.lh .inv-sort-select:focus {
-  outline: 1px solid var(--lh-text-muted);
-  box-shadow: 0 0 6px var(--color-shadow-primary);
-  outline-offset: 1px;
+.lh .inv-sort-select > i {
+  font-size: 0.6rem;
 }
-.lh .inv-sort-select option {
+.lh .inv-sort-select:hover {
+  background: transparent;
+  box-shadow: none;
+}
+.lh .inv-sort-select:focus {
+  outline: none;
+  box-shadow: none;
+}
+.lh.lh-select-menu {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  padding: 4px;
+  max-width: calc(100vw - 16px);
+  overflow-y: auto;
+  border: 1px solid var(--lh-border-strong);
+  border-radius: var(--lh-radius-sm);
   background: var(--lh-bg-card);
-  color: var(--lh-text-main);
+  box-shadow: 0 4px 12px var(--lh-shadow-dark);
+  color: var(--lh-accent);
+  font-family: var(--font-primary);
+}
+.lh.lh-select-menu[data-measuring='true'] {
+  opacity: 0;
+}
+.lh.lh-select-menu:is(:popover-open, [data-measuring='true']) {
+  display: grid;
+  gap: 2px;
+}
+.lh.lh-select-menu > button {
+  --button-focus-outline-color: var(--lh-accent);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  min-height: 28px;
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  box-shadow: none;
+  color: inherit;
+  font: inherit;
+  font-size: 0.75rem;
+  text-align: left;
+  white-space: nowrap;
+}
+.lh.lh-select-menu > button:is(:hover, :focus-visible) {
+  outline: none;
+  background: var(--lh-bg-hover);
+  box-shadow: none;
+}
+.lh.lh-select-menu > button[aria-checked='true'] {
+  outline: 1px solid var(--lh-accent);
+  outline-offset: -1px;
+  font-weight: 700;
+}
+.lh.lh-select-menu > button:focus {
+  outline: 1px solid var(--lh-accent);
+  outline-offset: -1px;
+  box-shadow: none;
+}
+.lh.lh-select-menu > button[aria-checked='false'] > i {
+  visibility: hidden;
 }
 .lh .inv-row {
   display: grid;
-  grid-template-columns: 18px 1fr auto;
-  gap: 6px;
+  grid-template-columns: 24px minmax(0, 1fr) 24px auto;
+  gap: 8px;
   align-items: center;
   padding: 6px 8px;
-  border-top: 1px solid var(--lh-border-strong);
+  border-top: 1px solid var(--lh-border);
+  border-left: 3px solid transparent;
   background: var(--lh-bg-inventory);
   font-size: 0.95rem;
+}
+.lh .inv-row[data-sortable='true'] {
+  grid-template-columns: 46px minmax(0, 1fr) 24px auto;
 }
 .lh .inv-row[data-sortable='true'].is-dragging {
   opacity: 0.55;
@@ -1563,16 +1717,25 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .inv-carry {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   min-width: 0;
+}
+.lh .inv-image {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  border: 1px solid var(--lh-border);
+  border-radius: 3px;
+  background: var(--lh-bg-pill);
 }
 .lh .inv-drag-handle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 16px;
+  flex: none;
   min-height: 18px;
-  margin-left: -2px;
   color: var(--lh-text-muted);
   cursor: grab;
   opacity: 0.42;
@@ -1598,14 +1761,22 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   background: var(--lh-bg-hover);
 }
 .lh .inv-row[data-equipped='true'] {
-  background: rgba(0, 0, 0, 0.02);
-  border-left: 3px solid var(--lh-accent);
+  background: var(--lh-bg-hover);
+  border-left-color: var(--lh-accent);
 }
 .lh .inv-main {
   display: flex;
   gap: 6px;
   align-items: baseline;
   min-width: 0;
+}
+.lh .inv-grip {
+  text-align: center;
+  white-space: nowrap;
+}
+.lh .inv-main .item-slots {
+  flex: none;
+  color: var(--lh-text-muted);
 }
 .lh .inv-main .entity-link {
   white-space: nowrap;
@@ -1614,10 +1785,10 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh .inv-main .inv-name-toggle {
   display: inline-block;
-  flex: 0 0 auto;
+  flex: 0 1 auto;
   width: auto;
   min-width: 0;
-  max-width: none;
+  max-width: 100%;
   margin: 0;
   padding: 0 0.45em 0 0;
   border: 0;
@@ -1665,8 +1836,11 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   color: var(--lh-text-main);
 }
 .lh .inv-desc {
-  padding: 4px 8px 8px 32px;
+  padding: 4px 8px 8px 43px;
   background: var(--lh-bg-inventory);
+}
+.lh .inv-row[data-sortable='true'] + .inv-desc {
+  padding-left: 65px;
 }
 .lh .inv-desc.is-collapsed {
   display: none;
@@ -1690,9 +1864,52 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   margin-bottom: 0;
 }
 .lh .inv-actions {
-  display: flex;
+  display: grid;
+  grid-template-columns: 60px repeat(4, 16px);
   gap: 8px;
   align-items: center;
+}
+.lh .inv-actions i {
+  color: var(--lh-accent);
+}
+.lh .inv-row[data-item-type='weapon'] .die-link:not([aria-disabled='true']) {
+  color: var(--lh-accent);
+}
+.lh .inv-actions > * {
+  grid-row: 1;
+  justify-self: center;
+}
+.lh .inv-stat {
+  display: flex;
+  grid-column: 1;
+  justify-self: stretch;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.lh .inv-stat-armor {
+  flex-wrap: wrap;
+  gap: 4px 6px;
+}
+.lh .armor-protection {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.75rem;
+}
+.lh .inv-actions > .equip-toggle {
+  grid-column: 2;
+}
+.lh .inv-actions > .equip-toggle[data-hand='off'],
+.lh .inv-actions > .equip-toggle:not([data-hand]) {
+  grid-column: 3;
+}
+.lh .inv-actions > .item-edit {
+  grid-column: 4;
+}
+.lh .inv-actions > .item-delete {
+  grid-column: 5;
 }
 .lh .armor-badge {
   cursor: pointer;
@@ -1904,11 +2121,21 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .equip-toggle[data-equipped='true'] i {
   opacity: 1;
 }
-.lh .equip-toggle[data-equipped='false'] i {
+.lh .equip-toggle[data-equipped='false'] i,
+.lh .inv-row[data-item-type='armor'][data-equipped='false'] .armor-protection i {
   opacity: 0.3;
 }
-.lh .inv-head .tw-muted[data-over='true'] {
+.lh .die-disabled {
+  color: var(--lh-text-muted);
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+.lh .die-link[aria-disabled='true']:hover {
+  text-shadow: none;
+}
+.lh .inv-slots[data-over='true'] {
   color: #b6453b;
+  border-color: currentColor;
   font-weight: 700;
 }
 
@@ -1934,46 +2161,24 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   padding-top: 7px;
 }
 
-.chat-message:not(.whisper):has(.result-roll-card--success),
-.chat-message:not(.whisper):has(.result-roll-card--good),
-.chat-message:not(.whisper):has(.action-card--good) {
-  border-left: 3px solid #5c8464;
-}
-
-.chat-message:not(.whisper):has(.result-roll-card--critical-success) {
-  border-left: 3px solid #257b2f;
-}
-
-.chat-message:not(.whisper):has(.result-roll-card--mixed),
-.chat-message:not(.whisper):has(.action-card--mixed) {
-  border-left: 3px solid #ad812c;
-}
-
-.chat-message:not(.whisper):has(.result-roll-card--failure),
-.chat-message:not(.whisper):has(.result-roll-card--bad),
-.chat-message:not(.whisper):has(.action-card--bad) {
-  border-left: 3px solid #b6453b;
-}
-
-.chat-message:not(.whisper):has(.result-roll-card--critical-failure) {
-  border-left: 3px solid #000000;
-}
-
 .lh.result-roll-card,
 .lh.action-card {
-  --lh-roll-color: #a13d35;
+  --lh-roll-color: var(--lh-damage-color);
   color: var(--lh-text-main);
   font-size: 0.9rem;
 }
 
 .lh.action-card--neutral,
+.lh.action-card--unequipped,
+.lh.result-roll-card--damage,
 .lh.result-roll-card--neutral {
   --lh-roll-color: var(--lh-text-muted);
 }
 
 .lh.result-roll-card--success,
 .lh.result-roll-card--good,
-.lh.action-card--good {
+.lh.action-card--good,
+.lh.action-card--equipped {
   --lh-roll-color: #426e4b;
 }
 
@@ -2078,6 +2283,10 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   line-height: 1.1;
 }
 
+.lh.result-roll-card--damage .dice-total {
+  color: var(--lh-damage-color);
+}
+
 .lh.result-roll-card--critical-failure .lh-result-roll__result .dice-formula {
   color: #fff;
 }
@@ -2136,10 +2345,56 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   min-height: 60px;
 }
 
+.lh-equipment-change {
+  display: grid;
+  gap: 12px;
+}
+
+.lh-equipment-change__items {
+  display: grid;
+  gap: 6px;
+}
+
 .lh-action-card__icon {
   color: var(--lh-roll-color);
   font-size: 1.4rem;
   text-align: center;
+}
+
+.lh-action-card__icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 1rem;
+}
+
+.lh.action-card:is(.action-card--equipped, .action-card--unequipped) .lh-action-card__icon {
+  position: relative;
+}
+
+.lh.action-card:is(.action-card--equipped, .action-card--unequipped) .lh-action-card__icon::after {
+  position: absolute;
+  right: 0;
+  bottom: -4px;
+  display: grid;
+  place-items: center;
+  width: 14px;
+  height: 14px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: var(--lh-bg-card);
+  font-family: var(--font-primary);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.lh.action-card--equipped .lh-action-card__icon::after {
+  content: '\2713';
+}
+
+.lh.action-card--unequipped .lh-action-card__icon::after {
+  content: '\2212';
 }
 
 .lh-action-card__body {
@@ -2242,7 +2497,6 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .chat-message.whisper {
   background: none !important;
   background-color: var(--lh-bg-whisper) !important;
-  border-left: 3px solid var(--lh-accent-strong);
   box-shadow: inset 0 0 0 1px rgba(17, 17, 17, 0.08);
 }
 .chat-message.whisper .message-header {
@@ -2775,7 +3029,7 @@ button[data-tool^='lh-']:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 3px;
   min-width: 90px;
   white-space: nowrap;
 }
@@ -2788,23 +3042,10 @@ button[data-tool^='lh-']:hover {
   gap: 5px;
 }
 
-.lh-party-status[data-status='dead'],
-.lh-party-status-detail[data-status='dead'] {
-  --lh-status-color: #b6453b;
-}
-
-.lh-party-status[data-status='paralysis'],
-.lh-party-status-detail[data-status='paralysis'],
-.lh-party-status[data-status='deprived'],
-.lh-party-status-detail[data-status='deprived'] {
-  --lh-status-color: #9b5d0c;
-}
-
 .lh-party-status {
   padding: 3px 6px;
   border-radius: 999px;
   color: var(--lh-status-color);
-  background: color-mix(in srgb, var(--lh-status-color) 12%, var(--lh-bg-card));
   font-size: 0.75rem;
 }
 
@@ -2832,23 +3073,26 @@ button[data-tool^='lh-']:hover {
   height: auto;
   min-height: 0;
   margin: 0;
-  padding: 2px 6px;
-  border: 1px solid var(--lh-border-strong);
-  border-radius: 999px;
+  padding: 2px 0;
+  border: 0;
+  border-radius: 0;
   color: var(--lh-text-muted);
   background: transparent;
   box-shadow: none;
   text-shadow: none;
   font-family: inherit;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   line-height: normal;
 }
 
 .lh-party-table button.lh-party-status-more:hover,
 .lh-party-table button.lh-party-status-more:focus-visible {
   color: var(--lh-text-main);
-  border-color: var(--lh-accent-strong);
-  background: var(--lh-bg-hover);
+}
+
+.lh-party-table button.lh-party-status-more:focus-visible {
+  outline: 1px solid var(--lh-text-muted);
+  outline-offset: 2px;
 }
 
 #tooltip.lh-party-status-tooltip,
@@ -2864,20 +3108,8 @@ button[data-tool^='lh-']:hover {
 }
 
 .lh-party-status-tooltip .lh-party-status-detail {
-  white-space: nowrap;
-}
-
-.lh-party-status-tooltip .lh-party-status-detail[data-status='lost'] {
   --lh-status-color: #aaa;
-}
-
-.lh-party-status-tooltip .lh-party-status-detail[data-status='dead'] {
-  --lh-status-color: #ff6860;
-}
-
-.lh-party-status-tooltip .lh-party-status-detail[data-status='paralysis'],
-.lh-party-status-tooltip .lh-party-status-detail[data-status='deprived'] {
-  --lh-status-color: #f59e42;
+  white-space: nowrap;
 }
 
 .lh-party-member-options {

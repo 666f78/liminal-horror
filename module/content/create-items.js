@@ -1,5 +1,6 @@
 import { dLog, dWarn, withGroup } from '../utils/debug.js';
 import { t } from '../utils/i18n.js';
+import { prepareCatalogItem } from './item-defaults.js';
 
 const FOLDERS = {
   ROOT: 'LH.folders.root',
@@ -11,42 +12,13 @@ const FOLDERS = {
   CONDITION: 'LH.folders.condition',
 };
 
-const buildArmorDefaults = () => ({
-  slotSize: 1,
-  ignoreSlots: false,
-  description: '',
-  armorValue: 0,
-  equipped: false,
-  price: 0,
-});
-
-const buildWeaponDefaults = () => ({
-  slotSize: 1,
-  ignoreSlots: false,
-  description: '',
-  damageDie: '1d0',
-  equipped: false,
-  price: 0,
-});
-
-const buildGearDefaults = () => ({
-  slotSize: 1,
-  ignoreSlots: false,
-  description: '',
-  price: 0,
-  usesMax: 0,
-  usesCurrent: 0,
-});
-
-const buildConditionDefaults = () => ({ slotSize: 1, ignoreSlots: false, description: '' });
-
 const ITEM_GROUPS = [
-  { folderKey: FOLDERS.ARMOR, buildDefaults: buildArmorDefaults, getItems: () => ARMOR_LIST },
-  { folderKey: FOLDERS.WEAPON, buildDefaults: buildWeaponDefaults, getItems: () => WEAPON_LIST },
-  { folderKey: FOLDERS.EXPLOSIVE, buildDefaults: buildWeaponDefaults, getItems: () => EXPLOSIVE_LIST },
-  { folderKey: FOLDERS.PHARMA, buildDefaults: buildGearDefaults, getItems: () => PHARMA_LIST },
-  { folderKey: FOLDERS.GEAR, buildDefaults: buildGearDefaults, getItems: () => GEAR_LIST },
-  { folderKey: FOLDERS.CONDITION, buildDefaults: buildConditionDefaults, getItems: () => CONDITION_LIST },
+  { folderKey: FOLDERS.ARMOR, getItems: () => ARMOR_LIST },
+  { folderKey: FOLDERS.WEAPON, getItems: () => WEAPON_LIST },
+  { folderKey: FOLDERS.EXPLOSIVE, getItems: () => EXPLOSIVE_LIST },
+  { folderKey: FOLDERS.PHARMA, getItems: () => PHARMA_LIST },
+  { folderKey: FOLDERS.GEAR, getItems: () => GEAR_LIST },
+  { folderKey: FOLDERS.CONDITION, getItems: () => CONDITION_LIST },
 ];
 
 const LOCALIZATION_PREFIX = 'LH.';
@@ -60,13 +32,12 @@ function localizeDescription(description) {
   return isLocalizationKey(description) ? t(description) : description;
 }
 
-function prepareItemData(item, buildDefaults, folderId) {
-  const { system: itemSystem = {}, ...rest } = item;
+function prepareItemData(item, folderId) {
+  const { system: itemSystem, ...rest } = prepareCatalogItem(item);
   const localizedName = t(rest.name);
   const localizedDescription = localizeDescription(itemSystem.description);
 
   const system = {
-    ...buildDefaults(),
     ...itemSystem,
     ...(localizedDescription ? { description: localizedDescription } : {}),
   };
@@ -106,12 +77,12 @@ async function ensureFolder(name, type = 'Item', { parent = null, color = null, 
   return folder;
 }
 
-async function createGroup({ folderName, buildDefaults, items, parentId, existingKeys }) {
+async function createGroup({ folderName, items, parentId, existingKeys }) {
   const folder = await ensureFolder(folderName, 'Item', { parent: parentId });
 
   const payload = [];
   for (const item of items) {
-    const data = prepareItemData(item, buildDefaults, folder.id);
+    const data = prepareItemData(item, folder.id);
     const key = fingerprint(data.type, data.name);
     if (existingKeys.has(key)) continue;
     existingKeys.add(key);
@@ -137,7 +108,6 @@ export async function createItems() {
         const folderName = t(group.folderKey);
         await createGroup({
           folderName,
-          buildDefaults: group.buildDefaults,
           items: group.getItems(),
           parentId: rootFolder.id,
           existingKeys,
@@ -152,7 +122,7 @@ export async function createItems() {
 
 const ARMOR_LIST = [
   { name: 'LH.armor.armoredVest', type: 'armor', system: { armorValue: 1, price: 500 } },
-  { name: 'LH.armor.ancientAmulet', type: 'gear', system: { stabilityBonus: 1, price: 3000 } },
+  { name: 'LH.armor.ancientAmulet', type: 'armor', system: { armorValue: 0, stressProtection: 1, price: 3000 } },
   { name: 'LH.armor.gasMask', type: 'armor', system: { armorValue: 0, price: 150 } },
   { name: 'LH.armor.facemask', type: 'armor', system: { armorValue: 0, price: 20 } },
 ];
@@ -216,8 +186,8 @@ const EXPLOSIVE_LIST = [
   },
   {
     name: 'LH.explosive.flashbang',
-    type: 'weapon',
-    system: { damageDie: '1d0', price: 75, description: 'LH.explosive.flashbangDesc' },
+    type: 'gear',
+    system: { price: 75, description: 'LH.explosive.flashbangDesc' },
   },
   {
     name: 'LH.explosive.grenade',
