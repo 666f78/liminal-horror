@@ -30,6 +30,8 @@
 - Extended automatic armor calculation to update physical armor and Stability independently from equipped armor items; both totals are read-only in automatic mode and editable in manual mode on investigator and monster sheets
 - Added distinct physical and stress protection icons and values to armor inventory rows and equipment chat cards
 - Localized physical and stress protection fields, automatic Stability tooltips, and the updated calculation setting hint in English and Ukrainian
+- Adapted standard and backstory item creation to current item fields and built-in monochrome Foundry SVG icons, assigning two-handed weapons when they occupy two or more slots
+- Classified the Ancient Amulet as stress-protecting armor and the Flashbang as gear without a damage roll
 
 ### Fixed
 
