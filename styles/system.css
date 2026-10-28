@@ -2161,36 +2161,6 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   padding-top: 7px;
 }
 
-.chat-message:not(.whisper):has(.result-roll-card--success),
-.chat-message:not(.whisper):has(.result-roll-card--good),
-.chat-message:not(.whisper):has(.action-card--good),
-.chat-message:not(.whisper):has(.action-card--equipped) {
-  border-left: 3px solid #5c8464;
-}
-
-.chat-message:not(.whisper):has(.action-card--unequipped):not(:has(.action-card--equipped)) {
-  border-left: 3px solid var(--lh-text-muted);
-}
-
-.chat-message:not(.whisper):has(.result-roll-card--critical-success) {
-  border-left: 3px solid #257b2f;
-}
-
-.chat-message:not(.whisper):has(.result-roll-card--mixed),
-.chat-message:not(.whisper):has(.action-card--mixed) {
-  border-left: 3px solid #ad812c;
-}
-
-.chat-message:not(.whisper):has(.result-roll-card--failure),
-.chat-message:not(.whisper):has(.result-roll-card--bad),
-.chat-message:not(.whisper):has(.action-card--bad) {
-  border-left: 3px solid #b6453b;
-}
-
-.chat-message:not(.whisper):has(.result-roll-card--critical-failure) {
-  border-left: 3px solid #000000;
-}
-
 .lh.result-roll-card,
 .lh.action-card {
   --lh-roll-color: var(--lh-damage-color);
@@ -2527,7 +2497,6 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .chat-message.whisper {
   background: none !important;
   background-color: var(--lh-bg-whisper) !important;
-  border-left: 3px solid var(--lh-accent-strong);
   box-shadow: inset 0 0 0 1px rgba(17, 17, 17, 0.08);
 }
 .chat-message.whisper .message-header {
