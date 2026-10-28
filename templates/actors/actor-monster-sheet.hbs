@@ -72,14 +72,16 @@
       <!-- Armor -->
       <div class='monster-stat'>
         <div class='monster-label'>
-          {{localize (concat 'LH.ui.armor' item.system.state)}}
-          {{#if autoArmorCalculation}}
-            <i
-              class='fa-solid fa-gear armor-auto-icon'
-              aria-label='{{localize "LH.ui.autoArmorHint"}}'
-              title='{{localize "LH.ui.autoArmorHint"}}'
-            ></i>
-          {{/if}}
+          <span class='armor-auto-label'>
+            {{localize (concat 'LH.ui.armor' item.system.state)}}
+            {{#if autoArmorCalculation}}
+              <span
+                class='armor-auto-icon'
+                aria-label='{{localize "LH.ui.autoArmorHint"}}'
+                title='{{localize "LH.ui.autoArmorHint"}}'
+              >*</span>
+            {{/if}}
+          </span>
         </div>
         <div class='monster-values monster-values-single'>
           {{#if autoArmorCalculation}}
@@ -133,14 +135,16 @@
       <!-- Stability -->
       <div class='monster-stat'>
         <div class='monster-label'>
-          {{localize (concat 'LH.ui.stability' item.system.state)}}
-          {{#if autoArmorCalculation}}
-            <i
-              class='fa-solid fa-gear armor-auto-icon'
-              aria-label='{{localize "LH.ui.autoStressProtectionHint"}}'
-              title='{{localize "LH.ui.autoStressProtectionHint"}}'
-            ></i>
-          {{/if}}
+          <span class='armor-auto-label'>
+            {{localize (concat 'LH.ui.stability' item.system.state)}}
+            {{#if autoArmorCalculation}}
+              <span
+                class='armor-auto-icon'
+                aria-label='{{localize "LH.ui.autoStressProtectionHint"}}'
+                title='{{localize "LH.ui.autoStressProtectionHint"}}'
+              >*</span>
+            {{/if}}
+          </span>
         </div>
         <div class='monster-values monster-values-single'>
           {{#if autoArmorCalculation}}
@@ -317,9 +321,21 @@
             >
               <span>{{inventorySortLabel}}</span><i class='fas fa-chevron-down' aria-hidden='true'></i>
             </button>
-            <div id='{{rootId}}-inventory-sort' class='lh lh-select-menu' popover='auto' role='menu' aria-label='{{localize "LH.ui.sort"}}'>
+            <div
+              id='{{rootId}}-inventory-sort'
+              class='lh lh-select-menu'
+              popover='auto'
+              role='menu'
+              aria-label='{{localize "LH.ui.sort"}}'
+            >
               {{#each inventorySortOptions as |option|}}
-                <button type='button' role='menuitemradio' data-value='{{option.value}}' aria-checked='{{ifThen option.selected "true" "false"}}' tabindex='-1'>
+                <button
+                  type='button'
+                  role='menuitemradio'
+                  data-value='{{option.value}}'
+                  aria-checked='{{ifThen option.selected "true" "false"}}'
+                  tabindex='-1'
+                >
                   <span>{{option.label}}</span><i class='fas fa-check' aria-hidden='true'></i>
                 </button>
               {{/each}}
@@ -382,7 +398,10 @@
                   <span class='inv-name-label'>{{item.name}}</span>
                 </button>
               {{else}}
-                <span class='entity-link inv-name-static' title='{{item.name}} ({{localize (concat "TYPES.Item." item.type)}})'>{{item.name}}</span>
+                <span
+                  class='entity-link inv-name-static'
+                  title='{{item.name}} ({{localize (concat "TYPES.Item." item.type)}})'
+                >{{item.name}}</span>
               {{/if}}
               {{#unless item.system.ignoreSlots}}
                 <span class='item-slots' title='{{localize "LH.ui.slots"}}'>

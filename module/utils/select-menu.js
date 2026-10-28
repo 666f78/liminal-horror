@@ -33,72 +33,104 @@ export function bindSelectMenu(container, trigger, onSelect) {
     menu.style.top = `${openAbove ? rect.top - bounds.height - MENU_GAP : rect.bottom + MENU_GAP}px`;
   };
 
-  menu.addEventListener('beforetoggle', (event) => {
-    if (event.newState !== 'open') return;
-    menu.dataset.measuring = 'true';
-    try {
-      positionMenu();
-    } finally {
-      delete menu.dataset.measuring;
-    }
-  }, { signal });
-
-  menu.addEventListener('toggle', () => {
-    trigger.setAttribute('aria-expanded', String(isOpen()));
-    if (!isOpen()) return;
-    const selected = options.find((option) => option.getAttribute('aria-checked') === 'true');
-    (focusLast ? options.at(-1) : (selected ?? options[0]))?.focus();
-    focusLast = false;
-  }, { signal });
-
-  trigger.addEventListener('keydown', (event) => {
-    if (!['ArrowDown', 'ArrowUp'].includes(event.key)) return;
-    event.preventDefault();
-    event.stopPropagation();
-    focusLast = event.key === 'ArrowUp';
-    if (!isOpen()) menu.showPopover();
-  }, { signal });
-
-  menu.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' || event.key === 'Tab') {
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        event.stopPropagation();
+  menu.addEventListener(
+    'beforetoggle',
+    (event) => {
+      if (event.newState !== 'open') return;
+      menu.dataset.measuring = 'true';
+      try {
+        positionMenu();
+      } finally {
+        delete menu.dataset.measuring;
       }
+    },
+    { signal }
+  );
+
+  menu.addEventListener(
+    'toggle',
+    () => {
+      trigger.setAttribute('aria-expanded', String(isOpen()));
+      if (!isOpen()) return;
+      const selected = options.find((option) => option.getAttribute('aria-checked') === 'true');
+      (focusLast ? options.at(-1) : (selected ?? options[0]))?.focus();
+      focusLast = false;
+    },
+    { signal }
+  );
+
+  trigger.addEventListener(
+    'keydown',
+    (event) => {
+      if (!['ArrowDown', 'ArrowUp'].includes(event.key)) return;
+      event.preventDefault();
+      event.stopPropagation();
+      focusLast = event.key === 'ArrowUp';
+      if (!isOpen()) menu.showPopover();
+    },
+    { signal }
+  );
+
+  menu.addEventListener(
+    'keydown',
+    (event) => {
+      if (event.key === 'Escape' || event.key === 'Tab') {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        close(true);
+        return;
+      }
+      const index = options.indexOf(container.ownerDocument.activeElement);
+      const next = {
+        ArrowDown: (index + 1) % options.length,
+        ArrowUp: (index - 1 + options.length) % options.length,
+        Home: 0,
+        End: options.length - 1,
+      }[event.key];
+      if (next === undefined) return;
+      event.preventDefault();
+      event.stopPropagation();
+      options[next]?.focus();
+    },
+    { signal }
+  );
+
+  menu.addEventListener(
+    'click',
+    async (event) => {
+      const option = event.target.closest('[data-value]');
+      if (!option) return;
+      event.preventDefault();
+      event.stopPropagation();
       close(true);
-      return;
-    }
-    const index = options.indexOf(container.ownerDocument.activeElement);
-    const next = {
-      ArrowDown: (index + 1) % options.length,
-      ArrowUp: (index - 1 + options.length) % options.length,
-      Home: 0,
-      End: options.length - 1,
-    }[event.key];
-    if (next === undefined) return;
-    event.preventDefault();
-    event.stopPropagation();
-    options[next]?.focus();
-  }, { signal });
+      await onSelect(option.dataset.value);
+    },
+    { signal }
+  );
 
-  menu.addEventListener('click', async (event) => {
-    const option = event.target.closest('[data-value]');
-    if (!option) return;
-    event.preventDefault();
-    event.stopPropagation();
-    close(true);
-    await onSelect(option.dataset.value);
-  }, { signal });
-
-  menu.addEventListener('focusout', (event) => {
-    if (!menu.contains(event.relatedTarget) && event.relatedTarget !== trigger) close();
-  }, { signal });
-  container.addEventListener('pointerdown', (event) => {
-    if (!menu.contains(event.target) && !trigger.contains(event.target)) close();
-  }, { signal, capture: true });
-  container.addEventListener('scroll', (event) => {
-    if (!menu.contains(event.target)) close();
-  }, { signal, capture: true });
+  menu.addEventListener(
+    'focusout',
+    (event) => {
+      if (!menu.contains(event.relatedTarget) && event.relatedTarget !== trigger) close();
+    },
+    { signal }
+  );
+  container.addEventListener(
+    'pointerdown',
+    (event) => {
+      if (!menu.contains(event.target) && !trigger.contains(event.target)) close();
+    },
+    { signal, capture: true }
+  );
+  container.addEventListener(
+    'scroll',
+    (event) => {
+      if (!menu.contains(event.target)) close();
+    },
+    { signal, capture: true }
+  );
   view.addEventListener('resize', () => close(), { signal });
 
   return () => {

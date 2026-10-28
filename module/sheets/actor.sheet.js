@@ -307,7 +307,8 @@ export class LHActorSheet extends foundry.applications.api.HandlebarsApplication
       showInventorySortDirection: !['default', 'manual'].includes(inventorySort),
       inventorySort,
       inventorySortOptions,
-      inventorySortLabel: inventorySortOptions.find((option) => option.selected)?.label ?? t('LH.ui.inventorySort.default'),
+      inventorySortLabel:
+        inventorySortOptions.find((option) => option.selected)?.label ?? t('LH.ui.inventorySort.default'),
       inventorySortDirection,
       inventorySortDirectionTitle:
         inventorySortDirection === 'desc' ? t('LH.ui.inventorySort.descending') : t('LH.ui.inventorySort.ascending'),

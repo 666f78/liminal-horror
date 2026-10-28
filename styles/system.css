@@ -376,7 +376,8 @@ body.game .window-app.lh-update-dialog .dialog-content {
 
 .lh-update-chat-links .lh-update-links {
   align-self: center;
-  flex-wrap: nowrap;
+  max-width: 100%;
+  justify-content: center;
   gap: 6px;
 }
 
@@ -1336,14 +1337,19 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh.lh-monster-sheet .monster-label-rollable:hover i {
   opacity: 1;
 }
+.lh .armor-auto-label {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
 .lh .armor-auto-icon {
   position: absolute;
-  top: 5px;
-  right: 13px;
+  top: 0;
+  left: calc(100% + 1px);
   width: auto;
   height: auto;
   color: var(--lh-text-light);
-  font-size: 6px;
+  font-size: 9px;
   line-height: 1;
   opacity: 0.5;
   pointer-events: auto;
@@ -1502,11 +1508,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .tabs .item:hover,
 .lh .tabs .item.active {
   color: var(--lh-text-main);
-}
-.lh .tabs .item.active {
-  text-shadow:
-    0 0 4px rgba(200, 0, 0, 0.56),
-    0 0 7px rgba(200, 0, 0, 0.26);
+  text-shadow: none;
 }
 .lh .tabs .item::after {
   content: '';
@@ -1871,8 +1873,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   color: var(--lh-accent);
 }
 .lh .inv-row[data-item-type='weapon'] .die-link:not([aria-disabled='true']) {
-  color: var(--lh-damage-color);
-  font-weight: 700;
+  color: var(--lh-accent);
 }
 .lh .inv-actions > * {
   grid-row: 1;
@@ -2120,7 +2121,8 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .equip-toggle[data-equipped='true'] i {
   opacity: 1;
 }
-.lh .equip-toggle[data-equipped='false'] i {
+.lh .equip-toggle[data-equipped='false'] i,
+.lh .inv-row[data-item-type='armor'][data-equipped='false'] .armor-protection i {
   opacity: 0.3;
 }
 .lh .die-disabled {
@@ -3058,7 +3060,7 @@ button[data-tool^='lh-']:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 3px;
   min-width: 90px;
   white-space: nowrap;
 }
@@ -3071,23 +3073,10 @@ button[data-tool^='lh-']:hover {
   gap: 5px;
 }
 
-.lh-party-status[data-status='dead'],
-.lh-party-status-detail[data-status='dead'] {
-  --lh-status-color: #b6453b;
-}
-
-.lh-party-status[data-status='paralysis'],
-.lh-party-status-detail[data-status='paralysis'],
-.lh-party-status[data-status='deprived'],
-.lh-party-status-detail[data-status='deprived'] {
-  --lh-status-color: #9b5d0c;
-}
-
 .lh-party-status {
   padding: 3px 6px;
   border-radius: 999px;
   color: var(--lh-status-color);
-  background: color-mix(in srgb, var(--lh-status-color) 12%, var(--lh-bg-card));
   font-size: 0.75rem;
 }
 
@@ -3115,23 +3104,26 @@ button[data-tool^='lh-']:hover {
   height: auto;
   min-height: 0;
   margin: 0;
-  padding: 2px 6px;
-  border: 1px solid var(--lh-border-strong);
-  border-radius: 999px;
+  padding: 2px 0;
+  border: 0;
+  border-radius: 0;
   color: var(--lh-text-muted);
   background: transparent;
   box-shadow: none;
   text-shadow: none;
   font-family: inherit;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   line-height: normal;
 }
 
 .lh-party-table button.lh-party-status-more:hover,
 .lh-party-table button.lh-party-status-more:focus-visible {
   color: var(--lh-text-main);
-  border-color: var(--lh-accent-strong);
-  background: var(--lh-bg-hover);
+}
+
+.lh-party-table button.lh-party-status-more:focus-visible {
+  outline: 1px solid var(--lh-text-muted);
+  outline-offset: 2px;
 }
 
 #tooltip.lh-party-status-tooltip,
@@ -3147,20 +3139,8 @@ button[data-tool^='lh-']:hover {
 }
 
 .lh-party-status-tooltip .lh-party-status-detail {
-  white-space: nowrap;
-}
-
-.lh-party-status-tooltip .lh-party-status-detail[data-status='lost'] {
   --lh-status-color: #aaa;
-}
-
-.lh-party-status-tooltip .lh-party-status-detail[data-status='dead'] {
-  --lh-status-color: #ff6860;
-}
-
-.lh-party-status-tooltip .lh-party-status-detail[data-status='paralysis'],
-.lh-party-status-tooltip .lh-party-status-detail[data-status='deprived'] {
-  --lh-status-color: #f59e42;
+  white-space: nowrap;
 }
 
 .lh-party-member-options {

@@ -109,7 +109,7 @@
     },
     "sidebar": {
       "rollBackground": "Roll Investigator Background",
-      "generateActor": "Generate Actor",
+      "generateActor": "Generate Investigator",
       "createItems": "Create Default Items",
       "actionFailed": "Sidebar action failed"
     },

@@ -1,4 +1,4 @@
-import { MAX_SLOTS } from '../data/constants.js';
+import { ITEM_TYPE_ICONS, MAX_SLOTS } from '../data/constants.js';
 import { dLog, dWarn, withGroup } from '../utils/debug.js';
 
 const INVESTIGATOR_TYPE = 'investigator';
@@ -31,6 +31,10 @@ async function handleCreateItem(item) {
 
 export function registerItemsHook() {
   withGroup('itemsHook', () => {
+    Hooks.on('preCreateItem', (item) => {
+      const img = ITEM_TYPE_ICONS[item.type];
+      if (img && (!item.img || item.img === Item.DEFAULT_ICON)) item.updateSource({ img });
+    });
     Hooks.on('createItem', handleCreateItem);
   });
 }

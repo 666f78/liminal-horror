@@ -11,6 +11,7 @@
 - Added compact 1H / 2H labels beside weapon names with localized handedness tooltips
 - Added editable item images through Foundry's native image picker, available by clicking the image or using the keyboard
 - Added independent physical and stress protection values to armor items, with zero stress protection for existing armor
+- Added type-specific monochrome Foundry SVG icons when creating items in the world or on actors, replacing missing/default bag images while preserving custom and catalog images
 
 ### Changed
 
@@ -32,6 +33,11 @@
 - Localized physical and stress protection fields, automatic Stability tooltips, and the updated calculation setting hint in English and Ukrainian
 - Adapted standard and backstory item creation to current item fields and built-in monochrome Foundry SVG icons, assigning two-handed weapons when they occupy two or more slots
 - Classified the Ancient Amulet as stress-protecting armor and the Flashbang as gear without a damage roll
+- Removed red highlights from actor sheet tabs and changed inventory weapon attack dice to regular-weight charcoal text
+- Replaced armor and Stability automation gears with compact raised asterisks while retaining their tooltips
+- Muted physical and stress protection icons when armor is unequipped, matching inactive equipment controls
+- Renamed the sidebar action to `Generate Investigator` / `Згенерувати дослідника`
+- Restyled Party Overview statuses with neutral gray icons and labels without badge backgrounds, including neutral tooltip icons and smaller, borderless `+N` controls for additional statuses
 
 ### Fixed
 
@@ -42,6 +48,8 @@
 - Removed the extra outline around the sorting control and replaced the menu's red focus highlight with charcoal selection and keyboard focus outlines
 - Positioned selection menus before their first visible frame and closed them when dragging or resizing their sheet windows
 - Recalculated both protection totals when armor is equipped, unequipped, edited, or deleted
+- Fixed automation indicators overlapping localized armor and Stability labels or affecting their container widths on investigator and monster sheets
+- Fixed system update chat links overflowing with longer Ukrainian labels by allowing centered wrapping within the message width
 
 ### Removed
 
