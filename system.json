@@ -32,6 +32,11 @@
       "lang": "uk",
       "name": "Українська",
       "path": "lang/uk.json"
+    },
+    {
+      "lang": "pt-BR",
+      "name": "Português (Brasil)",
+      "path": "lang/pt-br.json"
     }
   ],
   "documentTypes": {
