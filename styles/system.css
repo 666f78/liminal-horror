@@ -47,7 +47,8 @@
   --lh-card-pad: 10px;
 }
 
-.lh .tiles > .tile:nth-child(even):lang(pt) {
+.lh .tiles > .tile:nth-child(even):lang(pt),
+.lh.lh-monster-sheet .monster-stats-grid > .monster-stat:nth-child(odd):lang(pt) {
   --lh-pill-w: 102px;
   --lh-pill-font: 0.75rem;
   --lh-pill-pad: 4px;
@@ -1317,8 +1318,6 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   gap: 6px;
   padding: 0 var(--lh-pill-pad);
   font-size: var(--lh-pill-font);
-  line-height: 1;
-  white-space: nowrap;
 }
 .lh .pill.rollable,
 .lh.lh-monster-sheet .monster-label-rollable {
@@ -1467,6 +1466,16 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh .tile > .deprived .checkbox {
   margin: 0;
+}
+
+.lh .tiles > .tile:nth-child(even):lang(pt) > .pill,
+.lh.lh-monster-sheet .monster-stats-grid > .monster-stat:nth-child(odd):lang(pt) > .monster-label {
+  line-height: 1;
+  white-space: nowrap;
+}
+.lh .tiles > .tile:nth-child(even):lang(pt) .num,
+.lh.lh-monster-sheet .monster-stats-grid > .monster-stat:nth-child(odd):lang(pt) .num {
+  padding-inline: 2px;
 }
 
 @media (max-width: 560px) {
