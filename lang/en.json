@@ -101,6 +101,10 @@
         "name": "Minimum offhand weapon die",
         "hint": "The minimum die size when reducing the offhand weapon's die: 1d2 or 1d4. Only applies when die reduction is enabled."
       },
+      "darkMode": {
+        "name": "Dark Mode",
+        "hint": "Use a dark color scheme for sheets, dialogs, and chat cards."
+      },
       "debug": {
         "name": "Enable Debug Logging",
         "hint": "Enable debug and hook logging (for developers only)",
