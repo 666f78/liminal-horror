@@ -7,7 +7,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Foundry-v14-2a2a2a" alt="Foundry v14" />
-    <img src="https://img.shields.io/badge/Languages-English%20%2F%20Українська-2a2a2a" alt="Languages: English and Ukrainian" />
+    <img src="https://img.shields.io/badge/Languages-English%20%2F%20Українська%20%2F%20Português%20%28Brasil%29-2a2a2a" alt="Languages: English, Ukrainian, and Brazilian Portuguese" />
     <img src="https://img.shields.io/badge/Release-Beta-2a2a2a" alt="Release: Beta" />
     <a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="https://img.shields.io/badge/License-CC%20BY--SA%204.0-2a2a2a" alt="License: CC BY-SA 4.0" /></a>
   </p>
@@ -22,7 +22,7 @@
 
 An **unofficial system** for playing [Liminal Horror](https://liminalhorrorrpg.com) in [Foundry Virtual Tabletop](https://foundryvtt.com). Manage investigators, roll saves and attacks, track equipment and protection, and generate characters with their backgrounds and starting items.
 
-Available in **English** and **Українська**. Designed for **Foundry VTT v14**.
+Available in **English**, **Українська**, and **Português (Brasil)**. Designed for **Foundry VTT v14**.
 
 > This is an independent adaptation by **D.H. / 666f78**, not affiliated with or endorsed by the creators of Liminal Horror.
 
@@ -141,7 +141,7 @@ See [CHANGELOG.md](CHANGELOG.md) for release notes and completed changes.
 
 ## Feedback and contributions
 
-[Report a bug](https://github.com/666f78/liminal-horror/issues) or [start a discussion](https://github.com/666f78/liminal-horror/discussions). Feature requests, pull requests, and English or Ukrainian translation improvements are welcome. Submit localization changes in the corresponding `lang/*.json` files.
+[Report a bug](https://github.com/666f78/liminal-horror/issues) or [start a discussion](https://github.com/666f78/liminal-horror/discussions). Feature requests, pull requests, and English, Ukrainian, or Brazilian Portuguese translation improvements are welcome. Submit localization changes in the corresponding `lang/*.json` files.
 
 If you would like to help fund ongoing work, [support development](https://666f78.pp.ua/donate).
 

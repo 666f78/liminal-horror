@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.2.1]
+
+### Added
+
+- Added Brazilian Portuguese (pt-BR) localization for system interfaces, settings, character generation, items, and tables
+
+### Changed
+
+- Adapted investigator and monster sheet stat labels and value fields to fit longer Brazilian Portuguese labels
+
+### Fixed
+
+- Fixed pause overlay glitch text remaining in English by synchronizing it with the localized pause caption on startup and each render
+
+### Acknowledgments
+
+- Thanks to @unnamed-gw for the Brazilian Portuguese translation, sheet layout improvements, and pause overlay localization fix
+
 ## [0.2.0]
 
 ### Added
