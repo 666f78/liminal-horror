@@ -101,6 +101,10 @@
         "name": "Dado mínimo da arma secundária",
         "hint": "O tamanho mínimo do dado ao reduzir o dado da arma secundária: 1d2 ou 1d4. Aplica-se apenas quando a redução de dado está ativada."
       },
+      "darkMode": {
+        "name": "Modo Escuro",
+        "hint": "Usa um tema escuro nas fichas, janelas de diálogo e cartões de chat."
+      },
       "debug": {
         "name": "Ativar Registro de Depuração (Debug)",
         "hint": "Ativa o registro de depuração e hooks (apenas para desenvolvedores)",

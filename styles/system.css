@@ -2429,6 +2429,241 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   backdrop-filter: var(--lh-card-backdrop-filter);
 }
 
+:root[data-lh-theme='dark'] {
+  --lh-bg-app: var(--color-cool-5, #0b0a13);
+  --lh-bg-card: color-mix(in srgb, var(--color-cool-5, #0b0a13) 92%, var(--color-cool-4, #302831));
+  --lh-bg-inventory: color-mix(in srgb, var(--color-cool-5, #0b0a13) 82%, var(--color-cool-4, #302831));
+  --lh-bg-hover: color-mix(in srgb, var(--color-cool-4, #302831) 75%, var(--color-cool-3, #584a75));
+  --lh-bg-pill: var(--color-cool-5, #0b0a13);
+  --lh-bg-btn: var(--color-cool-4, #302831);
+  --lh-bg-btn-dark: color-mix(in srgb, var(--color-cool-4, #302831) 65%, var(--color-cool-3, #584a75));
+  --lh-bg-header: var(--color-cool-5, #0b0a13);
+  --lh-bg-whisper: color-mix(in srgb, var(--color-cool-5, #0b0a13) 70%, var(--color-cool-3, #584a75));
+  --lh-text-main: var(--color-light-2, #efe6d8);
+  --lh-text-muted: var(--color-light-4, #b5b3a4);
+  --lh-damage-color: var(--color-warm-2, #c9593f);
+  --lh-text-light: var(--color-light-1, #f7f3e8);
+  --lh-border: var(--color-cool-4, #302831);
+  --lh-border-strong: color-mix(in srgb, var(--color-cool-4, #302831) 65%, var(--color-light-5, #9f9275));
+  --lh-accent: var(--color-light-2, #efe6d8);
+  --lh-accent-hover: color-mix(in srgb, var(--color-warm-2, #c9593f) 35%, transparent);
+  --lh-accent-strong: var(--color-warm-1, #ee9b3a);
+  --lh-shadow-light: rgba(0, 0, 0, 0.35);
+  --lh-shadow-dark: rgba(0, 0, 0, 0.65);
+  --lh-bg-dark-hover: color-mix(in srgb, var(--color-cool-5, #0b0a13) 55%, var(--color-cool-4, #302831));
+}
+
+:root[data-lh-theme='dark'] .window-app.lh .window-content,
+:root[data-lh-theme='dark'] .application.lh .window-content,
+:root[data-lh-theme='dark'] .lh .editor-content,
+:root[data-lh-theme='dark'] .application.lh-appv2,
+:root[data-lh-theme='dark'] .window-app.lh-appv2 {
+  --color-scrollbar: var(--color-warm-3, #5d142b);
+}
+
+:root[data-lh-theme='dark'] .lh .editor-content::-webkit-scrollbar-thumb {
+  background: var(--color-warm-3, #5d142b);
+}
+
+:root[data-lh-theme='dark'] .lh .editor-content::-webkit-scrollbar-thumb:hover {
+  background: var(--color-warm-2, #c9593f);
+}
+
+:root[data-lh-theme='dark'] .lh .editor.prosemirror menu.editor-menu {
+  --button-hover-background-color: var(--lh-bg-hover);
+  --button-focus-background-color: var(--lh-bg-hover);
+}
+
+:root[data-lh-theme='dark'] .lh .editor.prosemirror menu.editor-menu button:hover,
+:root[data-lh-theme='dark'] .lh .editor.prosemirror menu.editor-menu button:focus,
+:root[data-lh-theme='dark'] .lh .editor.prosemirror menu.editor-menu button.active {
+  background: var(--lh-bg-hover);
+}
+
+:root[data-lh-theme='dark'] .lh .status-ribbon {
+  mix-blend-mode: normal;
+}
+
+:root[data-lh-theme='dark'] .lh .pill,
+:root[data-lh-theme='dark'] .lh.lh-monster-sheet .monster-label,
+:root[data-lh-theme='dark'] .lh-creator-stat-label {
+  border: 1px solid var(--lh-border-strong);
+  border-right: 0;
+}
+
+:root[data-lh-theme='dark'] .lh .pair .num:last-child,
+:root[data-lh-theme='dark'] .lh .pair .num[data-deprived='true'],
+:root[data-lh-theme='dark'] .lh.lh-monster-sheet .monster-values-dual .monster-num:last-child {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+:root[data-lh-theme='dark'] .lh .deprived-checkbox > .checkbox-box,
+:root[data-lh-theme='dark'] .lh .lh-item .item-checkbox > .checkbox-box {
+  background: var(--lh-bg-app);
+}
+
+:root[data-lh-theme='dark']
+  body.game
+  .application.lh
+  .deprived-checkbox
+  > input[type='checkbox']:checked
+  + .checkbox-box,
+:root[data-lh-theme='dark']
+  body.game
+  .window-app.lh
+  .deprived-checkbox
+  > input[type='checkbox']:checked
+  + .checkbox-box,
+:root[data-lh-theme='dark'] .lh .deprived-checkbox > input[type='checkbox']:checked + .checkbox-box,
+:root[data-lh-theme='dark'] .lh .lh-item .item-checkbox > input[type='checkbox']:checked + .checkbox-box {
+  background: var(--color-warm-1, #ee9b3a);
+  border-color: var(--color-warm-1, #ee9b3a);
+}
+
+:root[data-lh-theme='dark'] .lh .deprived-checkbox > input[type='checkbox']:checked + .checkbox-box::before,
+:root[data-lh-theme='dark'] .lh .lh-item .item-checkbox > input[type='checkbox']:checked + .checkbox-box::before {
+  color: var(--color-cool-5, #0b0a13);
+}
+
+:root[data-lh-theme='dark'] .lh-party-member-choice input[type='checkbox'] {
+  --checkbox-background-color: color-mix(in srgb, var(--color-cool-4, #302831) 45%, var(--color-light-4, #b5b3a4));
+}
+
+:root[data-lh-theme='dark'] .lh-party-toolbar button.lh-party-edit {
+  --button-border-color: var(--lh-border-strong);
+  border-color: var(--lh-border-strong);
+}
+
+:root[data-lh-theme='dark'] body.game .application.lh-confirm-dialog .form-footer button[data-action='apply'],
+:root[data-lh-theme='dark'] body.game .application.lh-confirm-dialog .form-footer button[data-action='ok'],
+:root[data-lh-theme='dark'] body.game .application.lh-confirm-dialog .form-footer button[data-action='yes'],
+:root[data-lh-theme='dark'] body.game .window-app.lh-swap-dialog.dialog .dialog-buttons button.default,
+:root[data-lh-theme='dark'] body.game .application.lh-swap-dialog.dialog .dialog-buttons button.default,
+:root[data-lh-theme='dark'] body.game .application.lh-swap-dialog.dialog .dialog-buttons button[data-action='swap'],
+:root[data-lh-theme='dark'] body.game .application.lh-swap-dialog .form-footer button[data-action='swap'],
+:root[data-lh-theme='dark'] .lh .btn-primary,
+:root[data-lh-theme='dark'] .lh-creator-button-primary {
+  background: var(--lh-bg-btn-dark) !important;
+  color: var(--lh-text-light) !important;
+  border-color: var(--lh-border-strong) !important;
+}
+
+:root[data-lh-theme='dark'] .lh .dialog-buttons .dialog-button {
+  background: var(--lh-bg-btn);
+  border-color: var(--lh-border-strong);
+}
+
+:root[data-lh-theme='dark'] .lh .dialog-buttons .dialog-button:hover,
+:root[data-lh-theme='dark'] .lh .dialog-buttons .dialog-button:focus {
+  background: var(--lh-bg-hover);
+}
+
+:root[data-lh-theme='dark'] .lh.result-roll-card--success,
+:root[data-lh-theme='dark'] .lh.result-roll-card--good,
+:root[data-lh-theme='dark'] .lh.action-card--good,
+:root[data-lh-theme='dark'] .lh.action-card--equipped {
+  --lh-roll-color: #63b070;
+}
+
+:root[data-lh-theme='dark'] .lh.result-roll-card--mixed,
+:root[data-lh-theme='dark'] .lh.action-card--mixed {
+  --lh-roll-color: var(--color-warm-1, #ee9b3a);
+}
+
+:root[data-lh-theme='dark'] .lh.result-roll-card--critical-failure .lh-result-roll__result {
+  border-color: rgba(255, 68, 68, 0.45);
+}
+
+:root[data-lh-theme='dark'] #chat-message {
+  background: var(--lh-bg-btn);
+  color: var(--lh-text-main);
+  border-color: var(--lh-border-strong);
+}
+
+:root[data-lh-theme='dark'] .chat-message {
+  border-color: var(--lh-border);
+}
+
+:root[data-lh-theme='dark'] .chat-message,
+:root[data-lh-theme='dark'] .chat-message .message-header,
+:root[data-lh-theme='dark'] .chat-message .message-content,
+:root[data-lh-theme='dark'] .chat-message .flavor-text {
+  color: var(--lh-text-main);
+}
+
+:root[data-lh-theme='dark'] .chat-message .message-content :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--lh-text-light);
+  border-bottom-color: var(--lh-border-strong);
+}
+
+:root[data-lh-theme='dark'] .chat-message .message-content hr {
+  border-color: var(--lh-border-strong);
+}
+
+:root[data-lh-theme='dark'] .chat-message .message-content button:not(.lh-luck-undo-btn) {
+  --button-background-color: var(--lh-bg-btn-dark);
+  --button-border-color: var(--lh-border-strong);
+  --button-text-color: var(--lh-text-light);
+  --button-hover-background-color: var(--lh-bg-dark-hover);
+  --button-hover-border-color: var(--lh-accent-strong);
+  --button-hover-text-color: var(--lh-text-light);
+  background: var(--lh-bg-btn-dark);
+  color: var(--lh-text-light);
+  border-color: var(--lh-border-strong);
+}
+
+:root[data-lh-theme='dark'] .chat-message .message-content button:not(.lh-luck-undo-btn):hover,
+:root[data-lh-theme='dark'] .chat-message .message-content button:not(.lh-luck-undo-btn):focus {
+  background: var(--lh-bg-dark-hover);
+  color: var(--lh-text-light);
+  border-color: var(--lh-accent-strong);
+}
+
+:root[data-lh-theme='dark'] .chat-message .dice-roll:not(.lh-result-roll__result .dice-roll) .dice-formula,
+:root[data-lh-theme='dark'] .chat-message .dice-roll:not(.lh-result-roll__result .dice-roll) .dice-total {
+  color: var(--lh-text-main);
+  background: var(--lh-bg-btn);
+  border-color: var(--lh-border-strong);
+  box-shadow: none;
+}
+
+:root[data-lh-theme='dark'] .chat-message .dice-tooltip .part-header {
+  color: var(--lh-text-main);
+  border-bottom-color: var(--lh-border-strong);
+}
+
+:root[data-lh-theme='dark'] .chat-message .dice-tooltip .part-header .part-total {
+  color: var(--lh-text-main);
+  background: var(--lh-bg-btn);
+  border-color: var(--lh-border-strong);
+}
+
+:root[data-lh-theme='dark'] .chat-message .dice-tooltip .dice-rolls .roll {
+  color: #0f1115;
+}
+
+:root[data-lh-theme='dark'] .chat-message a.inline-roll,
+:root[data-lh-theme='dark'] .chat-message a.content-link {
+  background: var(--lh-bg-btn);
+  color: var(--lh-text-main);
+  border-color: var(--lh-border-strong);
+}
+
+:root[data-lh-theme='dark'] .lh-name,
+:root[data-lh-theme='dark'] .lh-desc,
+:root[data-lh-theme='dark'] .lh-desc :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--lh-text-main);
+  border-bottom-color: var(--lh-border-strong);
+}
+
+:root[data-lh-theme='dark'] .lh-sep {
+  background: linear-gradient(90deg, var(--lh-border-strong), transparent 90%);
+}
+
+:root[data-lh-theme='dark'] .lh-desc hr {
+  border-color: var(--lh-border-strong);
+}
+
 /* ===== Sheet Header ===== */
 .window-app.lh .window-header,
 .application.lh .window-header {
