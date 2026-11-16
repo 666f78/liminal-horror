@@ -8,7 +8,7 @@
 
 /* ===== Theme Variables ===== */
 :root {
-  --font-primary: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Theme colors */
   --lh-bg-app: #f2f2f2;
   --lh-bg-card: #f5f5f5;
   --lh-bg-inventory: #fcfbfa;
@@ -30,6 +30,89 @@
   --lh-shadow-light: rgba(0, 0, 0, 0.03);
   --lh-shadow-dark: rgba(0, 0, 0, 0.28);
   --lh-bg-dark-hover: #242424;
+  --lh-scrollbar-color: rgba(0, 0, 0, 0.72);
+  --lh-scrollbar-hover-color: rgba(0, 0, 0, 0.88);
+  --lh-warning-color: #b6453b;
+  --lh-text-black: #000000;
+  --lh-text-white: #fff;
+
+  /* Typography */
+  --font-primary: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --lh-font-size-icon-tiny: 0.6rem;
+  --lh-font-size-icon-small: 0.65rem;
+  --lh-font-size-formula: 0.7rem;
+  --lh-font-size-badge: 0.72rem;
+  --lh-font-size-compact: 0.75rem;
+  --lh-font-size-item-section: 0.76rem;
+  --lh-font-size-section: 0.78rem;
+  --lh-font-size-label: 0.8rem;
+  --lh-font-size-segment: 0.82rem;
+  --lh-font-size-control-label: 0.84rem;
+  --lh-font-size-party-button: 0.85rem;
+  --lh-font-size-button-compact: 0.86rem;
+  --lh-font-size-body: 0.9rem;
+  --lh-font-size-input: 0.95rem;
+  --lh-font-size-heading: 1rem;
+  --lh-font-size-name: 1.05rem;
+  --lh-font-size-item-name: 1.1rem;
+  --lh-font-size-title: 1.35rem;
+  --lh-font-size-action-icon: 1.4rem;
+  --lh-font-size-pause: 1.6rem;
+  --lh-font-size-result: 2rem;
+  --lh-font-size-ribbon: 2.5rem;
+  --lh-font-size-automation: 9px;
+  --lh-font-size-checkmark: 11px;
+  --lh-font-size-quick-action: 12px;
+  --lh-font-size-investigator: 0.9em;
+  --lh-font-weight-medium: 500;
+  --lh-font-weight-semibold: 600;
+  --lh-font-weight-bold: 700;
+  --lh-font-weight-heavy: 800;
+  --lh-font-weight-black: 900;
+  --lh-line-height-result: 1.1;
+  --lh-line-height-compact: 1.15;
+  --lh-line-height-heading: 1.2;
+  --lh-line-height-input: 1.25;
+  --lh-line-height-hint: 1.3;
+  --lh-line-height-body: 1.35;
+  --lh-line-height-description: 1.4;
+  --lh-line-height-relaxed: 1.5;
+  --lh-letter-spacing-label: 0.02em;
+  --lh-letter-spacing-pill: 0.03em;
+  --lh-letter-spacing-pause: 0.08em;
+  --lh-letter-spacing-ribbon: 0.25em;
+
+  /* Spacing */
+  --lh-space-1: 1px;
+  --lh-space-2: 2px;
+  --lh-space-3: 3px;
+  --lh-space-4: 4px;
+  --lh-space-5: 5px;
+  --lh-space-6: 6px;
+  --lh-space-7: 7px;
+  --lh-space-8: 8px;
+  --lh-space-9: 9px;
+  --lh-space-10: 10px;
+  --lh-space-12: 12px;
+  --lh-space-14: 14px;
+  --lh-space-16: 16px;
+  --lh-space-18: 18px;
+  --lh-space-20: 20px;
+  --lh-space-24: 24px;
+
+  /* Relative spacing */
+  --lh-space-inline: 0.5rem;
+  --lh-space-block: 0.75rem;
+  --lh-space-wide: 2rem;
+  --lh-inline-icon-gap: 0.4rem;
+  --lh-text-section-gap: 0.35rem;
+
+  /* Offsets */
+  --lh-offset-negative-1: -1px;
+  --lh-offset-negative-2: -2px;
+  --lh-offset-negative-4: -4px;
+
+  /* Layout and controls */
   --lh-control-h: 30px;
   --lh-button-h: 32px;
   --lh-radius-sm: 7px;
@@ -37,23 +120,246 @@
   --lh-radius-card: 10px;
   --lh-avatar-col: 220px;
   --lh-hero-max: 560px;
+  --lh-card-pad: var(--lh-space-10);
+
+  /* Shared controls */
+  --lh-checkbox-size: 16px;
+  --lh-icon-size-small: 14px;
+  --lh-icon-size: 18px;
+  --lh-control-compact-h: 28px;
+  --lh-select-pad-end: 28px;
+  --lh-select-arrow-offset-x: 14px;
+  --lh-select-arrow-offset-y: 2px;
+  --lh-select-arrow-offset-end: 9px;
+  --lh-select-arrow-size: 5px;
+  --lh-border-w: 1px;
+  --lh-outline-w: 2px;
+  --lh-divider-w: 2px;
+  --lh-radius-checkbox: 3px;
+  --lh-radius-menu-item: 4px;
+  --lh-radius-avatar: 6px;
+  --lh-radius-pill: 999px;
+  --lh-scrollbar-w: 10px;
+
+  /* Stat tiles */
   --lh-pair-num-w: 52px;
   --lh-pill-w: 88px;
   --lh-pill-h: 30px;
-  --lh-pill-font: 0.86rem;
-  --lh-pill-pad: 8px;
+  --lh-pill-font: var(--lh-font-size-button-compact);
+  --lh-pill-pad: var(--lh-space-8);
   --lh-values-w: 96px;
   --lh-values-half-w: 48px;
-  --lh-card-pad: 10px;
+  --lh-secondary-value-bg: rgba(0, 0, 0, 0.035);
+
+  /* Portuguese stat layout */
+  --lh-pill-w-pt: 102px;
+  --lh-values-w-pt: 82px;
+  --lh-values-half-w-pt: 41px;
+
+  /* Opacity */
+  --lh-opacity-unequipped: 0.3;
+  --lh-opacity-roll-icon: 0.35;
+  --lh-opacity-disabled-icon: 0.4;
+  --lh-opacity-drag-handle: 0.42;
+  --lh-opacity-inactive: 0.45;
+  --lh-opacity-disabled-button: 0.46;
+  --lh-opacity-muted: 0.5;
+  --lh-opacity-dragging: 0.55;
+  --lh-opacity-disabled-checkbox: 0.65;
+  --lh-opacity-secondary: 0.72;
+  --lh-opacity-active-marker: 0.8;
+  --lh-opacity-overlay: 0.85;
+  --lh-opacity-subtle: 0.9;
+
+  /* Motion and effects */
+  --lh-transition-fast: 0.12s;
+  --lh-transition-default: 0.15s;
+  --lh-transition-marker: 0.16s;
+  --lh-transition-tabs: 0.18s;
+  --lh-shadow-blur-xs: 4px;
+  --lh-shadow-blur-sm: 6px;
+  --lh-shadow-blur: 8px;
+  --lh-shadow-blur-lg: 12px;
+  --lh-button-hover-filter: brightness(1.05);
+  --lh-card-backdrop-filter: saturate(1.05);
+
+  /* Settings sidebar */
+  --lh-support-bg-mix: 14%;
+  --lh-support-logo-w: 3.5rem;
+
+  /* Log */
+  --lh-log-max-h: 290px;
+
+  /* Sheet shell */
+  --lh-header-border: rgba(0, 0, 0, 0.55);
+  --lh-header-highlight: rgba(255, 255, 255, 0.06);
+
+  /* Dialogs */
+  --lh-dialog-button-bg: #f1f1ed;
+  --lh-dialog-button-hover-bg: #e9e9e3;
+  --lh-dialog-button-border: rgba(0, 0, 0, 0.22);
+  --lh-stress-dialog-min-h: 180px;
+  --lh-swap-label-w: 86px;
+  --lh-dialog-textarea-min-h: 82px;
+  --lh-dialog-preview-min-h: 112px;
+
+  /* Update notice */
+  --lh-update-current-shadow-color: rgba(0, 0, 0, 0.08);
+  --lh-link-gap: 0.3rem;
+  --lh-link-pad-block: 0.2rem;
+  --lh-link-pad-inline: 0.4rem;
+  --lh-chat-link-pad-block: 0.15rem;
+  --lh-update-bg-mix: 92%;
+  --lh-update-scroll-viewport-h: 56vh;
+  --lh-update-scroll-max-h: 540px;
+  --lh-update-title-gap: 0.25rem;
+  --lh-update-badge-min-h: 18px;
+
+  /* Status ribbon */
+  --lh-ribbon-gradient-start: rgba(200, 0, 0, 0.55);
+  --lh-ribbon-gradient-end: rgba(140, 0, 0, 0.45);
+  --lh-ribbon-text: rgba(255, 255, 255, 1);
+  --lh-ribbon-stroke: rgba(255, 255, 255, 0.45);
+  --lh-ribbon-shadow-color: #111;
+  --lh-ribbon-z-index: 9999;
+  --lh-ribbon-top: 300px;
+  --lh-ribbon-w: 150%;
+  --lh-ribbon-transform: translateX(-50%) rotate(-16deg);
+
+  /* Item sheet */
+  --lh-item-image-size: 72px;
+  --lh-item-input-h: 32px;
+  --lh-item-name-h: 38px;
+  --lh-item-description-min-h: 96px;
+  --lh-item-panel-min-w: 180px;
+
+  /* Editor */
+  --lh-editor-h: 260px;
+  --lh-editor-list-item-gap: 0.18rem;
+  --lh-editor-list-indent: 1.25rem;
+
+  /* Portrait panel */
+  --lh-portrait-overlay-bg: rgba(0, 0, 0, 0);
+  --lh-portrait-overlay-hover-bg: rgba(0, 0, 0, 0.2);
+
+  /* Inventory */
+  --lh-inventory-name-marker-top: 0.05em;
+  --lh-inventory-accent-w: 3px;
+  --lh-inventory-sort-min-w: 118px;
+  --lh-inventory-drag-w: 16px;
+  --lh-menu-viewport-inset: 16px;
+  --lh-inventory-image-size: 24px;
+  --lh-inventory-grip-col-w: 24px;
+  --lh-inventory-action-size: 16px;
+  --lh-inventory-carry-sortable-w: 46px;
+  --lh-inventory-description-inset: 43px;
+  --lh-inventory-description-sortable-inset: 65px;
+  --lh-inventory-value-col-w: 60px;
+  --lh-inventory-name-marker-space: 0.45em;
+
+  /* Segmented actions */
+  --lh-disabled-action-shadow-color: rgba(0, 0, 0, 0.05);
+  --lh-action-input-col-w: 48px;
+  --lh-action-button-w: 30px;
+  --lh-action-input-w: 52px;
+
+  /* Roll cards */
+  --lh-luck-hover-border: #ad812c;
+  --lh-success-color: #426e4b;
+  --lh-critical-success-color: #257b2f;
+  --lh-mixed-color: #805d18;
+  --lh-critical-failure-text: #ff4444;
+  --lh-critical-result-border: rgba(255, 255, 255, 0.35);
+  --lh-roll-description-mix: 80%;
+  --lh-action-icon-col-w: 38px;
+  --lh-action-result-min-h: 60px;
+  --lh-roll-dice-col-w: 70px;
+
+  /* Chat styling */
+  --lh-whisper-shadow-color: rgba(17, 17, 17, 0.08);
+
+  /* Pause overlay */
+  --lh-pause-shadow-color: rgba(0, 0, 0, 0.9);
+  --lh-pause-glitch-color: #f00;
+  --lh-pause-skew-duration: 0.08s;
+  --lh-pause-red-duration: 0.05s;
+  --lh-pause-white-duration: 0.07s;
+  --lh-pause-flicker-duration: 6s;
+  --lh-pause-breathe-duration: 10s;
+  --lh-pause-shift-nw: translate(-1px, -1px);
+  --lh-pause-shift-se: translate(1px, 1px);
+  --lh-pause-shift-sw: translate(-1px, 1px);
+  --lh-pause-shift-ne: translate(1px, -1px);
+  --lh-pause-skew-start: skew(0.5deg);
+  --lh-pause-skew-middle: skew(-0.5deg);
+  --lh-pause-skew-end: skew(0.8deg);
+  --lh-pause-scale-min: scale(1.05);
+  --lh-pause-scale-max: scale(1.15);
+  --lh-pause-flicker-opacity-base: 0.48;
+  --lh-pause-flicker-opacity-high: 0.56;
+  --lh-pause-flicker-opacity-low: 0.42;
+  --lh-pause-flicker-opacity-end: 0.52;
+  --lh-pause-logo-top: 10%;
+
+  /* Token controls */
+  --lh-tool-icon-color: #b22222;
+
+  /* Void research die */
+  --lh-void-border-fallback: #ddd;
+  --lh-void-bg-fallback: #222;
+  --lh-radius-void-pill: 0.5rem;
+  --lh-radius-void-result: 0.4rem;
+  --lh-void-border-strong-mix: 35%;
+  --lh-void-bg-mix: 12%;
+  --lh-void-border-mix: 30%;
+  --lh-void-result-min-w: 2.25rem;
+  --lh-void-message-space: 0.1rem;
+  --lh-void-pill-pad-block: 0.15rem;
+  --lh-void-result-pad-block: 0.1rem;
+  --lh-void-result-pad-inline: 0.4rem;
+
+  /* Limited sheet */
+  --lh-limited-bg: rgba(255, 255, 255, 0.02);
+  --lh-limited-border: rgba(255, 255, 255, 0.1);
+  --lh-limited-shadow-color: rgba(0, 0, 0, 0.4);
+  --lh-limited-avatar-border: rgba(255, 255, 255, 0.15);
+  --lh-limited-separator-stop: 90%;
+  --lh-limited-max-w: 720px;
+  --lh-limited-avatar-size: 120px;
+  --lh-font-size-limited-name: 1.4rem;
+
+  /* Party overview */
+  --lh-party-status-color: #62656b;
+  --lh-party-status-tooltip-color: #aaa;
+  --lh-party-resize-filter: brightness(0.55);
+  --lh-party-status-strike-transform: rotate(45deg);
+  --lh-party-avatar-size: 32px;
+  --lh-party-table-max-h: 60vh;
+  --lh-party-table-min-w: 700px;
+  --lh-party-actor-min-w: 160px;
+  --lh-party-status-min-w: 90px;
+  --lh-party-status-icon-w: 1em;
+  --lh-party-status-strike-w: 1.1em;
+  --lh-party-members-max-h: 360px;
+
+  /* Investigator generator */
+  --lh-creator-roll-hover-bg: #3b3b3b;
+  --lh-creator-icon-button-w: 32px;
+  --lh-creator-field-label-w: 112px;
+  --lh-creator-stat-min-w: 150px;
+  --lh-creator-stat-label-w: 76px;
+
+  /* Component dimensions */
+  --lh-utility-w-110: 110px;
 }
 
 .lh .tiles > .tile:nth-child(even):lang(pt),
 .lh.lh-monster-sheet .monster-stats-grid > .monster-stat:nth-child(odd):lang(pt) {
-  --lh-pill-w: 102px;
-  --lh-pill-font: 0.75rem;
-  --lh-pill-pad: 4px;
-  --lh-values-w: 82px;
-  --lh-values-half-w: 41px;
+  --lh-pill-w: var(--lh-pill-w-pt);
+  --lh-pill-font: var(--lh-font-size-compact);
+  --lh-pill-pad: var(--lh-space-4);
+  --lh-values-w: var(--lh-values-w-pt);
+  --lh-values-half-w: var(--lh-values-half-w-pt);
 }
 
 /* ===== Foundry ===== */
@@ -71,16 +377,16 @@ body {
 
 /* ===== Settings Sidebar ===== */
 .settings-sidebar .lh-support-card {
-  padding: 0.75rem;
-  border: 1px solid var(--color-warm-1);
+  padding: var(--lh-space-block);
+  border: var(--lh-border-w) solid var(--color-warm-1);
   border-radius: var(--lh-radius);
-  background: color-mix(in srgb, var(--color-warm-1) 14%, var(--background));
+  background: color-mix(in srgb, var(--color-warm-1) var(--lh-support-bg-mix), var(--background));
 }
 
 .settings-sidebar .lh-support-card-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--lh-space-inline);
 }
 
 .settings-sidebar .lh-support-card h4 {
@@ -93,17 +399,17 @@ body {
   margin: 0;
   color: var(--color-text-secondary);
   font-size: var(--font-size-13);
-  line-height: 1.35;
+  line-height: var(--lh-line-height-body);
 }
 
 .settings-sidebar .lh-support-card small {
   color: var(--color-text-subtle);
   font-size: var(--font-size-11);
-  line-height: 1.35;
+  line-height: var(--lh-line-height-body);
 }
 
 .settings-sidebar .lh-support-card img {
-  width: 3.5rem;
+  width: var(--lh-support-logo-w);
   height: auto;
   flex-shrink: 0;
 }
@@ -117,27 +423,27 @@ body {
 .lh .gm-log {
   flex: 1 1 auto;
   min-height: 0;
-  max-height: 290px;
+  max-height: var(--lh-log-max-h);
   margin: 0;
   overflow-y: auto;
-  padding: 0 4px 0 18px;
+  padding: 0 var(--lh-space-4) 0 var(--lh-space-18);
 }
 
 .lh .gm-log li {
-  margin-bottom: 10px;
+  margin-bottom: var(--lh-space-10);
 }
 
 .lh .gm-log-item {
-  margin-left: 10px;
+  margin-left: var(--lh-space-10);
 }
 
 /* ===== Sheet Shell ===== */
 .window-app.lh .window-content,
 .application.lh .window-content {
-  --color-scrollbar: rgba(0, 0, 0, 0.72);
+  --color-scrollbar: var(--lh-scrollbar-color);
   --color-scrollbar-track: transparent;
   background: var(--lh-bg-app);
-  padding: 6px;
+  padding: var(--lh-space-6);
   min-height: 0;
   overflow-y: auto;
 }
@@ -175,7 +481,7 @@ body.game .window-app.lh-confirm-dialog .window-content,
 body.game .application.lh-confirm-dialog .window-content {
   background: var(--lh-bg-app);
   color: var(--lh-text-main);
-  padding: 10px;
+  padding: var(--lh-space-10);
   font-family: var(--font-primary);
 }
 body.game .window-app.lh-confirm-dialog .dialog-content,
@@ -185,20 +491,20 @@ body.game .application.lh-confirm-dialog .dialog-content {
 }
 .lh-dialog-form {
   display: grid;
-  gap: 8px;
-  padding: 10px;
+  gap: var(--lh-space-8);
+  padding: var(--lh-space-10);
   background: var(--lh-bg-card);
-  border: 1px solid var(--lh-border);
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius-card);
 }
 .lh-dialog-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 8px;
+  gap: var(--lh-space-8);
 }
 .lh-dialog-field {
   display: grid;
-  gap: 3px;
+  gap: var(--lh-space-3);
   min-width: 0;
 }
 .lh-dialog-select,
@@ -212,19 +518,19 @@ body.game .application.lh-confirm-dialog .dialog-content {
   height: var(--lh-control-h);
   min-height: var(--lh-control-h);
   margin: 0;
-  padding: 0 28px 0 10px;
-  border: 1px solid var(--lh-border-strong) !important;
+  padding: 0 var(--lh-select-pad-end) 0 var(--lh-space-10);
+  border: var(--lh-border-w) solid var(--lh-border-strong) !important;
   border-radius: var(--lh-radius-sm);
   box-shadow: none !important;
   font: inherit;
-  font-weight: 500;
+  font-weight: var(--lh-font-weight-medium);
 }
 body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons,
 body.game .application.lh-confirm-dialog.dialog .dialog-buttons,
 body.game .application.lh-confirm-dialog .form-footer {
   display: flex;
-  gap: 8px;
-  margin-top: 10px;
+  gap: var(--lh-space-8);
+  margin-top: var(--lh-space-10);
 }
 body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button,
 body.game .window-app.lh-confirm-dialog.dialog .dialog-buttons button.default,
@@ -235,12 +541,12 @@ body.game .application.lh-confirm-dialog .form-footer button {
   min-height: var(--lh-button-h);
   background: var(--lh-bg-btn);
   color: var(--lh-text-main);
-  border: 1px solid var(--lh-border-strong);
+  border: var(--lh-border-w) solid var(--lh-border-strong);
   border-radius: var(--lh-radius);
   box-shadow: none;
   margin: 0;
   font-family: var(--font-primary);
-  font-weight: 700;
+  font-weight: var(--lh-font-weight-bold);
   text-transform: none;
   text-shadow: none;
 }
@@ -279,7 +585,7 @@ body.game .application.lh-update-dialog .window-content,
 body.game .window-app.lh-update-dialog .window-content {
   background: var(--lh-bg-app);
   color: var(--lh-text-main);
-  padding: 10px;
+  padding: var(--lh-space-10);
 }
 
 body.game .application.lh-update-dialog .dialog-content,
@@ -297,28 +603,28 @@ body.game .window-app.lh-update-dialog .dialog-content {
 }
 
 .lh-update-notice h2 {
-  margin: 0 0 12px;
+  margin: 0 0 var(--lh-space-12);
   color: var(--lh-text-main);
-  font-size: 1.35rem;
-  font-weight: 900;
-  line-height: 1.2;
+  font-size: var(--lh-font-size-title);
+  font-weight: var(--lh-font-weight-black);
+  line-height: var(--lh-line-height-heading);
 }
 
 .lh-update-notice h3 {
   color: var(--lh-text-main);
-  font-weight: 900;
+  font-weight: var(--lh-font-weight-black);
 }
 
 .lh-update-notice p {
-  margin: 0 0 10px;
+  margin: 0 0 var(--lh-space-10);
   color: var(--lh-text-main);
-  line-height: 1.35;
+  line-height: var(--lh-line-height-body);
 }
 
 .lh-update-overview {
-  padding: 12px 14px;
-  background: color-mix(in srgb, var(--lh-bg-app) 92%, var(--lh-bg-btn-dark));
-  border: 1px solid var(--lh-border);
+  padding: var(--lh-space-12) var(--lh-space-14);
+  background: color-mix(in srgb, var(--lh-bg-app) var(--lh-update-bg-mix), var(--lh-bg-btn-dark));
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius);
 }
 
@@ -326,12 +632,12 @@ body.game .window-app.lh-update-dialog .dialog-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.25rem;
+  gap: var(--lh-update-title-gap);
 }
 
 .lh-update-overview h2 {
   margin: 0;
-  font-size: 1.35rem;
+  font-size: var(--lh-font-size-title);
 }
 
 .lh-update-overview .lh-update-current-version {
@@ -348,27 +654,27 @@ body.game .window-app.lh-update-dialog .dialog-content {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: var(--lh-space-10);
 }
 
 .lh-update-links a:not(.button) {
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-  padding: 0.2rem 0.4rem;
+  gap: var(--lh-link-gap);
+  padding: var(--lh-link-pad-block) var(--lh-link-pad-inline);
   color: var(--lh-text-muted);
   background: var(--lh-bg-hover);
-  border: 1px solid var(--lh-border);
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius-sm);
   font-size: var(--font-size-13);
-  font-weight: 500;
+  font-weight: var(--lh-font-weight-medium);
   text-decoration: none;
 }
 
 .lh-update-overview .lh-update-links {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid var(--lh-border);
+  margin-top: var(--lh-space-10);
+  padding-top: var(--lh-space-10);
+  border-top: var(--lh-border-w) solid var(--lh-border);
 }
 
 .lh-update-links a:not(.button):hover,
@@ -381,22 +687,22 @@ body.game .window-app.lh-update-dialog .dialog-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 8px;
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid var(--lh-border);
+  gap: var(--lh-space-8);
+  margin-top: var(--lh-space-12);
+  padding-top: var(--lh-space-10);
+  border-top: var(--lh-border-w) solid var(--lh-border);
 }
 
 .lh-update-chat-links .lh-update-links {
   align-self: center;
   max-width: 100%;
   justify-content: center;
-  gap: 6px;
+  gap: var(--lh-space-6);
 }
 
 .lh-update-chat-links .lh-update-links a:not(.button) {
-  gap: 0.2rem;
-  padding: 0.15rem 0.3rem;
+  gap: var(--lh-link-pad-block);
+  padding: var(--lh-chat-link-pad-block) var(--lh-link-gap);
   font-size: var(--font-size-12);
   white-space: nowrap;
 }
@@ -410,7 +716,7 @@ body.game .window-app.lh-update-dialog .dialog-content {
   --button-hover-text-color: var(--lh-text-light);
   margin-left: auto;
   font-family: var(--font-primary);
-  font-weight: 600;
+  font-weight: var(--lh-font-weight-semibold);
   text-transform: none;
 }
 
@@ -424,64 +730,64 @@ body.game .window-app.lh-update-dialog .dialog-content {
 }
 
 .lh-update-scroll {
-  max-height: min(56vh, 540px);
-  margin-top: 6px;
-  padding: 0 6px 0 0;
+  max-height: min(var(--lh-update-scroll-viewport-h), var(--lh-update-scroll-max-h));
+  margin-top: var(--lh-space-6);
+  padding: 0 var(--lh-space-6) 0 0;
   overflow-y: auto;
   scrollbar-color: var(--lh-accent-strong) transparent;
 }
 
 .lh-update-card {
-  margin: 0 0 10px;
-  padding: 12px 14px;
+  margin: 0 0 var(--lh-space-10);
+  padding: var(--lh-space-12) var(--lh-space-14);
   color: var(--lh-text-main);
   background: var(--lh-bg-card);
-  border: 1px solid var(--lh-border);
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius);
-  box-shadow: 0 1px 0 var(--lh-shadow-light);
+  box-shadow: 0 var(--lh-space-1) 0 var(--lh-shadow-light);
 }
 
 .lh-update-card-current {
   border-color: var(--lh-border-strong);
-  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0 0 0 var(--lh-space-2) var(--lh-update-current-shadow-color);
 }
 
 .lh-update-version {
   display: flex;
   align-items: center;
-  gap: 7px;
-  margin: 0 0 10px;
-  font-size: 1.35rem;
-  line-height: 1.15;
+  gap: var(--lh-space-7);
+  margin: 0 0 var(--lh-space-10);
+  font-size: var(--lh-font-size-title);
+  line-height: var(--lh-line-height-compact);
 }
 
 .lh-update-badge {
   display: inline-flex;
   align-items: center;
-  min-height: 18px;
-  padding: 0 7px;
+  min-height: var(--lh-update-badge-min-h);
+  padding: 0 var(--lh-space-7);
   color: var(--lh-text-light);
-  background: #b6453b;
-  border-radius: 999px;
-  font-size: 0.72rem;
-  font-weight: 900;
+  background: var(--lh-warning-color);
+  border-radius: var(--lh-radius-pill);
+  font-size: var(--lh-font-size-badge);
+  font-weight: var(--lh-font-weight-black);
   line-height: 1;
 }
 
 .lh-update-card ul {
-  margin: 0 0 14px 20px;
+  margin: 0 0 var(--lh-space-14) var(--lh-space-20);
   padding: 0;
 }
 
 .lh-update-card li {
-  margin: 0 0 4px;
+  margin: 0 0 var(--lh-space-4);
   color: var(--lh-text-main);
-  line-height: 1.3;
+  line-height: var(--lh-line-height-hint);
 }
 
 body.game .window-app.lh-swap-dialog .window-content,
 body.game .application.lh-swap-dialog .window-content {
-  padding: 8px;
+  padding: var(--lh-space-8);
 }
 
 body.game .window-app.lh-swap-dialog .dialog-content,
@@ -492,7 +798,7 @@ body.game .application.lh-swap-dialog .dialog-content {
 body.game .application.lh-swap-dialog .dialog-content,
 .lh-swap-attributes-dialog {
   display: grid;
-  gap: 8px;
+  gap: var(--lh-space-8);
   min-width: 0;
 }
 
@@ -508,21 +814,21 @@ body.game .application.lh-swap-dialog .lh-swap-attributes-dialog .generator-row 
 body.game .application.lh-swap-dialog .dialog-content > .generator-row > .generator-label,
 body.game .application.lh-swap-dialog .lh-swap-attributes-dialog .generator-label {
   display: inline-flex;
-  flex: 0 0 86px;
+  flex: 0 0 var(--lh-swap-label-w);
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
   height: var(--lh-control-h);
   min-height: var(--lh-control-h);
   margin: 0;
-  padding: 0 8px;
+  padding: 0 var(--lh-space-8);
   color: var(--lh-text-light);
   background: var(--lh-bg-pill);
-  border: 1px solid var(--lh-bg-pill);
+  border: var(--lh-border-w) solid var(--lh-bg-pill);
   border-right: 0;
   border-radius: var(--lh-radius) 0 0 var(--lh-radius);
-  font-size: 0.84rem;
-  font-weight: 800;
+  font-size: var(--lh-font-size-control-label);
+  font-weight: var(--lh-font-weight-heavy);
   letter-spacing: 0;
   line-height: 1;
   text-align: center;
@@ -543,34 +849,34 @@ body.game .application.lh-swap-dialog .lh-swap-attributes-dialog select.big-inpu
   height: var(--lh-control-h);
   min-height: var(--lh-control-h);
   margin: 0;
-  padding: 0 28px 0 10px;
+  padding: 0 var(--lh-select-pad-end) 0 var(--lh-space-10);
   color: var(--lh-text-main);
   background: var(--lh-bg-btn);
   background-image:
     linear-gradient(45deg, transparent 50%, var(--lh-text-muted) 50%),
     linear-gradient(135deg, var(--lh-text-muted) 50%, transparent 50%);
   background-position:
-    calc(100% - 14px) calc(50% - 2px),
-    calc(100% - 9px) calc(50% - 2px);
+    calc(100% - var(--lh-select-arrow-offset-x)) calc(50% - var(--lh-select-arrow-offset-y)),
+    calc(100% - var(--lh-select-arrow-offset-end)) calc(50% - var(--lh-select-arrow-offset-y));
   background-size:
-    5px 5px,
-    5px 5px;
+    var(--lh-select-arrow-size) var(--lh-select-arrow-size),
+    var(--lh-select-arrow-size) var(--lh-select-arrow-size);
   background-repeat: no-repeat;
-  border: 1px solid var(--lh-border-strong);
+  border: var(--lh-border-w) solid var(--lh-border-strong);
   border-left: 0;
   border-radius: 0 var(--lh-radius) var(--lh-radius) 0;
-  box-shadow: inset 0 -1px 0 var(--lh-shadow-light);
+  box-shadow: inset 0 var(--lh-offset-negative-1) 0 var(--lh-shadow-light);
   font: inherit;
-  font-weight: 700;
+  font-weight: var(--lh-font-weight-bold);
   appearance: none;
   -webkit-appearance: none;
 }
 
 body.game .application.lh-swap-dialog .dialog-content select.big-input:focus,
 body.game .application.lh-swap-dialog .lh-swap-attributes-dialog select.big-input:focus {
-  outline: 1px solid var(--lh-text-muted);
-  outline-offset: 1px;
-  box-shadow: 0 0 6px var(--color-shadow-primary);
+  outline: var(--lh-border-w) solid var(--lh-text-muted);
+  outline-offset: var(--lh-border-w);
+  box-shadow: 0 0 var(--lh-shadow-blur-sm) var(--color-shadow-primary);
 }
 
 body.game .application.lh-swap-dialog .dialog-content select.big-input option,
@@ -583,8 +889,8 @@ body.game .window-app.lh-swap-dialog.dialog .dialog-buttons,
 body.game .application.lh-swap-dialog.dialog .dialog-buttons,
 body.game .application.lh-swap-dialog .form-footer {
   display: flex;
-  gap: 8px;
-  margin-top: 8px;
+  gap: var(--lh-space-8);
+  margin-top: var(--lh-space-8);
 }
 
 body.game .window-app.lh-swap-dialog.dialog .dialog-buttons button,
@@ -595,10 +901,10 @@ body.game .application.lh-swap-dialog .form-footer button {
   margin: 0;
   color: var(--lh-text-main);
   background: var(--lh-bg-btn);
-  border: 1px solid var(--lh-border-strong);
+  border: var(--lh-border-w) solid var(--lh-border-strong);
   border-radius: var(--lh-radius);
   box-shadow: none;
-  font-weight: 700;
+  font-weight: var(--lh-font-weight-bold);
   text-shadow: none;
 }
 
@@ -647,7 +953,7 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
 
   body.game .application.lh-swap-dialog .dialog-content select.big-input,
   body.game .application.lh-swap-dialog .lh-swap-attributes-dialog select.big-input {
-    border-left: 1px solid var(--lh-border-strong);
+    border-left: var(--lh-border-w) solid var(--lh-border-strong);
     border-radius: 0 0 var(--lh-radius) var(--lh-radius);
   }
 }
@@ -658,22 +964,22 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
 .lh .status-ribbon {
   position: absolute;
   left: 50%;
-  top: 300px;
-  width: 150%;
-  padding: 12px 0;
+  top: var(--lh-ribbon-top);
+  width: var(--lh-ribbon-w);
+  padding: var(--lh-space-12) 0;
   text-align: center;
-  font-weight: 900;
-  font-size: 2.5rem;
-  letter-spacing: 0.25em;
+  font-weight: var(--lh-font-weight-black);
+  font-size: var(--lh-font-size-ribbon);
+  letter-spacing: var(--lh-letter-spacing-ribbon);
   text-transform: uppercase;
-  background: linear-gradient(90deg, rgba(200, 0, 0, 0.55), rgba(140, 0, 0, 0.45));
-  color: rgba(255, 255, 255, 1);
-  transform: translateX(-50%) rotate(-16deg);
+  background: linear-gradient(90deg, var(--lh-ribbon-gradient-start), var(--lh-ribbon-gradient-end));
+  color: var(--lh-ribbon-text);
+  transform: var(--lh-ribbon-transform);
   pointer-events: none;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.45);
+  -webkit-text-stroke: var(--lh-border-w) var(--lh-ribbon-stroke);
   mix-blend-mode: multiply;
-  z-index: 9999;
-  text-shadow: #111 0 0 4px;
+  z-index: var(--lh-ribbon-z-index);
+  text-shadow: var(--lh-ribbon-shadow-color) 0 0 var(--lh-shadow-blur-xs);
 }
 
 /* ===== Layout ===== */
@@ -684,8 +990,8 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
   grid-auto-rows: max-content;
   align-content: start;
   align-items: start;
-  column-gap: 10px;
-  row-gap: 6px;
+  column-gap: var(--lh-space-10);
+  row-gap: var(--lh-space-6);
   min-height: 0;
 }
 @media (max-width: 900px) {
@@ -697,20 +1003,20 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
 /* ===== Cards ===== */
 .lh .card {
   background: var(--lh-bg-card);
-  border: 1px solid var(--lh-border);
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius-card);
   padding: var(--lh-card-pad);
-  box-shadow: 0 1px 0 var(--lh-shadow-light);
+  box-shadow: 0 var(--lh-space-1) 0 var(--lh-shadow-light);
 }
 
 /* ===== Section Titles ===== */
 .lh .section-title {
   color: var(--lh-text-muted);
-  font-weight: 800;
-  letter-spacing: 0.02em;
+  font-weight: var(--lh-font-weight-heavy);
+  letter-spacing: var(--lh-letter-spacing-label);
   text-transform: uppercase;
-  font-size: 0.78rem;
-  margin: 4px 0 6px;
+  font-size: var(--lh-font-size-section);
+  margin: var(--lh-space-4) 0 var(--lh-space-6);
 }
 .lh .section-title.section-title-with-buttons {
   display: flex;
@@ -727,16 +1033,16 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
   position: relative;
   display: inline-grid;
   place-items: center;
-  width: 16px;
-  height: 16px;
+  width: var(--lh-checkbox-size);
+  height: var(--lh-checkbox-size);
   margin: 0;
   cursor: pointer;
 }
 .lh .deprived-checkbox > input[type='checkbox'] {
   position: absolute;
   inset: 0;
-  width: 16px;
-  height: 16px;
+  width: var(--lh-checkbox-size);
+  height: var(--lh-checkbox-size);
   margin: 0;
   opacity: 0;
   cursor: inherit;
@@ -744,18 +1050,18 @@ body.game .application.lh-swap-dialog .form-footer button[data-action='cancel']:
 .lh .deprived-checkbox > .checkbox-box {
   display: inline-grid;
   place-content: center;
-  width: 16px;
-  height: 16px;
+  width: var(--lh-checkbox-size);
+  height: var(--lh-checkbox-size);
   background: var(--lh-bg-btn);
-  border: 1px solid var(--lh-border-strong);
-  border-radius: 3px;
+  border: var(--lh-border-w) solid var(--lh-border-strong);
+  border-radius: var(--lh-radius-checkbox);
   box-sizing: border-box;
 }
 .lh .deprived-checkbox > .checkbox-box::before {
   content: '\f00c';
   font-family: var(--font-awesome);
-  font-size: 11px;
-  font-weight: 900;
+  font-size: var(--lh-font-size-checkmark);
+  font-weight: var(--lh-font-weight-black);
   line-height: 1;
   color: var(--lh-text-main);
   transform: scale(0);
@@ -771,12 +1077,12 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   border-color: var(--lh-bg-btn-dark);
 }
 .lh .deprived-checkbox > input[type='checkbox']:focus-visible + .checkbox-box {
-  outline: 1px solid var(--lh-text-muted);
-  outline-offset: 2px;
+  outline: var(--lh-border-w) solid var(--lh-text-muted);
+  outline-offset: var(--lh-outline-w);
 }
 .lh .deprived-checkbox > input[type='checkbox']:disabled + .checkbox-box,
 .lh .deprived-checkbox > input[type='checkbox'][readonly] + .checkbox-box {
-  opacity: 0.65;
+  opacity: var(--lh-opacity-disabled-checkbox);
 }
 .lh .deprived-checkbox:has(input[type='checkbox']:disabled),
 .lh .deprived-checkbox:has(input[type='checkbox'][readonly]) {
@@ -806,7 +1112,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   --button-border-color: var(--lh-border);
   --button-text-color: var(--lh-text-muted);
   --button-hover-background-color: var(--lh-bg-hover);
-  --button-hover-border-color: #ad812c;
+  --button-hover-border-color: var(--lh-luck-hover-border);
   --button-hover-text-color: var(--lh-text-main);
   display: flex;
   width: fit-content;
@@ -814,17 +1120,17 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   margin-inline: auto;
   height: var(--lh-control-h);
   min-height: var(--lh-control-h);
-  padding: 0 8px;
+  padding: 0 var(--lh-space-8);
   border-radius: var(--lh-radius-sm);
   box-shadow: none;
   color: var(--lh-text-muted);
   font-family: var(--font-primary);
   font-size: var(--font-size-12);
-  font-weight: 500;
+  font-weight: var(--lh-font-weight-medium);
 }
 
 .chat-message button.lh-luck-btn:hover {
-  border-color: #ad812c;
+  border-color: var(--lh-luck-hover-border);
   color: var(--lh-text-main);
 }
 
@@ -838,49 +1144,49 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .line {
   height: 0;
   background: transparent;
-  margin: 4px 0;
+  margin: var(--lh-space-4) 0;
 }
 
 .lh .layout.lh-item {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 8px;
+  gap: var(--lh-space-8);
   min-height: auto;
 }
 
 .lh .lh-item .item-card {
   display: grid;
-  gap: 14px;
+  gap: var(--lh-space-14);
   width: 100%;
   background: var(--lh-bg-card);
-  border: 1px solid var(--lh-border);
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius-card);
-  padding: 14px;
-  box-shadow: 0 1px 0 var(--lh-shadow-light);
+  padding: var(--lh-space-14);
+  box-shadow: 0 var(--lh-space-1) 0 var(--lh-shadow-light);
 }
 
 .lh .lh-item .item-header {
   display: grid;
-  grid-template-columns: 72px minmax(0, 1fr);
+  grid-template-columns: var(--lh-item-image-size) minmax(0, 1fr);
   align-items: center;
-  gap: 14px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--lh-border);
+  gap: var(--lh-space-14);
+  padding-bottom: var(--lh-space-14);
+  border-bottom: var(--lh-border-w) solid var(--lh-border);
 }
 
 .lh .lh-item .item-artwork {
   position: relative;
-  width: 72px;
-  height: 72px;
+  width: var(--lh-item-image-size);
+  height: var(--lh-item-image-size);
 }
 
 .lh .lh-item .item-image {
   display: block;
   width: 100%;
   height: 100%;
-  padding: 4px;
+  padding: var(--lh-space-4);
   object-fit: contain;
-  border: 1px solid var(--lh-border-strong);
+  border: var(--lh-border-w) solid var(--lh-border-strong);
   border-radius: var(--lh-radius);
   background: var(--lh-bg-pill);
   cursor: pointer;
@@ -892,13 +1198,13 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 
 .lh .lh-item .item-image:not([aria-disabled='true']):hover,
 .lh .lh-item .item-image:focus-visible {
-  outline: 1px solid var(--lh-text-muted);
-  outline-offset: 2px;
+  outline: var(--lh-border-w) solid var(--lh-text-muted);
+  outline-offset: var(--lh-outline-w);
 }
 
 .lh .lh-item .item-identity {
   display: grid;
-  gap: 10px;
+  gap: var(--lh-space-10);
   min-width: 0;
 }
 
@@ -907,7 +1213,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--lh-space-8);
 }
 
 .lh .lh-item .item-name-input,
@@ -917,42 +1223,42 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   min-width: 0;
   color: var(--lh-text-main);
   background: var(--lh-bg-btn);
-  border: 1px solid var(--lh-border);
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius);
   font-family: var(--font-primary);
-  font-size: 0.95rem;
-  line-height: 1.25;
+  font-size: var(--lh-font-size-input);
+  line-height: var(--lh-line-height-input);
 }
 
 .lh .lh-item .item-name-input,
 .lh .lh-item .item-input {
-  height: 32px;
-  padding: 4px 8px;
+  height: var(--lh-item-input-h);
+  padding: var(--lh-space-4) var(--lh-space-8);
 }
 
 .lh .lh-item .item-name-input {
-  height: 38px;
-  font-size: 1.1rem;
-  font-weight: 700;
+  height: var(--lh-item-name-h);
+  font-size: var(--lh-font-size-item-name);
+  font-weight: var(--lh-font-weight-bold);
 }
 
 .lh .lh-item .item-textarea {
-  min-height: 96px;
-  padding: 8px 10px;
+  min-height: var(--lh-item-description-min-h);
+  padding: var(--lh-space-8) var(--lh-space-10);
   resize: vertical;
 }
 .lh .lh-item .item-select-trigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: var(--lh-space-8);
   text-align: left;
   box-shadow: none;
 }
 .lh .lh-item .item-select-trigger > i {
   flex: none;
   color: var(--lh-accent);
-  font-size: 0.65rem;
+  font-size: var(--lh-font-size-icon-small);
 }
 .lh .lh-item .item-select-trigger:hover {
   background: var(--lh-bg-hover);
@@ -961,25 +1267,25 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .lh-item .item-name-input:focus,
 .lh .lh-item .item-input:focus,
 .lh .lh-item .item-textarea:focus {
-  outline: 1px solid var(--lh-text-muted);
-  outline-offset: 1px;
-  box-shadow: 0 0 6px var(--color-shadow-primary);
+  outline: var(--lh-border-w) solid var(--lh-text-muted);
+  outline-offset: var(--lh-border-w);
+  box-shadow: 0 0 var(--lh-shadow-blur-sm) var(--color-shadow-primary);
 }
 
 .lh .lh-item .item-type-pill {
   color: var(--lh-text-muted);
-  font-size: 0.78rem;
+  font-size: var(--lh-font-size-section);
   line-height: 1;
-  font-weight: 700;
-  letter-spacing: 0.03em;
+  font-weight: var(--lh-font-weight-bold);
+  letter-spacing: var(--lh-letter-spacing-pill);
   text-transform: uppercase;
   white-space: nowrap;
 }
 
 .lh .lh-item .item-fields {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 10px 12px;
+  grid-template-columns: repeat(auto-fit, minmax(var(--lh-item-panel-min-w), 1fr));
+  gap: var(--lh-space-10) var(--lh-space-12);
 }
 
 .lh .lh-item .item-panel,
@@ -987,28 +1293,28 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .lh-item .item-description {
   display: grid;
   align-content: start;
-  gap: 10px;
+  gap: var(--lh-space-10);
   min-width: 0;
 }
 
 .lh .lh-item .item-carry-panel,
 .lh .lh-item .item-description {
-  border-top: 1px solid var(--lh-border);
-  padding-top: 12px;
+  border-top: var(--lh-border-w) solid var(--lh-border);
+  padding-top: var(--lh-space-12);
 }
 
 .lh .lh-item .item-section-title {
   color: var(--lh-text-muted);
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
+  font-size: var(--lh-font-size-item-section);
+  font-weight: var(--lh-font-weight-heavy);
+  letter-spacing: var(--lh-letter-spacing-label);
   line-height: 1;
   text-transform: uppercase;
 }
 
 .lh .lh-item .item-form-row {
   display: grid;
-  gap: 5px;
+  gap: var(--lh-space-5);
   min-width: 0;
   margin: 0;
 }
@@ -1019,25 +1325,25 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 
 .lh .lh-item .item-label {
   color: var(--lh-text-muted);
-  font-size: 0.8rem;
+  font-size: var(--lh-font-size-label);
 }
 
 .lh .lh-item .item-checkbox {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--lh-space-6);
   margin: 0;
   justify-self: start;
   color: var(--lh-text-muted);
-  font-size: 0.8rem;
+  font-size: var(--lh-font-size-label);
   cursor: pointer;
-  line-height: 1.2;
+  line-height: var(--lh-line-height-heading);
 }
 
 .lh .lh-item .item-checkbox > input[type='checkbox'] {
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: var(--lh-checkbox-size);
+  height: var(--lh-checkbox-size);
   margin: 0;
   opacity: 0;
   cursor: inherit;
@@ -1046,20 +1352,20 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .lh-item .item-checkbox > .checkbox-box {
   display: inline-grid;
   place-content: center;
-  width: 16px;
-  height: 16px;
-  flex: 0 0 16px;
+  width: var(--lh-checkbox-size);
+  height: var(--lh-checkbox-size);
+  flex: 0 0 var(--lh-checkbox-size);
   background: var(--lh-bg-btn);
-  border: 1px solid var(--lh-border-strong);
-  border-radius: 3px;
+  border: var(--lh-border-w) solid var(--lh-border-strong);
+  border-radius: var(--lh-radius-checkbox);
   box-sizing: border-box;
 }
 
 .lh .lh-item .item-checkbox > .checkbox-box::before {
   content: '\f00c';
   font-family: var(--font-awesome);
-  font-size: 11px;
-  font-weight: 900;
+  font-size: var(--lh-font-size-checkmark);
+  font-weight: var(--lh-font-weight-black);
   line-height: 1;
   color: var(--lh-text-light);
   transform: scale(0);
@@ -1075,8 +1381,8 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 
 .lh .lh-item .item-checkbox > input[type='checkbox']:focus-visible + .checkbox-box {
-  outline: 1px solid var(--lh-text-muted);
-  outline-offset: 2px;
+  outline: var(--lh-border-w) solid var(--lh-text-muted);
+  outline-offset: var(--lh-outline-w);
 }
 
 /* ===== Form Inputs ===== */
@@ -1087,27 +1393,27 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh .big-input {
   width: 100%;
-  border: 1px solid var(--lh-border);
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius);
-  padding: 6px 8px;
+  padding: var(--lh-space-6) var(--lh-space-8);
   background: var(--lh-bg-btn);
-  font-size: 0.95rem;
-  margin-bottom: 5px;
+  font-size: var(--lh-font-size-input);
+  margin-bottom: var(--lh-space-5);
 }
 .lh .big-input:focus,
 .lh .num:focus {
-  outline: 1px solid var(--lh-text-muted);
-  box-shadow: 0 0 6px var(--color-shadow-primary);
-  outline-offset: 1px;
+  outline: var(--lh-border-w) solid var(--lh-text-muted);
+  box-shadow: 0 0 var(--lh-shadow-blur-sm) var(--color-shadow-primary);
+  outline-offset: var(--lh-border-w);
 }
 .lh .editor {
-  margin-bottom: 5px;
+  margin-bottom: var(--lh-space-5);
   position: relative;
-  height: 260px;
+  height: var(--lh-editor-h);
   color: var(--lh-text-main);
 }
 .lh prose-mirror {
-  --min-height: 260px;
+  --min-height: var(--lh-editor-h);
   color: var(--lh-text-main);
 }
 .lh prose-mirror button.toggle {
@@ -1120,17 +1426,17 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh prose-mirror .editor-container {
   min-height: 0;
-  border: 1px solid var(--lh-border);
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius);
   background: var(--lh-bg-btn);
 }
 .lh .editor-content {
-  --color-scrollbar: rgba(0, 0, 0, 0.72);
+  --color-scrollbar: var(--lh-scrollbar-color);
   --color-scrollbar-track: transparent;
   min-height: 0;
   height: 100%;
-  padding: 6px 8px;
-  border: 1px solid var(--lh-border);
+  padding: var(--lh-space-6) var(--lh-space-8);
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius);
   background: var(--lh-bg-btn);
   overflow-y: auto;
@@ -1138,15 +1444,15 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .editor.prosemirror {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--lh-space-6);
   overflow: visible;
 }
 .lh .editor.prosemirror menu.editor-menu {
   --button-text-color: var(--lh-text-main);
   --button-hover-text-color: var(--lh-text-main);
   --button-focus-text-color: var(--lh-text-main);
-  --button-hover-background-color: #f5f5f5;
-  --button-focus-background-color: #f5f5f5;
+  --button-hover-background-color: var(--lh-bg-card);
+  --button-focus-background-color: var(--lh-bg-card);
   position: static;
   z-index: 1;
   display: flex;
@@ -1154,7 +1460,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   align-items: center;
   min-height: var(--lh-control-h);
   margin: 0;
-  padding: 2px 4px;
+  padding: var(--lh-space-2) var(--lh-space-4);
   overflow: visible;
   background: transparent;
   color: var(--lh-text-main);
@@ -1174,7 +1480,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .editor.prosemirror menu.editor-menu button:hover,
 .lh .editor.prosemirror menu.editor-menu button:focus,
 .lh .editor.prosemirror menu.editor-menu button.active {
-  background: #f5f5f5;
+  background: var(--lh-bg-card);
   color: var(--lh-text-main);
 }
 .lh .editor.prosemirror .editor-content {
@@ -1184,18 +1490,18 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   height: auto;
 }
 .lh .editor-content::-webkit-scrollbar {
-  width: 10px;
+  width: var(--lh-scrollbar-w);
 }
 .lh .editor-content::-webkit-scrollbar-track {
   background: transparent;
 }
 .lh .editor-content::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.72);
-  border: 2px solid var(--lh-bg-btn);
-  border-radius: 999px;
+  background: var(--lh-scrollbar-color);
+  border: var(--lh-outline-w) solid var(--lh-bg-btn);
+  border-radius: var(--lh-radius-pill);
 }
 .lh .editor-content::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.88);
+  background: var(--lh-scrollbar-hover-color);
 }
 .lh .editor-content :is(h1, h2, h3, h4, h5, h6) {
   color: var(--lh-text-main);
@@ -1209,35 +1515,35 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh .editor-content ul,
 .lh prose-mirror .editor-content ul {
-  margin: 0.35rem 0;
-  padding-left: 1.25rem;
+  margin: var(--lh-text-section-gap) 0;
+  padding-left: var(--lh-editor-list-indent);
 }
 .lh .editor-content li,
 .lh prose-mirror .editor-content li {
-  margin: 0.18rem 0;
+  margin: var(--lh-editor-list-item-gap) 0;
   color: var(--lh-text-main);
-  line-height: 1.35;
+  line-height: var(--lh-line-height-body);
 }
 .lh .editor-content strong,
 .lh prose-mirror .editor-content strong {
   color: var(--lh-text-main);
-  font-weight: 800;
+  font-weight: var(--lh-font-weight-heavy);
 }
 /* ===== Portrait Panel ===== */
 .lh .avatar {
   background: var(--lh-bg-card);
-  border: 1px solid var(--lh-border);
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius);
-  padding: 8px;
+  padding: var(--lh-space-8);
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: 8px;
+  gap: var(--lh-space-8);
 }
 .lh .portrait {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  border: 1px solid var(--lh-border);
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius);
   overflow: hidden;
   background: var(--lh-bg-app);
@@ -1255,16 +1561,16 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 800;
-  letter-spacing: 0.02em;
+  font-weight: var(--lh-font-weight-heavy);
+  letter-spacing: var(--lh-letter-spacing-label);
   color: var(--lh-text-light);
-  background: rgba(0, 0, 0, 0);
+  background: var(--lh-portrait-overlay-bg);
   opacity: 0;
-  transition: 0.15s ease;
+  transition: var(--lh-transition-default) ease;
   pointer-events: none;
 }
 .lh .portrait:hover .portrait-overlay {
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--lh-portrait-overlay-hover-bg);
   opacity: 1;
 }
 
@@ -1272,20 +1578,20 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .hero {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 8px;
+  gap: var(--lh-space-8);
   max-width: var(--lh-hero-max);
 }
 .lh .name-input {
-  font-size: 1.05rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
+  font-size: var(--lh-font-size-name);
+  font-weight: var(--lh-font-weight-heavy);
+  letter-spacing: var(--lh-letter-spacing-label);
 }
 
 /* ===== Tiles ===== */
 .lh .tiles {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4px;
+  gap: var(--lh-space-4);
 }
 @media (max-width: 560px) {
   .lh .tiles {
@@ -1305,8 +1611,8 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   flex: 0 0 var(--lh-pill-w);
   background: var(--lh-bg-pill);
   color: var(--lh-text-light);
-  font-weight: 800;
-  letter-spacing: 0.02em;
+  font-weight: var(--lh-font-weight-heavy);
+  letter-spacing: var(--lh-letter-spacing-label);
   text-transform: uppercase;
   text-align: center;
   border-radius: var(--lh-radius) 0 0 var(--lh-radius);
@@ -1315,7 +1621,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--lh-space-6);
   padding: 0 var(--lh-pill-pad);
   font-size: var(--lh-pill-font);
 }
@@ -1323,20 +1629,20 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh.lh-monster-sheet .monster-label-rollable {
   cursor: pointer;
   transition:
-    box-shadow 0.12s ease,
-    filter 0.12s ease;
+    box-shadow var(--lh-transition-fast) ease,
+    filter var(--lh-transition-fast) ease;
 }
 .lh .pill.rollable i,
 .lh.lh-monster-sheet .monster-label-rollable i {
-  opacity: 0.35;
-  transition: opacity 0.12s ease;
+  opacity: var(--lh-opacity-roll-icon);
+  transition: opacity var(--lh-transition-fast) ease;
 }
 .lh .pill.rollable:hover,
 .lh.lh-monster-sheet .monster-label-rollable:hover {
   filter: none;
   box-shadow:
-    0 0 0 2px var(--lh-accent-hover) inset,
-    0 0 0 1px var(--lh-shadow-dark);
+    0 0 0 var(--lh-space-2) var(--lh-accent-hover) inset,
+    0 0 0 var(--lh-space-1) var(--lh-shadow-dark);
 }
 .lh .pill.rollable:focus,
 .lh .pill.rollable:focus-visible,
@@ -1358,13 +1664,13 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .armor-auto-icon {
   position: absolute;
   top: 0;
-  left: calc(100% + 1px);
+  left: calc(100% + var(--lh-border-w));
   width: auto;
   height: auto;
   color: var(--lh-text-light);
-  font-size: 9px;
+  font-size: var(--lh-font-size-automation);
   line-height: 1;
-  opacity: 0.5;
+  opacity: var(--lh-opacity-muted);
   pointer-events: auto;
 }
 .lh .pill,
@@ -1374,14 +1680,14 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .num {
   width: var(--lh-pair-num-w);
   text-align: center;
-  font-weight: 700;
+  font-weight: var(--lh-font-weight-bold);
   font-variant-numeric: tabular-nums;
 }
 .lh .chip {
   background: var(--lh-bg-btn);
-  border: 1px solid var(--lh-border-strong);
+  border: var(--lh-border-w) solid var(--lh-border-strong);
   border-radius: var(--lh-radius-sm);
-  box-shadow: inset 0 -1px 0 var(--lh-shadow-light);
+  box-shadow: inset 0 var(--lh-offset-negative-1) 0 var(--lh-shadow-light);
 }
 .lh .pair,
 .lh.lh-monster-sheet .monster-values {
@@ -1392,7 +1698,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   gap: 0;
   overflow: hidden;
   background: var(--lh-bg-btn);
-  border: 1px solid var(--lh-border-strong);
+  border: var(--lh-border-w) solid var(--lh-border-strong);
   border-radius: 0 var(--lh-radius) var(--lh-radius) 0;
   box-sizing: border-box;
 }
@@ -1409,7 +1715,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh.lh-monster-sheet .monster-stats-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px 10px;
+  gap: var(--lh-space-6) var(--lh-space-10);
   align-items: start;
 }
 .lh .pair .num,
@@ -1417,7 +1723,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh.lh-monster-sheet .monster-num {
   width: 100%;
   min-width: 0;
-  height: 28px;
+  height: var(--lh-control-compact-h);
   border-radius: 0;
   margin: 0;
   border: 0;
@@ -1428,9 +1734,9 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .pair .num:last-child,
 .lh .pair .num[data-deprived='true'],
 .lh.lh-monster-sheet .monster-values-dual .monster-num:last-child {
-  border-left: 1px solid var(--lh-border);
+  border-left: var(--lh-border-w) solid var(--lh-border);
   border-radius: 0;
-  background: rgba(0, 0, 0, 0.035);
+  background: var(--lh-secondary-value-bg);
   color: var(--lh-text-muted);
 }
 .lh .pair .num[data-deprived='true'] {
@@ -1449,7 +1755,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   min-width: var(--lh-values-w);
   height: var(--lh-control-h);
   background: var(--lh-bg-btn);
-  border: 1px solid var(--lh-border-strong);
+  border: var(--lh-border-w) solid var(--lh-border-strong);
   border-radius: 0 var(--lh-radius) var(--lh-radius) 0;
   box-sizing: border-box;
 }
@@ -1460,7 +1766,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   height: var(--lh-control-h);
   gap: 0;
   background: var(--lh-bg-btn);
-  border: 1px solid var(--lh-border-strong);
+  border: var(--lh-border-w) solid var(--lh-border-strong);
   border-radius: 0 var(--lh-radius) var(--lh-radius) 0;
   box-sizing: border-box;
 }
@@ -1475,7 +1781,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh .tiles > .tile:nth-child(even):lang(pt) .num,
 .lh.lh-monster-sheet .monster-stats-grid > .monster-stat:nth-child(odd):lang(pt) .num {
-  padding-inline: 2px;
+  padding-inline: var(--lh-space-2);
 }
 
 @media (max-width: 560px) {
@@ -1491,21 +1797,21 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .deprived {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--lh-space-8);
 }
 .lh .deprived .checkbox {
-  width: 16px;
-  height: 16px;
+  width: var(--lh-checkbox-size);
+  height: var(--lh-checkbox-size);
 }
 
 /* ===== Tabs ===== */
 .lh .tabs {
   grid-column: 1 / -1;
   display: flex;
-  gap: 20px;
+  gap: var(--lh-space-20);
   align-items: flex-end;
   justify-content: space-around;
-  margin: -2px 4px -4px;
+  margin: var(--lh-offset-negative-2) var(--lh-space-4) var(--lh-offset-negative-4);
   padding: 0;
   border: 0;
   box-shadow: none;
@@ -1513,20 +1819,20 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh .tabs .item {
   position: relative;
-  padding: 2px 2px 3px;
+  padding: var(--lh-space-2) var(--lh-space-2) var(--lh-space-3);
   margin: 0;
   border: 0;
   border-radius: 0;
   background: transparent;
   box-shadow: none;
-  font-weight: 800;
-  letter-spacing: 0.02em;
+  font-weight: var(--lh-font-weight-heavy);
+  letter-spacing: var(--lh-letter-spacing-label);
   cursor: pointer;
   user-select: none;
-  font-size: 0.84rem;
+  font-size: var(--lh-font-size-control-label);
   color: var(--lh-text-muted);
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: color var(--lh-transition-default) ease;
 }
 .lh .tabs .item:hover,
 .lh .tabs .item.active {
@@ -1539,13 +1845,13 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   left: 0;
   right: 0;
   bottom: 0;
-  height: 2px;
+  height: var(--lh-divider-w);
   background: transparent;
   transform: scaleX(0);
   transform-origin: left;
   transition:
-    transform 0.18s ease,
-    background-color 0.18s ease;
+    transform var(--lh-transition-tabs) ease,
+    background-color var(--lh-transition-tabs) ease;
 }
 .lh .tabs .item:hover::after {
   background: var(--lh-accent-hover);
@@ -1570,29 +1876,29 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
-  margin: 4px 0 6px;
+  gap: var(--lh-space-8);
+  margin: var(--lh-space-4) 0 var(--lh-space-6);
 }
 .lh .inv-meta {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
   align-items: center;
-  gap: 6px;
+  gap: var(--lh-space-6);
   margin-left: auto;
 }
 .lh .inv-sort,
 .lh .inv-slots {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  height: 28px;
-  padding: 0 8px;
-  border: 1px solid var(--lh-border);
+  gap: var(--lh-space-6);
+  height: var(--lh-control-compact-h);
+  padding: 0 var(--lh-space-8);
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius-sm);
   background: var(--lh-bg-btn);
   color: var(--lh-accent);
-  font-size: 0.75rem;
+  font-size: var(--lh-font-size-compact);
 }
 .lh .inv-slots {
   white-space: nowrap;
@@ -1602,16 +1908,16 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
+  width: var(--lh-icon-size);
 }
 .lh .inv-sort-icon i,
 .lh .inv-slots > i {
-  font-size: 0.8rem;
+  font-size: var(--lh-font-size-label);
 }
 .lh .inv-sort-direction {
-  height: 18px;
-  width: 18px;
-  min-width: 18px;
+  height: var(--lh-icon-size);
+  width: var(--lh-icon-size);
+  min-width: var(--lh-icon-size);
   padding: 0;
   border: 0;
   border-radius: 0;
@@ -1628,7 +1934,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   box-shadow: none;
 }
 .lh .inv-sort-direction i {
-  font-size: 0.72rem;
+  font-size: var(--lh-font-size-badge);
   line-height: 1;
   pointer-events: none;
 }
@@ -1636,23 +1942,23 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--lh-space-12);
   height: 100%;
   min-height: 0;
-  min-width: 118px;
+  min-width: var(--lh-inventory-sort-min-w);
   padding: 0;
   border: 0;
   border-radius: 0;
   background: transparent;
   color: inherit;
   font: inherit;
-  font-size: 0.75rem;
+  font-size: var(--lh-font-size-compact);
   appearance: none;
   -webkit-appearance: none;
   box-shadow: none;
 }
 .lh .inv-sort-select > i {
-  font-size: 0.6rem;
+  font-size: var(--lh-font-size-icon-tiny);
 }
 .lh .inv-sort-select:hover {
   background: transparent;
@@ -1666,13 +1972,13 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   position: fixed;
   inset: auto;
   margin: 0;
-  padding: 4px;
-  max-width: calc(100vw - 16px);
+  padding: var(--lh-space-4);
+  max-width: calc(100vw - var(--lh-menu-viewport-inset));
   overflow-y: auto;
-  border: 1px solid var(--lh-border-strong);
+  border: var(--lh-border-w) solid var(--lh-border-strong);
   border-radius: var(--lh-radius-sm);
   background: var(--lh-bg-card);
-  box-shadow: 0 4px 12px var(--lh-shadow-dark);
+  box-shadow: 0 var(--lh-space-4) var(--lh-shadow-blur-lg) var(--lh-shadow-dark);
   color: var(--lh-accent);
   font-family: var(--font-primary);
 }
@@ -1681,24 +1987,24 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh.lh-select-menu:is(:popover-open, [data-measuring='true']) {
   display: grid;
-  gap: 2px;
+  gap: var(--lh-space-2);
 }
 .lh.lh-select-menu > button {
   --button-focus-outline-color: var(--lh-accent);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  gap: var(--lh-space-16);
   width: 100%;
-  min-height: 28px;
-  padding: 4px 8px;
+  min-height: var(--lh-control-compact-h);
+  padding: var(--lh-space-4) var(--lh-space-8);
   border: 0;
-  border-radius: 4px;
+  border-radius: var(--lh-radius-menu-item);
   background: transparent;
   box-shadow: none;
   color: inherit;
   font: inherit;
-  font-size: 0.75rem;
+  font-size: var(--lh-font-size-compact);
   text-align: left;
   white-space: nowrap;
 }
@@ -1708,13 +2014,13 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   box-shadow: none;
 }
 .lh.lh-select-menu > button[aria-checked='true'] {
-  outline: 1px solid var(--lh-accent);
-  outline-offset: -1px;
-  font-weight: 700;
+  outline: var(--lh-border-w) solid var(--lh-accent);
+  outline-offset: var(--lh-offset-negative-1);
+  font-weight: var(--lh-font-weight-bold);
 }
 .lh.lh-select-menu > button:focus {
-  outline: 1px solid var(--lh-accent);
-  outline-offset: -1px;
+  outline: var(--lh-border-w) solid var(--lh-accent);
+  outline-offset: var(--lh-offset-negative-1);
   box-shadow: none;
 }
 .lh.lh-select-menu > button[aria-checked='false'] > i {
@@ -1722,63 +2028,63 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh .inv-row {
   display: grid;
-  grid-template-columns: 24px minmax(0, 1fr) 24px auto;
-  gap: 8px;
+  grid-template-columns: var(--lh-inventory-image-size) minmax(0, 1fr) var(--lh-inventory-grip-col-w) auto;
+  gap: var(--lh-space-8);
   align-items: center;
-  padding: 6px 8px;
-  border-top: 1px solid var(--lh-border);
-  border-left: 3px solid transparent;
+  padding: var(--lh-space-6) var(--lh-space-8);
+  border-top: var(--lh-border-w) solid var(--lh-border);
+  border-left: var(--lh-inventory-accent-w) solid transparent;
   background: var(--lh-bg-inventory);
-  font-size: 0.95rem;
+  font-size: var(--lh-font-size-input);
 }
 .lh .inv-row[data-sortable='true'] {
-  grid-template-columns: 46px minmax(0, 1fr) 24px auto;
+  grid-template-columns: var(--lh-inventory-carry-sortable-w) minmax(0, 1fr) var(--lh-inventory-grip-col-w) auto;
 }
 .lh .inv-row[data-sortable='true'].is-dragging {
-  opacity: 0.55;
+  opacity: var(--lh-opacity-dragging);
 }
 .lh .inv-carry {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--lh-space-6);
   min-width: 0;
 }
 .lh .inv-image {
   flex: none;
-  width: 24px;
-  height: 24px;
+  width: var(--lh-inventory-image-size);
+  height: var(--lh-inventory-image-size);
   object-fit: contain;
-  border: 1px solid var(--lh-border);
-  border-radius: 3px;
+  border: var(--lh-border-w) solid var(--lh-border);
+  border-radius: var(--lh-radius-checkbox);
   background: var(--lh-bg-pill);
 }
 .lh .inv-drag-handle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
+  width: var(--lh-inventory-drag-w);
   flex: none;
-  min-height: 18px;
+  min-height: var(--lh-icon-size);
   color: var(--lh-text-muted);
   cursor: grab;
-  opacity: 0.42;
+  opacity: var(--lh-opacity-drag-handle);
 }
 .lh .inv-drag-handle:active {
   cursor: grabbing;
 }
 .lh .inv-drag-handle:hover {
   color: var(--lh-text-main);
-  opacity: 0.72;
+  opacity: var(--lh-opacity-secondary);
 }
 .lh .inv-drag-handle i {
   pointer-events: none;
-  font-size: 0.72rem;
+  font-size: var(--lh-font-size-badge);
 }
 .lh .inv-row[data-sortable='true'].drop-before {
-  box-shadow: inset 0 2px 0 var(--lh-accent-strong);
+  box-shadow: inset 0 var(--lh-space-2) 0 var(--lh-accent-strong);
 }
 .lh .inv-row[data-sortable='true'].drop-after {
-  box-shadow: inset 0 -2px 0 var(--lh-accent-strong);
+  box-shadow: inset 0 var(--lh-offset-negative-2) 0 var(--lh-accent-strong);
 }
 .lh .inv-row:hover {
   background: var(--lh-bg-hover);
@@ -1789,7 +2095,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh .inv-main {
   display: flex;
-  gap: 6px;
+  gap: var(--lh-space-6);
   align-items: baseline;
   min-width: 0;
 }
@@ -1813,7 +2119,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   min-width: 0;
   max-width: 100%;
   margin: 0;
-  padding: 0 0.45em 0 0;
+  padding: 0 var(--lh-inventory-name-marker-space) 0 0;
   border: 0;
   background: transparent;
   appearance: none;
@@ -1841,16 +2147,16 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   content: '•';
   position: absolute;
   right: 0;
-  top: 0.05em;
-  font-size: 0.72rem;
+  top: var(--lh-inventory-name-marker-top);
+  font-size: var(--lh-font-size-badge);
   line-height: 1;
-  opacity: 0.45;
+  opacity: var(--lh-opacity-inactive);
   pointer-events: none;
-  transition: opacity 0.16s ease;
+  transition: opacity var(--lh-transition-marker) ease;
 }
 .lh .inv-main .inv-name-toggle:hover::after,
 .lh .inv-main .inv-name-toggle[aria-expanded='true']::after {
-  opacity: 0.8;
+  opacity: var(--lh-opacity-active-marker);
 }
 .lh .inv-main .entity-link:hover {
   text-shadow: none;
@@ -1859,18 +2165,18 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   color: var(--lh-text-main);
 }
 .lh .inv-desc {
-  padding: 4px 8px 8px 43px;
+  padding: var(--lh-space-4) var(--lh-space-8) var(--lh-space-8) var(--lh-inventory-description-inset);
   background: var(--lh-bg-inventory);
 }
 .lh .inv-row[data-sortable='true'] + .inv-desc {
-  padding-left: 65px;
+  padding-left: var(--lh-inventory-description-sortable-inset);
 }
 .lh .inv-desc.is-collapsed {
   display: none;
 }
 .lh .inv-desc-inner {
-  padding: 8px 0 0;
-  border-top: 1px solid var(--lh-border);
+  padding: var(--lh-space-8) 0 0;
+  border-top: var(--lh-border-w) solid var(--lh-border);
   color: var(--lh-text-main);
   user-select: text;
   -webkit-user-select: text;
@@ -1888,8 +2194,8 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh .inv-actions {
   display: grid;
-  grid-template-columns: 60px repeat(4, 16px);
-  gap: 8px;
+  grid-template-columns: var(--lh-inventory-value-col-w) repeat(4, var(--lh-inventory-action-size));
+  gap: var(--lh-space-8);
   align-items: center;
 }
 .lh .inv-actions i {
@@ -1908,18 +2214,18 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   justify-self: stretch;
   justify-content: flex-end;
   align-items: center;
-  gap: 8px;
+  gap: var(--lh-space-8);
   white-space: nowrap;
 }
 .lh .inv-stat-armor {
   flex-wrap: wrap;
-  gap: 4px 6px;
+  gap: var(--lh-space-4) var(--lh-space-6);
 }
 .lh .armor-protection {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  font-size: 0.75rem;
+  gap: var(--lh-space-3);
+  font-size: var(--lh-font-size-compact);
 }
 .lh .inv-actions > .equip-toggle {
   grid-column: 2;
@@ -1936,20 +2242,20 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh .armor-badge {
   cursor: pointer;
-  font-weight: 800;
+  font-weight: var(--lh-font-weight-heavy);
   font-variant-numeric: tabular-nums;
 }
 .lh .armor-badge.is-equipped::before {
   content: '\2022';
-  margin-right: 6px;
-  opacity: 0.85;
+  margin-right: var(--lh-space-6);
+  opacity: var(--lh-opacity-overlay);
 }
 
 /* ===== Segmented Actions ===== */
 .actions-row {
-  margin-top: 5px;
+  margin-top: var(--lh-space-5);
   justify-content: flex-end;
-  gap: 10px;
+  gap: var(--lh-space-10);
 }
 .actions-row > a {
   flex: 0 0 auto;
@@ -1959,11 +2265,11 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: var(--lh-font-size-quick-action);
 }
 .lh .actions--segmented {
   display: flex;
-  gap: 8px;
+  gap: var(--lh-space-8);
   align-items: center;
   justify-content: space-between;
 }
@@ -1972,41 +2278,41 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh .action-group {
   display: grid;
-  grid-template-columns: max-content 48px 30px;
+  grid-template-columns: max-content var(--lh-action-input-col-w) var(--lh-action-button-w);
   align-items: center;
-  border: 1px solid var(--lh-border);
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius);
   overflow: hidden;
   background: var(--lh-bg-btn);
-  height: 28px;
+  height: var(--lh-control-compact-h);
 }
 .lh .seg {
-  height: 28px;
+  height: var(--lh-control-compact-h);
   display: flex;
   align-items: center;
 }
 .lh .seg-label {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 0 10px;
+  gap: var(--lh-space-6);
+  padding: 0 var(--lh-space-10);
   background: var(--lh-bg-app);
-  font-weight: 800;
-  letter-spacing: 0.02em;
+  font-weight: var(--lh-font-weight-heavy);
+  letter-spacing: var(--lh-letter-spacing-label);
   text-transform: uppercase;
-  font-size: 0.82rem;
+  font-size: var(--lh-font-size-segment);
   color: var(--lh-text-main);
 }
 .lh .seg-input {
-  width: 52px;
+  width: var(--lh-action-input-w);
   text-align: center;
-  font-weight: 700;
+  font-weight: var(--lh-font-weight-bold);
   font-variant-numeric: tabular-nums;
   border: 0;
-  border-left: 1px solid var(--lh-border);
-  border-right: 1px solid var(--lh-border);
+  border-left: var(--lh-border-w) solid var(--lh-border);
+  border-right: var(--lh-border-w) solid var(--lh-border);
   background: var(--lh-bg-btn);
-  padding: 0 6px;
+  padding: 0 var(--lh-space-6);
 }
 .lh .seg-input:focus {
   outline: none;
@@ -2015,7 +2321,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   border: 0;
   background: var(--lh-bg-btn-dark);
   color: var(--lh-text-light);
-  width: 30px;
+  width: var(--lh-action-button-w);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2030,15 +2336,15 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   background: var(--lh-bg-btn);
   color: var(--lh-text-muted);
   cursor: not-allowed;
-  border-left: 1px solid var(--lh-border);
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+  border-left: var(--lh-border-w) solid var(--lh-border);
+  box-shadow: inset 0 0 0 var(--lh-space-1) var(--lh-disabled-action-shadow-color);
 }
 .lh .seg-btn.is-disabled i,
 .lh .seg-btn:disabled i {
-  opacity: 0.4;
+  opacity: var(--lh-opacity-disabled-icon);
 }
 .lh .seg-btn i {
-  font-size: 0.9rem;
+  font-size: var(--lh-font-size-body);
 }
 
 /* ===== Buttons ===== */
@@ -2047,13 +2353,13 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   align-items: center;
   justify-content: center;
   height: var(--lh-button-h);
-  padding: 0 10px;
+  padding: 0 var(--lh-space-10);
   border-radius: var(--lh-radius);
-  border: 1px solid var(--lh-border);
+  border: var(--lh-border-w) solid var(--lh-border);
   background: var(--lh-bg-btn);
-  font-weight: 700;
+  font-weight: var(--lh-font-weight-bold);
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: var(--lh-font-size-input);
 }
 .lh .btn:hover {
   border-color: var(--lh-border-strong);
@@ -2064,10 +2370,10 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   border-color: var(--lh-accent);
 }
 .lh .btn-primary:hover {
-  filter: brightness(1.05);
+  filter: var(--lh-button-hover-filter);
 }
 .lh .btn[disabled] {
-  opacity: 0.5;
+  opacity: var(--lh-opacity-muted);
   cursor: not-allowed;
 }
 
@@ -2079,7 +2385,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   align-items: center;
 }
 .w-110 {
-  width: 110px;
+  width: var(--lh-utility-w-110);
 }
 .tw-grid {
   display: grid;
@@ -2088,7 +2394,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   grid-template-columns: 1fr 1fr;
 }
 .tw-gap-3 {
-  gap: 0.75rem;
+  gap: var(--lh-space-block);
 }
 .tw-flex {
   display: flex;
@@ -2100,7 +2406,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   align-items: center;
 }
 .tw-text-xs {
-  font-size: 0.75rem;
+  font-size: var(--lh-font-size-compact);
 }
 .tw-muted {
   color: var(--lh-text-muted);
@@ -2109,18 +2415,18 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   width: 100%;
 }
 .gap-2 {
-  gap: 0.5rem;
+  gap: var(--lh-space-inline);
 }
 .gap-8 {
-  gap: 2rem;
+  gap: var(--lh-space-wide);
 }
 .mt-8 {
-  margin-top: 8px;
+  margin-top: var(--lh-space-8);
 }
 
 /* ===== Dark Theme Support ===== */
 .app.window-app .lh .card {
-  backdrop-filter: saturate(1.05);
+  backdrop-filter: var(--lh-card-backdrop-filter);
 }
 
 /* ===== Sheet Header ===== */
@@ -2128,8 +2434,8 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .application.lh .window-header {
   background: var(--lh-bg-header);
   color: var(--lh-text-light);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.55);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+  border-bottom: var(--lh-border-w) solid var(--lh-header-border);
+  box-shadow: 0 var(--lh-space-1) 0 var(--lh-header-highlight) inset;
 }
 .window-app.lh .window-header .window-title,
 .window-app.lh .window-header a,
@@ -2139,56 +2445,56 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   color: inherit;
 }
 .lh .item-slots {
-  font-size: 0.65rem;
+  font-size: var(--lh-font-size-icon-small);
 }
 .lh .equip-toggle[data-equipped='true'] i {
   opacity: 1;
 }
 .lh .equip-toggle[data-equipped='false'] i,
 .lh .inv-row[data-item-type='armor'][data-equipped='false'] .armor-protection i {
-  opacity: 0.3;
+  opacity: var(--lh-opacity-unequipped);
 }
 .lh .die-disabled {
   color: var(--lh-text-muted);
   cursor: not-allowed;
-  opacity: 0.45;
+  opacity: var(--lh-opacity-inactive);
 }
 .lh .die-link[aria-disabled='true']:hover {
   text-shadow: none;
 }
 .lh .inv-slots[data-over='true'] {
-  color: #b6453b;
+  color: var(--lh-warning-color);
   border-color: currentColor;
-  font-weight: 700;
+  font-weight: var(--lh-font-weight-bold);
 }
 
 /* ===== Roll Cards ===== */
 .lh.roll-card {
-  font-size: 0.9rem;
+  font-size: var(--lh-font-size-body);
 }
 .lh.roll-card header {
   font-weight: bold;
-  margin-bottom: 4px;
+  margin-bottom: var(--lh-space-4);
   text-transform: uppercase;
   color: var(--lh-text-main);
 }
 
 .chat-message:has(.lh.result-roll-card) .message-header,
 .chat-message:has(.lh.action-card) .message-header {
-  padding-bottom: 5px;
-  border-bottom: 1px solid var(--lh-border);
+  padding-bottom: var(--lh-space-5);
+  border-bottom: var(--lh-border-w) solid var(--lh-border);
 }
 
 .chat-message:has(.lh.result-roll-card) .message-content,
 .chat-message:has(.lh.action-card) .message-content {
-  padding-top: 7px;
+  padding-top: var(--lh-space-7);
 }
 
 .lh.result-roll-card,
 .lh.action-card {
   --lh-roll-color: var(--lh-damage-color);
   color: var(--lh-text-main);
-  font-size: 0.9rem;
+  font-size: var(--lh-font-size-body);
 }
 
 .lh.action-card--neutral,
@@ -2202,40 +2508,40 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh.result-roll-card--good,
 .lh.action-card--good,
 .lh.action-card--equipped {
-  --lh-roll-color: #426e4b;
+  --lh-roll-color: var(--lh-success-color);
 }
 
 .lh.result-roll-card--critical-success {
-  --lh-roll-color: #257b2f;
+  --lh-roll-color: var(--lh-critical-success-color);
 }
 
 .lh.result-roll-card--mixed,
 .lh.action-card--mixed {
-  --lh-roll-color: #805d18;
+  --lh-roll-color: var(--lh-mixed-color);
 }
 
 .lh.result-roll-card--critical-failure {
-  --lh-roll-color: #000000;
+  --lh-roll-color: var(--lh-text-black);
 }
 
 .lh-result-roll__heading {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 7px;
+  gap: var(--lh-space-8);
+  margin-bottom: var(--lh-space-7);
 }
 
 .lh-result-roll__heading > strong {
-  font-size: 1rem;
-  line-height: 1.2;
+  font-size: var(--lh-font-size-heading);
+  line-height: var(--lh-line-height-heading);
   text-transform: uppercase;
 }
 
 .lh-result-roll__heading > span {
   flex: none;
   color: var(--lh-text-muted);
-  font-size: 0.8rem;
+  font-size: var(--lh-font-size-label);
   white-space: nowrap;
 }
 
@@ -2244,31 +2550,31 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 
 .lh-result-roll__details {
-  margin: 0 0 7px;
+  margin: 0 0 var(--lh-space-7);
   color: var(--lh-text-muted);
-  font-size: 0.8rem;
+  font-size: var(--lh-font-size-label);
 }
 
 .lh-result-roll__description {
-  margin-top: 10px;
-  padding: 0 8px;
-  color: color-mix(in srgb, var(--lh-text-main) 80%, var(--lh-bg-card));
-  line-height: 1.5;
+  margin-top: var(--lh-space-10);
+  padding: 0 var(--lh-space-8);
+  color: color-mix(in srgb, var(--lh-text-main) var(--lh-roll-description-mix), var(--lh-bg-card));
+  line-height: var(--lh-line-height-relaxed);
 }
 
 .lh-result-roll__result {
   display: grid;
-  grid-template-columns: 70px minmax(0, 1fr);
+  grid-template-columns: var(--lh-roll-dice-col-w) minmax(0, 1fr);
   align-items: center;
-  gap: 9px;
-  padding: 6px 8px;
+  gap: var(--lh-space-9);
+  padding: var(--lh-space-6) var(--lh-space-8);
   background: var(--lh-bg-hover);
-  border: 1px solid var(--lh-border);
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius-sm);
 }
 
 .lh.result-roll-card--critical-success .lh-result-roll__result {
-  --lh-border-strong: rgba(255, 255, 255, 0.35);
+  --lh-border-strong: var(--lh-critical-result-border);
   background: var(--lh-roll-color);
   border-color: var(--lh-roll-color);
 }
@@ -2279,7 +2585,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 
 .lh.result-roll-card--critical-failure .lh-result-roll__result {
-  --lh-border-strong: rgba(255, 255, 255, 0.35);
+  --lh-border-strong: var(--lh-critical-result-border);
 }
 
 .lh-result-roll__result .dice-roll {
@@ -2296,14 +2602,14 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh-result-roll__result .dice-formula {
   margin: 0;
   color: var(--lh-text-muted);
-  font-size: 0.7rem;
+  font-size: var(--lh-font-size-formula);
   line-height: 1;
 }
 
 .lh-result-roll__result .dice-total {
   color: var(--lh-roll-color);
-  font-size: 2rem;
-  line-height: 1.1;
+  font-size: var(--lh-font-size-result);
+  line-height: var(--lh-line-height-result);
 }
 
 .lh.result-roll-card--damage .dice-total {
@@ -2311,29 +2617,29 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 
 .lh.result-roll-card--critical-failure .lh-result-roll__result .dice-formula {
-  color: #fff;
+  color: var(--lh-text-white);
 }
 
 .lh-result-roll__outcome {
   min-width: 0;
-  padding-left: 9px;
-  border-left: 1px solid var(--lh-border-strong);
+  padding-left: var(--lh-space-9);
+  border-left: var(--lh-border-w) solid var(--lh-border-strong);
 }
 
 .lh-result-roll__outcome strong {
   display: inline-block;
-  padding: 4px 7px;
+  padding: var(--lh-space-4) var(--lh-space-7);
   color: var(--lh-roll-color);
   background: transparent;
-  font-size: 0.8rem;
-  line-height: 1.2;
+  font-size: var(--lh-font-size-label);
+  line-height: var(--lh-line-height-heading);
   text-transform: uppercase;
 }
 
 .lh-result-roll__outcome strong:has(> i) {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: var(--lh-inline-icon-gap);
   max-width: 100%;
 }
 
@@ -2349,46 +2655,46 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh.result-roll-card--critical-success .lh-result-roll__result .dice-formula,
 .lh.result-roll-card--critical-success .lh-result-roll__result .dice-total,
 .lh.result-roll-card--critical-success .lh-result-roll__outcome strong {
-  color: #fff;
+  color: var(--lh-text-white);
 }
 
 .lh.result-roll-card--critical-failure .lh-result-roll__result .dice-total,
 .lh.result-roll-card--critical-failure .lh-result-roll__outcome strong {
-  color: #ff4444;
+  color: var(--lh-critical-failure-text);
 }
 
 .lh-result-roll__note {
-  margin: 7px 0 0;
+  margin: var(--lh-space-7) 0 0;
   color: var(--lh-roll-color);
-  font-size: 0.8rem;
+  font-size: var(--lh-font-size-label);
 }
 
 .lh-action-card__result {
-  grid-template-columns: 38px minmax(0, 1fr);
-  min-height: 60px;
+  grid-template-columns: var(--lh-action-icon-col-w) minmax(0, 1fr);
+  min-height: var(--lh-action-result-min-h);
 }
 
 .lh-equipment-change {
   display: grid;
-  gap: 12px;
+  gap: var(--lh-space-12);
 }
 
 .lh-equipment-change__items {
   display: grid;
-  gap: 6px;
+  gap: var(--lh-space-6);
 }
 
 .lh-action-card__icon {
   color: var(--lh-roll-color);
-  font-size: 1.4rem;
+  font-size: var(--lh-font-size-action-icon);
   text-align: center;
 }
 
 .lh-action-card__icons {
   display: inline-flex;
   align-items: center;
-  gap: 2px;
-  font-size: 1rem;
+  gap: var(--lh-space-2);
+  font-size: var(--lh-font-size-heading);
 }
 
 .lh.action-card:is(.action-card--equipped, .action-card--unequipped) .lh-action-card__icon {
@@ -2398,17 +2704,17 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh.action-card:is(.action-card--equipped, .action-card--unequipped) .lh-action-card__icon::after {
   position: absolute;
   right: 0;
-  bottom: -4px;
+  bottom: var(--lh-offset-negative-4);
   display: grid;
   place-items: center;
-  width: 14px;
-  height: 14px;
-  border: 1px solid currentColor;
+  width: var(--lh-icon-size-small);
+  height: var(--lh-icon-size-small);
+  border: var(--lh-border-w) solid currentColor;
   border-radius: 50%;
   background: var(--lh-bg-card);
   font-family: var(--font-primary);
-  font-size: 11px;
-  font-weight: 800;
+  font-size: var(--lh-font-size-checkmark);
+  font-weight: var(--lh-font-weight-heavy);
   line-height: 1;
 }
 
@@ -2422,23 +2728,23 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 
 .lh-action-card__body {
   color: var(--lh-roll-color);
-  font-size: 0.8rem;
-  font-weight: 700;
-  line-height: 1.35;
+  font-size: var(--lh-font-size-label);
+  font-weight: var(--lh-font-weight-bold);
+  line-height: var(--lh-line-height-body);
   text-transform: uppercase;
   overflow-wrap: anywhere;
 }
 
 .lh-action-card__body > div + div {
-  margin-top: 5px;
+  margin-top: var(--lh-space-5);
 }
 
 .lh-generated-stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 5px 8px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--lh-border);
+  gap: var(--lh-space-5) var(--lh-space-8);
+  padding-bottom: var(--lh-space-8);
+  border-bottom: var(--lh-border-w) solid var(--lh-border);
   font-variant-numeric: tabular-nums;
 }
 
@@ -2449,18 +2755,18 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 
 .lh-generated-stats + ul.lh-chat-details {
-  margin-top: 8px;
+  margin-top: var(--lh-space-8);
 }
 
 .lh-chat-details li + li {
-  margin-top: 6px;
+  margin-top: var(--lh-space-6);
 }
 
 .lh-result-roll__note.lh-luck-spent {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: var(--lh-space-8);
 }
 
 .chat-message button.lh-luck-undo-btn {
@@ -2486,8 +2792,8 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   background: transparent;
   box-shadow: none;
   color: var(--lh-text-muted);
-  font-size: 0.8rem;
-  transition: color 0.15s;
+  font-size: var(--lh-font-size-label);
+  transition: color var(--lh-transition-default);
 }
 
 .chat-message button.lh-luck-undo-btn:hover,
@@ -2504,7 +2810,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 
 .chat-message button.lh-luck-undo-btn:disabled {
-  opacity: 0.5;
+  opacity: var(--lh-opacity-muted);
 }
 
 .lh-result-roll__result:has(.dice-roll.expanded) {
@@ -2520,11 +2826,11 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .chat-message.whisper {
   background: none !important;
   background-color: var(--lh-bg-whisper) !important;
-  box-shadow: inset 0 0 0 1px rgba(17, 17, 17, 0.08);
+  box-shadow: inset 0 0 0 var(--lh-space-1) var(--lh-whisper-shadow-color);
 }
 .chat-message.whisper .message-header {
   color: var(--lh-text-main);
-  opacity: 0.85;
+  opacity: var(--lh-opacity-overlay);
 }
 .chat-message:not(.whisper) {
   background: none !important;
@@ -2538,14 +2844,14 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 
 /* ===== Pause Overlay ===== */
 #pause figcaption {
-  color: #fff;
-  font-size: 1.6rem;
-  font-weight: 800;
+  color: var(--lh-text-white);
+  font-size: var(--lh-font-size-pause);
+  font-weight: var(--lh-font-weight-heavy);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--lh-letter-spacing-pause);
   position: relative;
-  text-shadow: 0 0 4px rgba(0, 0, 0, 0.9);
-  animation: glitchSkew 0.08s infinite;
+  text-shadow: 0 0 var(--lh-shadow-blur-xs) var(--lh-pause-shadow-color);
+  animation: glitchSkew var(--lh-pause-skew-duration) infinite;
 }
 #pause figcaption::before,
 #pause figcaption::after {
@@ -2554,78 +2860,78 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   left: 0;
   top: 0;
   width: 100%;
-  opacity: 0.85;
+  opacity: var(--lh-opacity-overlay);
 }
 #pause figcaption::before {
-  color: #f00;
-  animation: glitchShiftRed 0.05s infinite;
+  color: var(--lh-pause-glitch-color);
+  animation: glitchShiftRed var(--lh-pause-red-duration) infinite;
 }
 #pause figcaption::after {
-  color: #fff;
-  animation: glitchShiftWhite 0.07s infinite;
+  color: var(--lh-text-white);
+  animation: glitchShiftWhite var(--lh-pause-white-duration) infinite;
 }
 @keyframes glitchShiftRed {
   0% {
-    transform: translate(-1px, -1px);
+    transform: var(--lh-pause-shift-nw);
   }
   50% {
-    transform: translate(1px, 1px);
+    transform: var(--lh-pause-shift-se);
   }
   100% {
-    transform: translate(-1px, 1px);
+    transform: var(--lh-pause-shift-sw);
   }
 }
 @keyframes glitchShiftWhite {
   0% {
-    transform: translate(1px, 1px);
+    transform: var(--lh-pause-shift-se);
   }
   50% {
-    transform: translate(-1px, -1px);
+    transform: var(--lh-pause-shift-nw);
   }
   100% {
-    transform: translate(1px, -1px);
+    transform: var(--lh-pause-shift-ne);
   }
 }
 @keyframes glitchSkew {
   0% {
-    transform: skew(0.5deg);
+    transform: var(--lh-pause-skew-start);
   }
   50% {
-    transform: skew(-0.5deg);
+    transform: var(--lh-pause-skew-middle);
   }
   100% {
-    transform: skew(0.8deg);
+    transform: var(--lh-pause-skew-end);
   }
 }
 #pause img {
   content: url('../assets/img/logo.webp') !important;
-  top: 10%;
+  top: var(--lh-pause-logo-top);
   animation:
-    lh-flicker 6s infinite,
-    lh-breathe 10s ease-in-out infinite;
+    lh-flicker var(--lh-pause-flicker-duration) infinite,
+    lh-breathe var(--lh-pause-breathe-duration) ease-in-out infinite;
 }
 @keyframes lh-flicker {
   0%,
   100% {
-    opacity: 0.48;
+    opacity: var(--lh-pause-flicker-opacity-base);
   }
   12% {
-    opacity: 0.56;
+    opacity: var(--lh-pause-flicker-opacity-high);
   }
   14% {
-    opacity: 0.42;
+    opacity: var(--lh-pause-flicker-opacity-low);
   }
   16% {
-    opacity: 0.52;
+    opacity: var(--lh-pause-flicker-opacity-end);
   }
 }
 @keyframes lh-breathe {
   0%,
   100% {
-    transform: scale(1.05);
+    transform: var(--lh-pause-scale-min);
   }
   50% {
-    transform: scale(1.15);
+    transform: var(--lh-pause-scale-max);
   }
 }
 
@@ -2633,26 +2939,26 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh .dialog-buttons {
   display: flex !important;
   flex-direction: row !important;
-  gap: 8px;
+  gap: var(--lh-space-8);
   justify-content: space-between;
 }
 .lh .dialog-buttons .dialog-button {
   width: auto !important;
   flex: 1 1 0;
   min-width: 0;
-  margin-top: 10px;
+  margin-top: var(--lh-space-10);
   appearance: none;
   -webkit-appearance: none;
-  background: #f1f1ed;
+  background: var(--lh-dialog-button-bg);
   background-image: none;
   color: var(--lh-text-main);
-  border: 1px solid rgba(0, 0, 0, 0.22);
+  border: var(--lh-border-w) solid var(--lh-dialog-button-border);
   box-shadow: none;
   text-shadow: none;
 }
 .lh .dialog-buttons .dialog-button:hover,
 .lh .dialog-buttons .dialog-button:focus {
-  background: #e9e9e3;
+  background: var(--lh-dialog-button-hover-bg);
   background-image: none;
   border-color: var(--lh-accent-strong);
 }
@@ -2662,105 +2968,105 @@ button[data-tool^='lh-'] {
   --control-border-color: none !important;
 }
 button[data-tool^='lh-']::before {
-  color: #b22222 !important;
+  color: var(--lh-tool-icon-color) !important;
 }
 button[data-tool^='lh-']:hover {
-  --control-hover-bg-color: #ff4444 !important;
+  --control-hover-bg-color: var(--lh-critical-failure-text) !important;
 }
 
 /* ===== Void Research Die Chat Card ===== */
 .lh.void-roll-card .lh-result-roll__result {
-  --lh-border-strong: color-mix(in srgb, var(--lh-roll-color) 35%, transparent);
-  background: color-mix(in srgb, var(--lh-roll-color) 12%, var(--lh-bg-hover));
-  border-color: color-mix(in srgb, var(--lh-roll-color) 30%, var(--lh-border));
+  --lh-border-strong: color-mix(in srgb, var(--lh-roll-color) var(--lh-void-border-strong-mix), transparent);
+  background: color-mix(in srgb, var(--lh-roll-color) var(--lh-void-bg-mix), var(--lh-bg-hover));
+  border-color: color-mix(in srgb, var(--lh-roll-color) var(--lh-void-border-mix), var(--lh-border));
 }
 
 .lh.void-roll-card .lh-result-roll__outcome strong {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: var(--lh-inline-icon-gap);
 }
 
 .lh-void-roll {
   display: grid;
-  gap: 0.5rem;
+  gap: var(--lh-space-inline);
   font: inherit;
 }
 .lh-void-head {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--lh-space-inline);
 }
 .lh-pill {
-  padding: 0.15rem 0.5rem;
-  border-radius: 0.5rem;
-  font-weight: 700;
+  padding: var(--lh-void-pill-pad-block) var(--lh-space-inline);
+  border-radius: var(--lh-radius-void-pill);
+  font-weight: var(--lh-font-weight-bold);
   line-height: 1;
-  border: 1px solid var(--color-border-light-2, #ddd);
-  background: var(--color-bg-contrast, #222);
-  color: var(--color-text-on-dark, #fff);
+  border: var(--lh-border-w) solid var(--color-border-light-2, var(--lh-void-border-fallback));
+  background: var(--color-bg-contrast, var(--lh-void-bg-fallback));
+  color: var(--color-text-on-dark, var(--lh-text-white));
 }
 .lh-pill-d20 {
-  letter-spacing: 0.03em;
+  letter-spacing: var(--lh-letter-spacing-pill);
 }
 .lh-title {
-  font-weight: 800;
+  font-weight: var(--lh-font-weight-heavy);
   text-transform: uppercase;
 }
 .lh-result {
-  min-width: 2.25rem;
+  min-width: var(--lh-void-result-min-w);
   text-align: center;
-  border: 1px solid var(--color-border-light-2, #ddd);
-  border-radius: 0.4rem;
-  padding: 0.1rem 0.4rem;
-  font-weight: 800;
-  background: var(--color-bg, #f5f5f5);
+  border: var(--lh-border-w) solid var(--color-border-light-2, var(--lh-void-border-fallback));
+  border-radius: var(--lh-radius-void-result);
+  padding: var(--lh-void-result-pad-block) var(--lh-void-result-pad-inline);
+  font-weight: var(--lh-font-weight-heavy);
+  background: var(--color-bg, var(--lh-bg-card));
 }
 .lh-section {
   display: grid;
-  gap: 0.35rem;
+  gap: var(--lh-text-section-gap);
 }
 .lh-subtitle {
-  font-weight: 800;
+  font-weight: var(--lh-font-weight-heavy);
 }
 .lh-investigator {
-  font-size: 0.9em;
-  opacity: 0.9;
+  font-size: var(--lh-font-size-investigator);
+  opacity: var(--lh-opacity-subtle);
 }
 .lh-body {
   white-space: pre-wrap;
 }
 .message .lh-void-roll {
-  margin-top: 0.1rem;
-  margin-bottom: 0.1rem;
+  margin-top: var(--lh-void-message-space);
+  margin-bottom: var(--lh-void-message-space);
 }
 
 /* ===== Investigator Sheet Limited ===== */
 .lh-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--lh-limited-bg);
+  border: var(--lh-border-w) solid var(--lh-limited-border);
   border-radius: var(--lh-radius);
-  padding: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-  max-width: 720px;
+  padding: var(--lh-space-12);
+  box-shadow: 0 var(--lh-space-2) var(--lh-shadow-blur-sm) var(--lh-limited-shadow-color);
+  max-width: var(--lh-limited-max-w);
 }
 
 .lh-row {
   display: flex;
-  gap: 14px;
+  gap: var(--lh-space-14);
   align-items: flex-start;
 }
 
 .lh-avatar {
-  width: 120px;
-  height: 120px;
+  width: var(--lh-limited-avatar-size);
+  height: var(--lh-limited-avatar-size);
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: var(--lh-radius-avatar);
   flex-shrink: 0;
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.15),
-    0 4px 12px rgba(0, 0, 0, 0.4);
+    0 0 0 var(--lh-space-1) var(--lh-limited-avatar-border),
+    0 var(--lh-space-4) var(--lh-shadow-blur-lg) var(--lh-limited-shadow-color);
 }
 
 .lh-text {
@@ -2772,76 +3078,76 @@ button[data-tool^='lh-']:hover {
   border: none !important;
   box-shadow: none !important;
   margin: 0;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #000000;
-  line-height: 1.2;
+  font-size: var(--lh-font-size-limited-name);
+  font-weight: var(--lh-font-weight-bold);
+  color: var(--lh-text-black);
+  line-height: var(--lh-line-height-heading);
   word-break: break-word;
 }
 
 .lh-sep {
-  height: 2px;
+  height: var(--lh-divider-w);
   border: 0;
-  margin-bottom: 5px;
-  background: linear-gradient(90deg, #000000, transparent 90%);
+  margin-bottom: var(--lh-space-5);
+  background: linear-gradient(90deg, var(--lh-text-black), transparent var(--lh-limited-separator-stop));
 }
 
 .lh-desc {
-  font-size: 0.9rem;
-  line-height: 1.4;
-  color: #000000;
+  font-size: var(--lh-font-size-body);
+  line-height: var(--lh-line-height-description);
+  color: var(--lh-text-black);
   white-space: pre-line;
   word-break: break-word;
 }
 .lh-desc :is(h1, h2, h3, h4, h5, h6) {
-  color: #000000;
-  border-bottom-color: #000000;
+  color: var(--lh-text-black);
+  border-bottom-color: var(--lh-text-black);
 }
 .lh-desc hr {
-  border-color: #000000;
+  border-color: var(--lh-text-black);
 }
 /* ===== Dialog Helpers ===== */
 .lh-dialog-label {
   display: block;
   margin: 0;
   color: var(--lh-text-main);
-  font-size: 0.9rem;
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: var(--lh-font-size-body);
+  font-weight: var(--lh-font-weight-bold);
+  line-height: var(--lh-line-height-heading);
 }
 .lh-dialog-textarea {
   width: 100%;
-  min-height: 82px;
+  min-height: var(--lh-dialog-textarea-min-h);
   margin: 0;
-  padding: 8px 10px;
+  padding: var(--lh-space-8) var(--lh-space-10);
   color: var(--lh-text-main);
   background: var(--lh-bg-btn);
-  border: 1px solid var(--lh-border-strong);
+  border: var(--lh-border-w) solid var(--lh-border-strong);
   border-radius: var(--lh-radius-sm);
-  box-shadow: inset 0 -1px 0 var(--lh-shadow-light);
+  box-shadow: inset 0 var(--lh-offset-negative-1) 0 var(--lh-shadow-light);
   font: inherit;
-  line-height: 1.35;
+  line-height: var(--lh-line-height-body);
   resize: vertical;
 }
 .lh-stress-dialog {
-  min-height: 180px;
+  min-height: var(--lh-stress-dialog-min-h);
 }
 .lh-dialog-preview {
-  min-height: 112px;
-  margin-top: 2px;
-  padding: 10px;
+  min-height: var(--lh-dialog-preview-min-h);
+  margin-top: var(--lh-space-2);
+  padding: var(--lh-space-10);
   color: var(--lh-text-main);
   background: var(--lh-bg-btn);
-  border: 1px solid var(--lh-border);
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius-sm);
   font-style: italic;
-  line-height: 1.35;
+  line-height: var(--lh-line-height-body);
 }
 .lh-dialog-message {
   margin: 0;
-  padding: 2px 0 6px;
+  padding: var(--lh-space-2) 0 var(--lh-space-6);
   color: var(--lh-text-main);
-  line-height: 1.35;
+  line-height: var(--lh-line-height-body);
 }
 @media (max-width: 520px) {
   .lh-dialog-grid {
@@ -2851,7 +3157,7 @@ button[data-tool^='lh-']:hover {
 /* ===== AppV2 ===== */
 .application.lh-appv2,
 .window-app.lh-appv2 {
-  --color-scrollbar: rgba(0, 0, 0, 0.72);
+  --color-scrollbar: var(--lh-scrollbar-color);
   --color-scrollbar-track: transparent;
   color: var(--lh-text-main);
 }
@@ -2860,8 +3166,8 @@ button[data-tool^='lh-']:hover {
 .window-app.lh-appv2 .window-header {
   background: var(--lh-bg-header);
   color: var(--lh-text-light);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.55);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+  border-bottom: var(--lh-border-w) solid var(--lh-header-border);
+  box-shadow: 0 var(--lh-space-1) 0 var(--lh-header-highlight) inset;
 }
 
 .application.lh-appv2 .window-header .window-title,
@@ -2875,7 +3181,7 @@ button[data-tool^='lh-']:hover {
 .window-app.lh-appv2 .window-content {
   background: var(--lh-bg-app);
   color: var(--lh-text-main);
-  padding: 8px;
+  padding: var(--lh-space-8);
 }
 
 .lh-appv2 section {
@@ -2884,12 +3190,12 @@ button[data-tool^='lh-']:hover {
 
 /* ===== Party Overview ===== */
 .lh-party {
-  --lh-party-warning: #b6453b;
+  --lh-party-warning: var(--lh-warning-color);
   display: grid;
-  gap: 10px;
+  gap: var(--lh-space-10);
   min-width: 0;
   font-family: var(--font-primary);
-  font-size: 0.9rem;
+  font-size: var(--lh-font-size-body);
 }
 
 .application.lh-party-window .window-content {
@@ -2897,7 +3203,7 @@ button[data-tool^='lh-']:hover {
 }
 
 .application.lh-party-window .window-resize-handle {
-  filter: brightness(0.55);
+  filter: var(--lh-party-resize-filter);
 }
 
 .lh-party-toolbar {
@@ -2905,14 +3211,14 @@ button[data-tool^='lh-']:hover {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--lh-space-8);
 }
 
 .lh-party-count,
 .lh-party-empty {
   margin: 0;
   color: var(--lh-text-muted);
-  line-height: 1.5;
+  line-height: var(--lh-line-height-relaxed);
 }
 
 .lh-party-toolbar button.lh-party-edit {
@@ -2923,15 +3229,15 @@ button[data-tool^='lh-']:hover {
   --button-hover-background-color: var(--lh-bg-dark-hover);
   --button-hover-border-color: var(--lh-bg-dark-hover);
   --button-hover-text-color: var(--lh-text-light);
-  gap: 6px;
+  gap: var(--lh-space-6);
   color: var(--lh-text-light);
   background: var(--lh-bg-btn-dark);
   border-color: var(--lh-bg-btn-dark);
   box-shadow: none;
   text-shadow: none;
   font-family: var(--font-primary);
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: var(--lh-font-size-party-button);
+  font-weight: var(--lh-font-weight-semibold);
 }
 
 .lh-party-toolbar button.lh-party-edit:hover,
@@ -2943,9 +3249,9 @@ button[data-tool^='lh-']:hover {
 
 .lh-party-table-wrap {
   min-width: 0;
-  max-height: 60vh;
+  max-height: var(--lh-party-table-max-h);
   overflow: auto;
-  border: 1px solid var(--lh-border);
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius);
 }
 
@@ -2955,7 +3261,7 @@ button[data-tool^='lh-']:hover {
   --table-row-color-even: var(--lh-bg-card);
   --table-row-color-odd: var(--lh-bg-card);
   width: 100%;
-  min-width: 700px;
+  min-width: var(--lh-party-table-min-w);
   margin: 0;
   border: 0;
   border-collapse: collapse;
@@ -2970,8 +3276,8 @@ button[data-tool^='lh-']:hover {
 
 .lh-party-table th,
 .lh-party-table td {
-  padding: 8px;
-  border-bottom: 1px solid var(--lh-border);
+  padding: var(--lh-space-8);
+  border-bottom: var(--lh-border-w) solid var(--lh-border);
   text-align: center;
   vertical-align: middle;
   font-variant-numeric: tabular-nums;
@@ -2984,8 +3290,8 @@ button[data-tool^='lh-']:hover {
   z-index: 1;
   background: var(--table-header-bg-color);
   color: var(--table-header-text-color);
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: var(--lh-font-size-compact);
+  font-weight: var(--lh-font-weight-bold);
   text-transform: uppercase;
 }
 
@@ -3005,9 +3311,9 @@ button[data-tool^='lh-']:hover {
 .lh-party-table button.lh-party-actor {
   display: flex;
   justify-content: flex-start;
-  gap: 8px;
+  gap: var(--lh-space-8);
   width: 100%;
-  min-width: 160px;
+  min-width: var(--lh-party-actor-min-w);
   height: auto;
   margin: 0;
   padding: 0;
@@ -3015,16 +3321,16 @@ button[data-tool^='lh-']:hover {
   background: transparent;
   color: var(--lh-text-main);
   font: inherit;
-  font-weight: 600;
+  font-weight: var(--lh-font-weight-semibold);
   text-align: left;
   white-space: normal;
 }
 
 .lh-party-actor img,
 .lh-party-member-choice img {
-  flex: 0 0 32px;
-  width: 32px;
-  height: 32px;
+  flex: 0 0 var(--lh-party-avatar-size);
+  width: var(--lh-party-avatar-size);
+  height: var(--lh-party-avatar-size);
   border: 0;
   border-radius: var(--lh-radius-sm);
   object-fit: cover;
@@ -3041,7 +3347,7 @@ button[data-tool^='lh-']:hover {
 
 .lh-party-base {
   color: var(--lh-text-muted);
-  font-size: 0.8rem;
+  font-size: var(--lh-font-size-label);
 }
 
 .lh-party-table td[data-warning='true'] strong {
@@ -3052,31 +3358,31 @@ button[data-tool^='lh-']:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 3px;
-  min-width: 90px;
+  gap: var(--lh-space-3);
+  min-width: var(--lh-party-status-min-w);
   white-space: nowrap;
 }
 
 .lh-party-status,
 .lh-party-status-detail {
-  --lh-status-color: #62656b;
+  --lh-status-color: var(--lh-party-status-color);
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: var(--lh-space-5);
 }
 
 .lh-party-status {
-  padding: 3px 6px;
-  border-radius: 999px;
+  padding: var(--lh-space-3) var(--lh-space-6);
+  border-radius: var(--lh-radius-pill);
   color: var(--lh-status-color);
-  font-size: 0.75rem;
+  font-size: var(--lh-font-size-compact);
 }
 
 .lh-party-status-icon {
   position: relative;
   display: inline-flex;
   justify-content: center;
-  width: 1em;
+  width: var(--lh-party-status-icon-w);
   color: var(--lh-status-color);
 }
 
@@ -3085,9 +3391,9 @@ button[data-tool^='lh-']:hover {
   content: '';
   position: absolute;
   top: 50%;
-  width: 1.1em;
-  border-top: 1px solid currentColor;
-  transform: rotate(45deg);
+  width: var(--lh-party-status-strike-w);
+  border-top: var(--lh-border-w) solid currentColor;
+  transform: var(--lh-party-status-strike-transform);
 }
 
 .lh-party-table button.lh-party-status-more {
@@ -3096,7 +3402,7 @@ button[data-tool^='lh-']:hover {
   height: auto;
   min-height: 0;
   margin: 0;
-  padding: 2px 0;
+  padding: var(--lh-space-2) 0;
   border: 0;
   border-radius: 0;
   color: var(--lh-text-muted);
@@ -3104,7 +3410,7 @@ button[data-tool^='lh-']:hover {
   box-shadow: none;
   text-shadow: none;
   font-family: inherit;
-  font-size: 0.65rem;
+  font-size: var(--lh-font-size-icon-small);
   line-height: normal;
 }
 
@@ -3114,40 +3420,40 @@ button[data-tool^='lh-']:hover {
 }
 
 .lh-party-table button.lh-party-status-more:focus-visible {
-  outline: 1px solid var(--lh-text-muted);
-  outline-offset: 2px;
+  outline: var(--lh-border-w) solid var(--lh-text-muted);
+  outline-offset: var(--lh-outline-w);
 }
 
 #tooltip.lh-party-status-tooltip,
 .locked-tooltip.lh-party-status-tooltip {
-  padding: 10px 12px;
+  padding: var(--lh-space-10) var(--lh-space-12);
 }
 
 .lh-party-status-list {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--lh-space-8);
 }
 
 .lh-party-status-tooltip .lh-party-status-detail {
-  --lh-status-color: #aaa;
+  --lh-status-color: var(--lh-party-status-tooltip-color);
   white-space: nowrap;
 }
 
 .lh-party-member-options {
   display: grid;
-  gap: 6px;
-  max-height: 360px;
+  gap: var(--lh-space-6);
+  max-height: var(--lh-party-members-max-h);
   overflow-y: auto;
 }
 
 .lh-party-member-choice {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 8px;
-  border: 1px solid var(--lh-border);
+  gap: var(--lh-space-8);
+  padding: var(--lh-space-6) var(--lh-space-8);
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius-sm);
   background: var(--lh-bg-btn);
 }
@@ -3164,7 +3470,7 @@ button[data-tool^='lh-']:hover {
 
 .lh-creator {
   display: grid;
-  gap: 8px;
+  gap: var(--lh-space-8);
   min-width: 0;
   color: var(--lh-text-main);
   font-family: var(--font-primary);
@@ -3172,18 +3478,18 @@ button[data-tool^='lh-']:hover {
 
 .lh-creator-panel {
   display: grid;
-  gap: 10px;
+  gap: var(--lh-space-10);
   min-width: 0;
-  padding: 10px;
+  padding: var(--lh-space-10);
   background: var(--lh-bg-card);
-  border: 1px solid var(--lh-border);
+  border: var(--lh-border-w) solid var(--lh-border);
   border-radius: var(--lh-radius);
-  box-shadow: 0 1px 0 var(--lh-shadow-light);
+  box-shadow: 0 var(--lh-space-1) 0 var(--lh-shadow-light);
 }
 
 .lh-creator-panel-head {
   display: grid;
-  gap: 6px;
+  gap: var(--lh-space-6);
   min-width: 0;
 }
 
@@ -3191,42 +3497,42 @@ button[data-tool^='lh-']:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: var(--lh-space-8);
 }
 
 .lh-creator-title {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--lh-space-6);
   min-width: 0;
   margin: 0;
   color: var(--lh-text-muted);
-  font-size: 0.78rem;
-  font-weight: 800;
+  font-size: var(--lh-font-size-section);
+  font-weight: var(--lh-font-weight-heavy);
   letter-spacing: 0;
-  line-height: 1.2;
+  line-height: var(--lh-line-height-heading);
   text-transform: uppercase;
 }
 
 .lh-creator-title i,
 .lh-creator-field-label i {
-  flex: 0 0 14px;
+  flex: 0 0 var(--lh-icon-size-small);
   text-align: center;
   color: var(--lh-text-main);
-  opacity: 0.72;
+  opacity: var(--lh-opacity-secondary);
 }
 
 .lh-creator-note {
   margin: 0;
   color: var(--lh-text-muted);
-  font-size: 0.75rem;
-  line-height: 1.35;
+  font-size: var(--lh-font-size-compact);
+  line-height: var(--lh-line-height-body);
 }
 
 .lh-creator-stat-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(150px, 1fr));
-  gap: 6px 12px;
+  grid-template-columns: repeat(3, minmax(var(--lh-creator-stat-min-w), 1fr));
+  gap: var(--lh-space-6) var(--lh-space-12);
   min-width: 0;
 }
 
@@ -3240,17 +3546,17 @@ button[data-tool^='lh-']:hover {
 
 .lh-creator-stat-label {
   display: inline-flex;
-  flex: 0 0 76px;
+  flex: 0 0 var(--lh-creator-stat-label-w);
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--lh-space-6);
   min-width: 0;
-  padding: 0 8px;
+  padding: 0 var(--lh-space-8);
   color: var(--lh-text-light);
   background: var(--lh-bg-pill);
   border-radius: var(--lh-radius) 0 0 var(--lh-radius);
-  font-size: 0.86rem;
-  font-weight: 800;
+  font-size: var(--lh-font-size-button-compact);
+  font-weight: var(--lh-font-weight-heavy);
   letter-spacing: 0;
   line-height: 1;
   text-align: center;
@@ -3263,15 +3569,15 @@ button[data-tool^='lh-']:hover {
   min-width: 0;
   height: var(--lh-control-h);
   margin: 0;
-  padding: 0 8px;
+  padding: 0 var(--lh-space-8);
   color: var(--lh-text-main);
   background: var(--lh-bg-btn);
-  border: 1px solid var(--lh-border-strong);
+  border: var(--lh-border-w) solid var(--lh-border-strong);
   border-left: 0;
   border-radius: 0;
-  box-shadow: inset 0 -1px 0 var(--lh-shadow-light);
+  box-shadow: inset 0 var(--lh-offset-negative-1) 0 var(--lh-shadow-light);
   font: inherit;
-  font-weight: 800;
+  font-weight: var(--lh-font-weight-heavy);
   text-align: center;
 }
 
@@ -3287,7 +3593,7 @@ button[data-tool^='lh-']:hover {
   padding: 0;
   color: var(--lh-text-light);
   background: var(--lh-bg-btn-dark);
-  border: 1px solid var(--lh-bg-btn-dark);
+  border: var(--lh-border-w) solid var(--lh-bg-btn-dark);
   border-radius: 0 var(--lh-radius) var(--lh-radius) 0;
   box-shadow: none;
   cursor: pointer;
@@ -3296,9 +3602,9 @@ button[data-tool^='lh-']:hover {
 .lh-creator-stat-roll-button:hover,
 .lh-creator-stat-roll-button:focus {
   color: var(--lh-text-light);
-  background: #3b3b3b;
-  border-color: #3b3b3b;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.18);
+  background: var(--lh-creator-roll-hover-bg);
+  border-color: var(--lh-creator-roll-hover-bg);
+  box-shadow: 0 0 var(--lh-shadow-blur) var(--lh-accent-hover);
 }
 
 .lh-creator-stat-roll-button:disabled {
@@ -3318,7 +3624,7 @@ button[data-tool^='lh-']:hover {
 .lh-creator-action-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: var(--lh-space-8);
   min-width: 0;
 }
 
@@ -3338,18 +3644,18 @@ button[data-tool^='lh-']:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--lh-space-6);
   min-width: 0;
   min-height: var(--lh-button-h);
   margin: 0;
-  padding: 0 10px;
+  padding: 0 var(--lh-space-10);
   color: var(--lh-text-main);
   background: var(--lh-bg-btn);
-  border: 1px solid var(--lh-border-strong);
+  border: var(--lh-border-w) solid var(--lh-border-strong);
   border-radius: var(--lh-radius);
-  font-size: 0.95rem;
-  font-weight: 800;
-  line-height: 1.15;
+  font-size: var(--lh-font-size-input);
+  font-weight: var(--lh-font-weight-heavy);
+  line-height: var(--lh-line-height-compact);
   cursor: pointer;
   overflow-wrap: anywhere;
 }
@@ -3368,7 +3674,7 @@ button[data-tool^='lh-']:hover {
 .lh-creator-button:hover,
 .lh-creator-button:focus {
   border-color: var(--lh-accent-strong);
-  box-shadow: 0 0 0 2px var(--lh-accent-hover);
+  box-shadow: 0 0 0 var(--lh-space-2) var(--lh-accent-hover);
 }
 
 .lh-creator-button-primary:hover,
@@ -3379,7 +3685,7 @@ button[data-tool^='lh-']:hover {
 }
 
 .lh-creator-button:disabled {
-  opacity: 0.46;
+  opacity: var(--lh-opacity-disabled-button);
   cursor: not-allowed;
   box-shadow: none;
 }
@@ -3387,25 +3693,25 @@ button[data-tool^='lh-']:hover {
 .lh-creator-button-compact {
   flex: 0 0 auto;
   min-height: var(--lh-control-h);
-  padding: 0 10px;
-  font-size: 0.86rem;
+  padding: 0 var(--lh-space-10);
+  font-size: var(--lh-font-size-button-compact);
 }
 
 .lh-creator-field-list {
   display: grid;
-  gap: 7px;
+  gap: var(--lh-space-7);
   min-width: 0;
 }
 
 .lh-creator-field-list-details {
-  gap: 7px;
+  gap: var(--lh-space-7);
 }
 
 .lh-creator-detail-columns {
   position: relative;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 7px 24px;
+  gap: var(--lh-space-7) var(--lh-space-24);
   min-width: 0;
 }
 
@@ -3415,7 +3721,7 @@ button[data-tool^='lh-']:hover {
   top: 0;
   bottom: 0;
   left: 50%;
-  width: 2px;
+  width: var(--lh-divider-w);
   background: var(--lh-text-main);
   transform: translateX(-50%);
   pointer-events: none;
@@ -3423,8 +3729,8 @@ button[data-tool^='lh-']:hover {
 
 .lh-creator-field {
   display: grid;
-  grid-template-columns: 112px minmax(0, 1fr);
-  gap: 10px;
+  grid-template-columns: var(--lh-creator-field-label-w) minmax(0, 1fr);
+  gap: var(--lh-space-10);
   align-items: center;
   min-width: 0;
   margin: 0;
@@ -3441,19 +3747,19 @@ button[data-tool^='lh-']:hover {
 .lh-creator-field-label {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--lh-space-6);
   min-width: 0;
   color: var(--lh-text-muted);
-  font-size: 0.8rem;
-  font-weight: 800;
+  font-size: var(--lh-font-size-label);
+  font-weight: var(--lh-font-weight-heavy);
   letter-spacing: 0;
-  line-height: 1.2;
+  line-height: var(--lh-line-height-heading);
 }
 
 .lh-creator-field-control {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 32px;
-  gap: 7px;
+  grid-template-columns: minmax(0, 1fr) var(--lh-creator-icon-button-w);
+  gap: var(--lh-space-7);
   min-width: 0;
 }
 
@@ -3462,26 +3768,26 @@ button[data-tool^='lh-']:hover {
   min-width: 0;
   height: var(--lh-control-h);
   margin: 0;
-  padding: 0 8px;
+  padding: 0 var(--lh-space-8);
   color: var(--lh-text-main);
   background: var(--lh-bg-btn);
-  border: 1px solid var(--lh-border-strong);
+  border: var(--lh-border-w) solid var(--lh-border-strong);
   border-radius: var(--lh-radius);
-  box-shadow: inset 0 -1px 0 var(--lh-shadow-light);
+  box-shadow: inset 0 var(--lh-offset-negative-1) 0 var(--lh-shadow-light);
   font: inherit;
 }
 
 select.lh-creator-input {
-  padding-right: 28px;
+  padding-right: var(--lh-select-pad-end);
   background-image:
     linear-gradient(45deg, transparent 50%, var(--lh-text-muted) 50%),
     linear-gradient(135deg, var(--lh-text-muted) 50%, transparent 50%);
   background-position:
-    calc(100% - 14px) calc(50% - 2px),
-    calc(100% - 9px) calc(50% - 2px);
+    calc(100% - var(--lh-select-arrow-offset-x)) calc(50% - var(--lh-select-arrow-offset-y)),
+    calc(100% - var(--lh-select-arrow-offset-end)) calc(50% - var(--lh-select-arrow-offset-y));
   background-size:
-    5px 5px,
-    5px 5px;
+    var(--lh-select-arrow-size) var(--lh-select-arrow-size),
+    var(--lh-select-arrow-size) var(--lh-select-arrow-size);
   background-repeat: no-repeat;
   appearance: none;
   -webkit-appearance: none;
@@ -3489,9 +3795,9 @@ select.lh-creator-input {
 
 .lh-creator-input:focus,
 .lh-creator-stat-input:focus {
-  outline: 1px solid var(--lh-text-muted);
-  outline-offset: 1px;
-  box-shadow: 0 0 6px var(--color-shadow-primary);
+  outline: var(--lh-border-w) solid var(--lh-text-muted);
+  outline-offset: var(--lh-border-w);
+  box-shadow: 0 0 var(--lh-shadow-blur-sm) var(--color-shadow-primary);
 }
 
 .lh-creator-input option {
@@ -3503,15 +3809,15 @@ select.lh-creator-input {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  min-width: 32px;
+  width: var(--lh-creator-icon-button-w);
+  min-width: var(--lh-creator-icon-button-w);
   height: var(--lh-control-h);
   min-height: var(--lh-control-h);
   margin: 0;
   padding: 0;
   color: var(--lh-text-light);
   background: var(--lh-bg-btn-dark);
-  border: 1px solid var(--lh-bg-btn-dark);
+  border: var(--lh-border-w) solid var(--lh-bg-btn-dark);
   border-radius: var(--lh-radius-sm);
   cursor: pointer;
 }
@@ -3520,15 +3826,15 @@ select.lh-creator-input {
 .lh-creator-icon-button:focus {
   background: var(--lh-bg-dark-hover);
   border-color: var(--lh-bg-dark-hover);
-  box-shadow: 0 0 0 2px var(--lh-accent-hover);
+  box-shadow: 0 0 0 var(--lh-space-2) var(--lh-accent-hover);
 }
 
 .lh-creator-hint {
   grid-column: 2;
-  margin: -2px 0 0;
+  margin: var(--lh-offset-negative-2) 0 0;
   color: var(--lh-text-muted);
-  font-size: 0.75rem;
-  line-height: 1.3;
+  font-size: var(--lh-font-size-compact);
+  line-height: var(--lh-line-height-hint);
 }
 
 .lh-creator-footer {
@@ -3542,7 +3848,7 @@ select.lh-creator-input {
 
 @media (max-width: 640px) {
   .lh-creator-stat-grid {
-    grid-template-columns: repeat(2, minmax(150px, 1fr));
+    grid-template-columns: repeat(2, minmax(var(--lh-creator-stat-min-w), 1fr));
   }
 
   .lh-creator-field-list-details {
@@ -3559,7 +3865,7 @@ select.lh-creator-input {
 
   .lh-creator-field {
     grid-template-columns: 1fr;
-    gap: 5px;
+    gap: var(--lh-space-5);
   }
 
   .lh-creator-hint {
