@@ -1,0 +1,959 @@
+{
+  "TYPES": {
+    "Actor": {
+      "investigator": "Investigador",
+      "npc": "Personagem do Mestre (PDM)",
+      "monster": "Horror",
+      "vehicle": "Veículo"
+    },
+    "Item": {
+      "weapon": "Arma",
+      "spell": "Ritual",
+      "gear": "Equipamento",
+      "armor": "Armadura",
+      "artifact": "Artefato",
+      "injury": "Ferimento",
+      "consequence": "Sequela",
+      "condition": "Condição"
+    }
+  },
+  "LH": {
+    "core": {
+      "damage": "Dano",
+      "stress": "Estresse",
+      "target": "Alvo",
+      "dof": "Dado de Destino",
+      "dofXs": "DDD",
+      "rest": "Descanso",
+      "restBlocked": "Descanso bloqueado",
+      "restCompleted": "Descanso concluído",
+      "fullRestCompleted": "Descanso completo concluído",
+      "slotsCapacityExceeded": "Capacidade de espaços excedida! PV reduzidos a 0",
+      "equipped": "Equipado",
+      "unequipped": "Desequipado",
+      "used": "Usado",
+      "restored": "Restaurado",
+      "gotRidOf": "Descartou",
+      "apply": "Aplicar",
+      "cancel": "Cancelar",
+      "ok": "OK",
+      "yes": "Sim",
+      "no": "Não",
+      "edit": "Editar",
+      "delete": "Excluir",
+      "roll": "Rolar",
+      "thrownAway": "Jogado fora"
+    },
+    "equipment": {
+      "physicalProtection": "Proteção física",
+      "stressProtection": "Proteção contra estresse",
+      "weaponGrip": "Empunhadura da arma",
+      "oneHanded": "Arma de uma mão",
+      "twoHanded": "Arma de duas mãos",
+      "oneHandedShort": "1M",
+      "twoHandedShort": "2M",
+      "hand": "Função da arma",
+      "mainHand": "Arma principal",
+      "offHand": "Arma secundária",
+      "bothHands": "Ambas as mãos",
+      "equipToAttack": "Equipe esta arma ou ritual antes de atacar.",
+      "conflictingWeapons": "As armas ocupam a mesma mão. Reequipe-as antes de atacar.",
+      "unsupportedOffHandFormula": "Não é possível reduzir a fórmula da mão secundária {formula}. Use dados padrão (d2, d4, d6, d8, d10, d12, d20), opcionalmente com aritmética e modificadores de dados.",
+      "dualWielding": "Empunhadura Dupla",
+      "rollBoth": "Role ambas as armas: {formula}; mantenha o maior resultado"
+    },
+    "attr": {
+      "full": {
+        "str": "FORÇA",
+        "dex": "DESTREZA",
+        "ctrl": "CONTROLE",
+        "luck": "SORTE"
+      },
+      "short": {
+        "str": "FOR",
+        "dex": "DES",
+        "ctrl": "CTRL",
+        "luck": "SORTE"
+      }
+    },
+    "system": {
+      "initError": "Erro de inicialização do Liminal Horror"
+    },
+    "settings": {
+      "lastSeenSystemVersion": "Última Versão do Sistema Vista",
+      "appendixLuck": {
+        "name": "Apêndice L: Sorte",
+        "hint": "Habilita o atributo Sorte nas fichas. Permite gastar e rolar Sorte. (Apenas Facilitador)"
+      },
+      "autoArmorCalculation": {
+        "name": "Cálculo automático de armadura",
+        "hint": "Se ativado, a armadura física e a Estabilidade são calculadas a partir dos itens de armadura equipados. Se desativado, ambos os valores são inseridos manualmente na ficha do ator."
+      },
+      "investigatorGeneratorReroll": {
+        "name": "Permitir rerrolagens no Gerador de Investigador para jogadores",
+        "hint": "Se ativado, os jogadores podem rerrolar atributos no Gerador de Investigador. Facilitadores sempre podem rerrolar."
+      },
+      "offHandDieReduction": {
+        "name": "Reduzir o dado da arma secundária",
+        "hint": "Ao usar empunhadura dupla, reduz o dado da arma secundária em um passo. Se desativado, ambas as armas usam seus dados normais."
+      },
+      "offHandMinimumDie": {
+        "name": "Dado mínimo da arma secundária",
+        "hint": "O tamanho mínimo do dado ao reduzir o dado da arma secundária: 1d2 ou 1d4. Aplica-se apenas quando a redução de dado está ativada."
+      },
+      "debug": {
+        "name": "Ativar Registro de Depuração (Debug)",
+        "hint": "Ativa o registro de depuração e hooks (apenas para desenvolvedores)",
+        "enabled": "Liminal Horror: Debug ATIVADO"
+      }
+    },
+    "sidebar": {
+      "rollBackground": "Rolar Antecedente de Investigador",
+      "generateActor": "Gerar Investigador",
+      "createItems": "Criar Itens Padrão",
+      "actionFailed": "Falha na ação da barra lateral"
+    },
+    "support": {
+      "heading": "APOIE O DESENVOLVIMENTO DO SISTEMA",
+      "button": "Apoiar Desenvolvimento",
+      "description": "Apoie o desenvolvimento contínuo e as melhorias deste sistema para o Foundry.",
+      "disclaimer": "Esta é uma adaptação não oficial para o Foundry VTT e não possui afiliação com os criadores de Liminal Horror.",
+      "logoAlt": "Logo do Liminal Horror"
+    },
+    "update": {
+      "title": "Atualização do Liminal Horror",
+      "openDialog": "Abrir Janela de Atualização",
+      "changelogTitle": "Notas de atualização do Liminal Horror",
+      "currentVersion": "Versão atual",
+      "current": "Atual",
+      "noNotes": "Nenhuma nota detalhada foi encontrada para esta versão.",
+      "noVersions": "Nenhuma entrada de versão encontrada.",
+      "linksLabel": "Links do Liminal Horror",
+      "bugs": "Bugs",
+      "readme": "Leia-me",
+      "discussions": "Discussões",
+      "gmOnly": "Apenas o Facilitador pode abrir a janela de atualização do sistema."
+    },
+    "sheets": {
+      "actor": "Ficha de Ator do Liminal Horror",
+      "item": "Ficha de Item do Liminal Horror"
+    },
+    "packs": {
+      "items": "Itens LH"
+    },
+    "itemSheet": {
+      "parameters": "Parâmetros",
+      "changeImage": "Escolher imagem do item",
+      "namePlaceholder": "NOME DO ITEM",
+      "basic": "BÁSICO",
+      "meta": "META",
+      "carry": "TRANSPORTE",
+      "price": "Preço ($)",
+      "usesCurrent": "Usos atuais",
+      "usesMax": "Usos máx.",
+      "slotSize": "Espaços ocupados",
+      "ignoreSlots": "Ignorar Espaços"
+    },
+    "investigatorGenerator": {
+      "windowHeader": "Gerador de Investigador",
+      "rollDetails": "Detalhes",
+      "ideology": "Ideologia",
+      "attributesHeader": "Atributos",
+      "save": "Salvar na Ficha de Personagem",
+      "rollAttributes": "Rolar Atributos Faltantes",
+      "rollAllDetails": "Rolar Detalhes",
+      "attributesRollHint": "Cada atributo pode ser rolado uma vez. O botão principal rola apenas os valores faltantes. Após rolar FOR, DES e CTRL, dois deles podem ser trocados entre si uma única vez.",
+      "rerollSettingHint": "Rerrolagens de jogadores podem ser ativadas nas configurações do sistema. Se precisar rerrolar, peça ao seu Facilitador para redefinir as travas dos seus atributos.",
+      "swapAttributes": "Trocar Atributos",
+      "resetAttributeLocks": "Redefinir Travas",
+      "swapAttributesOnce": "Os atributos só podem ser trocados uma vez.",
+      "swapAttributesOnceHint": "Os atributos só podem ser trocados uma vez após a rolagem.",
+      "rollAttributesFirst": "Role os atributos primeiro",
+      "attributeAlreadyRolled": "Este atributo já foi rolado",
+      "attributesAlreadyRolled": "Todos os atributos já foram rolados",
+      "firstAttribute": "Primeiro Atributo",
+      "firstAttributeShort": "Primeiro",
+      "secondAttribute": "Segundo Atributo",
+      "secondAttributeShort": "Segundo",
+      "swap": "Trocar",
+      "swapDifferentAttributes": "Escolha dois atributos diferentes",
+      "chooseBackstory": "Escolher Antecedente",
+      "chooseBackstoryHint": "O antecedente selecionado é salvo na ficha de personagem.",
+      "attributeLocksReset": "Travas de atributos do Gerador de Investigador redefinidas"
+    },
+    "partyOverview": {
+      "title": "Visão Geral do Grupo",
+      "membersSetting": "Membros do grupo",
+      "editMembers": "Editar Grupo",
+      "selectMembers": "Membros do Grupo",
+      "saveMembers": "Salvar Grupo",
+      "selectionHint": "Escolha os investigadores para exibir no grupo. Esta lista é compartilhada entre Facilitadores e salva entre as sessões.",
+      "count": "Investigadores: {count}",
+      "investigator": "Investigador",
+      "status": "Status",
+      "otherStatuses": "Outros status: {statuses}",
+      "openSheet": "Abrir ficha de personagem",
+      "empty": "Ainda não há investigadores no grupo. Use Editar Grupo para adicioná-los.",
+      "noneAvailable": "Crie um investigador antes de editar o grupo.",
+      "actorUnavailable": "Este investigador não está mais disponível.",
+      "gmOnly": "Apenas o Facilitador pode abrir a visão geral do grupo.",
+      "refreshFailed": "Não foi possível atualizar a visão geral do grupo. Feche e reabra a janela."
+    },
+    "ui": {
+      "namePlaceholder": "NOME",
+      "changePortrait": "Clique para alterar o retrato",
+      "photo": "Foto",
+      "rollStrength": "Rolar Força (d20 ≤ alvo)",
+      "rollDexterity": "Rolar Destreza (d20 ≤ alvo)",
+      "rollControl": "Rolar Controle (d20 ≤ alvo)",
+      "rollLuck": "Rolar Sorte (d20 ≤ alvo)",
+      "rollFormula": "Rolar {formula}",
+      "dragToReorder": "Arraste para reordenar",
+      "noDamageDie": "Sem dado de dano",
+      "noChangesLogged": "Nenhuma alteração registrada ainda.",
+      "gmOnly": "Apenas Facilitador.",
+      "unknownUser": "Desconhecido",
+      "deprivedFull": "Em Privação",
+      "deprived": "Privação",
+      "background": "Antecedente",
+      "hp": "PV",
+      "armor": "Armadura",
+      "autoArmorHint": "A Armadura é calculada automaticamente. Você pode alterar isso nas configurações do sistema.",
+      "autoStressProtectionHint": "A Estabilidade é calculada a partir da proteção contra estresse da armadura equipada. Você pode alterar isso nas configurações do sistema.",
+      "stability": "Estabilidade",
+      "cash": "Dinheiro",
+      "actions": "Ações",
+      "tabs": {
+        "items": "Itens",
+        "description": "Descrição",
+        "notes": "Notas",
+        "log": "Registro"
+      },
+      "inventory": "Inventário",
+      "deleteItem": "Excluir Item",
+      "deleteItemConfirm": "Excluir {name}?",
+      "slots": "espaços",
+      "sort": "Ordenar",
+      "inventorySort": {
+        "default": "Padrão",
+        "manual": "Manual (Arrastar)",
+        "name": "Nome",
+        "type": "Tipo",
+        "slotSize": "Espaços",
+        "equipped": "Equipado",
+        "ascending": "Crescente",
+        "descending": "Decrescente"
+      }
+    },
+    "status": {
+      "dead": "MORTO",
+      "paralysis": "PARALISIA",
+      "lost": "PERDIDO"
+    },
+    "roll": {
+      "quickRoll": "Rolagem Rápida",
+      "success": "Sucesso",
+      "successWithLuck": "Sucesso com Sorte",
+      "failure": "Falha",
+      "successCritical": "Sucesso Crítico",
+      "failureCritical": "Falha Crítica",
+      "badResult": "Resultado Ruim",
+      "goodResult": "Resultado Bom",
+      "mixedResult": "Resultado Misto"
+    },
+    "msg": {
+      "initiative": "Iniciativa",
+      "systemUpdated": "Atualizado para {version}",
+      "hpLoss": "Perda de PV",
+      "weapon": "Arma",
+      "spell": "Ritual",
+      "absorbedDamage": "Sem dano (absorvido)",
+      "absorbedStress": "Sem estresse (absorvido)",
+      "deprivedRestBlocked": "O estado Em Privação impede o descanso",
+      "becameDeprived": "Entrou Em Privação",
+      "noLongerDeprived": "Não está mais Em Privação",
+      "luck": {
+        "spend": "Gastar Sorte ({cost}) para ter sucesso",
+        "spent": "Sorte gasta: {cost}",
+        "undo": "Desfazer",
+        "undoHint": "Devolver {cost} de Sorte e restaurar o resultado original.",
+        "notOwner": "Você não pode alterar o gasto de Sorte para esta rolagem.",
+        "notEnough": "Sorte insuficiente para alterar este resultado.",
+        "spendFailed": "Não foi possível gastar Sorte. Tente novamente.",
+        "resultUpdateFailed": "A Sorte foi gasta, mas o resultado da rolagem não pôde ser salvo. Consulte o seu Facilitador antes de tentar novamente.",
+        "undoFailed": "Não foi possível desfazer o gasto de Sorte. O resultado da rolagem não foi alterado.",
+        "undoResultUpdateFailed": "A Sorte foi devolvida, mas o resultado original da rolagem não pôde ser restaurado. Consulte o seu Facilitador antes de tentar novamente."
+      },
+      "damage": {
+        "title": "Dano",
+        "overflowLabel": "Perda de Força",
+        "note": "Ferimento!"
+      },
+      "stress": {
+        "title": "Estresse",
+        "overflowLabel": "Perda de Controle",
+        "note": "Sequela!"
+      },
+      "buttons": {
+        "alreadyApplied": "Já aplicado",
+        "consequenceAdd": "Adicionar Sequela",
+        "consequenceAdded": "Sequela adicionada",
+        "injuryAdd": "Adicionar Ferimento",
+        "injuryAdded": "Ferimento adicionado"
+      }
+    },
+    "void": {
+      "toolTitle": "Incursão no Vazio",
+      "die": "DADO DE INCURSÃO NO VAZIO",
+      "randomInvestigator": "Investigador Aleatório",
+      "randomInvestigatorNotFound": "Investigador Aleatório não encontrado",
+      "omen": {
+        "title": "Presságio Nefasto",
+        "description": "Role para determinar um Investigador aleatório. Em seguida, role em uma tabela de Sequelas. Apresente um presságio ou agouro ligado a essa Sequela — agora está fadado a ser a próxima Sequela que esse Investigador sofrerá."
+      },
+      "encounter": {
+        "title": "Encontro",
+        "description": "O Facilitador rola em uma tabela de encontros. Se houver apenas um horror presente no local, o grupo o encontrará."
+      },
+      "horror": {
+        "title": "Horror",
+        "description": "O grupo descobre algo assustador ou horripilante. Cada Investigador sofre 1+ de Estresse."
+      },
+      "setback": {
+        "title": "Contratempo",
+        "description": "O grupo enfrenta um contratempo — um perigo que pode ser físico, ambiental ou mágico. Uma opção é a escassez: o equipamento quebra ou os suprimentos acabam. Concentre-se no que for mais relevante no momento."
+      },
+      "locality": {
+        "title": "Localidade",
+        "description": "O próprio ambiente muda: alarmes soam, um caminho é selado, paredes ou terrenos mudam de forma antinatural, etc."
+      },
+      "clue": {
+        "title": "Pista",
+        "description": "Apresente uma dica, aviso ou pista (ex.: sombras envoltas em chamas azuis, buracos de bala, manchas de sangue chiando). Habilidades e impulsos de horrores próximos podem guiar sua escolha."
+      },
+      "free": {
+        "title": "Livre",
+        "description": "Nenhum efeito adicional neste turno. Quaisquer efeitos negativos temporários terminam."
+      },
+      "regroup": {
+        "title": "Reagrupar",
+        "description": "O grupo encontra um momento de segurança e pode se reagrupar."
+      }
+    },
+    "stressTable": {
+      "doppelganger": {
+        "name": "Doppelgänger",
+        "description": "Você viu o que eles podem fazer, suas magias e suas enganações. O que os impediria de levar você? Talvez você não seja quem pensa que é? Como você saberia? Durante seu próximo momento de reflexão silenciosa, role 1d6. Se o total for maior que seus PV máximos, adote o novo resultado."
+      },
+      "memoriesOfAnUnknownTraveler": {
+        "name": "Memórias de um Viajante Desconhecido",
+        "description": "Essas memórias não são suas. São de outro tempo, de outro lugar, de uma perspectiva tão diferente da sua. As realidades pelas quais caminham são tão alienígenas e diferentes, seus sentimentos tão estranhos. Se ao menos você pudesse entender o que eles vivenciaram. Durante seu próximo descanso, role 1d6. Se o total for maior que seus PV máximos, adote o novo resultado."
+      },
+      "paranoia": {
+        "name": "Paranoia",
+        "description": "Ainda é paranoia se as preocupações forem completamente razoáveis? Você já viu o que acontece no escuro, sabe o que espreita na noite. Após uma semana, role 1d6. Se o total for maior que seus PV máximos, adote o novo resultado."
+      },
+      "plaguedByNightmares": {
+        "name": "Atormentado por Pesadelos",
+        "description": "Ele vem atrás de você todas as noites, sem falta. Você não sabe se são do começo ou do fim. Tudo o que sabe é que não vão parar e que devem significar alguma coisa. Após uma semana de pesadelos, diga ao seu Facilitador duas imagens distintas que permanecem no limite da sua lembrança."
+      },
+      "mirrorWorld": {
+        "name": "Mundo Espelhado",
+        "description": "Tudo parecia bem no começo, mas agora você tem certeza: o mundo dentro do espelho é diferente. Os olhares de soslaio, a mudança de lugares, é inegável. Quando começar a notar, role 2d6. Se o total for maior que seus PV máximos, adote o novo resultado."
+      },
+      "odd": {
+        "name": "Excêntrico",
+        "description": "Você adota um comportamento estranho que deixa os outros desconfortáveis. Se resistir a ceder à sua “Excentricidade” por 24 horas, receba a condição Em Privação. Se outros virem você se entregando a esse comportamento sinistro, devem fazer uma Salvaguarda de CTRL ou sofrerão 1d4 de Estresse. Após a primeira ocorrência, role 3d6. Se o total for maior que seu CTRL atual, adote o novo resultado."
+      },
+      "hunger": {
+        "name": "Fome",
+        "description": "Você desenvolve uma fome antinatural pelo incomum. Se não saciar seu apetite por 24 horas, receba a condição Em Privação. Quando comer, restaure PV e cause 1d4 de Estresse a qualquer um que puder ver. Após a primeira ocorrência, role 3d6. Se o total for maior que sua FOR atual, adote o novo resultado."
+      },
+      "scarred": {
+        "name": "Cicatrizado",
+        "description": "Cada ferimento que você inflige deixa uma marca irregular em seu corpo. Após a primeira ocorrência, faça uma Salvaguarda de CTRL. Se passar, aumente sua FOR máxima em 1d4."
+      },
+      "liminalCommunion": {
+        "name": "Comunhão Liminar",
+        "description": "Não era perceptível no início, mas algo está tentando se comunicar, embora não tenha boca para gritar. Suas palavras se manifestam pelo espaço físico. Aumente seu CTRL máximo em 1d4."
+      },
+      "magicalCorruption": {
+        "name": "Corrupção Mágica",
+        "description": "(Pode ser adquirida várias vezes por Investigador): A carne é fraca. Uma parte do seu corpo muda visivelmente devido à sua proximidade com o Estranho. O Facilitador e o Investigador devem decidir como essa mudança se manifesta e se ela tem algum impacto mecânico."
+      },
+      "threshold": {
+        "name": "Limiar",
+        "description": "Há uma porta pálida com uma maçaneta preta. Não tem nada de extraordinário, exceto pelo fato de que parece poder surgir em qualquer lugar. Às vezes, a porta está em lugares onde não deveria estar. Às vezes, fica sozinha, presa a nada. A única coisa de que você tem certeza é que é a mesma porta todas as vezes, uma que você ainda não conseguiu abrir."
+      },
+      "neuralSuperposition": {
+        "name": "Superposição Neural",
+        "description": "Você vê imagens de lugares desconhecidos sobrepostas a este, tornando às vezes difícil dizer o que é real. Em outra época, você poderia ter sido chamado de oráculo. Ao rolar Salvaguardas de DES, role 2d20 e fique com o menor resultado. Uma vez por dia, você vê algo significativo (pergunte ao seu Facilitador o que é)."
+      },
+      "shadowStep": {
+        "name": "Passo das Sombras",
+        "description": "Você pode caminhar através das sombras. Toda vez que faz isso, deixa um pouco de si para trás. Ao usar, seu CTRL diminui em 1d4 (isso não ativa uma Salvaguarda nem Sequela)."
+      },
+      "markedByFear": {
+        "name": "Marcado pelo Medo",
+        "description": "O âmago do seu ser foi distorcido e alterado. Quando você agir de uma forma que manifeste seu medo marcado e tiver que fazer uma Salvaguarda, role 2d20 e fique com o menor resultado. Quando resistir a uma oportunidade de ceder ao medo, sofra 1d4 de Estresse. Crie um medo fundamental com o seu Facilitador."
+      },
+      "heavyIsTheHead": {
+        "name": "Pesada é a Cabeça",
+        "description": "Uma coroa etérea paira sobre sua cabeça. Ela não é visível para todos, apenas para alguns poucos especiais. Lendas foram contadas sobre a sua chegada. Faça uma Salvaguarda de CTRL. Se passar, aumente seu CTRL máximo em 1d6."
+      },
+      "fullToBursting": {
+        "name": "Cheio até Estourar",
+        "description": "Você tem uma sensação de plenitude e contentamento. Na próxima vez que falhar em uma Salvaguarda de FOR contra Dano Crítico, você terá sucesso. Imediata e violentamente, você começa a vomitar vermes ou pragas (à escolha do jogador). Qualquer ser que puder ver deve fazer uma Salvaguarda de CTRL ou sofrerá 1d6 de Estresse. Role 3d6. Se o total for maior que seu CTRL máximo, adote o novo resultado."
+      },
+      "progeny": {
+        "name": "Progênie",
+        "description": "Algo está crescendo dentro de você. A esperança já o abandonou há muito tempo, e não há mais espaço para sonhos. Role 2d6. Adote o novo resultado como seus PV máximos."
+      },
+      "fatesWeb": {
+        "name": "Teia do Destino",
+        "description": "(Só pode ser adquirida uma vez por Investigador, mas várias vezes na mesa): Pelo menos uma marionete pode ver os fios que a prendem; quem dera você tivesse tanta sorte."
+      },
+      "theHunt": {
+        "name": "A Caçada",
+        "description": "O patronato é uma coisa perigosa. Torna-se mais difícil ignorar os impulsos primitivos que queimam profundamente dentro de você. Seus ataques são Aprimorados. Você se torna o alvo principal de entidades de outro mundo, e os ataques feitos contra você também são Aprimorados."
+      },
+      "doomed": {
+        "name": "Condenado",
+        "description": "(Pode ser adquirida várias vezes por Investigador e várias vezes na mesa): Você foi marcado para o sacrifício, ungido para a ruína. Se a sua próxima Salvaguarda contra Dano Crítico for uma falha, você morre de forma horrível. Se for um sucesso, você rola 3d6 + o número de vezes que adquiriu Condenado. Se o total for maior que seus PV máximos, adote o novo resultado."
+      }
+    },
+    "damage": {
+      "levels": {
+        "1": "Ferimentos Superficiais",
+        "2": "Lesão Leve",
+        "3": "Lesão Grave",
+        "4": "Ferimentos Letais"
+      },
+      "types": {
+        "gunshot": "Disparo de Arma de Fogo",
+        "cut": "Perfuração/Corte/Mordida",
+        "blunt": "Esmagamento/Contusão",
+        "burn": "Queimadura",
+        "gross": "Dilaceração"
+      },
+      "table": {
+        "1": {
+          "gunshot": "Raspão",
+          "cut": "Corte Superficial",
+          "blunt": "Derrubado",
+          "burn": "Chamuscado",
+          "gross": "Ânsia de Vômito"
+        },
+        "2": {
+          "gunshot": "Transfixante",
+          "cut": "Corte ou Laceração",
+          "blunt": "Hematoma Massivo",
+          "burn": "Descamação",
+          "gross": "Laceração (cicatriz sinistra)"
+        },
+        "3": {
+          "gunshot": "Bala Alojada",
+          "cut": "Esfaqueado",
+          "blunt": "Torção (extremidade)",
+          "burn": "Bolhas",
+          "gross": "Dilacerado (dedos)"
+        },
+        "4": {
+          "gunshot": "Fratura Óssea (extremidade)",
+          "cut": "Talho (rosto / perda de orelha)",
+          "blunt": "Concussão / Atordoado",
+          "burn": "Queimadura Extensa",
+          "gross": "Esfolado (parcialmente)"
+        },
+        "5": {
+          "gunshot": "Hemorragia Interna",
+          "cut": "Decepado (dedos)",
+          "blunt": "Ombro Deslocado",
+          "burn": "Queimaduras de 3º Grau",
+          "gross": "Decepado (mão ou pé)"
+        },
+        "6": {
+          "gunshot": "Fratura Óssea (tórax)",
+          "cut": "Decepado (mão)",
+          "blunt": "Quebrado (clavícula)",
+          "burn": "Ainda em Chamas (extremidade)",
+          "gross": "Decepado (membro)"
+        },
+        "7": {
+          "gunshot": "Artéria Jorrando",
+          "cut": "Decepado (membro)",
+          "blunt": "Quebrado (braço, perna, mão)",
+          "burn": "Carne Derretida",
+          "gross": "Empalado"
+        },
+        "8": {
+          "gunshot": "Buraco Massivo",
+          "cut": "Garganta Cortada",
+          "blunt": "Aberto ao Meio (Crânio)",
+          "burn": "Consumido pelas Chamas",
+          "gross": "Eviscerado"
+        }
+      }
+    },
+    "backstory": {
+      "1": {
+        "name": "Trabalhador de Fábrica",
+        "items": {
+          "apron": "Avental industrial",
+          "belt": "Cinto de segurança",
+          "thermos": "Garrafa térmica"
+        }
+      },
+      "2": {
+        "name": "Motorista de Ônibus",
+        "items": {
+          "lunchbox": "Marmita",
+          "map": "Mapa rodoviário completo",
+          "taser": "Taser (d6, não-letal)"
+        }
+      },
+      "3": {
+        "name": "Mecânico",
+        "items": {
+          "wrench": "Chave inglesa (d6)",
+          "toolbox": "Caixa de ferramentas portátil",
+          "tape": "Fita isolante",
+          "brakeCleaner": "Limpador de freios"
+        }
+      },
+      "4": {
+        "name": "Gari",
+        "items": {
+          "gloves": "Luvas resistentes a corte",
+          "vest": "Colete refletivo",
+          "grabber": "Pegador de lixo",
+          "goggles": "Óculos de proteção"
+        }
+      },
+      "5": {
+        "name": "Paramédico (Socorrista)",
+        "items": {
+          "medkit": "Kit médico",
+          "scissors": "Tesoura de trauma",
+          "stethoscope": "Estetoscópio",
+          "fecesBag": "Saco de descarte biológico (WAG bag)"
+        }
+      },
+      "6": {
+        "name": "Atendente de Loja",
+        "items": {
+          "knife": "Estilete (d6)",
+          "radio": "Walkie-talkies",
+          "badge": "Crachá",
+          "slippers": "Sapatos incrivelmente confortáveis"
+        }
+      },
+      "7": {
+        "name": "Artista",
+        "items": {
+          "tool": "Ferramenta artística à escolha",
+          "notebook": "Caderno",
+          "camera": "Câmera",
+          "fans": "Base de fãs pequena, mas apaixonada"
+        }
+      },
+      "8": {
+        "name": "Atleta",
+        "items": {
+          "gear": "Equipamento do esporte de escolha",
+          "headband": "Faixa de suor",
+          "drink": "Isotônico em pó"
+        }
+      },
+      "9": {
+        "name": "Skatista",
+        "items": {
+          "skateboard": "Skate",
+          "camera": "Câmera de vídeo",
+          "boltCutter": "Cortador de cabos (Alicate de corte)"
+        }
+      },
+      "10": {
+        "name": "Guerreiro de Teclado",
+        "items": {
+          "laptop": "Notebook c/ mochila",
+          "subs": "Seguidores online",
+          "fakeIds": "Credenciais falsas",
+          "energy": "Bebidas energéticas"
+        }
+      },
+      "11": {
+        "name": "Bombeiro Voluntário",
+        "items": {
+          "ladder": "Escada retrátil (volumoso)",
+          "axe": "Machado (d6)",
+          "extinguisher": "Extintor de incêndio",
+          "flashlight": "Lanterna"
+        }
+      },
+      "12": {
+        "name": "Entregador Ciclista",
+        "items": {
+          "bike": "Bicicleta",
+          "helmet": "Capacete",
+          "bag": "Bolsa carteiro",
+          "package": "Pacote fechado",
+          "multitool": "Multiferramenta"
+        }
+      },
+      "13": {
+        "name": "Bartender",
+        "items": {
+          "knife": "Faca de bar (d6)",
+          "alcohol": "Garrafa de bebida destilada",
+          "cigs": "Cigarros",
+          "confiscatedIds": "Identidades falsas confiscadas"
+        }
+      },
+      "14": {
+        "name": "Terapeuta",
+        "items": {
+          "recorder": "Gravador de voz",
+          "notebook": "Caderno e caneta",
+          "cards": "Cartões de visita",
+          "revolver": "Revólver pequeno (d6)"
+        }
+      },
+      "15": {
+        "name": "Assistente Administrativo",
+        "items": {
+          "contacts": "Ampla rede de contatos",
+          "corpCard": "Cartão de crédito corporativo",
+          "briefcase": "Maleta expansível",
+          "taser": "Taser (d6, não-letal)"
+        }
+      },
+      "16": {
+        "name": "Ator",
+        "items": {
+          "audition": "Pasta de testes",
+          "charger": "Carregador portátil (Power bank)",
+          "cosmetics": "Suprimentos cosméticos extras",
+          "clothes": "Muda de roupa"
+        }
+      },
+      "17": {
+        "name": "Engenheiro",
+        "items": {
+          "laptop": "Notebook c/ software de design",
+          "notebook": "Caderno de campo à prova d'água",
+          "router": "Roteador sem fio",
+          "ppe": "EPI raramente usado"
+        }
+      },
+      "18": {
+        "name": "Assistente Social",
+        "items": {
+          "laptop": "Notebook c/ mochila",
+          "badge": "Crachá de identificação",
+          "knife": "Canivete (d6)",
+          "notebook": "Caderno e caneta"
+        }
+      },
+      "19": {
+        "name": "Professor",
+        "items": {
+          "mug": "Caneca de café",
+          "scissors": "Tesoura",
+          "bag": "Bolsa grande"
+        }
+      },
+      "20": {
+        "name": "Empreiteiro",
+        "items": {
+          "belt": "Cinto de ferramentas equipado",
+          "knife": "Estilete profissional (d6)",
+          "flashlight": "Lanterna de alta potência",
+          "drill": "Furadeira"
+        }
+      }
+    },
+    "armor": {
+      "armoredVest": "Colete Balístico",
+      "ancientAmulet": "Amuleto Antigo",
+      "gasMask": "Máscara de Gás",
+      "facemask": "Máscara Facial"
+    },
+    "weapon": {
+      "improvised": "Arma Improvisada ou Rudimentar",
+      "handWeapons": "Armas de Mão: Adaga, Bastão, Machado",
+      "taserMace": "Combo Taser/Spray de Pimenta",
+      "pistol": "Pistola",
+      "sawnOffShotgun": "Espingarda de Cano Serrado",
+      "rifle": "Rifle",
+      "shotgun": "Espingarda",
+      "assaultRifle": "Fuzil de Assalto",
+      "combatShotgun": "Espingarda de Combate",
+      "sniperRifle": "Rifle de Precisão (Sniper)",
+      "sniperRifleDesc": "d8 de dano, ou d12 ao disparar oculto; volumoso"
+    },
+    "explosive": {
+      "molotov": "Coquetel Molotov",
+      "molotovDesc": "Incendeia a área, causando d6 de dano contínuo até ser apagado",
+      "flashbang": "Granada de Luz e Som (Flashbang)",
+      "flashbangDesc": "Área, cega temporariamente aqueles que falharem em uma Salvaguarda de DES",
+      "grenade": "Granada",
+      "grenadeDesc": "d8, área",
+      "propaneTank": "Botijão de Propano",
+      "propaneTankDesc": "d10, área"
+    },
+    "pharma": {
+      "tranquilizers": "Tranquilizantes",
+      "tranquilizersDesc": "Salvaguarda de FOR ou desmaia",
+      "poison": "Veneno",
+      "poisonDesc": "Perde d20 de FOR se atravessar a barreira hemato-tecidual",
+      "antitoxin": "Antitoxina",
+      "antitoxinDesc": "Interrompe toxinas – desagradável",
+      "acid": "Ácido",
+      "acidDesc": "d4 de dano até ser removido; líquido corrosivo que queima materiais",
+      "stims": "Estimulantes",
+      "stimsDesc": "+1d4 de FOR temporária, +1d4 de DES temporária; recuperação imediata de Dano Crítico"
+    },
+    "gear": {
+      "alarmBypass": "Bloqueador de Alarme",
+      "bearTrap": "Armadilha de Urso",
+      "binoculars": "Binóculos",
+      "blowTorch": "Maçarico (Solda)",
+      "bodyBag": "Saco para Cadáver",
+      "boltCutters": "Cortador de Cabos (Alicate de Corte)",
+      "carOpeningKit": "Kit de Abertura de Carros",
+      "chainAndLock": "Corrente e Cadeado",
+      "chainsaw": "Motosserra",
+      "climbingGear": "Equipamento de Escalada",
+      "commsEarpieces": "Comunicadores: Pontos Eletrônicos",
+      "commsWalkies": "Comunicadores: Walkie-Talkies",
+      "directionalMic": "Microfone Direcional",
+      "advancedDrone": "Drone / Drone Avançado",
+      "goodCamera": "Câmera Boa",
+      "duffleBag": "Bolsa de Lona",
+      "duffleBagOutfits": "Bolsa de Lona cheia de Roupas",
+      "electricalKit": "Kit de Ferramentas Elétricas",
+      "emergencyMedKit": "Kit Médico de Emergência",
+      "emergencySurgeryKit": "Kit Cirúrgico de Emergência",
+      "fakeID": "Identidade Falsa",
+      "flare": "Sinalizador",
+      "forgeryKit": "Kit de Falsificação",
+      "glassCutters": "Ferramentas de Corte de Vidro",
+      "grease": "Graxa",
+      "handcuffs": "Algemas",
+      "headLamp": "Lanterna de Cabeça",
+      "laptop": "Notebook",
+      "lighter": "Isqueiro",
+      "locksmithTools": "Ferramentas de Chaveiro (Gazua)",
+      "marbles": "Bolinhas de Gude",
+      "mechanicalKit": "Kit de Ferramentas Mecânicas",
+      "metalBearings": "Esferas de Aço (Rolamentos)",
+      "nvGoggles": "Óculos de Visão Noturna",
+      "pharmacistKit": "Kit de Farmacêutico",
+      "portableRam": "Aríete Portátil",
+      "portableWinch": "Guincho Portátil",
+      "pulleyRope": "Roldana e Corda",
+      "caltrops": "Estrepes (Pregos de Estrada)",
+      "sledgehammer": "Marreta",
+      "spikeStrip": "Tapete de Pregos (Fura-pneus)",
+      "sprayPaint": "Tinta Spray",
+      "tarp": "Lona",
+      "zipTies": "Abraçadeiras de Nylon (Enforca-gato)"
+    },
+    "condition": {
+      "exhausted": "Exausto",
+      "exhaustedDesc": "Privação de sono de 24+ horas ou fadiga severa semelhante"
+    },
+    "folders": {
+      "root": "LH-Itens(PT-BR)",
+      "armor": "Proteção",
+      "weapon": "Armas",
+      "explosive": "Explosivos",
+      "pharma": "Fármacos",
+      "gear": "Equipamento de Investigador",
+      "condition": "Condições"
+    },
+    "char": {
+      "labels": {
+        "generatedHeader": "Investigador Gerado",
+        "backstory": "Antecedente",
+        "aesthetics": "Estética",
+        "firstEncounter": "Primeiro encontro com o desconhecido",
+        "ideology": "Ideologia e Crenças",
+        "physique": "Físico",
+        "face": "Rosto",
+        "speech": "Fala",
+        "virtue": "Virtude",
+        "flaw": "Defeito",
+        "misfortune": "Infortúnio"
+      },
+      "backstory": {
+        "1": "Trabalhador de Fábrica — Avental industrial, cinto de segurança, garrafa térmica.",
+        "2": "Motorista de Ônibus — Marmita, mapa rodoviário completo, taser (d6, não-letal).",
+        "3": "Mecânico — Chave inglesa (d6), caixa de ferramentas portátil, fita isolante, limpador de freios.",
+        "4": "Gari — Luvas resistentes a corte, colete refletivo, pegador de lixo, óculos de proteção.",
+        "5": "Paramédico (Socorrista) — Kit médico, tesoura de trauma, estetoscópio, saco de descarte biológico (WAG bag).",
+        "6": "Atendente de Loja — Estilete (d6), walkie-talkies, crachá, sapatos incrivelmente confortáveis.",
+        "7": "Artista — Ferramenta artística à escolha, caderno, câmera, base de fãs pequena, mas apaixonada.",
+        "8": "Atleta — Equipamento do esporte de escolha, faixa de suor, isotônico em pó.",
+        "9": "Skatista — Skate, câmera de vídeo, cortador de cabos.",
+        "10": "Guerreiro de Teclado — Notebook c/ mochila, seguidores online, credenciais falsas, bebidas energéticas.",
+        "11": "Bombeiro Voluntário — Escada retrátil (volumoso), machado (d6), extintor de incêndio, lanterna.",
+        "12": "Entregador Ciclista — Bicicleta, capacete, bolsa carteiro, pacote fechado, multiferramenta.",
+        "13": "Bartender — Faca de bar (d6), garrafa de bebida destilada, cigarros, identidades falsas confiscadas.",
+        "14": "Terapeuta — Gravador de voz, caderno e caneta, cartões de visita, revólver pequeno (d6).",
+        "15": "Assistente Administrativo — Ampla rede de contatos, cartão de crédito corporativo, maleta expansível, taser (d6, não-letal).",
+        "16": "Ator — Pasta de testes, carregador portátil, suprimentos cosméticos extras, muda de roupa.",
+        "17": "Engenheiro — Notebook c/ software de design, caderno de campo à prova d'água, roteador sem fio, EPI raramente usado.",
+        "18": "Assistente Social — Notebook c/ mochila, crachá de identificação, canivete (d6), caderno e caneta.",
+        "19": "Professor — Caneca de café, tesoura, bolsa grande.",
+        "20": "Empreiteiro — Cinto de ferramentas equipado, estilete profissional (d6), lanterna de alta potência, furadeira."
+      },
+      "aesthetics": {
+        "1": "Totalmente Profissional, O Tempo Todo",
+        "2": "Streetwear (Moda de Rua)",
+        "3": "Camisetas de Banda",
+        "4": "Tudo Preto",
+        "5": "Esportivo Casual (Athleisure)",
+        "6": "Impecável e Passado a Ferro",
+        "7": "Conforto Casual",
+        "8": "Vintage Autêntico",
+        "9": "Última Moda",
+        "10": "Uniforme de Trabalho",
+        "11": "Moletom Largo (Oversized)",
+        "12": "Estampa Floral / Havaiana",
+        "13": "Tudo Sob Medida",
+        "14": "Função Acima da Moda",
+        "15": "Bolsos Cargo",
+        "16": "Jeans e Camiseta",
+        "17": "Preso em 2009",
+        "18": "Grunge Minimalista",
+        "19": "Anos 2000 (Y2K)",
+        "20": "Jeans com Jeans"
+      },
+      "firstEncounter": {
+        "1": "Perdeu um ente querido em circunstâncias misteriosas",
+        "2": "As evidências online são grandes demais para serem ignoradas",
+        "3": "Você testemunhou algo na escuridão",
+        "4": "Você sobreviveu a um ataque que não consegue explicar",
+        "5": "Algo está à espreita em seus sonhos",
+        "6": "Alguém próximo a você está te puxando para dentro disso, ou te afastando",
+        "7": "Atividade de culto (talvez tenham recrutado alguém importante)",
+        "8": "Você pode ser um membro oficial de uma sociedade secreta",
+        "9": "Você leu algo que não foi feito para mentes mortais",
+        "10": "Você ainda não teve — é para isso que serve a sessão 1!"
+      },
+      "ideology": {
+        "1": "Tudo tem uma explicação racional enraizada na ciência",
+        "2": "Indivíduos podem fazer a diferença",
+        "3": "Você segue uma ideologia política específica",
+        "4": "Uma religião específica guia você",
+        "5": "A moralidade é preto no branco",
+        "6": "Você acredita no destino e ele impacta diretamente a sua vida",
+        "7": "Crença em forças superiores, como astrologia, espiritualidade, etc.",
+        "8": "O livre-arbítrio é a única verdade",
+        "9": "Existem verdades profundas das quais os outros não têm consciência. As respostas estão lá fora",
+        "10": "Você acredita no poder da comunidade"
+      },
+      "physique": {
+        "1": "Atlético",
+        "2": "Musculoso",
+        "3": "Curvilíneo",
+        "4": "Esguio",
+        "5": "Pequeno",
+        "6": "Rígido",
+        "7": "Robusto",
+        "8": "Imponente / Alto",
+        "9": "Forte",
+        "10": "Corpulento"
+      },
+      "face": {
+        "1": "Ossudo",
+        "2": "Marcado / Quebrado",
+        "3": "Esculpido",
+        "4": "Alongado",
+        "5": "Com covinhas",
+        "6": "Perfeito",
+        "7": "Redondo",
+        "8": "Anguloso",
+        "9": "Memorável",
+        "10": "Esquecível"
+      },
+      "speech": {
+        "1": "Direto / Seco",
+        "2": "Rouco",
+        "3": "Retumbante",
+        "4": "Preciso",
+        "5": "Enigmático",
+        "6": "Esganiçado",
+        "7": "Formal",
+        "8": "Com sotaque",
+        "9": "Monótono",
+        "10": "Entrecortado"
+      },
+      "virtue": {
+        "1": "Honesto",
+        "2": "Honrado",
+        "3": "Cauteloso",
+        "4": "Humilde",
+        "5": "Corajoso",
+        "6": "Misericordioso",
+        "7": "Disciplinado",
+        "8": "Sereno",
+        "9": "Sociável",
+        "10": "Tolerante"
+      },
+      "flaw": {
+        "1": "Pavio curto",
+        "2": "Preguiçoso",
+        "3": "Pessimista",
+        "4": "Nervoso",
+        "5": "Covarde",
+        "6": "Grosseiro",
+        "7": "Enganador",
+        "8": "Vaidoso",
+        "9": "Ganancioso",
+        "10": "Vingativo"
+      },
+      "misfortune": {
+        "1": "Abandonado",
+        "2": "Fraudado",
+        "3": "Viciado",
+        "4": "Rebaixado",
+        "5": "Chantageado",
+        "6": "Desacreditado",
+        "7": "Condenado",
+        "8": "Deserdado",
+        "9": "Amaldiçoado",
+        "10": "Exilado"
+      }
+    },
+    "dialogs": {
+      "actorNotFound": "Ator não encontrado (ator/token).",
+      "pickInvestigator": {
+        "title": "Escolher Investigador",
+        "label": "Investigador",
+        "ownerSuffix": "(você)",
+        "noneAvailable": "Não há investigadores disponíveis"
+      },
+      "damage": {
+        "title": "Adicionar Ferimento",
+        "toolTitle": "Adicionar Ferimentos",
+        "pickTitle": "Adicionar Ferimentos ao Investigador",
+        "type": "Tipo",
+        "severity": "Gravidade",
+        "description": "Descrição (editável)",
+        "random": "Aleatório (d8)",
+        "applied": "Dano aplicado"
+      },
+      "stress": {
+        "title": "Adicionar Sequela",
+        "toolTitle": "Adicionar Sequela",
+        "pickTitle": "Adicionar Sequela ao Investigador",
+        "consequence": "Sequela",
+        "random": "Aleatório (d20)",
+        "applied": "Estresse aplicado"
+      }
+    }
+  }
+}

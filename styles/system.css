@@ -38,9 +38,22 @@
   --lh-avatar-col: 220px;
   --lh-hero-max: 560px;
   --lh-pair-num-w: 52px;
-  --lh-pill-w: 96px;
+  --lh-pill-w: 88px;
   --lh-pill-h: 30px;
+  --lh-pill-font: 0.86rem;
+  --lh-pill-pad: 8px;
+  --lh-values-w: 96px;
+  --lh-values-half-w: 48px;
   --lh-card-pad: 10px;
+}
+
+.lh .tiles > .tile:nth-child(even):lang(pt),
+.lh.lh-monster-sheet .monster-stats-grid > .monster-stat:nth-child(odd):lang(pt) {
+  --lh-pill-w: 102px;
+  --lh-pill-font: 0.75rem;
+  --lh-pill-pad: 4px;
+  --lh-values-w: 82px;
+  --lh-values-half-w: 41px;
 }
 
 /* ===== Foundry ===== */
@@ -1289,7 +1302,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh .pill,
 .lh.lh-monster-sheet .monster-label {
-  flex: 0 0 88px;
+  flex: 0 0 var(--lh-pill-w);
   background: var(--lh-bg-pill);
   color: var(--lh-text-light);
   font-weight: 800;
@@ -1303,8 +1316,8 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 0 8px;
-  font-size: 0.86rem;
+  padding: 0 var(--lh-pill-pad);
+  font-size: var(--lh-pill-font);
 }
 .lh .pill.rollable,
 .lh.lh-monster-sheet .monster-label-rollable {
@@ -1374,8 +1387,8 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 .lh.lh-monster-sheet .monster-values {
   display: grid;
   align-items: center;
-  width: 96px;
-  min-width: 96px;
+  width: var(--lh-values-w);
+  min-width: var(--lh-values-w);
   gap: 0;
   overflow: hidden;
   background: var(--lh-bg-btn);
@@ -1384,14 +1397,14 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   box-sizing: border-box;
 }
 .lh .pair {
-  grid-template-columns: 48px 0 48px;
+  grid-template-columns: var(--lh-values-half-w) 0 var(--lh-values-half-w);
   color: transparent;
 }
 .lh.lh-monster-sheet .monster-values-dual {
-  grid-template-columns: 48px 48px;
+  grid-template-columns: var(--lh-values-half-w) var(--lh-values-half-w);
 }
 .lh.lh-monster-sheet .monster-values-single {
-  grid-template-columns: 96px;
+  grid-template-columns: var(--lh-values-w);
 }
 .lh.lh-monster-sheet .monster-stats-grid {
   display: grid;
@@ -1432,8 +1445,8 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   color: var(--lh-text-main);
 }
 .lh .tile > .num.chip {
-  width: 96px;
-  min-width: 96px;
+  width: var(--lh-values-w);
+  min-width: var(--lh-values-w);
   height: var(--lh-control-h);
   background: var(--lh-bg-btn);
   border: 1px solid var(--lh-border-strong);
@@ -1442,8 +1455,8 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh .tile > .deprived {
   justify-content: center;
-  width: 96px;
-  min-width: 96px;
+  width: var(--lh-values-w);
+  min-width: var(--lh-values-w);
   height: var(--lh-control-h);
   gap: 0;
   background: var(--lh-bg-btn);
@@ -1453,6 +1466,16 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 .lh .tile > .deprived .checkbox {
   margin: 0;
+}
+
+.lh .tiles > .tile:nth-child(even):lang(pt) > .pill,
+.lh.lh-monster-sheet .monster-stats-grid > .monster-stat:nth-child(odd):lang(pt) > .monster-label {
+  line-height: 1;
+  white-space: nowrap;
+}
+.lh .tiles > .tile:nth-child(even):lang(pt) .num,
+.lh.lh-monster-sheet .monster-stats-grid > .monster-stat:nth-child(odd):lang(pt) .num {
+  padding-inline: 2px;
 }
 
 @media (max-width: 560px) {
