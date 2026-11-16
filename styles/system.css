@@ -2549,7 +2549,7 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
 }
 #pause figcaption::before,
 #pause figcaption::after {
-  content: 'GAME PAUSED';
+  content: attr(data-text);
   position: absolute;
   left: 0;
   top: 0;

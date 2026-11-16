@@ -4,6 +4,7 @@ import { registerChatHooks } from './chat.js';
 import { registerInitiativeHook } from './combat.js';
 import { registerInitHook } from './init.js';
 import { registerItemsHook } from './items.js';
+import { registerPauseHooks } from './pause.js';
 import { registerSceneControlHooks } from './scene-controls.js';
 import { registerSettingsConfigHook } from './settings-config.js';
 import { registerSidebarHooks } from './sidebar.js';
@@ -17,6 +18,7 @@ const HOOK_REGISTRATIONS = Object.freeze([
   { name: 'scene-controls', register: registerSceneControlHooks },
   { name: 'initiative', register: registerInitiativeHook },
   { name: 'items', register: registerItemsHook },
+  { name: 'pause', register: registerPauseHooks },
 ]);
 
 function runRegistrar({ name, register }) {
