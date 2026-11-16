@@ -8,6 +8,15 @@ export const OFF_HAND_DIE_REDUCTION_SETTING = 'offHandDieReduction';
 export const OFF_HAND_MINIMUM_DIE_SETTING = 'offHandMinimumDie';
 export const INVESTIGATOR_GENERATOR_REROLL_SETTING = 'investigatorGeneratorReroll';
 export const PARTY_MEMBERS_SETTING = 'partyMembers';
+export const DARK_MODE_SETTING = 'darkMode';
+
+export function isDarkModeEnabled() {
+  return game.settings.get(SETTINGS_NS, DARK_MODE_SETTING);
+}
+
+export function applyDarkMode(enabled = isDarkModeEnabled()) {
+  document.documentElement.dataset.lhTheme = enabled ? 'dark' : 'light';
+}
 
 export function isAppendixLuckEnabled() {
   return game.settings.get(SETTINGS_NS, APPENDIX_LUCK_SETTING);
@@ -111,6 +120,20 @@ export function registerSystemSettings() {
     default: OFF_HAND_MINIMUM_DIE_SIZES[0],
     onChange: refreshWeaponSheets,
   });
+
+  game.settings.register(SETTINGS_NS, DARK_MODE_SETTING, {
+    name: 'LH.settings.darkMode.name',
+    hint: 'LH.settings.darkMode.hint',
+    scope: 'client',
+    config: true,
+    type: Boolean,
+    default: false,
+    onChange: (value) => {
+      applyDarkMode(value);
+    },
+  });
+
+  applyDarkMode();
 
   game.settings.register(SETTINGS_NS, 'debug', {
     name: 'LH.settings.debug.name',
