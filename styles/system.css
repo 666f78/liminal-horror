@@ -1870,6 +1870,86 @@ body.game .window-app.lh .deprived-checkbox > input[type='checkbox']:checked + .
   overflow: visible;
 }
 
+/* ===== Dynamic Height for Description, Notes & Log Tabs ===== */
+.application.lh .window-content:has(> .layout:not(.lh-item)) {
+  display: flex;
+  flex-direction: column;
+}
+
+.application.lh
+  .window-content
+  > .layout:not(.lh-item):has(
+    .tab[data-tab='description'].active,
+    .tab[data-tab='notes'].active,
+    .tab[data-tab='log'].active
+  ) {
+  flex: 1 1 auto;
+  height: 100%;
+  grid-template-rows: max-content max-content minmax(260px, 1fr);
+}
+
+@media (max-width: 900px) {
+  .application.lh
+    .window-content
+    > .layout:not(.lh-item):has(
+      .tab[data-tab='description'].active,
+      .tab[data-tab='notes'].active,
+      .tab[data-tab='log'].active
+    ) {
+    grid-template-rows: max-content max-content max-content minmax(260px, 1fr);
+  }
+}
+
+.lh
+  .layout:not(.lh-item):has(
+    .tab[data-tab='description'].active,
+    .tab[data-tab='notes'].active,
+    .tab[data-tab='log'].active
+  )
+  > .sheet-body {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.lh .tab[data-tab='description'].active,
+.lh .tab[data-tab='notes'].active,
+.lh .tab[data-tab='log'].active {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.lh .tab[data-tab='description'] prose-mirror,
+.lh .tab[data-tab='notes'] prose-mirror {
+  --min-height: 200px;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.lh .tab[data-tab='description'] prose-mirror .editor-container,
+.lh .tab[data-tab='notes'] prose-mirror .editor-container {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.lh .tab[data-tab='description'] prose-mirror .editor-content,
+.lh .tab[data-tab='notes'] prose-mirror .editor-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: auto;
+}
+
+.lh .tab[data-tab='log'].active .gm-log {
+  max-height: none;
+}
+
 /* ===== Inventory ===== */
 .lh .inv-head {
   display: flex;
